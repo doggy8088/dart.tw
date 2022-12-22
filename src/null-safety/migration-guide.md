@@ -195,7 +195,7 @@ You can find contact details on the package page on [pub.dev][].
 
 如果你的 package 的依賴中，有一些 **尚未** 支援空安全，
 我們推薦你聯絡對應依賴的作者。
-你可以在 [pub.flutter-io.cn][pub.dev] 對應 package 的頁面，找到作者的聯絡資訊。
+你可以在 [pub.dev][pub.dev] 對應 package 的頁面，找到作者的聯絡資訊。
 
 [pub.dev]: {{site.pub}}
 
@@ -531,7 +531,7 @@ Then, if you've published your code on pub.dev,
 
 下一步就是對程式碼進行 [**靜態分析**](#step3-analyze)。
 如果一切正常，下一步就是 [測試你的程式碼](#step4-test)。
-最後，如果你已經將 package 釋出至 pub.flutter-io.cn，
+最後，如果你已經將 package 釋出至 pub.dev，
 [釋出空安全的預覽版本](#step5-publish)。
 
 ### Migrating by hand

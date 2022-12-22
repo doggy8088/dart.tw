@@ -18,13 +18,13 @@ DartPad 是一個可以讓你在任何現代化的瀏覽器中體驗 Dart 程式
 包含了很多[內嵌的 DartPads](#embedding)。
 你可以在瀏覽器裡輸入下面的網址開啟一個 DartPad 頁面。
 <a href="{{site.dartpad}}"
-target="_blank">DartPad 頁面 (dartpad.cn).</a>
+target="_blank">DartPad 頁面 (dartpad.dev).</a>
 
 {{site.alert.tip}}
 
-  If you're in China, try [dartpad.cn.](https://dartpad.cn)
+  If you're in China, try [dartpad.dev.](https://dartpad.dev)
   
-  如果你在中國，請嘗試使用 [dartpad.cn](https://dartpad.cn)。
+  如果你在中國，請嘗試使用 [dartpad.dev](https://dartpad.dev)。
 
   If you have issues using DartPad, see the [DartPad troubleshooting
   tips](/tools/dartpad/troubleshoot).

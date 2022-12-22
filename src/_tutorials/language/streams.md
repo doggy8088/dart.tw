@@ -3,7 +3,7 @@ title: "Asynchronous programming: Streams"
 title: 非同步程式設計：使用 stream
 description: Learn how to consume single-subscriber and broadcast streams.
 description: 瞭解如何使用 single-subscriber 和 broadcast streams。
-js: [{url: 'https://dartpad.cn/inject_embed.dart.js', defer: true}]
+js: [{url: 'https://dartpad.dev/inject_embed.dart.js', defer: true}]
 ---
 
 <div class="mini-toc" markdown="1">

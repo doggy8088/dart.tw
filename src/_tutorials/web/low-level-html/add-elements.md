@@ -3,7 +3,7 @@ title: Add elements to the DOM
 title: 向 DOM 新增元素
 description: Learn how to add created elements to the DOM.
 description: 學習如何向 DOM 裡新增元素。
-js: [{url: 'https://dartpad.cn/inject_embed.dart.js', defer: true}]
+js: [{url: 'https://dartpad.dev/inject_embed.dart.js', defer: true}]
 nextpage:
   url: /tutorials/web/low-level-html/remove-elements
   title: Remove DOM elements

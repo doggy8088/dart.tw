@@ -1,6 +1,6 @@
 ---
 title: Web libraries and packages
-title: 常用 Web 庫和 package
+title: 常用 Web 函式庫和 package
 short-title: Web libraries
 short-title: Web 庫
 description: Libraries and packages that can help you write Dart web apps.

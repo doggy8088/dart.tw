@@ -3,7 +3,7 @@ title: Dart cheatsheet codelab
 title: Dart 速查表 codelab
 description: Interactively learn (or relearn) some of Dart's unique features.
 description: 用互動的形式學習（或回顧）Dart 的獨特之處。
-js: [{url: 'https://dartpad.cn/inject_embed.dart.js', defer: true}]
+js: [{url: 'https://dartpad.dev/inject_embed.dart.js', defer: true}]
 ---
 <?code-excerpt replace="/ *\/\/\s+ignore_for_file:[^\n]+\n//g; /(^|\n) *\/\/\s+ignore:[^\n]+\n/$1/g; /(\n[^\n]+) *\/\/\s+ignore:[^\n]+\n/$1\n/g"?>
 

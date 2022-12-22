@@ -392,7 +392,7 @@ turn runs in a browser—for example, [V8](https://v8.dev/) inside
 
 Dart 的 Web 支援讓你可以在 JavaScript 驅動的網頁平臺上執行 Dart 程式碼。
 使用 Web 環境下的 Dart 時，你可以將 Dart 編譯為在瀏覽器中執行的 JavaScript 程式碼，
-例如: [Chrome](https://www.google.cn/chrome/) 中的 [V8](https://v8.dev/)。
+例如: [Chrome](https://www.google.com.tw/chrome/) 中的 [V8](https://v8.dev/)。
 
 Dart web contains two compiliation modes:
 

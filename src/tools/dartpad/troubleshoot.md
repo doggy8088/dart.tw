@@ -111,7 +111,7 @@ the code may no longer analyze or run properly.
 
 ## DartPad doesn't work in China
   
-Try [dartpad.cn.](https://dartpad.cn)
+Try [dartpad.dev.](https://dartpad.dev)
 
 
 ## Other issues

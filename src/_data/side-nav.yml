@@ -189,7 +189,7 @@
             permalink: /tutorials/web/low-level-html/remove-elements
         - title: 部署
           permalink: /web/deployment
-        - title: 常用 Web 庫和 package
+        - title: 常用 Web 函式庫和 package
           permalink: /web/libraries
 
 - title: 開發工具和使用技巧
@@ -299,23 +299,23 @@
   expanded: true
   children:
     - title: API 文件
-      permalink: https://api.dart.cn
+      permalink: https://api.dart.dev
     - title: Dart 團隊官方部落格
       permalink: https://medium.com/dartlang
     - title: DartPad (線上編輯器)
-      permalink: https://dartpad.cn
+      permalink: https://dartpad.dev
     - title: Flutter
-      permalink: https://flutter.cn
+      permalink: https://flutter.tw
     - title: Package 網站
-      permalink: https://pub.flutter-io.cn
+      permalink: https://pub.dev
 
 - title: 關於 Dart 中文文件
   expanded: false
   children:
     - title: 關於本站
-      permalink: https://flutter.cn/about/docs-cn
+      permalink: https://flutter.tw/about/docs-cn
     - title: 免責條款 (Disclaimer)
-      permalink: https://flutter.cn/disclaimer
+      permalink: https://flutter.tw/disclaimer
 
 # - title: Books
 #   permalink: /resources/books

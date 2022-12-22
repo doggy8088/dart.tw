@@ -96,7 +96,7 @@ Or use the pub.dev site to [search for Flutter packages.]({{site.pub}}/flutter)
 See [Web libraries and packages](/web/libraries).
 Or use the pub.dev site to [search for web packages.]({{site.pub}}/web)
 
-檢視 [Web 庫和 package](/web/libraries)。
+檢視 [Web 函式庫和 package](/web/libraries)。
 或者使用 Pub 網站 [查詢用於 Web 的 package]({{site.pub}}/web)。
 
 ### Command-line and server packages

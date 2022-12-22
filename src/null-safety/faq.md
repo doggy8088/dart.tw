@@ -297,7 +297,7 @@ The simplest way to preserve behavior is change the check into
 [`ArgumentError.checkNotNull`]({{site.dart-api}}/{{site.data.pkg-vers.SDK.channel}}/dart-core/ArgumentError/checkNotNull.html).
 
 保留這項行為的最簡單的方法是將判斷改為
-[`ArgumentError.checkNotNull`](https://api.dart.cn/stable/dart-core/ArgumentError/checkNotNull.html)。
+[`ArgumentError.checkNotNull`](https://api.dart.dev/stable/dart-core/ArgumentError/checkNotNull.html)。
 
 The same applies to some runtime type checks. If `arg`
 has static type `String`, then `if (arg is! String)` is actually checking
@@ -360,7 +360,7 @@ on Map (`[]`) by default returns a nullable type. There's no way to signal to
 the language that the value is guaranteed to be there.
 
 對映型別的
-[查詢運運算元](https://api.dart.cn/stable/dart-core/Map/operator_get.html)
+[查詢運運算元](https://api.dart.dev/stable/dart-core/Map/operator_get.html)
 (`[]`) 返回的值預設是可空型別。
 此處沒有辦法告訴 Dart ，返回的值一定是非空的。
 
@@ -408,7 +408,7 @@ use the
 constructor.
 
 如果你僅僅想要以相同的值初始化列表，你應該使用
-[`filled`](https://api.dart.cn/stable/dart-core/List/List.filled.html)
+[`filled`](https://api.dart.dev/stable/dart-core/List/List.filled.html)
 構造。
 
 {:.bad}

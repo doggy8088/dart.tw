@@ -6,9 +6,9 @@ short-title: 歸檔
 description: Download specific stable, beta, dev, and main channel versions of the Dart SDK and the Dart API documentation.
 description: 下載特定的穩定版、測試版、開發版和主分支開發版的 Dart SDK 和 Dart API 文件。
 js:
-- url: /get-dart/archive/assets/download_archive.dart.js
+- url: https://cdn.jsdelivr.net/gh/dart-lang/site-www/src/get-dart/archive/assets/download_archive.dart.js
   defer: true
-- url: /get-dart/archive/assets/install.js
+- url: https://cdn.jsdelivr.net/gh/dart-lang/site-www/src/get-dart/archive/assets/install.js
   defer: true
 ---
 
@@ -117,7 +117,7 @@ are available at URLs like the following:
 可以使用以下格式的連結進行下載：
 
 {% prettify none tag=pre+code %}
-https://storage.flutter-io.cn/dart-archive/channels/<[!stable|beta|dev!]>/release/<[!version!]>/sdk/dartsdk-<[!platform!]>-<[!architecture!]>-release.zip
+https://storage.googleapis.com/dart-archive/channels/<[!stable|beta|dev!]>/release/<[!version!]>/sdk/dartsdk-<[!platform!]>-<[!architecture!]>-release.zip
 {% endprettify %}
 
 Examples:
@@ -125,10 +125,10 @@ Examples:
 範例：
 
 {% prettify none tag=pre+code %}
-https://storage.flutter-io.cn/dart-archive/channels/stable/release/2.7.2/sdk/dartsdk-windows-ia32-release.zip
-https://storage.flutter-io.cn/dart-archive/channels/stable/release/2.1.1/sdk/dartsdk-macos-x64-release.zip
-https://storage.flutter-io.cn/dart-archive/channels/beta/release/2.8.0-20.11.beta/sdk/dartsdk-linux-x64-release.zip
-https://storage.flutter-io.cn/dart-archive/channels/dev/release/2.9.0-1.0.dev/sdk/dartsdk-linux-x64-release.zip
+https://storage.googleapis.com/dart-archive/channels/stable/release/2.7.2/sdk/dartsdk-windows-ia32-release.zip
+https://storage.googleapis.com/dart-archive/channels/stable/release/2.1.1/sdk/dartsdk-macos-x64-release.zip
+https://storage.googleapis.com/dart-archive/channels/beta/release/2.8.0-20.11.beta/sdk/dartsdk-linux-x64-release.zip
+https://storage.googleapis.com/dart-archive/channels/dev/release/2.9.0-1.0.dev/sdk/dartsdk-linux-x64-release.zip
 {% endprettify %}
 
 ### Main channel URL scheme
@@ -142,7 +142,7 @@ is available at URLs like the following:
 可以使用以下格式的連結進行下載：
 
 {% prettify none tag=pre+code %}
-https://storage.flutter-io.cn/dart-archive/channels/be/raw/latest/sdk/dartsdk-<[!platform!]>-<[!architecture!]>-release.zip
+https://storage.googleapis.com/dart-archive/channels/be/raw/latest/sdk/dartsdk-<[!platform!]>-<[!architecture!]>-release.zip
 {% endprettify %}
 
 Example:
@@ -150,7 +150,7 @@ Example:
 範例：
 
 {% prettify none tag=pre+code %}
-https://storage.flutter-io.cn/dart-archive/channels/be/raw/latest/sdk/dartsdk-windows-x64-release.zip
+https://storage.googleapis.com/dart-archive/channels/be/raw/latest/sdk/dartsdk-windows-x64-release.zip
 {% endprettify %}
 
 {{site.alert.note}}

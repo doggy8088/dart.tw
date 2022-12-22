@@ -11,7 +11,7 @@ prevpage:
   url: /tutorials/server
   title: Dart command-line and server tutorials
   title: 課程目錄：使用 Dart 編寫命令列和伺服器端應用
-js: [{url: 'https://dartpad.cn/inject_embed.dart.js', defer: true}]
+js: [{url: 'https://dartpad.dev/inject_embed.dart.js', defer: true}]
 ---
 
 Follow these steps to start using the Dart SDK to develop command-line and server apps.
