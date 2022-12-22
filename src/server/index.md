@@ -1,20 +1,20 @@
 ---
 title: Command-line and server apps
-title: 命令行和服务端应用
+title: 命令列和伺服器端應用
 short-title: CLI & server apps
-short-title: 命令行和服务端应用
+short-title: 命令列和伺服器端應用
 description: All things relating to command-line and server apps.
-description: 与命令行和服务端应用有关的内容。
+description: 與命令列和伺服器端應用有關的內容。
 toc: false
 ---
 
 This page points to tools and documentation
 that can help you develop command-line and server apps.
 
-本文向你展示可以帮助你开发命令行式和服务器应用的相关工具和文档。
+本文向你展示可以幫助你開發命令列式和伺服器應用的相關工具和文件。
 
 <p class="text-center">
-  <a href="/tutorials/server/get-started" class="btn btn-primary btn-lg">开始使用</a>
+  <a href="/tutorials/server/get-started" class="btn btn-primary btn-lg">開始使用</a>
 </p>
 
 
@@ -27,8 +27,8 @@ that can help you develop command-line and server apps.
   DartPad lets you try out language features and dart:* APIs.
 
 [DartPad](/tools/dartpad)：
-<br> 不管是对新手还是专家来说都易于使用的工具，
-  DartPad 可以让你尝试语言相关功能和 dart:* 的 API。
+<br> 不管是對新手還是專家來說都易於使用的工具，
+  DartPad 可以讓你嘗試語言相關功能和 dart:* 的 API。
 
   {{site.alert.note}}
 
@@ -36,11 +36,11 @@ that can help you develop command-line and server apps.
     or importing libraries from packages
     besides the [currently supported packages][].
 
-    DartPad 尚且 **不支持** 使用 VM 库，比如 `dart:io`，
-    也不支持从导入其他 package，除了
-    目前已经支持了导入 `bloc`、`characters`、`collection` 等 package，
-    除了 [列举出的这些支持的 package][currently supported packages] 之外，
-    DartPad 尚且 **不支持** 导入其他 package。
+    DartPad 尚且 **不支援** 使用 VM 庫，比如 `dart:io`，
+    也不支援從匯入其他 package，除了
+    目前已經支援了匯入 `bloc`、`characters`、`collection` 等 package，
+    除了 [列舉出的這些支援的 package][currently supported packages] 之外，
+    DartPad 尚且 **不支援** 匯入其他 package。
     
   {{site.alert.end}}
 
@@ -51,63 +51,63 @@ that can help you develop command-line and server apps.
   libraries and [tools](/tools).
 
 [Dart SDK](/tools/sdk)：
-<br> [安装 Dart SDK](/get-dart) 以获取 Dart 的核心库和 [工具](/tools)。
+<br> [安裝 Dart SDK](/get-dart) 以獲取 Dart 的核心庫和 [工具](/tools)。
 
 More tools
 <br> The [Tools](/tools) page links to generally useful tools,
   such as Dart plugins for your favorite IDE or editor.
 
 更多工具：
-<br> [工具](/tools) 界面链接了一些有用的工具，比如你喜欢的 IDE 或编辑器的 Dart 插件。
+<br> [工具](/tools) 介面連結了一些有用的工具，比如你喜歡的 IDE 或編輯器的 Dart 外掛。
 
 ## Tutorials
 
-## 教程
+## 課程
 
 You might find the following tutorials helpful.
 
-你可能会发现以下的教程会比较有用。
+你可能會發現以下的課程會比較有用。
 
 [Get started](/tutorials/server/get-started)
 <br> Learn how to use the Dart SDK to develop command-line and server apps.
 
-[开始](/tutorials/server/get-started)：
-<br> 学习如何使用 Dart SDK 开发命令行或服务器应用。
+[開始](/tutorials/server/get-started)：
+<br> 學習如何使用 Dart SDK 開發命令列或伺服器應用。
 
 [gRPC Quickstart](https://grpc.io/docs/languages/dart/quickstart/)
 <br> Walks you through running and modifying a client-server example that uses the gRPC framework.
 
 [gRPC 快速上手](https://grpc.io/docs/quickstart/dart.html)：
-<br> 手把手教你使用 gRPC 框架运行和修改一个客户端-服务器示例。
+<br> 手把手教你使用 gRPC 框架執行和修改一個客戶端-伺服器範例。
 
 [Write command-line apps](/tutorials/server/cmdline)
 <br> Introduces dart:io and the args package.
 
-[开发 command-line 应用](/tutorials/server/cmdline)：
-<br> dart:io 和 args package 的介绍。
+[開發 command-line 應用](/tutorials/server/cmdline)：
+<br> dart:io 和 args package 的介紹。
 
 [Write HTTP servers](/tutorials/server/httpserver)
 <br> Features dart:io and the http_server package.
 
-[开发 HTTP 客户端和服务端](/tutorials/server/httpserver)：
-<br> dart:io 和 http_server 包的相关功能。
+[開發 HTTP 客戶端和伺服器端](/tutorials/server/httpserver)：
+<br> dart:io 和 http_server 套件的相關功能。
 
 ## More resources
 
-## 更多资源
+## 更多資源
 
 [Dart API]({{site.dart-api}}/{{site.data.pkg-vers.SDK.channel}})
 <br> API reference for dart:* libraries.
 
 [Dart API]({{site.dart_api}}/{{site.data.pkg-vers.SDK.channel}})：
-<br> dart:* 库的 API 参考。
+<br> dart:* 庫的 API 參考。
 
 [dart:io section of the library tour](/guides/libraries/library-tour/#dartio)
 <br> Shows how to use the major features of the dart:io library.
   You can use the dart:io library in command-line scripts, servers, and
   non-web [Flutter apps.]({{site.flutter}})
 
-[库概览的 dart:io 小节](/guides/libraries/library-tour/#dartio)：
-<br> 向你展示如何使用 dart:io 库的主要功能。
-你可以在命令行脚本、服务器应用以及不包含 Web 平台的
-[Flutter 移动应用]({{site.flutter}}) 中使用 dart:io 库。
+[函式庫概覽的 dart:io 小節](/guides/libraries/library-tour/#dartio)：
+<br> 向你展示如何使用 dart:io 庫的主要功能。
+你可以在命令列指令碼、伺服器應用以及不包含 Web 平台的
+[Flutter 移動應用]({{site.flutter}}) 中使用 dart:io 庫。

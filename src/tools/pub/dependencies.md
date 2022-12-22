@@ -1,8 +1,8 @@
 ---
 title: Package dependencies
-title: Package 依赖
+title: Package 依賴
 description: Add other packages to your app. Specify package locations, version constraints, and more.
-description: 向你的 app 里添加 package，指定 package 的位置，版本等。
+description: 向你的 app 裡新增 package，指定 package 的位置，版本等。
 ---
 
 Dependencies are one of the core concepts of the [pub package manager][].

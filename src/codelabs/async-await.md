@@ -1,8 +1,8 @@
 ---
 title: "Asynchronous programming: futures, async, await"
-title: 异步编程：使用 Future 和 async-await
+title: 非同步程式設計：使用 Future 和 async-await
 description: Learn about and practice writing asynchronous code in DartPad!
-description: 学习如何在 DartPad 中练习异步编程！
+description: 學習如何在 DartPad 中練習非同步程式設計！
 js: [{url: 'https://dartpad.cn/inject_embed.dart.js', defer: true}]
 ---
 <?code-excerpt replace="/ *\/\/\s+ignore_for_file:[^\n]+\n//g; /(^|\n) *\/\/\s+ignore:[^\n]+\n/$1/g; /(\n[^\n]+) *\/\/\s+ignore:[^\n]+\n/$1\n/g"?>

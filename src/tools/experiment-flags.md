@@ -1,8 +1,8 @@
 ---
 title: Experiment flags
-title: 实验性的参数标记
+title: 實驗性的引數標記
 description: Using experiment flags with Dart tools.
-description: 在 Dart 工具里使用一些实验性的参数。
+description: 在 Dart 工具裡使用一些實驗性的引數。
 ---
 
 The Dart SDK often contains experimental features,

@@ -1,8 +1,8 @@
 ---
 title: "Dart tutorials: The language"
-title: Dart 编程语言教程概览
+title: Dart 程式語言課程概覽
 description: Tutorials pertaining to the Dart language, such as asynchronous programming.
-description: 关于 Dart 编程语言的教程，比如异步编程。
+description: 關於 Dart 程式語言的課程，比如非同步程式設計。
 description: 
 toc: false
 ---

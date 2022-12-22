@@ -2,7 +2,7 @@
 title: dart pub
 title: dart pub 工具
 description: The command-line interface for pub, a package management tool for Dart.
-description: Pub 的命令行工具，是 Dart 的 package 管理工具。
+description: Pub 的命令列工具，是 Dart 的 package 管理工具。
 ---
 
 The [pub package manager](/guides/packages) has a command-line interface
@@ -49,31 +49,31 @@ Detailed documentation exists for each of the following pub subcommands:
 
 Pub's subcommands fall into the following categories:
 
-Pub 的命令可以分为以下几类：
+Pub 的命令可以分為以下幾類：
 
 * [Managing package dependencies](#managing-apps)
 
-  [管理 Package 的依赖关系](#managing-apps)
+  [管理 Package 的依賴關係](#managing-apps)
 
 * [Running command-line apps](#running-command-line-apps)
 
-  [运行命令行应用](#running-command-line-apps)
+  [執行命令列應用](#running-command-line-apps)
 
 * [Deploying packages and apps](#deploying-packages-and-apps)
 
-  [部署 Package 和应用](#deploying-packages-and-apps)
+  [部署 Package 和應用](#deploying-packages-and-apps)
 
 
 <a id="managing-apps"></a>
 ### Managing package dependencies
 
-### 管理 Package 的依赖关系
+### 管理 Package 的依賴關係
 
 Pub provides a number of subcommands for managing the
 [packages your code depends on](/tools/pub/dependencies).
 
-Pub 提供了许多命令，这些命令用于管理那些
-[你代码所依赖 Package](/tools/pub/dependencies)。
+Pub 提供了許多命令，這些命令用於管理那些
+[你程式碼所依賴 Package](/tools/pub/dependencies)。
 
 In this group, the most commonly used subcommands are `get` and
 `upgrade`, which retrieve or upgrade dependencies used by a package.
@@ -83,11 +83,11 @@ to make sure the dependencies are up to date. Some IDEs
 perform this step automatically on the creation of a project,
 or any modification of the pubspec.
 
-在这些命令中，最常用的是 `get` 命令和 `upgrade` 命令，
-前者用于检索 Package 的依赖项，后者用于更新 Package 的依赖项。
-每一次你修改了 pubspec 文件后都需要执行 `dart pub get` 或
-`flutter pub get` 命令来确保你所用的依赖项是最新的。
-一些 IDE 会在创建项目或修改了 pubspec 文件后自动执行此操作。
+在這些命令中，最常用的是 `get` 命令和 `upgrade` 命令，
+前者用於檢索 Package 的依賴項，後者用於更新 Package 的依賴項。
+每一次你修改了 pubspec 檔案後都需要執行 `dart pub get` 或
+`flutter pub get` 命令來確保你所用的依賴項是最新的。
+一些 IDE 會在建立專案或修改了 pubspec 檔案後自動執行此操作。
 
 [`cache`](/tools/pub/cmd/pub-cache)
 <br> Manages pub's local package cache. Use this subcommand to add packages
@@ -95,14 +95,14 @@ or any modification of the pubspec.
   your cache.
 
 [`cache`](/tools/pub/cmd/pub-cache) 命令
-<br>用于管理 Pub 的本地 Package 缓存。使用该命令你可以将一个 Package 添加至缓存，
-或者清除所有缓存的 Package 并重新安装。
+<br>用於管理 Pub 的本地 Package 快取。使用該命令你可以將一個 Package 新增至快取，
+或者清除所有快取的 Package 並重新安裝。
 
 [`deps`](/tools/pub/cmd/pub-deps)
 <br> Lists all dependencies used by the current package.
 
 [`deps`](/tools/pub/cmd/pub-deps) 命令
-<br>用于显示当前 Package 使用的所有依赖项。
+<br>用於顯示當前 Package 使用的所有依賴項。
 
 [`downgrade`](/tools/pub/cmd/pub-downgrade)
 <br> Retrieves the lowest versions of all the packages that are
@@ -110,8 +110,8 @@ or any modification of the pubspec.
   the lower range of your package's dependencies.
 
 [`downgrade`](/tools/pub/cmd/pub-downgrade) 命令
-<br>用于检索当前 Package 所依赖的其它 Package 的最低版本。
-用于测试这些较低版本依赖项的 Package 在当前 Package 上的兼容性。
+<br>用於檢索當前 Package 所依賴的其它 Package 的最低版本。
+用於測試這些較低版本依賴項的 Package 在當前 Package 上的相容性。
 
 [`get`](/tools/pub/cmd/pub-get)
 <br> Retrieves the packages that are listed as the dependencies for
@@ -121,10 +121,10 @@ or any modification of the pubspec.
   Creates or updates the lock file, as needed.
   
 [`get`](/tools/pub/cmd/pub-get) 命令
-<br>用于检索当前 Package 所依赖的其它 Package。
-如果 `pubspec.lock` 文件已经存在，
-则根据该文件中保存的依赖项版本获取对应的依赖项。
-如有必要，将会创建或更新该文件。
+<br>用於檢索當前 Package 所依賴的其它 Package。
+如果 `pubspec.lock` 檔案已經存在，
+則根據該檔案中儲存的依賴項版本獲取對應的依賴項。
+如有必要，將會建立或更新該檔案。
 
 [`outdated`](/tools/pub/cmd/pub-outdated)
 <br> Looks at every package that the current package depends on,
@@ -133,8 +133,8 @@ or any modification of the pubspec.
   Use this subcommand when you want to update package dependencies.
 
 [`outdated`](/tools/pub/cmd/pub-outdated) 命令
-<br> 查看当前软件包所依赖的每个 package，确定哪些 package 的依赖项已过时，
-并为您提供有关如何更新它们的建议。当您要更新 package 的依赖性时，请使用此命令。
+<br> 檢視當前軟體包所依賴的每個 package，確定哪些 package 的依賴項已過時，
+併為您提供有關如何更新它們的建議。當您要更新 package 的依賴性時，請使用此命令。
 
 [`upgrade`](/tools/pub/cmd/pub-upgrade)
 <br> Retrieves the latest version of each package listed
@@ -144,14 +144,14 @@ or any modification of the pubspec.
   Creates or updates the lock file, as needed.
 
 [`upgrade`](/tools/pub/cmd/pub-upgrade) 命令
-<br>用于检索当前 Package 所依赖的其它 Package 的最新版本。
-如果 `pubspec.lock` 文件已经存在，
-则忽略其保存的版本并以 pubspec 文件中指定的最新版本为主。
-如有必要，将会创建或更新该文件。
+<br>用於檢索當前 Package 所依賴的其它 Package 的最新版本。
+如果 `pubspec.lock` 檔案已經存在，
+則忽略其儲存的版本並以 pubspec 檔案中指定的最新版本為主。
+如有必要，將會建立或更新該檔案。
 
 ### Running command-line apps
 
-### 运行命令行应用
+### 執行命令列應用
 
 The [`global`](/tools/pub/cmd/pub-global) subcommand lets you 
 make a package globally available, 
@@ -163,11 +163,11 @@ To run globally available scripts, you must
 
 ### Deploying packages and apps
 
-## 部署 Package 和应用
+## 部署 Package 和應用
 
 With pub you can publish packages and command-line apps.
 
-使用 pub 命令你还可以发布 Package 和命令行应用。
+使用 pub 命令你還可以釋出 Package 和命令列應用。
 
 #### Packages
 
@@ -181,14 +181,14 @@ to modify and upload new versions of your package,
 see [Uploaders](/tools/pub/publishing#uploaders).
 
 
-你可以使用 [`publish`](/tools/pub/cmd/pub-lish) 命令将
-Package 上传至 [Pub 网站]({{site.pub}})以分享给全世界的开发者使用。
-[`uploader`](/tools/pub/cmd/pub-uploader) 命令则可以允许指定用户
-修改 Package 和上传新版本的 Package。
+你可以使用 [`publish`](/tools/pub/cmd/pub-lish) 命令將
+Package 上傳至 [Pub 網站]({{site.pub}})以分享給全世界的開發者使用。
+[`uploader`](/tools/pub/cmd/pub-uploader) 命令則可以允許指定使用者
+修改 Package 和上傳新版本的 Package。
 
 #### Command-line apps
 
-#### 命令行应用
+#### 命令列應用
 
 For any package that contains scripts (anything under the `bin/`
 directory), consider adding the `executables` tag to the pubspec file.
@@ -196,21 +196,21 @@ When a script is listed under `executables`, users can run
 [`dart pub global activate`](/tools/pub/cmd/pub-global#activating-a-package)
 to make it directly available from the command line.
 
-任何包含脚本（即在 `bin/` 目录下有任意文件）的 Package，
-可以在 pubspec 文件中添加上 `executables` 标签。
-当一个脚本标识为 `executables` 时，
-用户可以直接从命令行使用
+任何包含指令碼（即在 `bin/` 目錄下有任意檔案）的 Package，
+可以在 pubspec 檔案中新增上 `executables` 標籤。
+當一個指令碼標識為 `executables` 時，
+使用者可以直接從命令列使用
 [`pub global activate`](/tools/pub/cmd/pub-global#activating-a-package) 
-命令运行它。
+命令執行它。
 
 ## Global options
 
-## 全局选项
+## 全域選項
 
 Several command-line options work with all of the pub subcommands.
 These include:
 
-有几个命令行选线可以用于所有 pub 命令。它们包括：
+有幾個命令列選線可以用於所有 pub 命令。它們包括：
 
 ### `--help` or `-h`
 
@@ -218,13 +218,13 @@ These include:
 
 Prints usage information.
 
-显示使用说明。
+顯示使用說明。
 
 ### `--trace`
 
 Prints debugging information when an error occurs.
 
-当出现错误时输出调试信息。
+當出現錯誤時輸出除錯資訊。
 
 ### `--verbose` or `-v`
 
@@ -232,7 +232,7 @@ Prints debugging information when an error occurs.
 
 Equivalent to `--verbosity=all`.
 
-等同于 `--verbosity=all`。
+等同於 `--verbosity=all`。
 
 ### `--directory=<dir>` or `-C <dir>`
 
@@ -240,7 +240,7 @@ Equivalent to `--verbosity=all`.
 
 Runs the command in the specified directory.
 
-在指定的目录下运行命令。
+在指定的目錄下執行命令。
 
 ### `--[no-]color`
 
@@ -250,8 +250,8 @@ At a terminal, `--color` is the default,
 otherwise, `--no-color` is the default.
 Use `--no-color` to disable color in all environments.
 
-在输出内容中加入颜色来增强显示效果 (使用 `--color`)。
-默认值在不同编程环境中是不同的，取决于是否在终端中使用，
-如果在终端中使用 `--color` 是默认的，
-其他环境默认是 `--no-color`。
-使用 `--no-color` 可以在所有环境中禁用色彩显示。
+在輸出內容中加入顏色來增強顯示效果 (使用 `--color`)。
+預設值在不同程式設計環境中是不同的，取決於是否在終端中使用，
+如果在終端中使用 `--color` 是預設的，
+其他環境預設是 `--no-color`。
+使用 `--no-color` 可以在所有環境中禁用色彩顯示。

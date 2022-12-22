@@ -1,8 +1,8 @@
 ---
 title: Troubleshooting DartPad
-title: DartPad 问题排查
+title: DartPad 問題排查
 description: Common problems with using DartPad
-description: 在使用 DartPad 时的常见问题
+description: 在使用 DartPad 時的常見問題
 ---
 
 This page describes solutions to problems that might occur when

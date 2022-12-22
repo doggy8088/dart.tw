@@ -1,8 +1,8 @@
 ---
 title: Debugging Dart web apps
-title: 调试 Dart Web 应用
+title: 除錯 Dart Web 應用
 description: Learn how to debug your Dart web app.
-description: 调试你的 Web 应用。
+description: 除錯你的 Web 應用。
 ---
 
 You can use a [Dart IDE][IDE], [Dart DevTools][], and browser tools

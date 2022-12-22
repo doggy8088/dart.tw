@@ -1,8 +1,8 @@
 ---
 title: dart format
-title: dart format 命令（用于格式化 Dart 代码的命令）
+title: dart format 命令（用於格式化 Dart 程式碼的命令）
 description: Command-line tool for formatting Dart source code.
-description: 用于格式化 Dart 源代码的命令行工具。
+description: 用於格式化 Dart 原始碼的命令列工具。
 toc: false
 ---
 
@@ -12,17 +12,17 @@ with formatting that follows
 This is the same formatting that you can get
 when using an IDE or editor that has Dart support.
 
-使用 `dart format` 命令可以根据
+使用 `dart format` 命令可以根據
 [Dart 指南](/guides/language/effective-dart/style#formatting)
-将你程序中多余的空格替换掉。
-这与你使用支持 Dart 的 IDE 或者编辑器格式化代码的效果相同。
+將你程式中多餘的空格替換掉。
+這與你使用支援 Dart 的 IDE 或者編輯器格式化程式碼的效果相同。
 
 Provide a list of files or directories to the `dart format` command.
 For example, here's how to format all the Dart files
 in or under the current directory:
 
-`dart format` 命令接收一系列文件或目录作为参数。
-例如，下面是如何格式化当前目录下所有 Dart 文件的示例：
+`dart format` 命令接收一系列檔案或目錄作為引數。
+例如，下面是如何格式化當前目錄下所有 Dart 檔案的範例：
 
 ```terminal
 $ dart format .
@@ -33,9 +33,9 @@ use a space-delimited list.
 The following command formats all Dart files under the `lib` directory,
 plus one Dart file under the `bin` directory:
 
-要指定多个文件或目录，请使用以空格符号分割的列表。
-下面的命令将会对 `lib` 目录中的所有 Dart 文件，
-以及一个 `bin` 目录下的 Dart 文件进行格式整理。
+要指定多個檔案或目錄，請使用以空格符號分割的列表。
+下面的命令將會對 `lib` 目錄中的所有 Dart 檔案，
+以及一個 `bin` 目錄下的 Dart 檔案進行格式整理。
 
 ```terminal
 $ dart format lib bin/updater.dart 
@@ -50,7 +50,7 @@ add the `--output` or `-o` flag.
 Use `-o show` or `-o json` to get the contents of the formatted files,
 or `-o none` to see only which files would change.
 
-如果你不想覆盖文件，请去掉 `-w` 选项。源代码格式化后的结果将作为标准输出显示出来。
+如果你不想覆蓋檔案，請去掉 `-w` 選項。原始碼格式化後的結果將作為標準輸出顯示出來。
 
 ```terminal
 $ dart format -o show bin/my_app.dart
@@ -70,7 +70,7 @@ For information on additional command-line options,
 use the `dart help` command or see the documentation for the
 [dart_style package.]({{site.pub-pkg}}/dart_style)
 
-使用 `--help` 命令行参数或者查阅 [dart_style Package]({{site.pub-pkg}}/dart_style) 文档可以查看更多命令行选项。
+使用 `--help` 命令列引數或者查閱 [dart_style Package]({{site.pub-pkg}}/dart_style) 文件可以檢視更多命令列選項。
 
 ```terminal
 $ dart help format

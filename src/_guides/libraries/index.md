@@ -1,8 +1,8 @@
 ---
 title: Core libraries
-title: Dart 语言核心库
+title: Dart 語言核心函式庫
 description: Learn about Dart's core libraries and APIs.
-description: 学习使用 Dart 的核心库和 API。
+description: 學習使用 Dart 的核心庫和 API。
 ---
 
 <style>
@@ -19,90 +19,90 @@ and encoding/decoding data (`dart:convert`).
 Additional APIs are available in
 [commonly used packages](/guides/libraries/useful-libraries).
 
-Dart 拥有非常丰富的核心库用以为诸如处理对象集合（`dart:collection`）、
-进行数学运算（`dart:math`）以及编/解码数据（`dart:convert`）
-等常用编程操作提供支持。除此之外，
-[由社区贡献的 packages](/guides/libraries/useful-libraries) 中也提供了许多其它
-的 API 便于开发者使用。
+Dart 擁有非常豐富的核心庫用以為諸如處理物件集合（`dart:collection`）、
+進行數學運算（`dart:math`）以及編/解碼資料（`dart:convert`）
+等常用程式設計操作提供支援。除此之外，
+[由社群貢獻的 packages](/guides/libraries/useful-libraries) 中也提供了許多其它
+的 API 便於開發者使用。
 
 ## Multi-platform libraries
 
-## 全平台库列表
+## 全平台庫列表
 
 The following table lists the Dart core libraries that work on all
 [Dart platforms](/overview#platform).
 
-下面提供的一些库可以应用于所有 [Dart 可运行的平台](/overview#platform)。
+下面提供的一些函式庫可以應用於所有 [Dart 可執行的平台](/overview#platform)。
 
 |-----------------------------------------------+-------------------------------|
 | Library                                       | Notes                         |
 |-----------------------------------------------|-------------------------------|
-| 库名称                                         | 备注                           |
+| 函式庫名稱                                         | 備註                           |
 | [`dart:core`][dart-core]              <br>Built-in types, collections, and other core functionality for every Dart program. | |
-| [`dart:core`][dart-core]              <br> 每一个 Dart 程序都可能会使用到的内置类型、集合以及其它的一些核心功能。| |
+| [`dart:core`][dart-core]              <br> 每一個 Dart 程式都可能會使用到的內建型別、集合以及其它的一些核心功能。| |
 | [`dart:async`][dart-async], [`package:async`][package-async]<br>Support for asynchronous programming, with classes such as `Future` and `Stream`.<br>`package:async` provides additional utilities around the `Future` and `Stream` types. | |
-| [`dart:async`][dart-async], [`package:async`][package-async]<br>支持通过使用 `Future` 和 `Stream` 这样的类实现异步编程。<br>`package:async` 提供了更多围绕 `Future` 和 `Stream` 构建的实用工具 | |
+| [`dart:async`][dart-async], [`package:async`][package-async]<br>支援透過使用 `Future` 和 `Stream` 這樣的類實現非同步程式設計。<br>`package:async` 提供了更多圍繞 `Future` 和 `Stream` 建構的實用工具 | |
 | [`dart:collection`][dart-collection], [`package:collection`][package-collection]<br>Classes and utilities that supplement the collection support in `dart:core`.<br>`package:collection` provides further collection implementations and functions for working on and with collections. | |
-| [`dart:collection`][dart-collection], [`package:collection`][package-collection]<br>提供 `dart:core` 库中不支持的额外的集合实用工具类。<br>`package:collection` 则提供了更进一步的、用于处理和使用集合的函数和实现 | |
+| [`dart:collection`][dart-collection], [`package:collection`][package-collection]<br>提供 `dart:core` 庫中不支援的額外的集合實用工具類別。<br>`package:collection` 則提供了更進一步的、用於處理和使用集合的函式和實現 | |
 | [`dart:convert`][dart-convert], [`package:convert`][package-convert]<br>Encoders and decoders for converting between different data representations, including JSON and UTF-8.<br>`package:convert` provides additional encoders and decoders. ||
-| [`dart:convert`][dart-convert], [`package:convert`][package-convert]<br>用于提供转换不同数据的编码器和解码器，包括 JSON 和 UTF-8。<br>`package:convert` 则提供了更多编解码器。 ||
+| [`dart:convert`][dart-convert], [`package:convert`][package-convert]<br>用於提供轉換不同資料的編碼器和解碼器，包括 JSON 和 UTF-8。<br>`package:convert` 則提供了更多編解碼器。 ||
 | [`dart:developer`][dart-developer]<br>Interaction with developer tools such as the debugger and inspector. | [Native JIT][jit] and [dartdevc][] only |
 | [`dart:math`][dart-math]<br>Mathematical constants and functions, plus a random number generator. | |
-| [`dart:developer`][dart-developer]<br>类似调试器和分析器这样的与开发者交互配合的工具。| 仅支持 [Native JIT][jit] 和 [dartdevc][] |
+| [`dart:developer`][dart-developer]<br>類似偵錯程式和分析器這樣的與開發者互動配合的工具。| 僅支援 [Native JIT][jit] 和 [dartdevc][] |
 | [`dart:math`][dart-math]<br>Mathematical constants and functions, plus a random number generator. | |
-| [`dart:math`][dart-math]<br>包含算术相关函数和常量，还有随机数生成器。 | |
+| [`dart:math`][dart-math]<br>包含算術相關函式和常量，還有隨機數產生器。 | |
 | [`dart:typed_data`][dart-typed_data], [`package:typed_data`][package-typed_data]<br>Lists that efficiently handle fixed sized data (for example, unsigned 8-byte integers) and SIMD numeric types.<br>`package:typed_data` provides further classes and functions working on typed data. | |
-| [`dart:typed_data`][dart-typed_data], [`package:typed_data`][package-typed_data]<br>高效处理固定大小数据（例如无符号的 8 位整型）和 SIMD 数字类型的列表。<br>`package:typed_data` 提供了更进一步的类和方法用于处理结构化的数据。 | |
+| [`dart:typed_data`][dart-typed_data], [`package:typed_data`][package-typed_data]<br>高效處理固定大小資料（例如無符號的 8 位整型）和 SIMD 數字型別的列表。<br>`package:typed_data` 提供了更進一步的類和方法用於處理結構化的資料。 | |
 {:.table .table-striped}
 
 ## Native platform libraries
 
-## 原生平台库
+## 原生平台函式庫
 
 The following table lists the Dart core libraries that work on the
 [Dart native platform](/overview#native-platform) (AOT- and JIT-compiled code).
 
-下面列出的核心库适用于 [Dart 原生平台](/overview#platform)（AOT 和 JIT 编译运行）。
+下面列出的核心庫適用於 [Dart 原生平台](/overview#platform)（AOT 和 JIT 編譯執行）。
 
 |-----------------------------------------------+-------------------------------|
 | Library                                       | Notes                         |
 |-----------------------------------------------|-------------------------------|
-| 库名称                                         | 备注                           |
+| 函式庫名稱                                         | 備註                           |
 | [`dart:ffi`][dart-ffi], [`package:ffi`][package-ffi]<br>A foreign function interface that lets Dart code use native C APIs.<br>`package:ffi` contains utilities incl. support for converting Dart strings and C strings. | |
-| [`dart:ffi`][dart-ffi], [`package:ffi`][package-ffi]<br>Dart 代码可以通过这个外部函数接口使用原生的 C 语言 API。<br>`package:ffi` 提供的实用工具包括：支持转换 Dart 字符串和 C 字符串。 | |
+| [`dart:ffi`][dart-ffi], [`package:ffi`][package-ffi]<br>Dart 程式碼可以透過這個外部函式介面使用原生的 C 語言 API。<br>`package:ffi` 提供的實用工具套件括：支援轉換 Dart 字串和 C 字串。 | |
 | [`dart:io`][dart-io], [`package:io`][package-io]<br>File, socket, HTTP, and other I/O support for non-web applications.<br>`package:io` provides functionality including support for ANSI colors, file copying, and standard exit codes. | |
-| [`dart:io`][dart-io], [`package:io`][package-io]<br>用于支持非 Web 应用的文件、Socket、HTTP 和其它 I/O 操作。<br>`package:io` 提供的功能包括 ANSI 颜色、文件复制和标准化的退出代码。 | |
+| [`dart:io`][dart-io], [`package:io`][package-io]<br>用於支援非 Web 應用的檔案、Socket、HTTP 和其它 I/O 操作。<br>`package:io` 提供的功能包括 ANSI 顏色、檔案複製和標準化的退出程式碼。 | |
 | [`dart:isolate`][dart-isolate]<br> Concurrent programming using isolates: independent workers similar to threads. | |
-| [`dart:isolate`][dart-isolate]<br> 使用 Isolate 实现并发编程：类似于线程的独立的 Worker。 | |
+| [`dart:isolate`][dart-isolate]<br> 使用 Isolate 實現併發程式設計：類似於執行緒的獨立的 Worker。 | |
 | [`dart:mirrors`][dart-mirrors]<br> Basic reflection with support for introspection and dynamic invocation. | Experimental<br>[Native JIT][jit] only (_not_&nbsp;Flutter) |
-| [`dart:mirrors`][dart-mirrors]<br> 支持检查和动态调用的基本反射功能。 | 实验性<br>只在 JIT 中有效 (**Flutter 中无效**) |
+| [`dart:mirrors`][dart-mirrors]<br> 支援檢查和動態呼叫的基本反射功能。 | 實驗性<br>只在 JIT 中有效 (**Flutter 中無效**) |
 {:.table .table-striped}
 
 ## Web platform libraries
 
-## Web 平台库
+## Web平台函式庫
 
 The following table lists the Dart core libraries that work on the
 [Dart web platform](/overview#web-platform) (code compiled to JavaScript).
 
-下面列出的核心库适用于 [Dart Web 平台](/overview#platform)（代码编译成 JS 来运行）。
+下面列出的核心庫適用於 [Dart Web 平台](/overview#platform)（程式碼編譯成 JS 來執行）。
 
 |-----------------------------------------------+-------------------------------|
 | Library                                       | Notes                         |
 |-----------------------------------------------|-------------------------------|
-| 库名称                                         | 备注                           |
+| 函式庫名稱                                         | 備註                           |
 | [`dart:html`][dart-html]<br>HTML elements and other resources for web-based applications. | |
-| [`dart:html`][dart-html]<br>为 Web 应用开发所提供的 HTML 元素和其它资源。 | |
+| [`dart:html`][dart-html]<br>為 Web 應用開發所提供的 HTML 元素和其它資源。 | |
 | [`dart:indexed_db`][dart-indexed_db]<br>Client-side key-value store with support for indexes. | |
-| [`dart:indexed_db`][dart-indexed_db]<br>客户端上使用的可以索引的键值对存储。 | |
+| [`dart:indexed_db`][dart-indexed_db]<br>客戶端上使用的可以索引的鍵值對儲存。 | |
 | [`dart:js`][dart-js], [`dart:js_util`][dart-js_util], [`package:js`][package-js]<br>`dart:js_util` provides low-level primitives for interoperability; typically the higher-level annotations in `package:js` are recommended, as they help express interoperability more succinctly. For more details see [JavaScript interoperability][].<br>_Don't use `dart:js` directly; direct use of those legacy APIs is deprecated_. | |
-| [`dart:js`][dart-js], [`dart:js_util`][dart-js_util], [`package:js`][package-js]<br>`dart:js_util` 为互操作提供了低级原语 (Low-Level Primitives)，通常情况下我们更推荐使用 `package:js` 中提供的更高阶的注解内容，因为它们更有助于更简洁地表达和体现互操作性。<br> **请不要直接使用 `dart:js` 了，那些 API 已被标记为已废弃** | |
+| [`dart:js`][dart-js], [`dart:js_util`][dart-js_util], [`package:js`][package-js]<br>`dart:js_util` 為互操作提供了低階原語 (Low-Level Primitives)，通常情況下我們更推薦使用 `package:js` 中提供的更高階的註解內容，因為它們更有助於更簡潔地表達和體現互操作性。<br> **請不要直接使用 `dart:js` 了，那些 API 已被標記為已廢棄** | |
 | [`dart:svg`][dart-svg]<br>Scalable Vector Graphics. | |
-| [`dart:svg`][dart-svg]<br>用于可缩放的矢量图形 (SVG)。 | |
+| [`dart:svg`][dart-svg]<br>用於可縮放的向量圖形 (SVG)。 | |
 | [`dart:web_audio`][dart-web_audio]<br>High-fidelity audio programming in the browser. | |
-| [`dart:web_audio`][dart-web_audio]<br>用于浏览器的高保真音频编程。 | |
+| [`dart:web_audio`][dart-web_audio]<br>用於瀏覽器的高保真音訊程式設計。 | |
 | [`dart:web_gl`][dart-web_gl]<br>3D programming in the browser. | |
-| [`dart:web_gl`][dart-web_gl]<br>用于浏览器的 3D 编程。 | |
+| [`dart:web_gl`][dart-web_gl]<br>用於瀏覽器的 3D 程式設計。 | |
 {:.table .table-striped}
 
 <!---

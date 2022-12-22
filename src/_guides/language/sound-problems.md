@@ -1,8 +1,8 @@
 ---
 title: Fixing common type problems
-title: 修复常见的类型问题
+title: 修復常見的型別問題
 description: Common type issues you may have and how to fix them.
-description: 常见的跟类型相关的问题，以及如何修复这方面的问题。
+description: 常見的跟型別相關的問題，以及如何修復這方面的問題。
 ---
 <?code-excerpt replace="/ *\/\/\s+ignore_for_file:[^\n]+\n//g; /(^|\n) *\/\/\s+ignore:[^\n]+\n/$1/g; /(\n[^\n]+) *\/\/\s+ignore:[^\n]+\n/$1\n/g; /. • (lib|test)\/\w+\.dart:\d+:\d+//g"?>
 <?code-excerpt plaster="none"?>

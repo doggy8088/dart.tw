@@ -1,26 +1,26 @@
 ---
 title: Tools
-title: Dart 的开发工具
+title: Dart 的開發工具
 description: The tools that support the Dart language.
-description: 支持 Dart 语言的开发工具。
+description: 支援 Dart 語言的開發工具。
 ---
 
 When you're ready to create an app, get the SDK and tools for your app
 type. If you aren't sure which tools you need, **get the Flutter SDK.**
 
-当你准备好创建一个应用时，请根据你要创建的应用类型获取相应的 SDK 和工具。
+當你準備好建立一個應用時，請根據你要建立的應用型別獲取相應的 SDK 和工具。
 
 <div class="table-wrapper" markdown="1">
 |------------+-----------------------------------+--------------------------|
 | App type   | Get started instructions          | Tool information         |
-|   应用类型 |             入门说明              |          工具信息        |
+|   應用型別 |             入門說明              |          工具資訊        |
 |------------|-----------------------------------|--------------------------|
 | Flutter (mobile and more) | [Install Flutter]({{site.flutter-docs}}/get-started/install) | [Flutter tools]({{site.flutter-docs}}/using-ide) |
-| Flutter (移动应用和其他平台) | [安装 Flutter]({{site.flutter-docs}}/setup) | [Flutter tools]({{site.flutter-docs}}/using-ide) |
+| Flutter (移動應用和其他平台) | [安裝 Flutter]({{site.flutter-docs}}/setup) | [Flutter tools]({{site.flutter-docs}}/using-ide) |
 | Web app (non-Flutter) | [Install the Dart SDK](/tools/sdk) | [General-purpose tools][] and [web tools](#web) |
-| Web 应用 (非 Flutter) | [安装 Dart SDK](/tools/sdk) | [通用工具][General-purpose tools] and [Web 工具](#web) |
+| Web 應用 (非 Flutter) | [安裝 Dart SDK](/tools/sdk) | [通用工具][General-purpose tools] and [Web 工具](#web) |
 | Server or command line | [Install the Dart SDK](/tools/sdk) | [General-purpose tools][] and [specialized tools](#server) |
-| 服务器或命令行应用 | [安装 Dart SDK](/tools/sdk) | [通用工具][General-purpose tools] 和 [专业工具](#server) |
+| 伺服器或命令列應用 | [安裝 Dart SDK](/tools/sdk) | [通用工具][General-purpose tools] 和 [專業工具](#server) |
 {:.table .table-striped}
 </div>
 
@@ -40,16 +40,16 @@ type. If you aren't sure which tools you need, **get the Flutter SDK.**
 
 The following tools support the Dart language on all platforms.
 
-下述工具支持使用 Dart 语言的全部平台。
+下述工具支援使用 Dart 語言的全部平台。
 
 * [DartPad](#dartpad)
 * [IDEs and editors](#ides-and-editors)
 
-  [IDE 和编辑器](#ides-and-editors)
+  [IDE 和編輯器](#ides-and-editors)
 
 * [Command-line tools](#cli)
 
-  [命令行工具](#cli)
+  [命令列工具](#cli)
 
 ### DartPad
 
@@ -61,17 +61,17 @@ It supports Dart's core libraries,
 except for VM libraries such as `dart:io`.
 
 <img src="/assets/img/dartpad-hello.png" alt="DartPad Hello World" width="200px" align="right" />
-[DartPad](/tools/dartpad) 是一个用于学习 Dart 语法以及
-体验 Dart 语言功能的在线工具。
-它支持 Dart 的核心库，但不支持类似 dart:io 这样的 VM 库。
+[DartPad](/tools/dartpad) 是一個用於學習 Dart 語法以及
+體驗 Dart 語言功能的線上工具。
+它支援 Dart 的核心庫，但不支援類似 dart:io 這樣的 VM 庫。
 
 ### IDEs and editors
 
-### IDE 和编辑器
+### IDE 和編輯器
 
 Dart plugins exist for these commonly used IDEs.
 
-这些常用的 IDE 都带有 Dart 插件。
+這些常用的 IDE 都帶有 Dart 外掛。
 
 <ul class="col2">
 <li>
@@ -93,7 +93,7 @@ Dart plugins exist for these commonly used IDEs.
 The following Dart plugins are also available,
 thanks to the Dart community.
 
-下面的 Dart 插件也是可用的，感谢 Dart 社区。
+下面的 Dart 外掛也是可用的，感謝 Dart 社群。
 
 <ul class="col2">
 <li>
@@ -113,15 +113,15 @@ thanks to the Dart community.
 A [Language Server Protocol implementation][LSP] is also available for
 [LSP-capable editors][] that don't have specific Dart extensions.
 
-[语言服务器协议实现][LSP] 同样适用于没有特定的 Dart 扩展但
-[支持 LSP 的编辑器][LSP-capable editors] 。
+[語言伺服器協議實現][LSP] 同樣適用於沒有特定的 Dart 擴充但
+[支援 LSP 的編輯器][LSP-capable editors] 。
 
 [LSP]: https://github.com/dart-lang/sdk/blob/main/pkg/analysis_server/tool/lsp_spec/README.md
 [LSP-capable editors]: https://microsoft.github.io/language-server-protocol/implementors/tools/
 
 ### Command-line tools {#cli}
 
-### 命令行工具 {#cli}
+### 命令列工具 {#cli}
 
 The Dart SDK includes the following general-purpose `dart` tool:
 
@@ -133,52 +133,52 @@ Dart SDK 中包含下面的 `dart` 工具：
   as well as working with the [pub package manager](/guides/packages).
 
 [`dart`](/tools/dart-tool)
-<br> 用于创建、格式化、分析、测试、编译和运行 Dart 代码的命令行工具 (CLI)，
-  同时包含 [pub package 管理器](/guides/packages)。
+<br> 用於建立、格式化、分析、測試、編譯和執行 Dart 程式碼的命令列工具 (CLI)，
+  同時包含 [pub package 管理器](/guides/packages)。
 
 
 ### Debugging
 
-### 调试工具
+### 除錯工具
 
 [Dart DevTools](/tools/dart-devtools)
 <br>A suite of debugging and performance tools.
 
-[Dart 开发者工具](/tools/dart-devtools) 
-<br> 一个工具套装帮助调试和性能测试。
+[Dart 開發者工具](/tools/dart-devtools) 
+<br> 一個工具套裝幫助除錯和效能測試。
 
 ## Tool for developing web apps {#web}
 
-## 开发 Web 应用的工具 {#web}
+## 開發 Web 應用的工具 {#web}
 
 The following tool supports developing web apps:
 
-下面工具主要针对 Web 应用开发：
+下面工具主要針對 Web 應用開發：
 
 [`webdev`](/tools/webdev)
 <br> A CLI to build and serve Dart web apps.
 
 [`webdev`](/tools/webdev)
-<br> 用于构建和提供 Dart Web 应用开发的命令行接口 (CLI) 。
+<br> 用於建構和提供 Dart Web 應用開發的命令列介面 (CLI) 。
 
 ## Tools for developing command-line apps and servers {#server}
 
-## 开发命令行应用和服务器的工具 {#server}
+## 開發命令列應用和伺服器的工具 {#server}
 
 The following tools support developing or running
 command-line apps and servers:
 
-下面的工具对开发或运行命令行应用和服务器有特别的支持：
+下面的工具對開發或執行命令列應用和伺服器有特別的支援：
 
 [`dart run`](/tools/dart-run)
 <br> Use the `dart run` command to run uncompiled Dart command-line apps
   and some kinds of snapshots.
 
 [`dart`](/tools/dart-vm)
-<br> 通过 [`dart run`](/tools/dart-run) 命令来运行未编译的 Dart 命令行应用和一些其他的快照。
+<br> 透過 [`dart run`](/tools/dart-run) 命令來執行未編譯的 Dart 命令列應用和一些其他的快照。
 
 [`dartaotruntime`](/tools/dartaotruntime)
 <br> Use this Dart runtime to run AOT snapshots.
 
 [`dartaotruntime` 命令](/tools/dartaotruntime)
-<br> Dart 运行时环境，可以运行 AOT 快照。
+<br> Dart 執行時環境，可以執行 AOT 快照。

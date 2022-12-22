@@ -1,8 +1,8 @@
 ---
 title: Language samples
-title: Dart 编程语言概览
+title: Dart 程式語言概覽
 description: Examples of idiomatic Dart with links to larger examples.
-description: 展示常见的 Dart 语言的用法。
+description: 展示常見的 Dart 語言的用法。
 ---
 
 This collection is not exhaustive—it's just a brief
@@ -10,37 +10,37 @@ introduction to the language for people who like to learn by example.
 You might also want to check out the language and library tours,
 or the [Dart cheatsheet codelab](/codelabs/dart-cheatsheet).
 
-本文向你展示的 Dart 语言用法并不全面&mdash;&mdash;
-这里只是对那些喜欢通过示例了解语言的人提供一个简单的介绍。
-你也许会对 [Dart 语言的速查表 CodeLab](/codelabs/dart-cheatsheet) 或
-Dart 语言概览和库概览更感兴趣。
+本文向你展示的 Dart 語言用法並不全面&mdash;&mdash;
+這裡只是對那些喜歡透過範例瞭解語言的人提供一個簡單的介紹。
+你也許會對 [Dart 語言的速查表 CodeLab](/codelabs/dart-cheatsheet) 或
+Dart 語言概覽和函式庫概覽更感興趣。
 
 <div class="card-grid no_toc_section">
   <div class="card">
     <h3><a href="/guides/language/language-tour">Language tour</a></h3>
-    <h3><a href="/guides/language/language-tour">语言概览</a></h3>
+    <h3><a href="/guides/language/language-tour">語言概覽</a></h3>
     <p>
       A comprehensive tour, with examples, of the Dart language.
       Most of the <em>read more</em> links in this page
       point to the language tour.
     </p>
     <p>
-      包含示例的 Dart 语言全面概览。
-      本文中大部分的 <strong>阅读更多</strong> 链接均会跳转到此概览中。
+      包含範例的 Dart 語言全面概覽。
+      本文中大部分的 <strong>閱讀更多</strong> 連結均會跳轉到此概覽中。
     </p>
   </div>
   <div class="card">
     <h3><a href="/guides/libraries/library-tour">Library tour</a></h3>
-    <h3><a href="/guides/libraries/library-tour">库概览</a></h3>
+    <h3><a href="/guides/libraries/library-tour">函式庫概覽</a></h3>
     <p>
       An example-based introduction to the Dart core libraries.
       See how to use the built-in types, collections,
       dates and times, streams, and more.
     </p>
     <p>
-      通过各种示例向你介绍 Dart 的核心库。
-      通过此概览你可以了解更多关于内置类型、集合、
-      日期时间、异步 Stream 以及其它 Dart 核心功能的相关信息。
+      透過各種範例向你介紹 Dart 的核心庫。
+      透過此概覽你可以瞭解更多關於內建型別、集合、
+      日期時間、非同步 Stream 以及其它 Dart 核心功能的相關資訊。
     </p>
   </div>
 </div>
@@ -53,8 +53,8 @@ Dart 语言概览和库概览更感兴趣。
 Every app has a `main()` function.
 To display text on the console, you can use the top-level `print()` function:
 
-每个应用都有一个 `main()` 函数。你可以使用顶层函数
-`print()` 来将一段文本输出显示到控制台：
+每個應用都有一個 `main()` 函式。你可以使用最上層函式
+`print()` 來將一段文字輸出顯示到控制檯：
 
 <?code-excerpt "misc/test/samples_test.dart (hello-world)"?>
 ```dart
@@ -66,13 +66,13 @@ void main() {
 
 ## Variables
 
-## 变量
+## 變數
 
 Even in type-safe Dart code, most variables don't need explicit types,
 thanks to type inference:
 
-虽然 Dart 是代码类型安全的语言，但是由于其支持类型推断，
-因此大多数变量不需要显式地指定类型：
+雖然 Dart 是程式碼型別安全的語言，但是由於其支援型別推斷，
+因此大多數變數不需要明確地指定型別：
 
 <?code-excerpt "misc/test/samples_test.dart (var)"?>
 ```dart
@@ -89,15 +89,15 @@ var image = {
 [Read more](/guides/language/language-tour#variables) about variables in Dart, 
 including default values, the `final` and `const` keywords, and static types.
 
-你可以 [阅读更多](/guides/language/language-tour#variables) Dart 中关于变量的内容，包括变量的默认值，`final` 和 `const` 关键字以及静态类型等。
+你可以 [閱讀更多](/guides/language/language-tour#variables) Dart 中關於變數的內容，包括變數的預設值，`final` 和 `const` 關鍵字以及靜態型別等。
 
 ## Control flow statements
 
-## 流程控制语句
+## 流程控制陳述式
 
 Dart supports the usual control flow statements:
 
-Dart 支持常用的流程控制语句：
+Dart 支援常用的流程控制陳述式：
 
 <?code-excerpt "misc/test/samples_test.dart (control-flow)"?>
 ```dart
@@ -124,17 +124,17 @@ while (year < 2016) {
 about control flow statements in Dart,
 including `break` and `continue`, `switch` and `case`, and `assert`.
 
-你可以 [阅读更多](/guides/language/language-tour#control-flow-statements) Dart 中关于控制流程语句的内容，包括 `break` 和 `continue` 关键字、`switch` 语句和 `case` 子句以及 `assert` 语句。
+你可以 [閱讀更多](/guides/language/language-tour#control-flow-statements) Dart 中關於控制流程陳述式的內容，包括 `break` 和 `continue` 關鍵字、`switch` 陳述式和 `case` 子句以及 `assert` 陳述式。
 
 ## Functions
 
-## 函数
+## 函式
 
 [We recommend](/guides/language/effective-dart/design#types)
 specifying the types of each function's arguments and return value:
 
-[我们建议](/guides/language/effective-dart/design#types)
-为每个函数的参数以及返回值都指定类型：
+[我們建議](/guides/language/effective-dart/design#types)
+為每個函式的引數以及返回值都指定型別：
 
 <?code-excerpt "misc/test/samples_test.dart (functions)"?>
 ```dart
@@ -150,8 +150,8 @@ A shorthand `=>` (_arrow_) syntax is handy for functions that
 contain a single statement.
 This syntax is especially useful when passing anonymous functions as arguments:
 
-`=>` (**胖箭头**) 简写语法用于仅包含一条语句的函数。
-该语法在将匿名函数作为参数传递时非常有用：
+`=>` (**胖箭頭**) 簡寫語法用於僅包含一條陳述式的函式。
+該語法在將匿名函式作為引數傳遞時非常有用：
 
 <?code-excerpt "misc/test/samples_test.dart (arrow)"?>
 ```dart
@@ -162,42 +162,42 @@ Besides showing an anonymous function (the argument to `where()`),
 this code shows that you can use a function as an argument:
 the top-level `print()` function is an argument to `forEach()`.
 
-上面的示例除了向你展示了匿名函数（上例中传入 `where()` 函数的参数即是一个匿名函数）外，还向你展示了将函数作为参数使用的方式：上面示例将顶层函数 `print()` 作为参数传给了 `forEach()` 函数。
+上面的範例除了向你展示了匿名函式（上例中傳入 `where()` 函式的引數即是一個匿名函式）外，還向你展示了將函式作為引數使用的方式：上面範例將最上層函式 `print()` 作為引數傳給了 `forEach()` 函式。
 
 [Read more](/guides/language/language-tour#functions) about functions in Dart,
 including optional parameters, default parameter values, and lexical scope.
 
-你可以 [阅读更多](/guides/language/language-tour#functions) Dart 中有关函数的内容，包括可选参数、默认参数值以及词法作用域。
+你可以 [閱讀更多](/guides/language/language-tour#functions) Dart 中有關函式的內容，包括可選引數、預設引數值以及詞法作用域。
 
 ## Comments
 
-## 注释
+## 註釋
 
 Dart comments usually start with `//`.
 
-Dart 通常使用双斜杠 `//` 作为注释的开始。
+Dart 通常使用雙斜槓 `//` 作為註釋的開始。
 
 ```dart
 
-/// 这是一个文档注释。
-/// 文档注释用于为库、类以及类的成员添加注释。
-/// 像 IDE 和 dartdoc 这样的工具可以专门处理文档注释。
+/// 這是一個文件註釋。
+/// 文件註釋用於為庫、類以及類別的成員添加註釋。
+/// 像 IDE 和 dartdoc 這樣的工具可以專門處理文件註釋。
 
-/* 也可以像这样使用单斜杠和星号的注释方式 */
+/* 也可以像這樣使用單斜槓和星號的註釋方式 */
 ```
 
 [Read more](/guides/language/language-tour#comments) about comments in Dart,
 including how the documentation tooling works.
 
-你可以 [阅读更多](/guides/language/language-tour#comments) Dart 中有关注释的内容，包括文档工具的工作原理。
+你可以 [閱讀更多](/guides/language/language-tour#comments) Dart 中有關注釋的內容，包括文件工具的工作原理。
 
 ## Imports
 
-## 导入 (Import)
+## 匯入 (Import)
 
 To access APIs defined in other libraries, use `import`.
 
-使用 `import` 关键字来访问在其它库中定义的 API。
+使用 `import` 關鍵字來存取在其它庫中定義的 API。
 
 <?code-excerpt "misc/test/samples_test.dart (import)" plaster="none"?>
 ```
@@ -216,21 +216,21 @@ about libraries and visibility in Dart,
 including library prefixes, `show` and `hide`, 
 and lazy loading through the `deferred` keyword.
 
-你可以 [阅读更多](/guides/language/language-tour#libraries-and-visibility)
-Dart 中有关库和可见性的内容，包括库前缀、`show` 和 `hide`
-关键字以及通过 `deferred` 关键字实现的懒加载。
+你可以 [閱讀更多](/guides/language/language-tour#libraries-and-visibility)
+Dart 中有關庫和可見性的內容，包括庫字首、`show` 和 `hide`
+關鍵字以及透過 `deferred` 關鍵字實現的延遲載入。
 
 ## Classes
 
-## 类 (Class)
+## 類別（Class）
 
 Here's an example of a class with three properties, two constructors,
 and a method. One of the properties can't be set directly, so it's
 defined using a getter method (instead of a variable).
 
-下面的示例中向你展示了一个包含三个属性、
-两个构造函数以及一个方法的类。其中一个属性不能直接赋值，
-因此它被定义为一个 getter 方法（而不是变量）。
+下面的範例中向你展示了一個包含三個屬性、
+兩個建構函式以及一個方法的類別。其中一個屬性不能直接賦值，
+因此它被定義為一個 getter 方法（而不是變數）。
 
 <?code-excerpt "misc/lib/samples/spacecraft.dart (class)"?>
 ```dart
@@ -266,7 +266,7 @@ class Spacecraft {
 
 You might use the `Spacecraft` class like this:
 
-你可以像下面这样使用 `Spacecraft` 类：
+你可以像下面這樣使用 `Spacecraft` 類：
 
 <?code-excerpt "misc/test/samples_test.dart (use class)" plaster="none"?>
 ```dart
@@ -281,24 +281,24 @@ voyager3.describe();
 including initializer lists, optional `new` and `const`, redirecting constructors,
 `factory` constructors, getters, setters, and much more.
 
-你可以 [阅读更多](/guides/language/language-tour#classes)
-Dart 中有关类的内容，包括初始化列表、可选的 `new` 和 `const` 关键字、
-重定向构造函数、由 `factory` 关键字定义的工厂构造函数
+你可以 [閱讀更多](/guides/language/language-tour#classes)
+Dart 中有關類別的內容，包括初始化列表、可選的 `new` 和 `const` 關鍵字、
+重新導向建構函式、由 `factory` 關鍵字定義的工廠建構函式
 以及 Getter 和 Setter 方法等等。
 
 ## Enums
 
-## 枚举类型 (Enum)
+## 列舉型別 (Enum)
 
 Enums are a way of enumerating a predefined set of values or instances
 in a way which ensures that there cannot be any other instances of that type.
 
-枚举类型的取值范围是一组预定义的值或实例。
+列舉型別的取值範圍是一組預定義的值或例項。
 
 Here is an example of a simple `enum` that defines
 a simple list of predefined planet types:
 
-下面这个简单的枚举示例定义了一组行星类别：
+下面這個簡單的列舉範例定義了一組行星類別：
 
 <?code-excerpt "misc/lib/samples/spacecraft.dart (simple-enum)"?>
 ```dart
@@ -310,7 +310,7 @@ of a class describing planets,
 with a defined set of constant instances,
 namely the planets of our own solar system.
 
-下面是一个增强型枚举的示例，定义了一组行星类的常量实例，即太阳系的行星：
+下面是一個增強型列舉的範例，定義了一組行星類別的常量例項，即太陽系的行星：
 
 <?code-excerpt "misc/lib/samples/spacecraft.dart (enhanced-enum)"?>
 ```dart
@@ -340,7 +340,7 @@ enum Planet {
 
 You might use the `Planet` enum like this:
 
-你可以这样使用 `Planet` 枚举：
+你可以這樣使用 `Planet` 列舉：
 
 <?code-excerpt "misc/test/samples_test.dart (use enum)" plaster="none"?>
 ```dart
@@ -355,16 +355,16 @@ if (!yourPlanet.isGiant) {
 including enhanced enum requirements, automatically introduced properties,
 accessing enumerated value names, switch statement support, and much more.
 
-你可以 [阅读更多](/guides/language/language-tour#enums) Dart 中有关枚举的内容，
-包括增强型枚举的限制条件、枚举默认包含的属性、如何获取枚举值的名称以及在 `switch` 语句中使用枚举等等。
+你可以 [閱讀更多](/guides/language/language-tour#enums) Dart 中有關列舉的內容，
+包括增強型列舉的限制條件、列舉預設包含的屬性、如何獲取列舉值的名稱以及在 `switch` 陳述式中使用列舉等等。
 
 ## Inheritance
 
-## 扩展类（继承）
+## 類別繼承
 
 Dart has single inheritance.
 
-Dart 支持单继承。
+Dart 支援單繼承。
 
 <?code-excerpt "misc/lib/samples/spacecraft.dart (extends)"?>
 ```dart
@@ -378,14 +378,14 @@ class Orbiter extends Spacecraft {
 [Read more](/guides/language/language-tour#extending-a-class) 
 about extending classes, the optional `@override` annotation, and more.
 
-你可以 [阅读更多](/guides/language/language-tour#extending-a-class) Dart 中有关类继承的内容，比如可选的 `@override` 注解等等。
+你可以 [閱讀更多](/guides/language/language-tour#extending-a-class) Dart 中有關類繼承的內容，比如可選的 `@override` 註解等等。
 
 ## Mixins
 
 Mixins are a way of reusing code in multiple class hierarchies. The following is
 a mixin declaration:
 
-Mixin 是一种在多个类层次结构中重用代码的方法。下面的是声明一个 Mixin 的做法：
+Mixin 是一種在多個類層次結構中重用程式碼的方法。下面的是宣告一個 Mixin 的做法：
 
 <?code-excerpt "misc/lib/samples/spacecraft.dart (mixin)"?>
 ```dart
@@ -400,7 +400,7 @@ mixin Piloted {
 
 To add a mixin's capabilities to a class, just extend the class with the mixin.
 
-现在你只需使用 Mixin 的方式继承这个类就可将该类中的功能添加给其它类。
+現在你只需使用 Mixin 的方式繼承這個類就可將該類中的功能新增給其它類別。
 
 <?code-excerpt "misc/lib/samples/spacecraft.dart (mixin-use)" replace="/with/[!$&!]/g"?>
 {% prettify dart tag=pre+code %}
@@ -411,23 +411,23 @@ class PilotedCraft extends Spacecraft [!with!] Piloted {
 
 `PilotedCraft` now has the `astronauts` field as well as the `describeCrew()` method.
 
-自此，`PilotedCraft` 类中就包含了 `astronauts` 字段以及 `describeCrew()` 方法。
+自此，`PilotedCraft` 類中就包含了 `astronauts` 欄位以及 `describeCrew()` 方法。
 
 [Read more](/guides/language/language-tour#adding-features-to-a-class-mixins) about mixins.
 
-你可以 [阅读更多](/guides/language/language-tour#adding-features-to-a-class-mixins) 关于 Mixin 的内容。
+你可以 [閱讀更多](/guides/language/language-tour#adding-features-to-a-class-mixins) 關於 Mixin 的內容。
 
 ## Interfaces and abstract classes
 
-## 接口和抽象类
+## 介面和抽象類別
 
 Dart has no `interface` keyword. 
 Instead, all classes implicitly define an interface. 
 Therefore, you can implement any class.
 
-Dart 没有 `interface` 关键字。
-相反，所有的类都隐式定义了一个接口。
-因此，任意类都可以作为接口被实现。
+Dart 沒有 `interface` 關鍵字。
+相反，所有的類都隱含定義了一個介面。
+因此，任意類別都可以作為介面被實現。
 
 <?code-excerpt "misc/lib/samples/spacecraft.dart (implements)"?>
 ```dart
@@ -438,14 +438,14 @@ class MockSpaceship implements Spacecraft {
 
 [Read more](/guides/language/language-tour#implicit-interfaces) about implicit interfaces.
 
-你可以 [阅读更多](/guides/language/language-tour#implicit-interfaces) 关于隐式接口的内容。
+你可以 [閱讀更多](/guides/language/language-tour#implicit-interfaces) 關於隱含介面的內容。
 
 You can create an abstract class 
 to be extended (or implemented) by a concrete class. 
 Abstract classes can contain abstract methods (with empty bodies).
 
-你可以创建一个被任意具体类扩展（或实现）的抽象类。
-抽象类可以包含抽象方法（不含方法体的方法）。
+你可以建立一個被任意具體類擴充（或實現）的抽象類別。
+抽象類別可以包含抽象方法（不含方法體的方法）。
 
 <?code-excerpt "misc/lib/samples/spacecraft.dart (abstract)" replace="/abstract/[!$&!]/g"?>
 {% prettify dart tag=pre+code %}
@@ -463,23 +463,23 @@ Abstract classes can contain abstract methods (with empty bodies).
 Any class extending `Describable` has the `describeWithEmphasis()` method, 
 which calls the extender's implementation of `describe()`.
 
-任意一个扩展了 `Describable` 的类都拥有 `describeWithEmphasis()` 方法，
-这个方法又会去调用实现类中实现的 `describe()` 方法。
+任意一個擴充了 `Describable` 的類別都擁有 `describeWithEmphasis()` 方法，
+這個方法又會去呼叫實現類別中實現的 `describe()` 方法。
 
 [Read more](/guides/language/language-tour#abstract-classes) 
 about abstract classes and methods.
 
-你可以 [阅读更多](/guides/language/language-tour#abstract-classes) 关于抽象类和抽象方法的内容。
+你可以 [閱讀更多](/guides/language/language-tour#abstract-classes) 關於抽象類別和抽象方法的內容。
 
 ## Async
 
-## 异步
+## 非同步
 
 Avoid callback hell and make your code much more readable by
 using `async` and `await`.
 
-使用 `async` 和 `await` 关键字可以让你避免
-回调地狱 (Callback Hell) 并使你的代码更具可读性。
+使用 `async` 和 `await` 關鍵字可以讓你避免
+回呼(Callback)地獄 (Callback Hell) 並使你的程式碼更具可讀性。
 
 <?code-excerpt "misc/test/samples_test.dart (async)" replace="/async/[!$&!]/g"?>
 {% prettify dart tag=pre+code %}
@@ -493,7 +493,7 @@ Future<void> printWithDelay(String message) [!async!] {
 
 The method above is equivalent to:
 
-上面的方法相当于：
+上面的方法相當於：
 
 <?code-excerpt "misc/test/samples_test.dart (Future.then)"?>
 ```dart
@@ -507,7 +507,7 @@ Future<void> printWithDelay(String message) {
 As the next example shows, `async` and `await` help make asynchronous code
 easy to read.
 
-如下一个示例所示，`async` 和 `await` 关键字有助于使异步代码变得易于阅读。
+如下一個範例所示，`async` 和 `await` 關鍵字有助於使非同步程式碼變得易於閱讀。
 
 <?code-excerpt "misc/test/samples_test.dart (await)"?>
 ```dart
@@ -532,7 +532,7 @@ Future<void> createDescriptions(Iterable<String> objects) async {
 
 You can also use `async*`, which gives you a nice, readable way to build streams.
 
-你也可以使用 `async*` 关键字，其可以为你提供一个可读性更好的方式去生成 Stream。
+你也可以使用 `async*` 關鍵字，其可以為你提供一個可讀性更好的方式去產生 Stream。
 
 <?code-excerpt "misc/test/samples_test.dart (async*)"?>
 ```dart
@@ -548,17 +548,17 @@ Stream<String> report(Spacecraft craft, Iterable<String> objects) async* {
 asynchrony support, including `async` functions, `Future`, `Stream`,
 and the asynchronous loop (`await for`).
 
-你可以 [阅读更多](/guides/language/language-tour#asynchrony-support)
-关于异步支持的内容，
-包括异步函数、`Future`、`Stream` 以及异步循环（`await for`）。
+你可以 [閱讀更多](/guides/language/language-tour#asynchrony-support)
+關於非同步支援的內容，
+包括非同步函式、`Future`、`Stream` 以及非同步迴圈（`await for`）。
 
 ## Exceptions
 
-## 异常
+## 例外
 
 To raise an exception, use `throw`:
 
-使用 `throw` 关键字抛出一个异常：
+使用 `throw` 關鍵字丟擲一個例外：
 
 <?code-excerpt "misc/test/samples_test.dart (throw)"?>
 ```dart
@@ -569,8 +569,8 @@ if (astronauts == 0) {
 
 To catch an exception, use a `try` statement with `on` or `catch` (or both):
 
-使用 `try` 语句配合 `on` 或 `catch`（两者也可同时使用）
-关键字来捕获一个异常:
+使用 `try` 陳述式配合 `on` 或 `catch`（兩者也可同時使用）
+關鍵字來捕獲一個例外:
 
 <?code-excerpt "misc/test/samples_test.dart (try)"?>
 ```
@@ -589,18 +589,18 @@ try {
 Note that the code above is asynchronous;
 `try` works for both synchronous code and code in an `async` function.
 
-注意上述代码是异步的；同步代码以及异步函数中得代码都可以使用 `try` 捕获异常。
+注意上述程式碼是非同步的；同步程式碼以及非同步函式中得程式碼都可以使用 `try` 捕獲例外。
 
 [Read more](/guides/language/language-tour#exceptions) about exceptions, 
 including stack traces, `rethrow`, 
 and the difference between `Error` and `Exception`.
 
-你可以 [阅读更多](/guides/language/language-tour#exceptions) 
-关于异常的内容，包括栈追踪、`rethrow` 关键字以及 Error 和 Exception 之间的区别。
+你可以 [閱讀更多](/guides/language/language-tour#exceptions) 
+關於例外的內容，包括堆疊追蹤、`rethrow` 關鍵字以及 Error 和 Exception 之間的區別。
 
 ## Other topics
 
-## 其他资源
+## 其他資源
 
 Many more code samples are in the
 [language tour](/guides/language/language-tour) and the
@@ -608,6 +608,6 @@ Many more code samples are in the
 Also see the [Dart API reference,]({{site.dart-api}})
 which often contains examples.
 
-[语言概览](/guides/language/language-tour) 和
-[库概览](/guides/libraries/library-tour) 中会有更多的代码示例。
-你也可以查阅 [Dart API 文档]({{site.dart_api}})，里面也常常会有示例代码。
+[語言概覽](/guides/language/language-tour) 和
+[函式庫概覽](/guides/libraries/library-tour) 中會有更多的程式碼範例。
+你也可以查閱 [Dart API 文件]({{site.dart_api}})，裡面也常常會有範例程式碼。

@@ -2,12 +2,12 @@
 title: dart pub global
 title: dart pub global 命令
 description: Use dart pub global to run Dart scripts hosted on the pub.dev site from the command line.
-description: 使用 dart pub global 命令从命令行运行 Pub.dev 网站上托管的 Dart 脚本。
+description: 使用 dart pub global 命令從命令列執行 Pub.dev 網站上託管的 Dart 指令碼。
 ---
 
 _Global_ is one of the commands of the [pub tool](/tools/pub/cmd).
 
-_Global_ 命令是 [Pub 工具](/tools/pub/cmd) 中的一个命令。
+_Global_ 命令是 [Pub 工具](/tools/pub/cmd) 中的一個命令。
 
 Pub's `global` option allows you to run Dart scripts from the
 command line when you are not currently inside a package.
@@ -16,15 +16,15 @@ After [activating a package](#activating-a-package), you can
 [Deactivating a package](#deactivating-a-package) removes it from
 your list of globally available packages.
 
-Pub 的 `global` 选项允许你在任意位置下从命令行运行 Dart 脚本。
-在 [激活 Package](#activating-a-package) 后，
-你可以 [运行](#running-a-script) 该 Package `bin` 目录下的脚本。
-[停用 Package](#deactivating-a-package) 后你可以从全局可用的 Package 列表中将其移除。
+Pub 的 `global` 選項允許你在任意位置下從命令列執行 Dart 指令碼。
+在 [啟用 Package](#activating-a-package) 後，
+你可以 [執行](#running-a-script) 該 Package `bin` 目錄下的指令碼。
+[停用 Package](#deactivating-a-package) 後你可以從全域可用的 Package 列表中將其移除。
 
 For example, say you want to use [webdev][] to serve
 your Dart web application from the command line.
 
-例如，假设你想要通过命令使用 [webdev][] 来部署您的 Dart Web 应用。
+例如，假設你想要透過命令使用 [webdev][] 來部署您的 Dart Web 應用。
 
 ```terminal
 $ dart pub global activate webdev
@@ -34,17 +34,17 @@ $ webdev serve
 If this doesn't work, you might need to
 [set up your path](#running-a-script-from-your-path).
 
-如果该操作无效，你可能需要 [设置你的路径](#running-a-script-from-your-path)。
+如果該操作無效，你可能需要 [設定你的路徑](#running-a-script-from-your-path)。
 
 To run a Dart script from within a package, or from a
 package that your package depends on, see [dart run](/tools/dart-run).
 
-如果想要从 Package 中运行 Dart 脚本，或者从 Package 所依赖的其它 Package 中运行脚本，
-请查阅 [dart run](/tools/dart-run) 命令。
+如果想要從 Package 中執行 Dart 指令碼，或者從 Package 所依賴的其它 Package 中執行指令碼，
+請查閱 [dart run](/tools/dart-run) 命令。
 
 ## Activating a package
 
-## Package 激活
+## Package 啟用
 
 ```nocode
 dart pub global activate [--noexecutables] [--executable=<name>] [--overwrite] <package> [version-constraint]
@@ -59,16 +59,16 @@ Once you've activated a package, see [Running a
 script](#running-a-script) to run scripts from the package's
 `bin` directory.
 
-当你想从命令行运行某个 Package 中的可执行对象时你需要先激活它。该 Package 可以是在 [pub.dev 网站]({{site.pub}})、Git 仓库或者你当前设备上。一旦你激活了 Package，就可以参阅 [Running a script](#running-a-script) 运行位于 Package `bin` 目录下的脚本。
+當你想從命令列執行某個 Package 中的可執行物件時你需要先啟用它。該 Package 可以是在 [pub.dev 網站]({{site.pub}})、Git 儲存庫或者你當前裝置上。一旦你激活了 Package，就可以參閱 [Running a script](#running-a-script) 執行位於 Package `bin` 目錄下的指令碼。
 
 When you activate a package you can specify an optional version
 constraint.  See the [constraint](#options) flag for usage examples.
 
-你可以在激活 Package 时指定一个可选的版本限制参数。关于其使用示例请查阅 [版本限制参数](#options)。
+你可以在啟用 Package 時指定一個可選的版本限制引數。關於其使用範例請查閱 [版本限制引數](#options)。
 
 ### Activating a package on the pub.dev site
 
-### 激活 pub.dev 网站上的 Package
+### 啟用 pub.dev 網站上的 Package
 
 ```terminal
 $ dart pub global activate <pub.dev package>
@@ -76,7 +76,7 @@ $ dart pub global activate <pub.dev package>
 
 Specify a package on the pub.dev site to activate it. For example:
 
-激活 pub.dev 网站上的一个 Package。例如：
+啟用 pub.dev 網站上的一個 Package。例如：
 
 ```terminal
 $ dart pub global activate markdown
@@ -84,7 +84,7 @@ $ dart pub global activate markdown
 
 ### Activating a package with Git
 
-### 激活 Git 仓库中的 Package
+### 啟用 Git 儲存庫中的 Package
 
 ```terminal
 $ dart pub global activate --source git <Git URL>
@@ -96,7 +96,7 @@ a package in a Git repository. The following examples,
 which activate the `async_await` package on
 [GitHub](https://github.com/), are equivalent:
 
-使用 `--source git`（或 `-sgit` 简写）命令参数可以激活位于 Git 仓库中的 Package。下面的两个示例都可以用于激活位于 [GitHub](https://github.com/) 网站上名为 `async_await` 的 Package。
+使用 `--source git`（或 `-sgit` 簡寫）命令引數可以啟用位於 Git 儲存庫中的 Package。下面的兩個範例都可以用於啟用位於 [GitHub](https://github.com/) 網站上名為 `async_await` 的 Package。
 
 ```terminal
 $ dart pub global activate --source git https://github.com/dart-lang/async_await.git
@@ -108,8 +108,8 @@ To specify a different location,
 use the `--git-path` option with
 a path relative to the repository root:
 
-Pub 会尝试在 Git 仓库的根目录寻找 package。
-你可以使用 `--git-path` 选项为 Pub 指定用于查找的相对于仓库的路径：
+Pub 會嘗試在 Git 儲存庫的根目錄尋找 package。
+你可以使用 `--git-path` 選項為 Pub 指定用於查詢的相對於儲存庫的路徑：
 
 ```terminal
 $ dart pub global activate -sgit https://github.com/dart-lang/http.git --git-path pkgs/http/
@@ -117,7 +117,7 @@ $ dart pub global activate -sgit https://github.com/dart-lang/http.git --git-pat
 
 ### Activating a package on your local machine
 
-### 激活当前设备上的 Package
+### 啟用當前裝置上的 Package
 
 ```terminal
 $ dart pub global activate --source path <path>
@@ -127,7 +127,7 @@ Use `activate --source path <path>` to activate a package on your local machine.
 The following example activates the `stopwatch` package from the
 `~/dart` directory:
 
-使用 `activate --source path <path>` 命令参数激活当前设备上的 Package。下面的示例激活了位于 `~/dart` 目录下名为 `stopwatch` 的 Package。
+使用 `activate --source path <path>` 命令引數啟用當前裝置上的 Package。下面的範例激活了位於 `~/dart` 目錄下名為 `stopwatch` 的 Package。
 
 ```terminal
 $ dart pub global activate --source path ~/dart/stopwatch
@@ -135,35 +135,35 @@ $ dart pub global activate --source path ~/dart/stopwatch
 
 ### Updating an activated package
 
-### 更新已经激活的 Package
+### 更新已經啟用的 Package
 
 Once a package has been activated, you can upgrade it by activating the
 package again.
 
-你可以再次激活一个已经激活的 Package 以更新它。
+你可以再次啟用一個已經啟用的 Package 以更新它。
 
 ## Running a script
 
-## 运行脚本
+## 執行指令碼
 
 You can directly run a script from an activated package from the
 command line. If you are unable to run the script directly,
 you can also use `dart pub global run`.
 
-你可以从命令行直接运行已激活 Package 中的 脚本。如果你不能直接运行脚本，可以尝试使用 `dart pub global run` 命令。
+你可以從命令列直接執行已啟用 Package 中的 指令碼。如果你不能直接執行指令碼，可以嘗試使用 `dart pub global run` 命令。
 
 ### Running a script from your PATH
 
-### 运行指定路径中的脚本
+### 執行指定路徑中的指令碼
 
 To run a script directly from the command line, add the [system cache][] `bin`
 directory to your `PATH` environment variable.
 
-在从命令行直接运行脚本前，你还需要将 [系统缓存][system cache] 的 `bin` 文件目录添加至 PATH 路径中。
+在從命令列直接執行指令碼前，你還需要將 [系統快取][system cache] 的 `bin` 檔案目錄新增至 PATH 路徑中。
 For example, say you've activated the webdev package,
 but you still can't run the command:
 
-例如，假设你已经激活了名为 webdev 的包，但是你依然不能运行它：
+例如，假設你已經激活了名為 webdev 的套件，但是你依然不能執行它：
 
 ```terminal
 $ dart pub global activate webdev
@@ -174,9 +174,9 @@ $ webdev serve
 Verify that the `bin` directory for the system cache is in your path.
 The following `PATH` variable, on macOS, includes the system cache:
 
-此时你需要确认 Pub 系统缓存的 `bin` 目录是否已经添加至 PATH 路径中。
-例如在 macOS 上，使用下述命令可以查看你的 `PATH` 路径是否已经包含了
-Pub 系统缓存的 `bin` 目录：
+此時你需要確認 Pub 系統快取的 `bin` 目錄是否已經新增至 PATH 路徑中。
+例如在 macOS 上，使用下述命令可以檢視你的 `PATH` 路徑是否已經包含了
+Pub 系統快取的 `bin` 目錄：
 
 ```terminal
 $ echo $PATH
@@ -186,12 +186,12 @@ $ echo $PATH
 If this directory is missing from your `PATH`,
 locate the file for your platform and add it.
 
-如果 `PATH` 路径中没有添加 Pub 缓存目录，你需要根据你当前设备的系统平台找到对应的 Pub 缓存目录并将之添加。
+如果 `PATH` 路徑中沒有新增 Pub 快取目錄，你需要根據你當前裝置的系統平台找到對應的 Pub 快取目錄並將之新增。
 
 |-------------------+---------------------------|
 |      Platform     |      Cache location       |
 
-|        平台       |          缓存位置           |
+|        平台       |          快取位置           |
 
 |-------------------|---------------------------|
 | macOS or Linux | `$HOME/.pub-cache/bin`        |
@@ -204,11 +204,11 @@ locate the file for your platform and add it.
 <sup><strong>*</strong></sup> The exact location of the system cache
 may vary for different versions of Windows.
 
-<sup><strong>*</strong></sup> 对于不同版本的 Windows 系统，Pub 系统缓存的确切位置可能有所不同。
+<sup><strong>*</strong></sup> 對於不同版本的 Windows 系統，Pub 系統快取的確切位置可能有所不同。
 
 You can now directly invoke the command:
 
-现在你可以直接调用命令了：
+現在你可以直接呼叫命令了：
 
 {% prettify nocode tag=pre+code %}
 $ cd web_project
@@ -219,11 +219,11 @@ If the script still fails to run from the command line, the
 package may not be [configured](#configuring-package-executables) for
 this feature. You can still run the script using `dart pub global run`.
 
-如果此时从命令行运行脚本依然失败，则 Package 可能没有针对此功能进行 [配置](#configuring-package-executables)。但你仍然可以使用 `dart pub global run` 命令运行它。
+如果此時從命令列執行指令碼依然失敗，則 Package 可能沒有針對此功能進行 [配置](#configuring-package-executables)。但你仍然可以使用 `dart pub global run` 命令執行它。
 
 ### Running a script using `dart pub global run`
 
-### 使用 `dart pub global run` 命令运行脚本
+### 使用 `dart pub global run` 命令執行指令碼
 
 ```nocode
 $ dart pub global run <package>:<executable> [args...]
@@ -234,7 +234,7 @@ you can still use `dart pub global run`.
 The following command runs the `bin/bar.dart` script from the
 `foo` package, passing in two arguments.
 
-即使某个脚本没有配置成可以从命令行运行，你依然可以使用 `pub global run` 命令运行它。下述命令传递两个参数从名为 `foo` 的 Package 运行 `bin/bar.dart` 脚本。
+即使某個指令碼沒有配置成可以從命令列執行，你依然可以使用 `pub global run` 命令執行它。下述命令傳遞兩個引數從名為 `foo` 的 Package 執行 `bin/bar.dart` 指令碼。
 
 ```terminal
 $ dart pub global run foo:bar arg1 arg2
@@ -242,11 +242,11 @@ $ dart pub global run foo:bar arg1 arg2
 
 ### Configuring package executables
 
-### 配置 Package 为可运行的
+### 配置 Package 為可執行的
 
 If you are not a package developer, you can skip this section.
 
-如果你不是一个 Package 开发者，你可以跳过本节。
+如果你不是一個 Package 開發者，你可以跳過本節。
 
 A package can expose some of its scripts as executables
 that can be run directly from the command line. The script or scripts
@@ -256,10 +256,10 @@ entry of the pubspec file.  For example, the following pubspec file
 identifies `bin/helloworld.dart` as an executable for the helloworld
 package:
 
-Package 可以暴露它的一些脚本以直接从命令行运行。
-这些脚本必须在 pubspec 文件的 [`executables`](/tools/pub/pubspec#executables)
-标签下列出。例如，下述名为 helloworld 的 Package 在其 pubspec 文件中将
-`bin/helloworld.dart` 暴露为可以运行：
+Package 可以暴露它的一些指令碼以直接從命令列執行。
+這些指令碼必須在 pubspec 檔案的 [`executables`](/tools/pub/pubspec#executables)
+標籤下列出。例如，下述名為 helloworld 的 Package 在其 pubspec 檔案中將
+`bin/helloworld.dart` 暴露為可以執行：
 
 ```yaml
 name: helloworld
@@ -272,7 +272,7 @@ Failing to list a script under the `executables` tag reduces the script's
 usability: unlisted scripts can be executed using `dart pub global run`, but not
 directly from the command line.
 
-没有在 `executables` 标签下列出的脚本可能会降低脚本的易用性：这些脚本虽然可以使用 `dart pub global run` 命令运行，但是不能直接从命令行运行。
+沒有在 `executables` 標籤下列出的指令碼可能會降低指令碼的易用性：這些指令碼雖然可以使用 `dart pub global run` 命令執行，但是不能直接從命令列執行。
 
 ## Deactivating a package
 
@@ -285,7 +285,7 @@ $ dart pub global deactivate <package>
 Use `deactivate` to remove a package from the list of available
 global packages. For example:
 
-使用 `deactivate` 命令参数可以将 Package 从全局可用的 Package 列表移除。例如：
+使用 `deactivate` 命令引數可以將 Package 從全域可用的 Package 列表移除。例如：
 
 ```terminal
 $ dart pub global deactivate markdown
@@ -294,11 +294,11 @@ $ dart pub global deactivate markdown
 You can no longer invoke the package's scripts using `dart pub global run`,
 or at the command line.
 
-此时你不能使用 `dart pub global run` 命令或从命令行运行该 Package 的脚本。
+此時你不能使用 `dart pub global run` 命令或從命令列執行該 Package 的指令碼。
 
 ## Listing active packages
 
-## 列出激活的 Package
+## 列出啟用的 Package
 
 ```terminal
 $ dart pub global list
@@ -306,16 +306,16 @@ $ dart pub global list
 
 Use `list` to list all currently active packages.
 
-使用 `list` 列出当前所有已激活的 Package。
+使用 `list` 列出當前所有已啟用的 Package。
 
 ## Options
 
-## 选项
+## 選項
 
 For options that apply to all pub commands, see
 [Global options](/tools/pub/cmd#global-options).
 
-你可以查阅 [全局选项](/tools/pub/cmd#global-options) 获取 Pub 命令所支持的命令选项。
+你可以查閱 [全域選項](/tools/pub/cmd#global-options) 獲取 Pub 命令所支援的命令選項。
 
 ### `[version-constraint]`
 
@@ -325,7 +325,7 @@ For example, the following command pulls
 the 0.6.0 version of the `markdown` package:
 
 使用 `dart pub global activate` 拉取 Package 的指定版本。
-例如，下述命令会拉取 `markdown` 这个 Package 的 0.6.0 版本：
+例如，下述命令會拉取 `markdown` 這個 Package 的 0.6.0 版本：
 
 ```terminal
 $ dart pub global activate markdown 0.6.0
@@ -334,7 +334,7 @@ $ dart pub global activate markdown 0.6.0
 If you specify a range, pub picks the best version that meets that
 constraint. For example:
 
-如果你指定的是一个范围，Pub 则会在这个范围内选取一个最适合的版本。例如：
+如果你指定的是一個範圍，Pub 則會在這個範圍內選取一個最適合的版本。例如：
 
 ```terminal
 $ dart pub global activate foo <3.0.0
@@ -347,8 +347,8 @@ to globally activate the specified package,
 but not put any executables in `bin`.
 You have to use `dart pub global run` to run any executables.
 
-会在全局范围内激活 Package 但不会在 `bin` 目录下生成任何文件。
-你必须使用 `dart pub global run` 来运行任意这些可执行的对象。
+會在全域範圍內啟用 Package 但不會在 `bin` 目錄下產生任何檔案。
+你必須使用 `dart pub global run` 來執行任意這些可執行的物件。
 
 ### `--executable=<name>` or `-x <name>`
 
@@ -358,15 +358,15 @@ Use with `dart pub global activate`
 to add the specified executable to your PATH.
 You can pass more than one of these flags.
 
-将指定的可执行对象添加至你的 PATH 路径中。
-你可以在一次命令执行中多次使用该选项以添加多个可执行对象到你的 PATH 路径中。
+將指定的可執行物件新增至你的 PATH 路徑中。
+你可以在一次命令執行中多次使用該選項以新增多個可執行物件到你的 PATH 路徑中。
 
 For example, the following command adds `bar` and `baz`,
 (but not any other executables that `foo` might define)
 to your PATH.
 
-例如，下述命令添加了 foo 中的 `bar` 和 `baz` 两个可执行对象
-（不包括 foo 中定义的其它可执行对象）到你的 PATH 中。
+例如，下述命令添加了 foo 中的 `bar` 和 `baz` 兩個可執行物件
+（不包括 foo 中定義的其它可執行物件）到你的 PATH 中。
 
 ```terminal
 $ dart pub global activate foo -x bar -x baz
@@ -379,15 +379,15 @@ to overwrite any previously activated global executables
 with the same name. If you don't specify this flag,
 the preexisting executable will not be replaced.
 
-默认情况下，如果执行的两个全局 Package 名字冲突了，那么会优先执行最先执行过的那个。
-但是如果你指定该标识，那么新执行的 Package 则会覆盖之前执行的那些。
+預設情況下，如果執行的兩個全域 Package 名字衝突了，那麼會優先執行最先執行過的那個。
+但是如果你指定該標識，那麼新執行的 Package 則會覆蓋之前執行的那些。
 
 {{site.alert.info}}
 
   *Problems?*
   See [Troubleshooting Pub](/tools/pub/troubleshoot).
 
-  **有疑问？** 请查阅 [Pub 疑难协助](/tools/pub/troubleshoot)。
+  **有疑問？** 請查閱 [Pub 疑難協助](/tools/pub/troubleshoot)。
 
 {{site.alert.end}}
 

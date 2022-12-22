@@ -1,8 +1,8 @@
 ---
 title: The pubspec file
-title: Pubspec 文件
+title: Pubspec 檔案
 description: Reference guide for the fields in pubspec.yaml.
-description: 对于 pubspec.yaml 文件中字段引用的教程
+description: 對於 pubspec.yaml 檔案中欄位參考的課程
 ---
 
 Every [pub package](/guides/packages) needs some metadata so it can specify its

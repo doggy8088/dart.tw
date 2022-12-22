@@ -1,16 +1,16 @@
 ---
 title: Write command-line apps
-title: 编写命令行应用
+title: 編寫命令列應用
 description: Basics for command-line apps.
-description: 编写命令行应用的基础教程。
+description: 編寫命令列應用的基礎課程。
 nextpage:
   url: /tutorials/server/httpserver
   title: Write HTTP servers
-  title: 编写 HTTP 服务端应用
+  title: 編寫 HTTP 伺服器端應用
 prevpage:
   url: /tutorials/server/get-started
   title: "Get started: command-line and server apps"
-  title: 起步教程：编写命令行和服务端应用
+  title: 起步課程：編寫命令列和伺服器端應用
 ---
 
 {% assign _api = site.dart-api | append: '/' | append: site.data.pkg-vers.SDK.channel -%}

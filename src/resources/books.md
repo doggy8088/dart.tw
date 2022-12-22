@@ -1,8 +1,8 @@
 ---
 title: Books about Dart
-title: 与 Dart 相关的书籍
+title: 與 Dart 相關的書籍
 description: Read all about it! Here's a collection of books about Dart.
-description: 这里列举与 Dart 相关的书籍。
+description: 這裡列舉與 Dart 相關的書籍。
 ---
 
 Here's a collection of books about the Dart language.

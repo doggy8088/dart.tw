@@ -1,8 +1,8 @@
 ---
 title: The Dart VM
-title: DartVM 运行环境
+title: DartVM 執行環境
 description: "The reference page for using 'dart' to run command-line apps."
-description: dart 命令的参考页面。
+description: dart 命令的參考頁面。
 ---
 
 You can use the _dart_ tool (`bin/dart`) to run Dart command-line apps such as

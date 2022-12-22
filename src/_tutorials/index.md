@@ -1,8 +1,8 @@
 ---
 title: Tutorials
-title: Dart 语言教程文档
+title: Dart 語言課程文件
 description: Tutorials for writing Dart apps.
-description: 撰写 Dart 应用的教程文档。
+description: 撰寫 Dart 應用的課程文件。
 ---
 
 These tutorials teach you how to use the Dart
@@ -10,8 +10,8 @@ language, tools, and APIs to build applications.
 If you want a hands-on coding experience, try a
 **[codelab](/codelabs)**.
 
-这些指南会教你如何使用 Dart 语言，工具，以及 API 
-构建应用程序。如果你想要一份体验动手编码的指导，请尝试
+這些指南會教你如何使用 Dart 語言，工具，以及 API 
+建構應用程式。如果你想要一份體驗動手編碼的指導，請嘗試
 **[codelab](/codelabs)** 。
 
 ## The basics
@@ -23,14 +23,14 @@ which you can get from skimming the
 Next, learn about futures by following the
 [asynchronous programming codelab](/codelabs/async-await).
 
-通过浏览 [language samples](/samples) 和 [language tour](/guides/language/language-tour)，你可以对 Dart 语言有一个初步了解，并且开始我们的 Dart 学习之旅了。
+透過瀏覽 [language samples](/samples) 和 [language tour](/guides/language/language-tour)，你可以對 Dart 語言有一個初步瞭解，並且開始我們的 Dart 學習之旅了。
 
 Once you're familiar with the language and futures,
 learn about _streams_ and _packages_,
 which are fundamental to most Dart programs.
 
-当你熟悉该语言后，可以进一步了解 _streams_ 和 _futures_，它们是众多 Dart 程序的基础。
-接下来你可以开始学习如何安装包——共享代码能使你的学习更加高效。
+當你熟悉該語言後，可以進一步瞭解 _streams_ 和 _futures_，它們是眾多 Dart 程式的基礎。
+接下來你可以開始學習如何安裝包——共享程式碼能使你的學習更加高效。
 
 <div class="card-grid no_toc_section">
   <div class="card">
@@ -52,24 +52,24 @@ which are fundamental to most Dart programs.
 
 ## Web apps
 
-## Web 应用
+## Web 應用
 
 {% include web-tutorials.md %}
 
 ## More tutorials
 
-## 更多学习教程
+## 更多學習課程
 
 * [Flutter tutorials](https://flutter.dev/tutorials)
 
-  [Flutter 学习指南](https://flutter.dev/tutorials)
+  [Flutter 學習指南](https://flutter.dev/tutorials)
 
 * [Dart Academy](https://dart.academy)
 
-  [Dart 学院](https://dart.academy)
+  [Dart 學院](https://dart.academy)
 
 See the [Flutter tutorials.](https://flutter.dev/tutorials)
 
-请查看 [Flutter 教程。](https://flutter.dev/tutorials)
+請檢視 [Flutter 課程。](https://flutter.dev/tutorials)
 
 <!-- * [Dart Academy](https://dart.academy) -->

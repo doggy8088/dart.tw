@@ -1,6 +1,6 @@
 ---
 title: Commonly used packages
-title: 常用 package 介绍
+title: 常用 package 介紹
 description: Some of the most useful and popular packages, and where you can learn more.
 description: 一些常用的 package 的列表。
 ---
@@ -10,12 +10,12 @@ This page lists some of the most popular and useful
 To find more packages—and search [core libraries](/guides/libraries)
 as well—use the [pub.dev site.]({{site.pub}})
 
-本章列出了一些 Dart 开发者发布的非常流行的有用的 [package](/guides/packages)。
-到 [Pub 网站]({{site.pub}}) 发现更多 package 及 [核心库](/guides/libraries)。
+本章列出了一些 Dart 開發者釋出的非常流行的有用的 [package](/guides/packages)。
+到 [Pub 網站]({{site.pub}}) 發現更多 package 及 [核心函式庫](/guides/libraries)。
 
 Commonly used packages fall into three groups:
 
-常用 package 分为以下三组：
+常用 package 分為以下三組：
 
 * [General-purpose packages](#general-purpose-packages)
 
@@ -23,11 +23,11 @@ Commonly used packages fall into three groups:
 
 * [Packages that expand on Dart core libraries](#packages-that-correspond-to-sdk-libraries)
   
-  [在 Dart 核心库上的扩展 package](#packages-that-correspond-to-sdk-libraries)
+  [在 Dart 核心函式庫上的擴充 package](#packages-that-correspond-to-sdk-libraries)
 
 * [Specialized packages](#specialized-packages)
   
-  [专业 package](#specialized-packages)
+  [專業 package](#specialized-packages)
 
 ## General-purpose packages
 
@@ -35,7 +35,7 @@ Commonly used packages fall into three groups:
 
 The following packages are useful for a wide range of projects.
 
-以下 package 被广泛的应用于项目中。
+以下 package 被廣泛的應用於專案中。
 
 | **Package** | **Description** | **Commonly used APIs** |
 | [archive]({{site.pub-pkg}}/archive) | Encodes and decodes various archive and compression formats. | Archive, ArchiveFile, TarEncoder, TarDecoder, ZipEncoder, ZipDecoder |
@@ -56,13 +56,13 @@ The following packages are useful for a wide range of projects.
 
 ## Packages that expand on Dart core libraries {#packages-that-correspond-to-sdk-libraries}
 
-## 在 Dart 核心库上的扩展 package {#packages-that-correspond-to-sdk-libraries}
+## 在 Dart 核心函式庫上的擴充 package {#packages-that-correspond-to-sdk-libraries}
 
 Each of the following packages builds upon a [core library](/guides/libraries),
 adding functionality and filling in missing features:
 
-以下 package 基于 [核心库](/guides/libraries) 构建，
-添加功能，并补全缺少的功能：
+以下 package 基於 [核心函式庫](/guides/libraries) 建構，
+新增功能，並自動完成缺少的功能：
 
 | **Package** | **Description** | **Commonly used APIs** |
 | [async]({{site.pub-pkg}}/async) | Expands on dart:async, adding utility classes to work with asynchronous computations. For more information, see [Unboxing Packages: async part 1]({{site.news}}/2016/03/unboxing-packages-async-part-1.html), [part 2]({{site.news}}/2016/03/unboxing-packages-async-part-2.html), and [part 3.]({{site.news}}/2016/04/unboxing-packages-async-part-3.html) | AsyncMemoizer, CancelableOperation, FutureGroup, LazyStream, Result, StreamCompleter, StreamGroup, StreamSplitter |
@@ -74,12 +74,12 @@ adding functionality and filling in missing features:
 
 ## Specialized packages
 
-## 专业 package
+## 專業 package
 
 Here are some tips for finding packages that are more specialized,
 such as packages for mobile (Flutter) and web development.
 
-以下是一些查找更专业软件 package 的技巧，例如用于移动开发 (Flutter) 和 Web 开发的 package。
+以下是一些查詢更專業軟體 package 的技巧，例如用於行動開發 (Flutter) 和 Web 開發的 package。
 
 
 ### Flutter packages
@@ -88,23 +88,23 @@ See [Using packages]({{site.flutter-docs}}/development/packages-and-plugins/usin
 on the Flutter site.
 Or use the pub.dev site to [search for Flutter packages.]({{site.pub}}/flutter)
 
-在 Flutter 网站，查看 [package 的使用]({{site.flutter-docs}}/development/packages-and-plugins/using-packages)。
-或者使用 Pub 网站 [查找 Flutter package]({{site.pub}}/flutter)。
+在 Flutter 網站，檢視 [package 的使用]({{site.flutter-docs}}/development/packages-and-plugins/using-packages)。
+或者使用 Pub 網站 [查詢 Flutter package]({{site.pub}}/flutter)。
 
 ### Web packages
 
 See [Web libraries and packages](/web/libraries).
 Or use the pub.dev site to [search for web packages.]({{site.pub}}/web)
 
-查看 [Web 库和 package](/web/libraries)。
-或者使用 Pub 网站 [查找用于 Web 的 package]({{site.pub}}/web)。
+檢視 [Web 庫和 package](/web/libraries)。
+或者使用 Pub 網站 [查詢用於 Web 的 package]({{site.pub}}/web)。
 
 ### Command-line and server packages
 
-### 命令行和服务器 package
+### 命令列和伺服器 package
 
 See [Command-line and server libraries and packages](/server/libraries).
 Or use the pub.dev site to [search for other packages.]({{site.pub}})
 
-查看 [命令行和服务器的库和 package](/server/libraries)。
-或者使用 pub.dev 网站 [查找用于其它应用的 package]({{site.pub}})。
+檢視 [命令列和伺服器的函式庫和 package](/server/libraries)。
+或者使用 pub.dev 網站 [查詢用於其它應用的 package]({{site.pub}})。

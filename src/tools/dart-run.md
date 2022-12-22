@@ -2,7 +2,7 @@
 title: dart run
 title: dart run 命令
 description: Command-line tool for running a Dart program.
-description: 运行Dart程序的命令行工具。
+description: 執行Dart程式的命令列工具。
 ---
 
 The `dart run` command supports running 
@@ -13,10 +13,10 @@ and the Dart VM tool.
 To run a program from an arbitrary location,
 use the [pub global](/tools/pub/cmd/pub-global) command.
 
-`dart run` 命令支持运行文件、当前 package
-或者当前 package 的依赖中运行Dart程序。
-该命令提供了以前在 `pub run` 和 Dart VM 工具里提供的功能。
-如果想从任意位置运行程序，可以使用 [pub global](/tools/pub/cmd/pub-global) 命令。
+`dart run` 命令支援執行檔案、當前 package
+或者當前 package 的依賴中執行Dart程式。
+該命令提供了以前在 `pub run` 和 Dart VM 工具裡提供的功能。
+如果想從任意位置執行程式，可以使用 [pub global](/tools/pub/cmd/pub-global) 命令。
 
 ```
 dart run [options] [<DART_FILE> | <PACKAGE_TARGET>] [args]
@@ -24,7 +24,7 @@ dart run [options] [<DART_FILE> | <PACKAGE_TARGET>] [args]
 
 Here's an example of creating a new app and running it:
 
-下面的例子演示了如何创建并且运行一个 Dart 程序：
+下面的例子示範瞭如何建立並且執行一個 Dart 程式：
 
 ```terminal
 $ dart create myapp
@@ -36,11 +36,11 @@ $ dart run
 
 ## Running a Dart file
 
-## 运行 Dart 文件
+## 執行 Dart 檔案
 
 You can run a Dart file by passing its relative path:
 
-可以通过传入 Dart 文件的相对路径来运行一个 Dart 程序：
+可以透過傳入 Dart 檔案的相對路徑來執行一個 Dart 程式：
 
 ```terminal
 $ dart run tool/debug.dart
@@ -48,7 +48,7 @@ $ dart run tool/debug.dart
 
 ## Running a program that's in a package
 
-## 运行 package 中的 Dart 程序
+## 執行 package 中的 Dart 程式
 
 The instructions in this section assume that
 you're executing the `dart run` command
@@ -57,13 +57,13 @@ from the directory that's at the top of a Dart package
 For information on the directory structure of Dart packages, see
 [package layout conventions](/guides/libraries/create-library-packages).
 
-本节说明的前提是你在 package 的根目录执行 `dart run` 命令。
-更多关于 package 目录结构的介绍，请查阅
-[package 布局约定](/guides/libraries/create-library-packages)。
+本節說明的前提是你在 package 的根目錄執行 `dart run` 命令。
+更多關於 package 目錄結構的介紹，請查閱
+[package 佈局約定](/guides/libraries/create-library-packages)。
 
 ### In a depended-on package
 
-### 运行依赖 package 中的 Dart 程序
+### 執行依賴 package 中的 Dart 程式
 
 You can run programs that are
 distributed in the `bin` directory of any package
@@ -72,17 +72,17 @@ To run such a program,
 specify the depended-on package name and the program name.
 You can omit the program name if it's the same as the package name.
 
-你可以运行当前 package 所依赖的任何 package 的 Dart 程序，只要它在 `bin` 目录下。
-运行时请指定依赖的 package 名和程序名。
-如果程序名与 package 名相同，则可以省略。
+你可以運行當前 package 所依賴的任何 package 的 Dart 程式，只要它在 `bin` 目錄下。
+執行時請指定依賴的 package 名和程式名。
+如果程式名與 package 名相同，則可以省略。
 
 For example, say you're in the top directory of a package
 that depends on the `bar` package.
 To run the main program that's in the `bar` package (`bin/bar.dart`),
 you can use this command:
 
-例如，在 package 的根目录，
-想运行一个名为 `bar` 的依赖 package 中的 main 程序（`bin/bar.dart`），
+例如，在 package 的根目錄，
+想執行一個名為 `bar` 的依賴 package 中的 main 程式（`bin/bar.dart`），
 使用如下命令：
 
 ```terminal
@@ -94,9 +94,9 @@ use the form `<package name>:<program name>`. For example,
 to run the program `bin/baz.dart` that's in the `bar` package,
 use this command:
 
-如果程序名和 package 名不同，
-则需要使用 `<package 名>:<程序名>` 的形式来运行程序。
-比如 `bin/baz.dart` 程序在名为 `bar` 的 package 中, 我们就可以这样运行:
+如果程式名和 package 名不同，
+則需要使用 `<package 名>:<程式名>` 的形式來執行程式。
+比如 `bin/baz.dart` 程式在名為 `bar` 的 package 中, 我們就可以這樣執行:
 
 ```terminal
 $ dart run bar:baz
@@ -105,12 +105,12 @@ $ dart run bar:baz
 The `bin` directory is the only place with visible programs.
 All other directories in the depended-on package are private.
 
-放在 `bin` 目录下的 Dart 文件是可以被 Dart 命令行工具直接访问的，
-依赖 package 中的其他目录都是私有的。
+放在 `bin` 目錄下的 Dart 檔案是可以被 Dart 命令列工具直接存取的，
+依賴 package 中的其他目錄都是私有的。
 
 ### In the current package
 
-### 在当前 package 中运行 Dart 程序
+### 在當前 package 中執行 Dart 程式
 
 When the current directory matches the package name
 (that is, you're in the directory that matches
@@ -120,20 +120,20 @@ If the program name matches the package name
 (that is, it's the main program),
 then you can also omit the program name.
 
-当当前的路径与 package 名匹配时（即文件夹名称与 pubspec 中的 `name` 属性相同），
+噹噹前的路徑與 package 名匹配時（即資料夾名稱與 pubspec 中的 `name` 屬性相同），
 可以省略 package 名。
-如果程序名与 package 名匹配（也就是它是 main 程序），
-也可以省略程序名。
+如果程式名與 package 名匹配（也就是它是 main 程式），
+也可以省略程式名。
 
 Here's the shortest form of `dart run`,
 which runs the main program for the current package.
 For example, if you're in the top directory of the `foo` package,
 this command runs `bin/foo.dart`:
 
-`dart run` 是运行 Dart 程序最短的形式，
-它会运行当前 package 的主程序。
-例如，如果你在名为 `foo` 的 package 根目录执行下面命令，
-实际上会运行 `bin/foo.dart` 文件：
+`dart run` 是執行 Dart 程式最短的形式，
+它會運行當前 package 的主程式。
+例如，如果你在名為 `foo` 的 package 根目錄執行下面命令，
+實際上會執行 `bin/foo.dart` 檔案：
 
 ```terminal
 $ dart run
@@ -143,8 +143,8 @@ If the program name doesn't match the package name,
 then add a colon and the program name.
 For example, this command runs `bin/baz.dart` in the current package:
 
-如果程序名和 package 名不同，需要使用 `:<程序名>` 的形式来运行程序，
-比如运行当前 package 中的 `bin/baz.dart` 文件:
+如果程式名和 package 名不同，需要使用 `:<程式名>` 的形式來執行程式，
+比如運行當前 package 中的 `bin/baz.dart` 檔案:
 
 ```terminal
 $ dart run :baz
@@ -153,7 +153,7 @@ $ dart run :baz
 To run a program that's in the current package but not in the `bin` directory,
 pass a relative path (as shown before):
 
-要运行在当前 package 但不在 `bin` 目录的程序时，通过传递相对路径运行（如前文所示）：
+要執行在當前 package 但不在 `bin` 目錄的程式時，透過傳遞相對路徑執行（如前文所示）：
 
 ```terminal
 $ dart run tool/debug.dart
@@ -161,12 +161,12 @@ $ dart run tool/debug.dart
 
 ## Supplying arguments to main()
 
-## 给 main() 传递参数
+## 給 main() 傳遞引數
 
 To supply [arguments to the `main()` function][args],
 put them at the end of the command:
 
-若你需要 [给 `main()` 函数传递参数][args]，在命令行后面添加参数即可：
+若你需要 [給 `main()` 函式傳遞引數][args]，在命令列後面新增引數即可：
 
 ```terminal
 $ dart run tool/debug.dart arg1 arg2
@@ -177,8 +177,8 @@ add the package name.
 Here's an example of running `bin/foo.dart` with arguments
 while you're in the top directory of the `foo` package:
 
-在当前 package 中运行 `main` 程序需要添加 package 名，
-比如要传递参数并运行位于 `foo` package 根目录中的 `bin/foo.dart` 程序：
+在當前 package 中執行 `main` 程式需要新增 package 名，
+比如要傳遞引數並執行位於 `foo` package 根目錄中的 `bin/foo.dart` 程式：
 
 ```terminal
 $ dart run foo arg1 arg2
@@ -188,20 +188,20 @@ $ dart run foo arg1 arg2
 
 ## Debugging
 
-## 调试
+## 除錯
 
 To enable debugging, 
 add one or more of these common debugging options
 to your `dart run` command:
 
-若要启用调试功能，
-将下面的调试选项加入到 `dart run` 命令中:
+若要啟用除錯功能，
+將下面的除錯選項加入到 `dart run` 命令中:
 
 - To enable [`assert` statements][assert],
   add the `--enable-asserts` flag:
 
-  要启用 [`assert` 断言][assert]，
-  加入 `--enable-asserts` 命令行参数:
+  要啟用 [`assert` 斷言][assert]，
+  加入 `--enable-asserts` 命令列引數:
 
   ```terminal
   $ dart run --enable-asserts tool/debug.dart
@@ -211,8 +211,8 @@ to your `dart run` command:
   through [Dart DevTools](/tools/dart-devtools),
   add the `--observe` flag:
 
-  若要使用 [Dart 开发者工具](/tools/dart-devtools) 
-  来调试和做性能分析，加入 `--observe` 命令行参数:
+  若要使用 [Dart 開發者工具](/tools/dart-devtools) 
+  來除錯和做效能分析，加入 `--observe` 命令列引數:
 
   ```terminal
   $ dart run --observe tool/debug.dart
@@ -221,21 +221,21 @@ to your `dart run` command:
   To learn more about debugging with Dart DevTools,
   see [Using DevTools with a command-line app][].
 
-  了解更多使用 Dart 开发者工具进行调试的信息，
-  请查阅文档: [在 Dart 命令行中使用开发者工具][Using DevTools with a command-line app]。
+  瞭解更多使用 Dart 開發者工具進行除錯的資訊，
+  請查閱文件: [在 Dart 命令列中使用開發者工具][Using DevTools with a command-line app]。
 
 To learn more about other debugging options, run `dart run --help`.
 
-运行 `dart run --help` 获取更多信息。
+執行 `dart run --help` 獲取更多資訊。
 
 [assert]: /guides/language/language-tour#assert
 [Using DevTools with a command-line app]: /tools/dart-devtools#using-devtools-with-a-command-line-app
 
 ## Enabling experimental features
 
-## 开启实验性功能
+## 開啟實驗性功能
 
 To enable new features and enhancements that are currently in development,
 use [experiment flags](/tools/experiment-flags).
 
-如果在开发中想尝试实验性功能，可以使用 [实验性功能开关](/tools/experiment-flags)。
+如果在開發中想嘗試實驗性功能，可以使用 [實驗性功能開關](/tools/experiment-flags)。

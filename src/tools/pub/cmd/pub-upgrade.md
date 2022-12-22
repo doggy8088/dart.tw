@@ -1,12 +1,12 @@
 ---
 title: dart pub upgrade
 description: Use dart pub upgrade to get the latest versions of all dependencies used by your Dart app.
-description: 使用 dart pub upgrade 命令来更新 Dart 应用的所有依赖项到最新版本。
+description: 使用 dart pub upgrade 命令來更新 Dart 應用的所有依賴項到最新版本。
 ---
 
 _Upgrade_ is one of the commands of the [pub tool](/tools/pub/cmd).
 
-_Upgrade_ 命令是 [Pub 工具](/tools/pub/cmd) 中的一个命令。
+_Upgrade_ 命令是 [Pub 工具](/tools/pub/cmd) 中的一個命令。
 
 ```nocode
 $ dart pub upgrade [options] [dependencies]
@@ -20,11 +20,11 @@ so that pub can get the latest versions of all dependencies.
 A related command is [`dart pub outdated`](/tools/pub/cmd/pub-outdated),
 which you can run to find out-of-date dependencies.
 
-`dart pub upgrade` 命令与 [`dart pub get`](/tools/pub/cmd/pub-get)
-命令一样，都是用于获取依赖项的。
-不同的是 `dart pub upgrade` 命令会忽略掉任何已存在的
-[lockfile](/tools/pub/glossary#lockfile) 文件，
-因此 Pub 可以获取所有依赖项的最新版本。
+`dart pub upgrade` 命令與 [`dart pub get`](/tools/pub/cmd/pub-get)
+命令一樣，都是用於獲取依賴項的。
+不同的是 `dart pub upgrade` 命令會忽略掉任何已存在的
+[lockfile](/tools/pub/glossary#lockfile) 檔案，
+因此 Pub 可以獲取所有依賴項的最新版本。
 
 Without any additional arguments, `dart pub upgrade` gets the latest
 versions of all the dependencies listed in the
@@ -33,9 +33,9 @@ directory, as well as their [transitive
 dependencies](/tools/pub/glossary#transitive-dependency).
 For example:
 
-在没有指定其它参数的情况下，`dart pub upgrade` 命令会获取当前工作目录下
-[`pubspec.yaml`](/tools/pub/pubspec) 文件中所列出的所有依赖项的最新版本，
-包括 [这些依赖项中内部依赖的其它依赖项](/tools/pub/glossary#transitive-dependency)。
+在沒有指定其它引數的情況下，`dart pub upgrade` 命令會獲取當前工作目錄下
+[`pubspec.yaml`](/tools/pub/pubspec) 檔案中所列出的所有依賴項的最新版本，
+包括 [這些依賴項中內部依賴的其它依賴項](/tools/pub/glossary#transitive-dependency)。
 例如：
 
 ```terminal
@@ -51,35 +51,35 @@ versions of all dependencies for all developers and when deployed to
 production. For library packages, don't check in the lockfile,
 because libraries are expected to work with a range of dependency versions.
 
-`dart pub upgrade` 命令会在更新依赖的版本时写入一个 lockfile 文件以确保后续使用
-[`dart pub get`](/tools/pub/cmd/pub-get) 命令时使用的是相同的依赖版本。
-对应用 Package 而言，签入 lockfile 文件以控制来源；
-此操作可以确保当你将应用部署到生产环境时，
-所有的开发者使用的依赖项都是完全相同的版本以避免冲突。
-而对库 Package 而言，则不要签入 lockfile 文件，
-因为库 Package 会使用到各种不同的依赖版本。
+`dart pub upgrade` 命令會在更新依賴的版本時寫入一個 lockfile 檔案以確保後續使用
+[`dart pub get`](/tools/pub/cmd/pub-get) 命令時使用的是相同的依賴版本。
+對應用 Package 而言，簽入 lockfile 檔案以控制來源；
+此操作可以確保當你將應用部署到生產環境時，
+所有的開發者使用的依賴項都是完全相同的版本以避免衝突。
+而對庫 Package 而言，則不要簽入 lockfile 檔案，
+因為庫 Package 會使用到各種不同的依賴版本。
 
 If a lockfile already exists, `dart pub upgrade` ignores it and generates a new
 one from scratch, using the latest versions of all dependencies.
 
-`dart pub upgrade` 命令会忽略掉已经存在的 lockfile 文件并从 Scratch 中新建一个，
-然后使用所有依赖项的最新版本。
+`dart pub upgrade` 命令會忽略掉已經存在的 lockfile 檔案並從 Scratch 中新建一個，
+然後使用所有依賴項的最新版本。
 
 See the [`dart pub get` documentation](/tools/pub/cmd/pub-get) for more information
 on package resolution and the system package cache.
 
-你可以查阅 [`dart pub get` 命令文档](/tools/pub/cmd/pub-get)
-获取更多关于 Package 解析以及系统 Package 缓存的信息。
+你可以查閱 [`dart pub get` 命令文件](/tools/pub/cmd/pub-get)
+獲取更多關於 Package 解析以及系統 Package 快取的資訊。
 
 ## Upgrading specific dependencies
 
-## 更新指定的依赖项
+## 更新指定的依賴項
 
 You can tell `dart pub upgrade` to upgrade specific dependencies to the
 latest version while leaving the rest of the dependencies alone as much as
 possible. For example:
 
-你可以使用 `dart pub upgrade` 命令更新指定的依赖项到最新的版本同时尽可能地保持其余依赖项不变。
+你可以使用 `dart pub upgrade` 命令更新指定的依賴項到最新的版本同時儘可能地保持其餘依賴項不變。
 例如：
 
 ```terminal
@@ -93,27 +93,27 @@ versions that are locked in the lockfile. However, if the requested upgrades
 cause incompatibilities with these locked versions, they are selectively
 unlocked until a compatible set of versions is found.
 
-更新一个依赖项也会将这个依赖项所依赖的其它依赖项更新到最新版本。
-通常而言，与这个依赖项无关的其它依赖项不会被更新；
-它们会保持处于 lockfile 文件中的版本不变。
-但是，如果该依赖的升级会导致这些锁定的版本不兼容的话，
-则不兼容的依赖会被解锁，直到找到一个兼容的版本后再重新锁定。
+更新一個依賴項也會將這個依賴項所依賴的其它依賴項更新到最新版本。
+通常而言，與這個依賴項無關的其它依賴項不會被更新；
+它們會保持處於 lockfile 檔案中的版本不變。
+但是，如果該依賴的升級會導致這些鎖定的版本不相容的話，
+則不相容的依賴會被解鎖，直到找到一個相容的版本後再重新鎖定。
 
 ## Getting a new dependency
 
-## 获取一个新的依赖项
+## 獲取一個新的依賴項
 
 If a dependency is added to the pubspec before `dart pub upgrade` is run,
 it gets the new dependency and any of its transitive dependencies.
 This shares the same behavior as `dart pub get`.
 
-如果在运行 `dart pub upgrade` 命令前将一个依赖项添加至 pubspec 文件，
-则在运行该命令后会更新依赖项以及该依赖项所依赖的其它依赖项。
-该行为与 `dart pub get` 命令一致。
+如果在執行 `dart pub upgrade` 命令前將一個依賴項新增至 pubspec 檔案，
+則在執行該命令後會更新依賴項以及該依賴項所依賴的其它依賴項。
+該行為與 `dart pub get` 命令一致。
 
 ## Removing a dependency
 
-## 删除一个依赖项
+## 刪除一個依賴項
 
 If a dependency is removed from the pubspec before `dart pub upgrade` is run,
 the dependency is no longer available for importing.
@@ -121,25 +121,25 @@ Any transitive dependencies of the removed dependency are also removed,
 as long as no remaining immediate dependencies also depend on them.
 This is the same behavior as `dart pub get`.
 
-如果在运行 `dart pub upgrade` 命令前将一个依赖项从 pubspec 文件删除，
-则在运行该命令后会导致已经导入使用的该依赖项相关代码不可用。
-任何该依赖项所依赖的其它依赖项也会被同时删除。
-该行为与 `dart pub get` 命令一致。
+如果在執行 `dart pub upgrade` 命令前將一個依賴項從 pubspec 檔案刪除，
+則在執行該命令後會導致已經匯入使用的該依賴項相關程式碼不可用。
+任何該依賴項所依賴的其它依賴項也會被同時刪除。
+該行為與 `dart pub get` 命令一致。
 
 ## Upgrading while offline
 
-## 离线更新
+## 離線更新
 
 If you don't have network access, you can still run `dart pub upgrade`.
 Because pub downloads packages to a central cache shared by all packages
 on your system, it can often find previously downloaded packages
 without needing to use the network.
 
-即便没有网络，你也可以运行 `dart pub upgrade` 命令。
-因为 Pub 会将 Package 下载到系统的一个缓存中心并与其它 Package 分享，
-其它 Package 也可以从该缓存中心获取任意已经下载过的 Package，
-如果你所需的 Package 是一个流行的 Package，
-则你可以直接从该缓存中依赖该 Package 而不需要使用网络。
+即便沒有網路，你也可以執行 `dart pub upgrade` 命令。
+因為 Pub 會將 Package 下載到系統的一個快取中心並與其它 Package 分享，
+其它 Package 也可以從該快取中心獲取任意已經下載過的 Package，
+如果你所需的 Package 是一個流行的 Package，
+則你可以直接從該快取中依賴該 Package 而不需要使用網路。
 
 However, by default, `dart pub upgrade` tries to go online if you
 have any hosted dependencies,
@@ -149,9 +149,9 @@ In offline mode, pub looks only in your local package cache,
 trying to find a set of versions that work with your package from what's already
 available.
 
-但是，默认情况下，`dart pub upgrade` 命令依然会尽可能地访问网络以获取最新的依赖项版本。
-如果你不希望其通过网络查找依赖项，可以在该命令后加上 `--offline` 参数。
-在离线模式下，Pub 只会从你的本地 Package 缓存中查找已经存在且能适用到你 Package 上的依赖项。
+但是，預設情況下，`dart pub upgrade` 命令依然會盡可能地存取網路以獲取最新的依賴項版本。
+如果你不希望其透過網路查詢依賴項，可以在該命令後加上 `--offline` 引數。
+在離線模式下，Pub 只會從你的本地 Package 快取中查詢已經存在且能適用到你 Package 上的依賴項。
 
 Keep in mind that pub generates a lockfile. If the
 only version of some dependency in your cache happens to be old,
@@ -159,23 +159,23 @@ offline `dart pub upgrade` locks your app to that old version.
 The next time you are online, you will likely want to
 run `dart pub upgrade` again to upgrade to a later version.
 
-记住 Pub 会生成一个 lockfile 文件。
-如果缓存中某个依赖项只有一个版本且该版本是旧版本，
-则在离线模式下 `dart pub upgrade` 命令会锁定你的应用使用这些旧版本。
-等你有网时，你可以再次运行 `dart pub upgrade` 命令将它们更新到最新版本。
+記住 Pub 會產生一個 lockfile 檔案。
+如果快取中某個依賴項只有一個版本且該版本是舊版本，
+則在離線模式下 `dart pub upgrade` 命令會鎖定你的應用使用這些舊版本。
+等你有網時，你可以再次執行 `dart pub upgrade` 命令將它們更新到最新版本。
 
 ## Options
 
-## 选项
+## 選項
 
 The `dart pub upgrade` command supports the
 [`dart pub get` options](/tools/pub/cmd/pub-get#options), and more.
 For options that apply to all pub commands, see
 [Global options](/tools/pub/cmd#global-options).
 
-`dart pub upgrade` 命令支持
-[`dart pub get` 的命令选项](/tools/pub/cmd/pub-get#options) 以及更多的选项。
-你可以查阅[全局选项](/tools/pub/cmd#global-options) 获取 Pub 命令所支持的命令选项。
+`dart pub upgrade` 命令支援
+[`dart pub get` 的命令選項](/tools/pub/cmd/pub-get#options) 以及更多的選項。
+你可以查閱[全域選項](/tools/pub/cmd#global-options) 獲取 Pub 命令所支援的命令選項。
 
 ### `--[no-]offline`
 
@@ -189,8 +189,8 @@ Reports the dependencies that would be changed,
 but doesn't make the changes. This is useful if you
 want to analyze updates before making them.
 
-打印出可能变化的依赖，但不会实际作出更改。
-如果你想要在变更前进行分析，该命令非常有用。
+打印出可能變化的依賴，但不會實際作出更改。
+如果你想要在變更前進行分析，該命令非常有用。
 
 ### `--[no-]precompile`
 
@@ -198,8 +198,8 @@ By default, pub precompiles executables
 in immediate dependencies (`--precompile`).
 To prevent precompilation, use `--no-precompile`.
 
-默认情况下，pub 会预编译直接依赖的 package 的可执行文件 (`precompile`)。
-若你不需要预编译，请使用 `--no-precompile`。
+預設情況下，pub 會預編譯直接依賴的 package 的可執行檔案 (`precompile`)。
+若你不需要預編譯，請使用 `--no-precompile`。
 
 ### `--null-safety`
 
@@ -210,19 +210,19 @@ ignoring any upper-bound constraint in the `pubspec.yaml` file.
 Also updates `pubspec.yaml` with the new constraints.
 This command is similar to `--major-versions`.
 
-获取 [`dart pub outdated --mode=null-safety`][`dart pub outdated`]
-列表中标记为 **resolvable** 的依赖，
-忽略 `pubspec.yaml` 文件中的任何上限。
-同时 `pubspec.yaml` 文件中的限制也会更新。
-该命令与 `--major-versions` 类似。
+獲取 [`dart pub outdated --mode=null-safety`][`dart pub outdated`]
+列表中標記為 **resolvable** 的依賴，
+忽略 `pubspec.yaml` 檔案中的任何上限。
+同時 `pubspec.yaml` 檔案中的限制也會更新。
+該命令與 `--major-versions` 類似。
 
 {{site.alert.tip}}
 
   Commit the `pubspec.yaml` file before running this command,
   so that you can undo the changes if necessary.
 
-  在运星这个命令之前先提交 `pubspec.yaml` 文件，
-  这样就可以在需要的时候撤销这些改动。
+  在運星這個命令之前先提交 `pubspec.yaml` 檔案，
+  這樣就可以在需要的時候撤銷這些改動。
 
 {{site.alert.end}}
 
@@ -232,9 +232,9 @@ Gets the packages that [`dart pub outdated`][] lists as _resolvable_,
 ignoring any upper-bound constraint in the `pubspec.yaml` file.
 Also updates `pubspec.yaml` with the new constraints.
 
-获取 [`dart pub outdated`][] 列表中标记为 **resolvable** 的依赖，
-忽略 `pubspec.yaml` 文件中的任何上限。
-同时 `pubspec.yaml` 文件中的限制也会更新。
+獲取 [`dart pub outdated`][] 列表中標記為 **resolvable** 的依賴，
+忽略 `pubspec.yaml` 檔案中的任何上限。
+同時 `pubspec.yaml` 檔案中的限制也會更新。
 
 [`dart pub outdated`]: /tools/pub/cmd/pub-outdated
 
@@ -243,14 +243,14 @@ Also updates `pubspec.yaml` with the new constraints.
   Commit the `pubspec.yaml` file before running this command,
   so that you can undo the changes if necessary.
 
-  在运行该命令前提交 `pubspec.yaml` 文件的修改，这样如果有需要时可以进行回滚。
+  在執行該命令前提交 `pubspec.yaml` 檔案的修改，這樣如果有需要時可以進行回滾。
 
 {{site.alert.end}}
 
 To check which dependencies will be upgraded,
 you can use `dart pub upgrade --major-versions --dry-run`.
 
-想查看哪些依赖会被更新，可以运行
+想檢視哪些依賴會被更新，可以執行
 `dart pub upgrade --major-versions --dry-run`。
 
 {{site.alert.info}}
@@ -258,7 +258,7 @@ you can use `dart pub upgrade --major-versions --dry-run`.
   *Problems?*
   See [Troubleshooting Pub](/tools/pub/troubleshoot).
 
-  **有疑问？** 
-  请查阅 [Pub 疑难协助](/tools/pub/troubleshoot)。
+  **有疑問？** 
+  請查閱 [Pub 疑難協助](/tools/pub/troubleshoot)。
 
 {{site.alert.end}}

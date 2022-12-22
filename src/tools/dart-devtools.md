@@ -1,8 +1,8 @@
 ---
 title: Dart DevTools
-title: Dart 开发者工具
+title: Dart 開發者工具
 description: A suite of debugging and performance tools.
-description: 为 Dart 和 Flutter 提供的一套性能工具。
+description: 為 Dart 和 Flutter 提供的一套效能工具。
 toc: false
 ---
 

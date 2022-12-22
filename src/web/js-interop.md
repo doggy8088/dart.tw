@@ -1,10 +1,10 @@
 ---
 title: JavaScript and TypeScript interop
-title: Web 上与 JavaScript 互调
+title: Web 上與 JavaScript 互調
 short-title: JS interop
-short-title: 与 JS 互调
+short-title: 與 JS 互調
 description: "Use package:js to integrate JavaScript or TypeScript code into your Dart web app."
-description: 使用 js 这个 package 在你的 Dart Web 应用里集成 JavaScript 或 TypeScript。
+description: 使用 js 這個 package 在你的 Dart Web 應用裡整合 JavaScript 或 TypeScript。
 toc: false
 ---
 

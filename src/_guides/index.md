@@ -1,8 +1,8 @@
 ---
 title: Dart documentation
-title: Dart 语言开发文档
+title: Dart 語言開發文件
 description: Learn to use the Dart language and libraries.
-description: 学习 Dart 语言。
+description: 學習 Dart 語言。
 toc: false
 ---
 
@@ -14,8 +14,8 @@ the [What's new page][].
 
 Here are some of this site's most visited pages:
 
-欢迎来到 Dart 语言开发文档页面！
-如下是大家最经常访问的页面：
+歡迎來到 Dart 語言開發文件頁面！
+如下是大家最經常存取的頁面：
 
 {% comment %}
 To update these cards, edit src/_data/docs_cards.yml.

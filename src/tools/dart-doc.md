@@ -2,7 +2,7 @@
 title: dart doc
 title: dart doc 命令
 description: API reference generation tool.
-description: Dart 编程语言的 API 参考文档生成工具。
+description: Dart 程式語言的 API 參考文件產生工具。
 toc: false
 ---
 
@@ -15,11 +15,11 @@ which can contain [Markdown][] formatting.
 For guidance on writing doc comments,
 see the [documentation part of Effective Dart][effective doc].
 
-`dart doc` 命令可以从你 Dart 源代码中生成 API 参考文档。
-您可以使用 [文档注释][documentation comments]
-向生成的文档添加说明，该说明支持 [MarkDown][] 格式。
-你可以查阅 [高效 Dart 的文档部分][effective doc]
-获取更多关于如何撰写文档注释的信息。
+`dart doc` 命令可以從你 Dart 原始碼中產生 API 參考文件。
+您可以使用 [文件註釋][documentation comments]
+向產生的文件新增說明，該說明支援 [MarkDown][] 格式。
+你可以查閱 [高效 Dart 的文件部分][effective doc]
+獲取更多關於如何撰寫文件註釋的資訊。
 
 {{site.alert.note}}
 
@@ -28,17 +28,17 @@ see the [documentation part of Effective Dart][effective doc].
   and your package must pass [`dart analyze`](/tools/dart-analyze)
   without errors.
 
-  想要生成文档，你需要先运行
+  想要產生文件，你需要先執行
   [`dart pub get`](/tools/pub/cmd/pub-get)，
-  并且 package 必须在 [`dart analyze`](/tools/dart-analyze)
-  静态分析中未出现错误才能正常生成。
+  並且 package 必須在 [`dart analyze`](/tools/dart-analyze)
+  靜態分析中未出現錯誤才能正常產生。
 
 {{site.alert.end}}
 
 Run `dart doc` from the root directory of your package. 
 For example:
 
-从你 Package 的根目录中运行 `dartdoc` 命令。例如：
+從你 Package 的根目錄中執行 `dartdoc` 命令。例如：
 
 ```terminal
 $ cd my_app
@@ -55,13 +55,13 @@ placed in the `doc/api` directory.
 You can create the files in a different directory
 with the `--output` flag.
 
-生成的文档默认为 HTML 文件，保存在 `doc/api` 目录下。
-你可以使用 `--output` 参数设置输出目录。
+產生的文件預設為 HTML 檔案，儲存在 `doc/api` 目錄下。
+你可以使用 `--output` 引數設定輸出目錄。
 
 For information on command-line options, 
 use the `help` command:
 
-使用 `help` 命令可以查看更多命令行选项：
+使用 `help` 命令可以檢視更多命令列選項：
 
 ```terminal
 $ dart help doc

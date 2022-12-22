@@ -1,8 +1,8 @@
 ---
 title: "Dart tutorials: Libraries"
-title: Dart 编程语言教程：使用库
+title: Dart 程式語言課程：使用庫
 description: "Tutorials relating to Dart's core libraries and APIs."
-description: 与核心库和 API 相关的教程。
+description: 與核心函式庫和 API 相關的課程。
 toc: false
 ---
 

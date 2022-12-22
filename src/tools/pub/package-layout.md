@@ -1,8 +1,8 @@
 ---
 title: Package layout conventions
-title: Package 的文件结构
+title: Package 的檔案結構
 description: Learn more about the directory structure used by Dart's package management tool, pub.
-description: 学习一下 package 和 pub 命令的文件结构。
+description: 學習一下 package 和 pub 命令的檔案結構。
 ---
 
 When you build a [pub package](/guides/packages),

@@ -1,9 +1,9 @@
 ---
 title: "dartdevc: The Dart development compiler"
-title: "dartdevc：Dart 开发编译器"
+title: "dartdevc：Dart 開發編譯器"
 short-title: dartdevc
 description: A development compiler for fast, modular compilation of Dart code to JavaScript.
-description: 一个用于将 Dart 转换为 JavaScript 的快速且模块化的开发编译器。
+description: 一個用於將 Dart 轉換為 JavaScript 的快速且模組化的開發編譯器。
 ---
 
 The Dart development compiler (_dartdevc_)

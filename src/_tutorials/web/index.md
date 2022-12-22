@@ -1,8 +1,8 @@
 ---
 title: "Tutorials: web apps"
-title: Dart 编程语言教程：开发 Web 应用
+title: Dart 程式語言課程：開發 Web 應用
 description: Tutorials for writing Dart web apps.
-description: 使用 Dart 撰写 Web 应用的教程。
+description: 使用 Dart 撰寫 Web 應用的課程。
 toc: false
 ---
 

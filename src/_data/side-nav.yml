@@ -1,7 +1,7 @@
-- title: 样例和教程
+- title: 範例和課程
   expanded: false
   children:
-    - title: 语言概览
+    - title: 語言概覽
       permalink: /samples
     - title: Codelabs
       expanded: true
@@ -14,21 +14,21 @@
           permalink: /codelabs/dart-cheatsheet
         - title: 可迭代集合
           permalink: /codelabs/iterables
-        - title: Dart 异步编程
+        - title: Dart 非同步程式設計
           permalink: /codelabs/async-await
         - title: 空安全
           permalink: /codelabs/null-safety
-    - title: 教程一览
+    - title: 課程一覽
       urlExactMatch: true
       match-page-url-exactly: true
       permalink: /tutorials
 
-- title: Dart 开发语言
+- title: Dart 開發語言
   expanded: false
   children:
-    - title: 语言概览
+    - title: 語言概覽
       permalink: /guides/language/language-tour
-    - title: 类型系统
+    - title: 型別系統
       permalink: /guides/language/type-system
     - title: 高效指南 (Effective Dart)
       expanded: false
@@ -37,33 +37,33 @@
           urlExactMatch: true
           match-page-url-exactly: true
           permalink: /guides/language/effective-dart
-        - title: 代码风格
+        - title: 程式碼風格
           permalink: /guides/language/effective-dart/style
-        - title: 文档
+        - title: 文件
           permalink: /guides/language/effective-dart/documentation
-        - title: 用法示例
+        - title: 用法範例
           permalink: /guides/language/effective-dart/usage
-        - title: API 设计
+        - title: API 設計
           permalink: /guides/language/effective-dart/design
-    - title: 从其他平台转向 Dart
+    - title: 從其他平台轉向 Dart
       expanded: false
       children:
-        - title: 从 JavaScript 到 Dart
+        - title: 從 JavaScript 到 Dart
           permalink: /guides/language/coming-from/js-to-dart
     - title: Extension 方法
       permalink: /guides/language/extension-methods
-    - title: 并发
+    - title: 併發
       permalink: /guides/language/concurrency
-    - title: 数字
+    - title: 數字
       permalink: /guides/language/numbers
     - title: 空安全
       expanded: false
       children:
-        - title: 概览：健全的空安全
+        - title: 概覽：健全的空安全
           urlExactMatch: true
           match-page-url-exactly: true
           permalink: /null-safety
-        - title: 迁移到空安全
+        - title: 遷移到空安全
           urlExactMatch: true
           match-page-url-exactly: true
           permalink: /null-safety/migration-guide
@@ -75,28 +75,28 @@
           urlExactMatch: true
           match-page-url-exactly: true
           permalink: /null-safety/unsound-null-safety
-        - title: 空安全常见问题和解答
+        - title: 空安全常見問題和解答
           urlExactMatch: true
           match-page-url-exactly: true
           permalink: /null-safety/faq
 
-    - title: 版本演变
+    - title: 版本演變
       permalink: /guides/language/evolution
-    - title: 规范
+    - title: 規範
       permalink: /guides/language/spec
 
-- title: 核心库
+- title: 核心函式庫
   expanded: false
   children:
-    - title: 综述
+    - title: 綜述
       urlExactMatch: true
       match-page-url-exactly: true
       permalink: /guides/libraries
-    - title: 概览
+    - title: 概覽
       permalink: /guides/libraries/library-tour
-    - title: 介绍文章
+    - title: 介紹文章
       children:
-        - title: 创建 stream
+        - title: 建立 stream
           permalink: /articles/libraries/creating-streams
 
 - title: Packages
@@ -104,117 +104,117 @@
   children:
     - title: 如何使用 package
       permalink: /guides/packages
-    - title: 常用 package 介绍
+    - title: 常用 package 介紹
       permalink: /guides/libraries/useful-libraries
-    - title: 创建 package
+    - title: 建立 package
       permalink: /guides/libraries/create-library-packages
-    - title: 发布 package
+    - title: 釋出 package
       permalink: /tools/pub/publishing
-    - title: 设置 package 介绍页
+    - title: 設定 package 介紹頁
       permalink: /guides/libraries/writing-package-pages
-    - title: Package 参考资料
+    - title: Package 參考資料
       expanded: false
       children:
-        - title: 依赖
+        - title: 依賴
           permalink: /tools/pub/dependencies
-        - title: 术语表
+        - title: 術語表
           permalink: /tools/pub/glossary
-        - title: Package 文件结构
+        - title: Package 檔案結構
           permalink: /tools/pub/package-layout
-        - title: 设置环境变量
+        - title: 設定環境變數
           permalink: /tools/pub/environment-variables
-        - title: Pubspec 文件
+        - title: Pubspec 檔案
           permalink: /tools/pub/pubspec
-        - title: 问题排查
+        - title: 問題排查
           permalink: /tools/pub/troubleshoot
-        - title: 发布者认证
+        - title: 釋出者認證
           permalink: /tools/pub/verified-publishers
         - title: 版本管理
           permalink: /tools/pub/versioning
 
-- title: 开发文档
+- title: 開發文件
   expanded: false
   children:
     - title: Futures、async 和 await
       permalink: /codelabs/async-await
-    - title: Streams 介绍
+    - title: Streams 介紹
       permalink: /tutorials/language/streams
     - title: 使用 JSON
       permalink: /guides/json
-    - title: 与其他相互调用
+    - title: 與其他相互呼叫
       children:
-        - title: 与 C 互调
+        - title: 與 C 互調
           permalink: /guides/libraries/c-interop
-        - title: 与 Objective-C 和 Swift 互调
+        - title: 與 Objective-C 和 Swift 互調
           permalink: /guides/libraries/objective-c-interop
-        - title: 与 JavaScript 互调
+        - title: 與 JavaScript 互調
           permalink: /web/js-interop
     - title: Google APIs
       permalink: /guides/google-apis
-    - title: 跨平台应用
+    - title: 跨平臺應用
       permalink: /multiplatform-apps
-    - title: 命令行和服务端应用
+    - title: 命令列和伺服器端應用
       children:
-        - title: 综述
+        - title: 綜述
           urlExactMatch: true
           match-page-url-exactly: true
           permalink: /server
-        - title: 起步教程
+        - title: 起步課程
           permalink: /tutorials/server/get-started
-        - title: 命令行应用
+        - title: 命令列應用
           permalink: /tutorials/server/cmdline
-        - title: 编写 HTTP 服务端应用
+        - title: 編寫 HTTP 伺服器端應用
           permalink: /tutorials/server/httpserver
-        - title: 库和 package
+        - title: 庫和 package
           permalink: /server/libraries
         - title: Google Cloud
           permalink: /server/google-cloud
-    - title: 网页端 (Web) 应用
+    - title: 網頁端 (Web) 應用
       children:
-        - title: 综述
+        - title: 綜述
           urlExactMatch: true
           match-page-url-exactly: true
           permalink: /web
-        - title: 开始使用
+        - title: 開始使用
           permalink: /tutorials/web/get-started
-        - title: 动态获取数据
+        - title: 動態獲取資料
           permalink: /tutorials/web/fetch-data
-        - title: 底层 Web 编程
+        - title: 底層 Web 程式設計
           children:
-          - title: Dart 与 HTML 关联
+          - title: Dart 與 HTML 關聯
             permalink: /tutorials/web/low-level-html/connect-dart-html
-          - title: 向 DOM 添加元素
+          - title: 向 DOM 新增元素
             permalink: /tutorials/web/low-level-html/add-elements
           - title: 移除 DOM 元素
             permalink: /tutorials/web/low-level-html/remove-elements
         - title: 部署
           permalink: /web/deployment
-        - title: 常用 Web 库和 package
+        - title: 常用 Web 庫和 package
           permalink: /web/libraries
 
-- title: 开发工具和使用技巧
+- title: 開發工具和使用技巧
   expanded: false
   children:
-  - title: 综述
+  - title: 綜述
     urlExactMatch: true
     match-page-url-exactly: true
     permalink: /tools
-  - title: 编辑器和调试工具
+  - title: 編輯器和除錯工具
     children:
       - title: 使用 IntelliJ 和 Android Studio
         permalink: /tools/jetbrains-plugin
       - title: 使用 VS Code
         permalink: /tools/vs-code
-      - title: Dart 开发者工具
+      - title: Dart 開發者工具
         permalink: /tools/dart-devtools
-      - title: 在线运行 Dart 代码
+      - title: 線上執行 Dart 程式碼
         permalink: /tools/dartpad
-  - title: 命令行工具
+  - title: 命令列工具
     children:
     - title: Dart SDK
       expanded: true
       children:
-        - title: 综述
+        - title: 綜述
           permalink: /tools/sdk
         - title: dart 命令
           permalink: /tools/dart-tool
@@ -239,82 +239,82 @@
           permalink: /tools/dart-test
         - title: dartaotruntime 命令
           permalink: /tools/dartaotruntime
-        - title: 实验性命令标记
+        - title: 實驗性命令標記
           permalink: /tools/experiment-flags
-    - title: 其他的命令行工具
+    - title: 其他的命令列工具
       expanded: true
       children:
         - title: build_runner 命令
           permalink: /tools/build_runner
         - title: webdev 命令
           permalink: /tools/webdev
-  - title: 源码管理
+  - title: 原始碼管理
     children:
-      - title: 代码格式化
+      - title: 程式碼格式化
         permalink: /guides/language/formatting
-      - title: 不应提交的内容
+      - title: 不應提交的內容
         permalink: /guides/libraries/private-files
-  - title: 静态分析
+  - title: 靜態分析
     children:
-      - title: 自定义静态分析
+      - title: 自訂靜態分析
         permalink: /guides/language/analysis-options
-      - title: 修复常见的类型问题
+      - title: 修復常見的型別問題
         permalink: /guides/language/sound-problems
-      - title: 诊断消息
+      - title: 診斷訊息
         permalink: /tools/diagnostic-messages
-      - title: Linter 规则
+      - title: Linter 規則
         permalink: /tools/linter-rules
-  - title: 测试和调优
+  - title: 測試和調優
     children:
-      - title: 测试
+      - title: 測試
         permalink: /guides/testing
-      - title: 调试 Web 应用
+      - title: 除錯 Web 應用
         permalink: /web/debugging
 
-- title: 资源
+- title: 資源
   expanded: false
   children:
-    - title: 概览
+    - title: 概覽
       urlExactMatch: true
       match-page-url-exactly: true
       permalink: /resources
-    - title: 书籍
+    - title: 書籍
       permalink: /resources/books
-    - title: 教程中的 DartPad&#58; 最佳实践
+    - title: 課程中的 DartPad&#58; 最佳實踐
       permalink: /resources/dartpad-best-practices
-    - title: 行为准则
+    - title: 行為準則
       permalink: /code-of-conduct
-    - title: 常见问题
+    - title: 常見問題
       permalink: /faq
-    - title: 历史文档
+    - title: 歷史文件
       children:
-        - title: 迁移到 Dart&nbsp;2
+        - title: 遷移到 Dart&nbsp;2
           urlExactMatch: true
           match-page-url-exactly: true
           permalink: /dart-2
-    - title: 视频资源
+    - title: 影片資源
       permalink: /resources/videos
 
-- title: 相关站点
+- title: 相關站點
   expanded: true
   children:
-    - title: API 文档
+    - title: API 文件
       permalink: https://api.dart.cn
-    - title: Dart 团队官方博客
+    - title: Dart 團隊官方部落格
       permalink: https://medium.com/dartlang
-    - title: DartPad (在线编辑器)
+    - title: DartPad (線上編輯器)
       permalink: https://dartpad.cn
     - title: Flutter
       permalink: https://flutter.cn
-    - title: Package 网站
+    - title: Package 網站
       permalink: https://pub.flutter-io.cn
 
-- title: 关于 Dart 中文文档
+- title: 關於 Dart 中文文件
   expanded: false
   children:
-    - title: 关于本站
+    - title: 關於本站
       permalink: https://flutter.cn/about/docs-cn
-    - title: 免责条款 (Disclaimer)
+    - title: 免責條款 (Disclaimer)
       permalink: https://flutter.cn/disclaimer
 
 # - title: Books

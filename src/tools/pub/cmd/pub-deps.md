@@ -2,12 +2,12 @@
 title: dart pub deps
 title: dart pub deps
 description: Use dart pub deps to print a dependency graph for a package.
-description: 使用 dart pub deps 命令可以将 Package 的依赖项打印出来。
+description: 使用 dart pub deps 命令可以將 Package 的依賴項打印出來。
 ---
 
 _Deps_ is one of the commands of the [pub tool](/tools/pub/cmd).
 
-_Deps_ 命令是 [Pub 工具](/tools/pub/cmd) 中的一个命令。
+_Deps_ 命令是 [Pub 工具](/tools/pub/cmd) 中的一個命令。
 
 ```nocode
 $ dart pub deps [--style=<style>] [--[no-]dev] [--executables]
@@ -20,20 +20,20 @@ that the package uses (as specified in the pubspec), as well as the
 [transitive dependencies](/tools/pub/glossary#transitive-dependency)
 pulled in by the immediate dependencies.
 
-该命令可以将 Package 的依赖图示打印输出到控制台。
-该图示中包括 Package 声明在 pubspec 文件中的 
-[直接依赖](/tools/pub/glossary#immediate-dependency) 
-以及这些直接依赖所依赖的
-[间接依赖](/tools/pub/glossary#transitive-dependency)。
+該命令可以將 Package 的依賴圖示列印輸出到控制檯。
+該圖示中包括 Package 宣告在 pubspec 檔案中的 
+[直接依賴](/tools/pub/glossary#immediate-dependency) 
+以及這些直接依賴所依賴的
+[間接依賴](/tools/pub/glossary#transitive-dependency)。
 
 The dependency information is printed as a tree by default.
 
-依赖信息默认以树状的形式打印输出。
+依賴資訊預設以樹狀的形式列印輸出。
 
 For example, the pubspec for the markdown_converter example specifies
 the following dependencies:
 
-例如，markdown_converter 这个示例的 pubspec 文件中声明了如下依赖信息：
+例如，markdown_converter 這個範例的 pubspec 檔案中聲明瞭如下依賴資訊：
 
 ```yaml
 dependencies:
@@ -43,7 +43,7 @@ dependencies:
 
 Here's an example of the `dart pub deps` output for markdown_converter:
 
-当你执行 `dart pub deps` 命令时则会看到 markdown_converter 的依赖图示如下：
+當你執行 `dart pub deps` 命令時則會看到 markdown_converter 的依賴圖示如下：
 
 ```terminal
 $ dart pub deps
@@ -62,12 +62,12 @@ markdown_converter 0.0.0
 
 ## Options
 
-## 选项
+## 選項
 
 For options that apply to all pub commands, see
 [Global options](/tools/pub/cmd#global-options).
 
-你可以查阅 [全局选项](/tools/pub/cmd#global-options) 获取 Pub 命令所支持的命令选项。
+你可以查閱 [全域選項](/tools/pub/cmd#global-options) 獲取 Pub 命令所支援的命令選項。
 
 ### `--style=<style>` or `-s <style>`
 
@@ -75,26 +75,26 @@ For options that apply to all pub commands, see
 
 The specified style determines the output format:
 
-指定的样式输出格式。
+指定的樣式輸出格式。
 
 * `tree`
 <br> Prints dependency information as a tree. This is the 
 default format.
 
   `tree`<br>
-以树状的形式打印依赖信息。这是默认格式。
+以樹狀的形式列印依賴資訊。這是預設格式。
 
 * `list`
 <br>  Prints dependency information as a list.
 
   `list`
-  <br>以列表的形式打印依赖信息。
+  <br>以列表的形式列印依賴資訊。
 
 * `compact`
 <br> Prints dependency information as a compact list.
 
   `compact`
-<br> 以紧凑列表的形式打印依赖信息。
+<br> 以緊湊列表的形式列印依賴資訊。
 
 ### `--[no-]dev`
 
@@ -102,26 +102,26 @@ By default, prints all dependencies,
 including dev dependencies (`--dev`).
 To remove dev dependencies, use `--no-dev`.
 
-打印所有包依赖信息，包括开发依赖。
-如果你不想打印开发依赖，使用 `--no-dev`。
+列印所有套件相依資訊，包括開發依賴。
+如果你不想列印開發依賴，使用 `--no-dev`。
 
 ### `--executables`
 
 Prints all available executables.
 
-打印所有可用的可执行文件。
+列印所有可用的可執行檔案。
 
 ### `--json`
 
 Generates output in JSON format.
 
-以 JSON 格式输出。
+以 JSON 格式輸出。
 
 {{site.alert.info}}
 
   *Problems?*
   See [Troubleshooting Pub](/tools/pub/troubleshoot).
 
-  **有疑问？**请查阅 [Pub 疑难协助](/tools/pub/troubleshoot)。
+  **有疑問？**請查閱 [Pub 疑難協助](/tools/pub/troubleshoot)。
 
 {{site.alert.end}}

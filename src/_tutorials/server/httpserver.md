@@ -1,13 +1,13 @@
 ---
 title: "Write HTTP servers"
-title: "编写 HTTP 服务器"
+title: "編寫 HTTP 伺服器"
 description: Communicate over the internet
-description: 通过网络进行通讯
+description: 透過網路進行通訊
 toc: false
 prevpage:
   url: /tutorials/server/cmdline
   title: "Write command-line apps"
-  title: "编写命令行应用"
+  title: "編寫命令列應用"
 ---
 
 

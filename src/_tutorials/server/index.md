@@ -1,8 +1,8 @@
 ---
 title: "Tutorials: Command-line apps and servers"
-title: 教程目录：使用 Dart 编写命令行和服务端应用
+title: 課程目錄：使用 Dart 編寫命令列和伺服器端應用
 description: Tutorials for writing command-line apps and servers.
-description: 教程目录。
+description: 課程目錄。
 toc: false
 ---
 

@@ -100,16 +100,16 @@ og_image_vers: "?2"
 alert:
   important: >-
     <aside class="alert alert-warning" role="alert" markdown="1">
-    <i class="fas fa-exclamation-circle"></i> **重要说明:**
+    <i class="fas fa-exclamation-circle"></i> **重要說明:**
   info: >-
     <aside class="alert alert-info" role="alert" markdown="1">
     <i class="fas fa-info-circle"></i>
   note: >-
     <aside class="alert alert-info" role="alert" markdown="1">
-    <i class="fas fa-info-circle"></i> **备注:**
+    <i class="fas fa-info-circle"></i> **備註:**
   flutter-note: >-
     <aside class="alert alert-info" role="alert" markdown="1">
-    <img src="/assets/img/shared/flutter/icon/64.png" width="24" alt="Flutter logo"> **与 Flutter 相关的备注:**
+    <img src="/assets/img/shared/flutter/icon/64.png" width="24" alt="Flutter logo"> **與 Flutter 相關的備註:**
   version-note: >-
     <aside class="alert alert-info" role="alert" markdown="1">
     <i class="fas fa-code-branch"></i> **版本提示:**
@@ -123,5 +123,5 @@ alert:
     <i class="fas fa-exclamation-triangle"></i>
   warning: >-
     <aside class="alert alert-warning" role="alert" markdown="1">
-    <i class="fas fa-exclamation-triangle"></i> **请注意:**
+    <i class="fas fa-exclamation-triangle"></i> **請注意:**
   end: </aside>

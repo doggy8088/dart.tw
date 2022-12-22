@@ -1,6 +1,6 @@
 ---
 title: Code of conduct
-title: 行为准则
+title: 行為準則
 description: Be excellent to each other.
 toc: false
 ---

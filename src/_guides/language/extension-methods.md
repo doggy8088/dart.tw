@@ -2,7 +2,7 @@
 title: Extension methods
 title: Extension 方法
 description: Learn how to add to existing APIs.
-description: 了解如何添加现有 API。
+description: 瞭解如何新增現有 API。
 ---
 Extension methods add functionality to existing libraries.
 You might use extension methods without even knowing it.

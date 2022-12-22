@@ -1,12 +1,12 @@
 ---
 title: Connect Dart and HTML
-title: Dart 与 HTML 关联
+title: Dart 與 HTML 關聯
 description: Learn how to set up basic scaffolding of a Dart web app.
-description: 学习如何为 Dart Web 搭建一个基础的脚手架。
+description: 學習如何為 Dart Web 搭建一個基礎的腳手架。
 nextpage:
   url: /tutorials/web/low-level-html/add-elements
   title: Add elements to the DOM
-  title: 向 DOM 添加元素
+  title: 向 DOM 新增元素
 ---
 
 This tutorial is the first of a series on

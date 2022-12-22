@@ -1,8 +1,8 @@
 ---
 title: Dart overview
-title: Dart 概览
+title: Dart 概覽
 description: A short introduction to Dart
-description: Dart 的简单介绍
+description: Dart 的簡單介紹
 js: [{url: 'https://dartpad.dev/inject_embed.dart.js', defer: true}]
 ---
 
@@ -16,10 +16,10 @@ Its goal is to offer the most productive programming language for
 multi-platform development, paired with a
 [flexible execution runtime platform](#platform) for app frameworks.
 
-Dart 是一种针对客户优化的语言，可在任何平台上开发快速的应用程序。
-其目标是为多平台开发提供最高效的编程语言，
-并为应用程序框架搭配了
-[灵活的运行时执行平台](#platform)。
+Dart 是一種針對客戶最佳化的語言，可在任何平臺上開發快速的應用程式。
+其目標是為多平臺開發提供最高效的程式語言，
+併為應用程式框架搭配了
+[靈活的執行時執行平台](#platform)。
 
 Languages are defined by their _technical envelope_—the 
 choices made during development that
@@ -30,21 +30,21 @@ prioritizing both development (sub-second stateful hot reload) and
 high-quality production experiences across
 a wide variety of compilation targets (web, mobile, and desktop).
 
-通常来说，编程语言会包含一些 **技术壁垒**，即语言在设计中的抉择决定了其功能和优势。
-Dart 的语言设计针对客户端开发，它优先考虑多平台 (Web，移动端和桌面端) 上的开发 (亚秒级的状态热重载) 和高质量生产环境体验。
+通常來說，程式語言會包含一些 **技術壁壘**，即語言在設計中的抉擇決定了其功能和優勢。
+Dart 的語言設計針對客戶端開發，它優先考慮多平臺 (Web，移動端和桌面端) 上的開發 (亞秒級的狀態熱重載) 和高品質生產環境體驗。
 
 Dart also forms the foundation of [Flutter]({{site.flutter}}).
 Dart provides the language and runtimes that power Flutter apps,
 but Dart also supports many core developer tasks like
 formatting, analyzing, and testing code.
 
-Dart 也是 [Flutter]({{site.flutter}}) 的基础。
-Dart 作为 Flutter 应用程序的编程语言，为驱动应用运行提供了环境，
-同时 Dart 还支持许多核心的开发任务，例如格式化，分析和代码测试。
+Dart 也是 [Flutter]({{site.flutter}}) 的基礎。
+Dart 作為 Flutter 應用程式的程式語言，為驅動應用執行提供了環境，
+同時 Dart 還支援許多核心的開發任務，例如格式化，分析和程式碼測試。
 
 ## Dart: The language {#language}
 
-## Dart 语言 {#language}
+## Dart 語言 {#language}
 
 The Dart language is type safe;
 it uses static type checking to ensure that
@@ -57,12 +57,12 @@ allowing the use of a `dynamic` type combined with runtime checks,
 which can be useful during experimentation or
 for code that needs to be especially dynamic.
 
-Dart 语言是类型安全的；
-它使用静态类型检查来确保变量的值 **始终** 与变量的静态类型相匹配。
-这也叫健全类型。
-尽管类型是强制性的，但由于 Dart 支持类型推断，类型注释仍是可选的。
-Dart 的类型系统也很灵活，允许结合使用 dynamic 类型与运行时检查，
-在测试开发期间，或是遇到需要特别指定为动态类型的代码时，这项特性很有帮助。
+Dart 語言是型別安全的；
+它使用靜態型別檢查來確保變數的值 **始終** 與變數的靜態型別相匹配。
+這也叫健全型別。
+儘管型別是強制性的，但由於 Dart 支援型別推斷，型別註釋仍是可選的。
+Dart 的型別系統也很靈活，允許結合使用 dynamic 型別與執行時期檢查，
+在測試開發期間，或是遇到需要特別指定為動態型別的程式碼時，這項特性很有幫助。
 
 Dart offers [sound null safety](/null-safety),
 meaning that values can’t be null unless you say they can be.
@@ -75,13 +75,13 @@ If you inspect your running code in the debugger,
 you’ll see that non-nullability is retained at runtime
 (hence _sound_ null safety).
 
-与其他许多空安全语言不同，
+與其他許多空安全語言不同，
 Dart 提供 [健全的空值安全](/null-safety)，
-这意味着只有您声明值可以为空的情况下，值才可以为空；
-当 Dart 确定变量不可为空时，
-该变量 **永远** 不可为空。
-凭借健全的空值安全，Dart 可以通过静态代码分析在运行时保护您免受空值异常的影响。
-如果你在调试器中审查正在运行的代码，你会看到不可为空性仍在运行时被保留 (所以是完全空值安全)。
+這意味著只有您宣告值可以為空的情況下，值才可以為空；
+當 Dart 確定變數不可為空時，
+該變數 **永遠** 不可為空。
+憑藉健全的空值安全，Dart 可以透過靜態程式碼分析在執行時保護您免受空值例外的影響。
+如果你在偵錯程式中審查正在執行的程式碼，你會看到不可為空性仍在執行時被保留 (所以是完全空值安全)。
 
 The following code sample showcases several Dart language features,
 including libraries, async calls, nullable and non-nullable types,
@@ -91,9 +91,9 @@ see the [samples page](/samples).
 To learn more about the language, take the [Dart language
 tour](/guides/language/language-tour).
 
-以下代码示例展示了 Dart 语言的一些功能，包括库、异步调用、可空和不可空的类型、箭头语法、生成器、流和 getter。
-想要查找使用更多 Dart 功能的示例，请参阅 [示例页面](/samples)。
-要了解有关 Dart 语言的更多信息，请参阅 [Dart 语言之旅](/guides/language/language-tour)。
+以下程式碼範例展示了 Dart 語言的一些功能，包括庫、非同步呼叫、可空和不可空的型別、箭頭語法、產生器、流和 getter。
+想要查詢使用更多 Dart 功能的範例，請參閱 [範例頁面](/samples)。
+要了解有關 Dart 語言的更多資訊，請參閱 [Dart 語言之旅](/guides/language/language-tour)。
 
 <?code-excerpt "misc/lib/overview_pi.dart"?>
 ```dart:run-dartpad:ga_id-overview
@@ -151,75 +151,75 @@ class Point {
   <a href="{{site.dartpad}}/bc63d212c3252e44058ff76f34ef5730"
   target="_blank">open this example in its own window</a>.
 
-  此示例在嵌入式 [DartPad](/tools/dartpad) 中运行。您也可以
+  此範例在嵌入式 [DartPad](/tools/dartpad) 中執行。您也可以
   <a href="{{site.dartpad}}/4d688b6e468fb4c53d312250f557ec5c"
-  target="_blank" rel="noopener">在此示例自己的窗口中打开它</a>。
+  target="_blank" rel="noopener">在此範例自己的視窗中開啟它</a>。
 
 {{site.alert.end}}
 
 ## Dart: The libraries {#libraries}
 
-## Dart 库 {#libraries}
+## Dart 庫 {#libraries}
 
 Dart has [a rich set of core libraries](/guides/libraries),
 providing essentials for many everyday programming tasks:
 
-Dart 拥有 [丰富的核心库](/guides/libraries)，为许多日常编程任务提供了必要工具：
+Dart 擁有 [豐富的核心庫](/guides/libraries)，為許多日常程式設計任務提供了必要工具：
 
 * Built-in types, collections, and other core functionality for
   every Dart program
   (`dart:core`)
 
-  为每个 Dart 程序提供的内置类型，集合与其他核心功能
+  為每個 Dart 程式提供的內建型別，集合與其他核心功能
   (`dart:core`)
 
 * Richer collection types such as queues, linked lists, hashmaps, and
   binary trees
   (`dart:collection`)
 
-  更丰富的集合类型，诸如队列、链接列表、哈希图和二叉树
+  更豐富的集合型別，諸如佇列、連結列表、雜湊圖和二叉樹
   (`dart:collection`)
 
 * Encoders and decoders for converting between different data representations,
   including JSON and UTF-8
   (`dart:convert`)
 
-  用于在不同的数据表示形式之间进行转换编码器和解码器，
+  用於在不同的資料表示形式之間進行轉換編碼器和解碼器，
   包括 JSON 和 UTF-8
   (`dart:convert`)
 
 * Mathematical constants and functions, and random number generation
   (`dart:math`)
 
-  数学常数和函数，以及随机数生成
+  數學常數和函式，以及隨機數產生
   (`dart:math`)
 
 * File, socket, HTTP, and other I/O support for non-web applications
   (`dart:io`)
 
-  为非 Web 应用程序提供的文件、套接字、HTTP 和其他 I/O 支持
+  為非 Web 應用程式提供的檔案、套接字、HTTP 和其他 I/O 支援
   (`dart:io`)
 
 * Support for asynchronous programming,
   with classes such as `Future` and `Stream`
   (`dart:async`)
 
-  异步编程支持，比如 `Future` 和 `Stream` 类
+  非同步程式設計支援，比如 `Future` 和 `Stream` 類
   (`dart:async`)
 
 * Lists that efficiently handle fixed-sized data
   (for example, unsigned 8-byte integers) and SIMD numeric types
   (`dart:typed_data`)
 
-  能够有效处理固定大小的数据（例如，无符号的 8 字节整数）
-  和 SIMD 数字类型的列表
+  能夠有效處理固定大小的資料（例如，無符號的 8 位元組整數）
+  和 SIMD 數字型別的列表
   (`dart:typed_data`)
 
 * Foreign function interfaces for interoperability with
   other code that presents a C-style interface
   (`dart:ffi`)
 
-  用于提供 C 语言风格代码互通性支持的外部函数接口
+  用於提供 C 語言風格程式碼互通性支援的外部函式介面
   (`dart:ffi`)
 
 * Concurrent programming using _isolates_—independent workers
@@ -227,16 +227,16 @@ Dart 拥有 [丰富的核心库](/guides/libraries)，为许多日常编程任�
   don't share memory, communicating only through messages
   (`dart:isolate`)
 
-  使用 **isolates** 的并发编程 —
-  这些独立的工作程序与线程相似但它们不共享内存并仅通过消息进行通信
+  使用 **isolates** 的併發程式設計 —
+  這些獨立的工作程式與執行緒相似但它們不共享記憶體並僅透過訊息進行通訊
   (`dart:isolate`)
 
 * HTML elements and other resources for web-based applications that need to
   interact with the browser and the Document Object Model (DOM)
   (`dart:html`)
 
-  基于 Web 的应用程序中需要与浏览器和文档对象模型
-  (DOM) 交互的 HTML 元素和其他资源
+  基於 Web 的應用程式中需要與瀏覽器和文件物件模型
+  (DOM) 互動的 HTML 元素和其他資源
   (`dart:html`)
 
 Beyond the core libraries, many APIs are provided through
@@ -244,53 +244,53 @@ a comprehensive set of packages.
 The Dart team publishes many useful supplementary packages,
 such as these:
 
-除核心库外，Dart 还通过一整套软件包提供了许多 API。
-Dart 团队发布了许多有用的补充包，
+除核心函式庫外，Dart 還透過一整套軟體套件提供了許多 API。
+Dart 團隊釋出了許多有用的補充套件，
 例如：
 
 * [characters]({{site.pub-pkg}}/characters)
 
-  [characters (字符)]({{site.pub-pkg}}/characters)
+  [characters (字元)]({{site.pub-pkg}}/characters)
 
 * [intl]({{site.pub-pkg}}/intl) 
 
-  [intl (国际化)]({{site.pub-pkg}}/intl) 
+  [intl (國際化)]({{site.pub-pkg}}/intl) 
 
 * [http]({{site.pub-pkg}}/http)
 
-  [http (http 请求)]({{site.pub-pkg}}/http)
+  [http (http 請求)]({{site.pub-pkg}}/http)
 
 * [crypto]({{site.pub-pkg}}/crypto)
 
-  [crypto (哈希加密)]({{site.pub-pkg}}/crypto)
+  [crypto (雜湊加密)]({{site.pub-pkg}}/crypto)
 
 * [markdown]({{site.pub-pkg}}/markdown)
 
 Additionally, third-party publishers and the broader community
 publish thousands of packages, with support for features like these:
 
-此外，第三方发布者和更广泛的社区也
-发布了上千个软件包，支持诸如此类功能：
+此外，第三方釋出者和更廣泛的社群也
+釋出了上千個軟體套件，支援諸如此類功能：
 
 * [XML]({{site.pub-pkg}}/xml) 
 
 * [Windows integration]({{site.pub-pkg}}/win32)
 
-  [Windows integration (Windows API 调用) ]({{site.pub-pkg}}/win32)
+  [Windows integration (Windows API 呼叫) ]({{site.pub-pkg}}/win32)
 
 * [SQLite]({{site.pub-pkg}}/sqflite_common)
 
 * [compression]({{site.pub-pkg}}/archive)
 
-  [compression (压缩)]({{site.pub-pkg}}/archive)
+  [compression (壓縮)]({{site.pub-pkg}}/archive)
 
 To see a series of working examples featuring the Dart core libraries,
 take the [library tour](/guides/libraries/library-tour).
 To find additional APIs, see the
 [commonly used packages page](/guides/libraries/useful-libraries).
 
-你可以访问 [库概览](/guides/libraries/library-tour)，查看关于 Dart 核心库的一系列示例。
-如果你想要查找其他 API，请参见 [常用软件包页面](/guides/libraries/useful-libraries)。
+你可以存取 [函式庫概覽](/guides/libraries/library-tour)，檢視關於 Dart 核心函式庫的一系列範例。
+如果你想要查詢其他 API，請參見 [常用軟體包頁面](/guides/libraries/useful-libraries)。
 
 ## Dart: The platforms {#platform}
 
@@ -298,21 +298,21 @@ To find additional APIs, see the
 
 Dart's compiler technology lets you run code in different ways:
 
-Dart 的编译器技术可让您以不同的方式运行代码：
+Dart 的編譯器技術可讓您以不同的方式執行程式碼：
 
 * **Native platform**: For apps targeting mobile and desktop devices,
   Dart includes both a Dart VM with just-in-time (JIT) compilation and
   an ahead-of-time (AOT) compiler for producing machine code.
 
-  **原生平台**：针对面向移动和桌面设备的应用程序，
-  Dart 拥有具有实时 (JIT) 编译功能的 Dart VM 和用于生成机器代码的提前 (AOT) 编译器。
+  **原生平台**：針對面向移動和桌面裝置的應用程式，
+  Dart 擁有具有即時 (JIT) 編譯功能的 Dart VM 和用於產生機器程式碼的提前 (AOT) 編譯器。
 
 * **Web platform**: For apps targeting the web, Dart can compile for
   development or production purposes. Its web compiler translates Dart
   into JavaScript.
 
-  **Web 平台**：Dart 可用于编译开发和生产阶段的面向 Web 的应用，
-  它的 Web 编译器可以将 Dart 转换为 JavaScript。
+  **Web 平台**：Dart 可用於編譯開發和生產階段的面向 Web 的應用，
+  它的 Web 編譯器可以將 Dart 轉換為 JavaScript。
 
 <img 
   src="/assets/img/Dart-platforms.svg" 
@@ -324,23 +324,23 @@ multi-platform UI toolkit that's powered by the Dart platform,
 and that provides tooling and UI libraries to build UI experiences that run
 on iOS, Android, macOS, Windows, Linux, and the web.
 
-[Flutter 框架]({{site.flutter}}) 是一款流行的多平台 UI 工具包，由 Dart 语言强力驱动，
-提供一套工具和 UI 库，帮助开发者们在 iOS、Android、macOS、Windows、Linux 和 Web 平台
-构建优秀的 UI 体验。
+[Flutter 框架]({{site.flutter}}) 是一款流行的多平臺 UI 工具套件，由 Dart 語言強力驅動，
+提供一套工具和 UI 庫，幫助開發者們在 iOS、Android、macOS、Windows、Linux 和 Web 平台
+建構優秀的 UI 體驗。
 
 #### Dart Native (machine code JIT and AOT) {#native-platform}
 
-#### 原生平台的 Dart (JIT 和 AOT 机器码) {#native-platform}
+#### 原生平台的 Dart (JIT 和 AOT 機器碼) {#native-platform}
 
 During development, a fast developer cycle is critical for iteration.
 The Dart VM offers a just-in-time compiler (JIT) with
 incremental recompilation (enabling hot reload), live metrics collections
 (powering [DevTools](/tools/dart-devtools)), and rich debugging support.
 
-在开发过程中，快速的开发周期对于迭代至关重要。
-Dart VM 提供了一个实时编译器 (JIT)，编译器拥有增量重编译功能 (支持热重载)、
-运行数据收集（用于驱动 [DevTools](/tools/dart-devtools)）
-以及丰富的开发调试支持。
+在開發過程中，快速的開發週期對於迭代至關重要。
+Dart VM 提供了一個即時編譯器 (JIT)，編譯器擁有增量重編譯功能 (支援熱重載)、
+執行資料收集（用於驅動 [DevTools](/tools/dart-devtools)）
+以及豐富的開發除錯支援。
 
 When apps are ready to be deployed to production—whether you're
 publishing to an app store or deploying to a production backend—the 
@@ -348,74 +348,74 @@ Dart ahead-of-time (AOT) compiler can compile to native ARM or x64
 machine code. Your AOT-compiled app launches with consistent, short
 startup time.
 
-当应用程序可以部署到生产环境时 (无论是发布到应用商店还是部署到生产后端)，
-Dart AOT 编译器可以编译成原生的 ARM 或 x64 的机器码。
-经过 AOT 编译的应用程序将稳定快速地启动。
+當應用程式可以部署到生產環境時 (無論是釋出到應用商店還是部署到生產後端)，
+Dart AOT 編譯器可以編譯成原生的 ARM 或 x64 的機器碼。
+經過 AOT 編譯的應用程式將穩定快速地啟動。
 
 The AOT-compiled code runs inside an efficient Dart runtime that
 enforces the sound Dart type system and
 manages memory using fast object allocation and a
 [generational garbage collector](https://medium.com/flutter-io/flutter-dont-fear-the-garbage-collector-d69b3ff1ca30).
 
-经过 AOT 编译的代码会在高效的 Dart 运行环境中运行，该运行环境拥有健全的 Dart 类型系统，
-并使用快速对象分配和
-[分代垃圾收集器](https://medium.com/flutter-io/flutter-dont-fear-the-garbage-collector-d69b3ff1ca30) 来管理内存。
+經過 AOT 編譯的程式碼會在高效的 Dart 執行環境中執行，該執行環境擁有健全的 Dart 型別系統，
+並使用快速物件分配和
+[分代垃圾收集器](https://medium.com/flutter-io/flutter-dont-fear-the-garbage-collector-d69b3ff1ca30) 來管理記憶體。
 
 More information:
 
-更多相关信息：
+更多相關資訊：
 
 * [Get started: Command-line and server apps](/tutorials/server/get-started)
 
-  [快速上手：命令行与服务器应用](/tutorials/server/get-started)
+  [快速上手：命令列與伺服器應用](/tutorials/server/get-started)
 
 * [`dart` tool for running with JIT or AOT compiling to machine code](/tools/dart-tool)
 
-  [用于 JIT 运行或 AOT 编译为机器码的 `dart` 工具](/tools/dart-tool)
+  [用於 JIT 執行或 AOT 編譯為機器碼的 `dart` 工具](/tools/dart-tool)
 
 * [Write command-line apps](/tutorials/server/cmdline)
 
-  [编写命令行应用应用程序](/tutorials/server/cmdline)
+  [編寫命令列應用應用程式](/tutorials/server/cmdline)
 
 * [Write HTTP servers](/tutorials/server/httpserver)
 
-  [编写 HTTP 服务器](/tutorials/server/httpserver)
+  [編寫 HTTP 伺服器](/tutorials/server/httpserver)
 
 #### Dart Web (JavaScript dev & prod) {#web-platform}
 
-#### Web 平台的 Dart (使用 JavaScript 开发和部署) {#web-platform}
+#### Web 平台的 Dart (使用 JavaScript 開發和部署) {#web-platform}
 
 Dart Web enables running Dart code on web platforms powered by
 JavaScript. With Dart Web, you compile Dart code to JavaScript code, which in
 turn runs in a browser—for example, [V8](https://v8.dev/) inside
 [Chrome](https://www.google.com/chrome/).
 
-Dart 的 Web 支持让你可以在 JavaScript 驱动的网页平台上运行 Dart 代码。
-使用 Web 环境下的 Dart 时，你可以将 Dart 编译为在浏览器中运行的 JavaScript 代码，
+Dart 的 Web 支援讓你可以在 JavaScript 驅動的網頁平臺上執行 Dart 程式碼。
+使用 Web 環境下的 Dart 時，你可以將 Dart 編譯為在瀏覽器中執行的 JavaScript 程式碼，
 例如: [Chrome](https://www.google.cn/chrome/) 中的 [V8](https://v8.dev/)。
 
 Dart web contains two compiliation modes:
 
-Dart Web 包含两种编译模式:
+Dart Web 包含兩種編譯模式:
 
 * An incremental development compiler enabling a fast developer cycle
 
-  一个为快速开发提供帮助的增量编译器。
+  一個為快速開發提供幫助的增量編譯器。
 
 * An optimizing production compiler which compiles Dart code to fast,
   compact, deployable JavaScript. These effeciencies come from
   techniques such as dead-code elimination.
 
-  一个为生产环境优化的编译器，可以将 Dart 代码编译成快速、紧凑、可部署的 JavaScript。
-  它的高效之处在于使用了类似消除无用代码的优化。
+  一個為生產環境最佳化的編譯器，可以將 Dart 程式碼編譯成快速、緊湊、可部署的 JavaScript。
+  它的高效之處在於使用了類似消除無用程式碼的最佳化。
 
 More information:
 
-更多相关信息：
+更多相關資訊：
 
 * [Get started: Web apps](/tutorials/web/get-started)
 
-  [快速上手：网页应用程序](/tutorials/web/get-started)
+  [快速上手：網頁應用程式](/tutorials/web/get-started)
 
 * [`dart compile js`](/tools/dart-compile#js)
 * [`webdev` tool](/tools/webdev)
@@ -424,27 +424,27 @@ More information:
 
 * [Web deployment tips](/web/deployment)
 
-  [网页部署提示](/web/deployment)
+  [網頁部署提示](/web/deployment)
 
 #### The Dart runtime {#runtime}
 
-#### Dart 运行时环境 {#runtime}
+#### Dart 執行時環境 {#runtime}
 
 Regardless of which platform you use or how you compile your code,
 executing the code requires a Dart runtime.
 This runtime is responsible for the following critical tasks:
 
-不论你在哪个平台上使用、选择如何构建你的代码，
-执行代码时都需要一个 Dart 运行时环境。
-这个运行时环境负责下面的关键任务：
+不論你在哪個平臺上使用、選擇如何建構你的程式碼，
+執行程式碼時都需要一個 Dart 執行時環境。
+這個執行時環境負責下面的關鍵任務：
 
 * Managing memory:
   Dart uses a managed memory model,
   where unused memory is reclaimed by a garbage collector (GC). 
 
-  内存管理：
-  Dart 使用一个受管理的内存模型，
-  未被使用的内存会由垃圾收集器 (GC) 回收。
+  記憶體管理：
+  Dart 使用一個受管理的記憶體模型，
+  未被使用的記憶體會由垃圾收集器 (GC) 回收。
 
 * Enforcing the Dart type system:
   Although most type checks in Dart are static (compile-time),
@@ -452,64 +452,64 @@ This runtime is responsible for the following critical tasks:
   For example, the Dart runtime enforces dynamic checks by
   [type check and cast operators](/guides/language/language-tour#type-test-operators).
 
-  执行 Dart 语言的类型体系：
-  Dart 语言里大多数类型检查都是静态的（编译时），但仍有部分检查是动态的（运行时）。
-  比如，Dart 运行时环境会在遇到
-  [类型判断运算符](/guides/language/language-tour#type-test-operators)
-  时执行动态检查。
+  執行 Dart 語言的型別體系：
+  Dart 語言裡大多數型別檢查都是靜態的（編譯時），但仍有部分檢查是動態的（執行時）。
+  比如，Dart 執行時環境會在遇到
+  [型別判斷運算子](/guides/language/language-tour#type-test-operators)
+  時執行動態檢查。
 
 * Managing [isolates](/guides/language/language-tour#isolates):
   The Dart runtime controls the main isolate (where code normally runs)
   and any other isolates that the app creates.
 
   管理 [isolates](/guides/language/language-tour#isolates)：
-  Dart 运行时环境会负责控制主 isolate（代码通常在这里运行）
-  以及其他应用创建的 isolate。
+  Dart 執行時環境會負責控制主 isolate（程式碼通常在這裡執行）
+  以及其他應用建立的 isolate。
 
 On native platforms, the Dart runtime is automatically
 included inside self-contained executables, 
 and is part of the Dart VM provided by
 the [`dart run`](/tools/dart-run) command.
 
-在原生平台上，Dart 运行时环境被自动包含在独立的可执行文件中，
+在原生平臺上，Dart 執行時環境被自動包含在獨立的可執行檔案中，
 是 [`dart run`](/tools/dart-run) 命令提供的 Dart VM 的一部分。
 
 ## Learning Dart {#learning-dart}
 
-## 学习 Dart {#learning-dart}
+## 學習 Dart {#learning-dart}
 
 You have many choices for learning Dart. Here are a few that we recommend:
 
-学习 Dart 有很多选择。以下是我们推荐的一些方法：
+學習 Dart 有很多選擇。以下是我們推薦的一些方法：
 
 * [Explore Dart in the browser]({{site.dartpad}}/) through DartPad,
   a web-based execution environment for Dart code.
 
-  [在浏览器中探索 Dart]({{site.dartpad}}/) - DartPad 是一个基于网页的 Dart 代码执行环境。
+  [在瀏覽器中探索 Dart]({{site.dartpad}}/) - DartPad 是一個基於網頁的 Dart 程式碼執行環境。
 
 * [Take a tour of the Dart language](/guides/language/language-tour),
   which shows you how to use each major Dart feature.
 
-  [Dart 开发语言概览](/guides/language/language-tour)，
-  它展示了如何使用 Dart 的主要特性。
+  [Dart 開發語言概覽](/guides/language/language-tour)，
+  它展示瞭如何使用 Dart 的主要特性。
 
 * [Complete a Dart tutorial](/tutorials/server/cmdline) that 
   covers the basics of using Dart to build for the command line.
 
-  [完成 Dart 教程](/tutorials/server/cmdline) 它涵盖了通过命令行构建使用 Dart 的基础知识。
+  [完成 Dart 課程](/tutorials/server/cmdline) 它涵蓋了透過命令列建構使用 Dart 的基礎知識。
 
 * [Work through extensive online training][udemy]
   from Dart experts.
 
-  来自 Dart 专家的 [在线课程][udemy]。
+  來自 Dart 專家的 [線上課程][udemy]。
 
 * [Explore the API documentation]({{site.dart-api}}) that
   describes the Dart core libraries.
 
-  [探索 API 文档]({{site.dart_api}}) - 描述了 Dart 核心库。
+  [探索 API 文件]({{site.dart_api}}) - 描述了 Dart 核心函式庫。
 
 * [Read a book about Dart programming](/resources/books).
 
-  [阅读关于 Dart 编程的书籍](/resources/books)。
+  [閱讀關於 Dart 程式設計的書籍](/resources/books)。
 
 [udemy]: https://www.udemy.com/course/complete-dart-guide/?couponCode=NOV-20

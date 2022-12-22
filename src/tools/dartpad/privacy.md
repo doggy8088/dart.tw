@@ -1,8 +1,8 @@
 ---
 title: Privacy notice
-title: 隐私权声明
+title: 隱私權宣告
 description: How Google uses the source code that you enter into DartPad.
-description: Google 将如何使用你输入到 DartPad 里的代码。
+description: Google 將如何使用你輸入到 DartPad 裡的程式碼。
 toc: false
 ---
 

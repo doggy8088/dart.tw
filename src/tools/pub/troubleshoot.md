@@ -1,7 +1,7 @@
 ---
 permalink: /tools/pub/troubleshoot
 title: Troubleshooting pub
-title: Pub 命令问题排查
+title: Pub 命令問題排查
 description: Common gotchas you might run into when using pub.
 ---
 

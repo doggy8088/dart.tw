@@ -1,8 +1,8 @@
 ---
 title: Web deployment
-title: 部署 Web 应用
+title: 部署 Web 應用
 description: Learn how to build your Dart web app for production deployment.
-description: 学习如何部署你的 Dart Web 应用。
+description: 學習如何部署你的 Dart Web 應用。
 ---
 
 Deploying a Dart web app works like deploying any other web app.

@@ -2,12 +2,12 @@
 title: Remove DOM elements
 title: 移除 DOM 元素
 description: Learn how to remove children elements from the DOM.
-description: 学习从 DOM 中移除子元素。
+description: 學習從 DOM 中移除子元素。
 js: [{url: 'https://dartpad.cn/inject_embed.dart.js', defer: true}]
 prevpage:
   url: /tutorials/web/low-level-html/add-elements
   title: Add elements to the DOM
-  title: 向 DOM 添加元素
+  title: 向 DOM 新增元素
 ---
 
 <div class="panel" markdown="1">

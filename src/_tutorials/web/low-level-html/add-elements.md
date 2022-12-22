@@ -1,8 +1,8 @@
 ---
 title: Add elements to the DOM
-title: 向 DOM 添加元素
+title: 向 DOM 新增元素
 description: Learn how to add created elements to the DOM.
-description: 学习如何向 DOM 里添加元素。
+description: 學習如何向 DOM 裡新增元素。
 js: [{url: 'https://dartpad.cn/inject_embed.dart.js', defer: true}]
 nextpage:
   url: /tutorials/web/low-level-html/remove-elements
@@ -11,7 +11,7 @@ nextpage:
 prevpage:
   url: /tutorials/web/low-level-html/connect-dart-html
   title: Connect Dart & HTML
-  title: Dart 与 HTML 关联
+  title: Dart 與 HTML 關聯
 ---
 
 <div class="panel" markdown="1">

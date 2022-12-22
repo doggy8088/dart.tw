@@ -1,15 +1,15 @@
 ---
 title: "Effective Dart: Usage"
-title: 高效 Dart 语言指南：用法示例
+title: 高效 Dart 語言指南：用法範例
 description: Guidelines for using language features to write maintainable code.
 nextpage:
   url: /guides/language/effective-dart/design
   title: Design
-  title: API 设计
+  title: API 設計
 prevpage:
   url: /guides/language/effective-dart/documentation
   title: Documentation
-  title: 文档
+  title: 文件
 ---
 <?code-excerpt replace="/([A-Z]\w*)\d\b/$1/g"?>
 <?code-excerpt path-base="misc/lib/effective_dart"?>
@@ -18,25 +18,25 @@ You can use these guidelines every day in the bodies of your Dart code. *Users*
 of your library may not be able to tell that you've internalized the ideas here,
 but *maintainers* of it sure will.
 
-每天在你写的 Dart 代码中都会应用到这些准则。
-库的*使用者*可能不需要知道你在其中的一些想法，
-但是*维护者*肯定是需要的。
+每天在你寫的 Dart 程式碼中都會應用到這些準則。
+庫的*使用者*可能不需要知道你在其中的一些想法，
+但是*維護者*肯定是需要的。
 
 ## Libraries
 
-## 库
+## 庫
 
 These guidelines help you compose your program out of multiple files in a
 consistent, maintainable way. To keep these guidelines brief, they use "import"
 to cover `import` and `export` directives. The guidelines apply equally to both.
 
-这些准则可以帮助你在多个文件编写程序的情况下保证一致性和可维护性。
-为了让准则简洁，这里使用“import”来同时代表 `import` 和 `export` 。
-准则同时适用于这两者。
+這些準則可以幫助你在多個檔案編寫程式的情況下保證一致性和可維護性。
+為了讓準則簡潔，這裡使用“import”來同時代表 `import` 和 `export` 。
+準則同時適用於這兩者。
 
 ### DO use strings in `part of` directives.
 
-### **要** 在 `part of` 中使用字符串。
+### **要** 在 `part of` 中使用字串。
 
 Many Dart developers avoid using `part` entirely. They find it easier to reason
 about their code when each library is a single file. If you do choose to use
@@ -46,18 +46,18 @@ allows this `part of` directive to use the *name* of the library it's a part of.
 That makes it harder for tools to physically find the main library file, and can
 make it ambiguous which library the part is actually part of.
 
-很多 Dart 开发者会避免直接使用 `part` 。他们发现当库仅有一个文件的时候很容易读懂代码。
-如果你确实要使用 `part` 将库的一部分拆分为另一个文件，则 Dart 要求另一个文件指示它所属库的路径。 
-由于遗留原因， Dart 允许 `part of` 指令使用它所属的库的*名称*。
-这使得工具很难直接查找到这个文件对应主库文件，使得库和文件之间的关系模糊不清。
+很多 Dart 開發者會避免直接使用 `part` 。他們發現當庫僅有一個檔案的時候很容易讀懂程式碼。
+如果你確實要使用 `part` 將庫的一部分拆分為另一個檔案，則 Dart 要求另一個檔案指示它所屬庫的路徑。 
+由於遺留原因， Dart 允許 `part of` 指令使用它所屬的函式庫的*名稱*。
+這使得工具很難直接查詢到這個檔案對應主庫檔案，使得庫和檔案之間的關係模糊不清。
 
 The preferred, modern syntax is to use a URI string that points directly to the
 library file, just like you use in other directives. If you have some library,
 `my_library.dart`, that contains:
 
-推荐的现代语法是使用 URI 字符串直接指向库文件。
-首选的现代语法是使用直接指向库文件的URI字符串，URI 的使用和其他指令中一样。
-如果你有一些库，`my_library.dart`，其中包含：
+推薦的現代語法是使用 URI 字串直接指向庫檔案。
+首選的現代語法是使用直接指向庫檔案的URI字串，URI 的使用和其他指令中一樣。
+如果你有一些函式庫，`my_library.dart`，其中包含：
 
 <?code-excerpt "my_library.dart"?>
 {% prettify dart tag=pre+code %}
@@ -68,7 +68,7 @@ part 'some/other/file.dart';
 
 Then the part file should look like:
 
-从库中拆分的文件应该如下所示：
+從庫中拆分的檔案應該如下所示：
 
 {:.good}
 <?code-excerpt "some/other/file.dart"?>
@@ -88,7 +88,7 @@ part of my_library;
 
 ### DON'T import libraries that are inside the `src` directory of another package.
 
-### **不要** 导入 package 中 `src` 目录下的库。
+### **不要** 匯入 package 中 `src` 目錄下的函式庫。
 
 {% include linter-rule-mention.md rule="implementation_imports" %}
 
@@ -98,17 +98,17 @@ maintainers version their package takes this convention into account. They are
 free to make sweeping changes to code under `src` without it being a breaking
 change to the package.
 
-`lib` 下的 `src` 目录 [被指定][package guide] 为 package 自己实现的私有库。
-基于包维护者对版本的考虑，package 使用了这种约定。
-在不破坏 package 的情况下，维护者可以自由地对 `src` 目录下的代码进行修改。
+`lib` 下的 `src` 目錄 [被指定][package guide] 為 package 自己實現的私有庫。
+基於包維護者對版本的考慮，package 使用了這種約定。
+在不破壞 package 的情況下，維護者可以自由地對 `src` 目錄下的程式碼進行修改。
 
 [package guide]: /tools/pub/package-layout
 
 That means that if you import some other package's private library, a minor,
 theoretically non-breaking point release of that package could break your code.
 
-这意味着，你如果导入了其中的私有库，
-按理论来讲，一个不破坏 package 的次版本就会影响到你的代码。
+這意味著，你如果匯入了其中的私有庫，
+按理論來講，一個不破壞 package 的次版本就會影響到你的程式碼。
 
 ### DON'T allow an import path to reach into or out of `lib`.
 
@@ -172,7 +172,7 @@ When an import does *not* reach across `lib`, prefer using relative imports.
 They're shorter.
 For example, say your directory structure looks like this:
 
-比如，下面是你的 package 目录结构：
+比如，下面是你的 package 目錄結構：
 
 ```text
 my_package
@@ -190,7 +190,7 @@ Here is how the various libraries should import each other:
 
 **lib/api.dart:**
 
-如果 `api.dart` 想导入 `utils.dart` ，应该这样使用：
+如果 `api.dart` 想匯入 `utils.dart` ，應該這樣使用：
 
 {:.good}
 {% prettify dart tag=pre+code %}
@@ -455,15 +455,15 @@ value. Sometimes it's best to simply use `!` on the field.
 
 ## Strings
 
-## 字符串
+## 字串
 
 Here are some best practices to keep in mind when composing strings in Dart.
 
-下面是一些需要记住的，关于在 Dart 中使用字符串的最佳实践。
+下面是一些需要記住的，關於在 Dart 中使用字串的最佳實踐。
 
 ### DO use adjacent strings to concatenate string literals.
 
-### **要** 使用相邻字符串的方式连接字面量字符串。
+### **要** 使用相鄰字串的方式連線字面量字串。
 
 {% include linter-rule-mention.md rule="prefer_adjacent_string_concatenation" %}
 
@@ -472,10 +472,10 @@ form—you do not need to use `+` to concatenate them. Just like in C and
 C++, simply placing them next to each other does it. This is a good way to make
 a single long string that doesn't fit on one line.
 
-如果你有两个字面量字符串（不是变量，是放在引号中的字符串），
-你不需要使用 `+` 来连接它们。
-应该像 C 和 C++ 一样，只需要将它们挨着在一起就可以了。
-这种方式非常适合不能放到一行的长字符串的创建。
+如果你有兩個字面量字串（不是變數，是放在引號中的字串），
+你不需要使用 `+` 來連線它們。
+應該像 C 和 C++ 一樣，只需要將它們挨著在一起就可以了。
+這種方式非常適合不能放到一行的長字串的建立。
 
 {:.good}
 <?code-excerpt "usage_good.dart (adjacent-strings-literals)"?>
@@ -493,7 +493,7 @@ raiseAlarm('ERROR: Parts of the spaceship are on fire. Other ' +
 
 ### PREFER using interpolation to compose strings and values.
 
-### **推荐** 使用插值的形式来组合字符串和值。
+### **推薦** 使用插值的形式來組合字串和值。
 
 {% include linter-rule-mention.md rule="prefer_interpolation_to_compose_strings" %}
 
@@ -501,8 +501,8 @@ If you're coming from other languages, you're used to using long chains of `+`
 to build a string out of literals and other values. That does work in Dart, but
 it's almost always cleaner and shorter to use interpolation:
 
-如果你之前使用过其他语言，你一定习惯使用大量 `+` 将字面量字符串以及字符串变量链接构建字符串。
-这种方式在 Dart 中同样有效，但是通常情况下使用插值会更清晰简短：
+如果你之前使用過其他語言，你一定習慣使用大量 `+` 將字面量字串以及字串變數連結建構字串。
+這種方式在 Dart 中同樣有效，但是通常情況下使用插值會更清晰簡短：
 
 {:.good}
 <?code-excerpt "usage_good.dart (string-interpolation)"?>
@@ -521,14 +521,14 @@ It's fine to use `.toString()` when converting only a single object to a string.
 
 ### AVOID using curly braces in interpolation when not needed.
 
-### **避免** 在字符串插值中使用不必要的大括号。
+### **避免** 在字串插值中使用不必要的大括號。
 
 {% include linter-rule-mention.md rule="unnecessary_brace_in_string_interps" %}
 
 If you're interpolating a simple identifier not immediately followed by more
 alphanumeric text, the `{}` should be omitted.
 
-如果要插入是一个简单的标识符，并且后面没有紧跟随在其他字母文本，则应省略 `{}` 。
+如果要插入是一個簡單的識別符號，並且後面沒有緊跟隨在其他字母文字，則應省略 `{}` 。
 
 {:.good}
 <?code-excerpt "usage_good.dart (string-interpolation-avoid-curly)"?>
@@ -549,12 +549,12 @@ var greeting = 'Hi, ${name}! I love your ${decade}s costume.';
 Out of the box, Dart supports four collection types: lists, maps, queues, and sets.
 The following best practices apply to collections.
 
-Dart 集合中原生支持了四种类型：list， map， queue， 和 set。
-下面是应用于集合的最佳实践。
+Dart 集合中原生支援了四種類型：list， map， queue， 和 set。
+下面是應用於集合的最佳實踐。
 
 ### DO use collection literals when possible.
 
-### **要** 尽可能的使用集合字面量。
+### **要** 儘可能的使用集合字面量。
 
 {% include linter-rule-mention.md rule="prefer_collection_literals" %}
 
@@ -563,9 +563,9 @@ classes have unnamed constructors like most classes do. But because these
 collections are used so frequently, Dart has nicer built-in syntax for creating
 them:
 
-Dart 有三种核心集合类型。List、Map 和 Set，
-这些类和大多数类一样，都有未命名的构造函数，
-但由于这些集合使用频率很高，Dart 有更好的内置语法来创建它们：
+Dart 有三種核心集合型別。List、Map 和 Set，
+這些類和大多數類一樣，都有未命名的建構函式，
+但由於這些集合使用頻率很高，Dart 有更好的內建語法來建立它們：
 
 {:.good}
 <?code-excerpt "usage_good.dart (collection-literals)"?>
@@ -621,13 +621,13 @@ arguments.addAll(filePaths
 {% endprettify %}
 
 
-注意，对于集合类的 *命名* 构造函数则不适用上面的规则。
-`List.from()`、 `Map.fromIterable()` 都有其使用场景。 
-如果需要一个固定长度的结合，使用 ``List()`` 来创建一个固定长度的 list 也是合理的。
+注意，對於集合類別的 *命名* 建構函式則不適用上面的規則。
+`List.from()`、 `Map.fromIterable()` 都有其使用場景。 
+如果需要一個固定長度的結合，使用 ``List()`` 來建立一個固定長度的 list 也是合理的。
 
 ### DON'T use `.length` to see if a collection is empty.
 
-### **不要** 使用 `.length` 来判断一个集合是否为空。
+### **不要** 使用 `.length` 來判斷一個集合是否為空。
 
 {% include linter-rule-mention.md rule1="prefer_is_empty" rule2="prefer_is_not_empty" %}
 
@@ -635,16 +635,16 @@ The [Iterable][] contract does not require that a collection know its length or
 be able to provide it in constant time. Calling `.length` just to see if the
 collection contains *anything* can be painfully slow.
 
-[Iterable][] 合约并不要求集合知道其长度，也没要求在遍历的时候其长度不能改变。
-通过调用 `.length`  来判断集合是否包含内容是非常低效的。
+[Iterable][] 合約並不要求集合知道其長度，也沒要求在遍歷的時候其長度不能改變。
+透過呼叫 `.length`  來判斷集合是否包含內容是非常低效的。
 
 [iterable]: {{site.dart-api}}/{{site.data.pkg-vers.SDK.channel}}/dart-core/Iterable-class.html
 
 Instead, there are faster and more readable getters: `.isEmpty` and
 `.isNotEmpty`. Use the one that doesn't require you to negate the result.
 
-相反，Dart 提供了更加高效率和易用的 getter 函数：`.isEmpty` 和`.isNotEmpty`。
-使用这些函数并不需要对结果再次取非。
+相反，Dart 提供了更加高效率和易用的 getter 函式：`.isEmpty` 和`.isNotEmpty`。
+使用這些函式並不需要對結果再次取非。
 
 {:.good}
 <?code-excerpt "usage_good.dart (dont-use-length)"?>
@@ -662,7 +662,7 @@ if (!words.isEmpty) return words.join(' ');
 
 ### AVOID using `Iterable.forEach()` with a function literal.
 
-### **避免** 在 `Iterable.forEach()` 中使用字面量函数。
+### **避免** 在 `Iterable.forEach()` 中使用字面量函式。
 
 {% include linter-rule-mention.md rule="avoid_function_literals_in_foreach_calls" %}
 
@@ -670,9 +670,9 @@ if (!words.isEmpty) return words.join(' ');
 `for-in` loop doesn't do what you usually want. In Dart, if you want to iterate
 over a sequence, the idiomatic way to do that is using a loop.
 
-`forEach()` 函数在 JavaScript 中被广泛使用，
-这因为内置的 `for-in` 循环通常不能达到你想要的效果。
-在Dart中，如果要对序列进行迭代，惯用的方式是使用循环。
+`forEach()` 函式在 JavaScript 中被廣泛使用，
+這因為內建的 `for-in` 迴圈通常不能達到你想要的效果。
+在Dart中，如果要對序列進行迭代，慣用的方式是使用迴圈。
 
 {:.good}
 <?code-excerpt "usage_good.dart (avoid-forEach)"?>
@@ -693,8 +693,8 @@ people.forEach((person) {
 Note that this guideline specifically says "function *literal*". If you want to
 invoke some *already existing* function on each element, `forEach()` is fine.
 
-例外情况是，如果要执行的操作是调用一些已存在的并且将每个元素作为参数的函数，
-在这种情况下，`forEach()` 是很方便的。
+例外情況是，如果要執行的操作是呼叫一些已存在的並且將每個元素作為引數的函式，
+在這種情況下，`forEach()` 是很方便的。
 
 {:.good}
 <?code-excerpt "usage_good.dart (forEach-over-func)"?>
@@ -705,16 +705,16 @@ people.forEach(print);
 Also note that it's always OK to use `Map.forEach()`. Maps aren't iterable, so
 this guideline doesn't apply.
 
-您可以调用 `Map.forEach()`。Map 是不可迭代的，所以该准则对它无效。
+您可以呼叫 `Map.forEach()`。Map 是不可迭代的，所以該準則對它無效。
 
 ### DON'T use `List.from()` unless you intend to change the type of the result.
 
-### **不要** 使用 `List.from()` 除非想修改结果的类型。
+### **不要** 使用 `List.from()` 除非想修改結果的型別。
 
 Given an Iterable, there are two obvious ways to produce a new List that
 contains the same elements:
 
-给定一个可迭代的对象，有两种常见方式来生成一个包含相同元素的 list：
+給定一個可迭代的物件，有兩種常見方式來產生一個包含相同元素的 list：
 
 <?code-excerpt "../../test/effective_dart_test.dart (list-from-1)"?>
 {% prettify dart tag=pre+code %}
@@ -726,8 +726,8 @@ The obvious difference is that the first one is shorter. The *important*
 difference is that the first one preserves the type argument of the original
 object:
 
-明显的区别是前一个更短。
-更*重要*的区别在于第一个保留了原始对象的类型参数：
+明顯的區別是前一個更短。
+更*重要*的區別在於第一個保留了原始物件的型別引數：
 
 {:.good}
 <?code-excerpt "../../test/effective_dart_test.dart (list-from-good)"?>
@@ -751,7 +751,7 @@ print(List.from(iterable).runtimeType);
 
 If you *want* to change the type, then calling `List.from()` is useful:
 
-如果你*想要*改变类型，那么可以调用 `List.from()` ：
+如果你*想要*改變型別，那麼可以呼叫 `List.from()` ：
 
 {:.good}
 <?code-excerpt "../../test/effective_dart_test.dart (list-from-3)"?>
@@ -764,22 +764,22 @@ var ints = List<int>.from(numbers);
 But if your goal is just to copy the iterable and preserve its original type, or
 you don't care about the type, then use `toList()`.
 
-但是如果你的目的只是复制可迭代对象并且保留元素原始类型，
-或者并不在乎类型，那么请使用 `toList()`。
+但是如果你的目的只是複製可迭代物件並且保留元素原始型別，
+或者並不在乎型別，那麼請使用 `toList()`。
 
 
 ### DO use `whereType()` to filter a collection by type.
 
-### **要** 使用 `whereType()` 按类型过滤集合。
+### **要** 使用 `whereType()` 按型別過濾集合。
 
 {% include linter-rule-mention.md rule="prefer_iterable_wheretype" %}
 
 Let's say you have a list containing a mixture of objects, and you want to get
 just the integers out of it. You could use `where()` like this:
 
-假设你有一个 list 里面包含了多种类型的对象，
-但是你指向从它里面获取整型类型的数据。
-那么你可以像下面这样使用 `where()` ：
+假設你有一個 list 裡面包含了多種型別的物件，
+但是你指向從它裡面獲取整型型別的資料。
+那麼你可以像下面這樣使用 `where()` ：
 
 {:.bad}
 <?code-excerpt "usage_bad.dart (where-type)"?>
@@ -792,13 +792,13 @@ This is verbose, but, worse, it returns an iterable whose type probably isn't
 what you want. In the example here, it returns an `Iterable<Object>` even though
 you likely want an `Iterable<int>` since that's the type you're filtering it to.
 
-这个很罗嗦，但是更糟糕的是，它返回的可迭代对象类型可能并不是你想要的。
-在上面的例子中，虽然你想得到一个 `Iterable<int>`，然而它返回了一个 `Iterable<Object>`，
-这是因为，这是你过滤后得到的类型。
+這個很羅嗦，但是更糟糕的是，它返回的可迭代物件型別可能並不是你想要的。
+在上面的例子中，雖然你想得到一個 `Iterable<int>`，然而它返回了一個 `Iterable<Object>`，
+這是因為，這是你過濾後得到的型別。
 
 Sometimes you see code that "corrects" the above error by adding `cast()`:
 
-有时候你会看到通过添加 `cast()` 来“修正”上面的错误：
+有時候你會看到透過新增 `cast()` 來“修正”上面的錯誤：
 
 {:.bad}
 <?code-excerpt "usage_bad.dart (where-type-2)"?>
@@ -811,8 +811,8 @@ That's verbose and causes two wrappers to be created, with two layers of
 indirection and redundant runtime checking. Fortunately, the core library has
 the [`whereType()`][where-type] method for this exact use case:
 
-代码冗长，并导致创建了两个包装器，获取元素对象要间接通过两层，并进行两次多余的运行时检查。
-幸运的是，对于这个用例，核心库提供了 [`whereType()`][where-type] 方法：
+程式碼冗長，並導致建立了兩個包裝器，獲取元素物件要間接透過兩層，並進行兩次多餘的執行時期檢查。
+幸運的是，對於這個使用案例，核心函式庫提供了 [`whereType()`][where-type] 方法：
 
 [where-type]: {{site.dart-api}}/{{site.data.pkg-vers.SDK.channel}}/dart-core/Iterable/whereType.html
 
@@ -826,31 +826,31 @@ var ints = objects.whereType<int>();
 Using `whereType()` is concise, produces an [Iterable][] of the desired type,
 and has no unnecessary levels of wrapping.
 
-使用 `whereType()` 简洁，
-生成所需的 [Iterable][]（可迭代）类型，
-并且没有不必要的层级包装。
+使用 `whereType()` 簡潔，
+產生所需的 [Iterable][]（可迭代）型別，
+並且沒有不必要的層級包裝。
 
 
 ### DON'T use `cast()` when a nearby operation will do.
 
-### **不要** 使用 `cast()`，如果有更合适的方法。
+### **不要** 使用 `cast()`，如果有更合適的方法。
 
 Often when you're dealing with an iterable or stream, you perform several
 transformations on it. At the end, you want to produce an object with a certain
 type argument. Instead of tacking on a call to `cast()`, see if one of the
 existing transformations can change the type.
 
-通常，当处理可迭代对象或 stream 时，
-你可以对其执行多次转换。
-最后，生成所希望的具有特定类型参数的对象。
-尝试查看是否有已有的转换方法来改变类型，而不是去掉用 `cast()` 。
-而不是调用 `cast()`，看看是否有一个现有的转换可以改变类型。
+通常，當處理可迭代物件或 stream 時，
+你可以對其執行多次轉換。
+最後，產生所希望的具有特定型別引數的物件。
+嘗試檢視是否有已有的轉換方法來改變型別，而不是去掉用 `cast()` 。
+而不是呼叫 `cast()`，看看是否有一個現有的轉換可以改變型別。
 
 If you're already calling `toList()`, replace that with a call to
 [`List<T>.from()`][list-from] where `T` is the type of resulting list you want.
 
-如果你已经使用了 `toList()` ，那么请使用 [`List<T>.from()`][list-from] 替换，
-这里的 `T` 是你想要的返回值的类型。
+如果你已經使用了 `toList()` ，那麼請使用 [`List<T>.from()`][list-from] 替換，
+這裡的 `T` 是你想要的返回值的型別。
 
 [list-from]: {{site.dart-api}}/{{site.data.pkg-vers.SDK.channel}}/dart-core/List/List.from.html
 
@@ -873,10 +873,10 @@ produces an iterable of the desired type. Type inference often picks the correct
 type for you based on the function you pass to `map()`, but sometimes you need
 to be explicit.
 
-如果你正在调用 `map()` ，给它一个显式的类型参数，
-这样它就能产生一个所需类型的可迭代对象。
-类型推断通常根据传递给 `map()` 的函数选择出正确的类型，
-但有的时候需要明确指明。
+如果你正在呼叫 `map()` ，給它一個顯式的型別引數，
+這樣它就能產生一個所需型別的可迭代物件。
+型別推斷通常根據傳遞給 `map()` 的函式選擇出正確的型別，
+但有的時候需要明確指明。
 
 {:.good}
 <?code-excerpt "usage_good.dart (cast-map)" replace="/\(n as int\)/n/g"?>
@@ -901,46 +901,46 @@ This is the softer generalization of the previous rule. Sometimes there is no
 nearby operation you can use to fix the type of some object. Even then, when
 possible avoid using `cast()` to "change" a collection's type.
 
-这是对先前规则的一个宽松的定义。
-有些时候，并没有合适的方式来修改对象类型，即便如此，
-也应该尽可能的避免使用 `cast()` 来“改变”集合中元素的类型。
+這是對先前規則的一個寬鬆的定義。
+有些時候，並沒有合適的方式來修改物件型別，即便如此，
+也應該儘可能的避免使用 `cast()` 來“改變”集合中元素的型別。
 
 Prefer any of these options instead:
 
-推荐使用下面的方式来替代：
+推薦使用下面的方式來替代：
 
 *   **Create it with the right type.** Change the code where the collection is
     first created so that it has the right type.
 
-    **用恰当的类型创建集合。** 修改集合被首次创建时的代码，
-    为集合提供有一个恰当的类型。
+    **用恰當的型別建立集合。** 修改集合被首次建立時的程式碼，
+    為集合提供有一個恰當的型別。
 
 *   **Cast the elements on access.** If you immediately iterate over the
     collection, cast each element inside the iteration.
 
-    **在访问元素时进行 cast 操作。** 如果要立即对集合进行迭代，
-    在迭代内部 cast 每个元素。
+    **在存取元素時進行 cast 操作。** 如果要立即對集合進行迭代，
+    在迭代內部 cast 每個元素。
 
 *   **Eagerly cast using `List.from()`.** If you'll eventually access most of
     the elements in the collection, and you don't need the object to be backed
     by the original live object, convert it using `List.from()`.
 
-    **逼不得已进行 cast，请使用 `List.from()` 。** 
-    如果最终你会使用到集合中的大部分元素，并且不需要对象还原到原始的对象类型，
-    使用 `List.from()` 来转换它。
+    **逼不得已進行 cast，請使用 `List.from()` 。** 
+    如果最終你會使用到集合中的大部分元素，並且不需要物件還原到原始的物件型別，
+    使用 `List.from()` 來轉換它。
 
 *   The `cast()` method returns a lazy collection that checks the element type
     on *every operation*. If you perform only a few operations on only a few
     elements, that laziness can be good. But in many cases, the overhead of lazy
     validation and of wrapping outweighs the benefits.
 
-    `cast()` 方法返回一个惰性集合 (lazy collection) ，*每个操作*都会对元素进行检查。
-    如果只对少数元素执行少量操作，那么这种惰性方式就非常合适。
-    但在许多情况下，惰性验证和包裹 (wrapping) 所产生的开销已经超过了它们所带来的好处。
+    `cast()` 方法返回一個惰性集合 (lazy collection) ，*每個操作*都會對元素進行檢查。
+    如果只對少數元素執行少量操作，那麼這種惰性方式就非常合適。
+    但在許多情況下，惰性驗證和包裹 (wrapping) 所產生的開銷已經超過了它們所帶來的好處。
 
 Here is an example of **creating it with the right type:**
 
-下面是 **用恰当的类型创建集合** 的示例：
+下面是 **用恰當的型別建立集合** 的範例：
 
 {:.good}
 <?code-excerpt "usage_good.dart (cast-at-create)"?>
@@ -964,7 +964,7 @@ List<int> singletonList(int value) {
 
 Here is **casting each element on access:**
 
-下面是 **在访问元素时进行 cast 操作** 的示例：
+下面是 **在存取元素時進行 cast 操作** 的範例：
 
 {:.good}
 <?code-excerpt "usage_good.dart (cast-iterate)" replace="/\(n as int\)/[!$&!]/g"?>
@@ -990,7 +990,7 @@ void printEvens(List<Object> objects) {
 
 Here is **casting eagerly using `List.from()`:**
 
-下面是 **使用 `List.from()` 进行 cast 操作** 的示例：
+下面是 **使用 `List.from()` 進行 cast 操作** 的範例：
 
 {:.good}
 <?code-excerpt "usage_good.dart (cast-from)"?>
@@ -1018,23 +1018,23 @@ These alternatives don't always work, of course, and sometimes `cast()` is the
 right answer. But consider that method a little risky and undesirable—it
 can be slow and may fail at runtime if you aren't careful.
 
-当然，这些替代方案并不总能解决问题，显然，这时候就应该选择 `cast()` 方式了。
-但是考虑到这种方式的风险和缺点——如果使用不当，可能会导致执行缓慢和运行失败。
+當然，這些替代方案並不總能解決問題，顯然，這時候就應該選擇 `cast()` 方式了。
+但是考慮到這種方式的風險和缺點——如果使用不當，可能會導致執行緩慢和執行失敗。
 
 
 ## Functions
 
-## 函数
+## 函式
 
 In Dart, even functions are objects. Here are some best practices
 involving functions.
 
-在 Dart 中，就连函数也是对象。以下是一些涉及函数的最佳实践。
+在 Dart 中，就連函式也是物件。以下是一些涉及函式的最佳實踐。
 
 
 ### DO use a function declaration to bind a function to a name.
 
-### **要** 使用函数声明的方式为函数绑定名称。
+### **要** 使用函式宣告的方式為函式繫結名稱。
 
 {% include linter-rule-mention.md rule="prefer_function_declarations_over_variables" %}
 
@@ -1043,16 +1043,16 @@ are. It's common to have a function defined inside another one. In many cases,
 this function is used as a callback immediately and doesn't need a name. A
 function expression is great for that.
 
-现代语言已经意识到本地嵌套函数和闭包的益处。
-在一个函数中定义另一个函数非常常见。
-在许多情况下，这些函数被立即执行并返回结果，而且不需要名字。
-这种情况下非常适合使用函数表达式来实现。
+現代語言已經意識到本地巢狀(Nesting)函式和閉套件的益處。
+在一個函式中定義另一個函式非常常見。
+在許多情況下，這些函式被立即執行並返回結果，而且不需要名字。
+這種情況下非常適合使用函式表示式來實現。
 
 But, if you do need to give it a name, use a function declaration statement
 instead of binding a lambda to a variable.
 
-但是，如果你确实需要给方法一个名字，请使用方法定义而不是把
-lambda 赋值给一个变量。
+但是，如果你確實需要給方法一個名字，請使用方法定義而不是把
+lambda 賦值給一個變數。
 
 {:.good}
 <?code-excerpt "usage_good.dart (func-decl)"?>
@@ -1076,7 +1076,7 @@ void main() {
 
 ### DON'T create a lambda when a tear-off will do.
 
-### **不要** 使用 lambda 表达式来替代 tear-off。
+### **不要** 使用 lambda 表示式來替代 tear-off。
 
 {% include linter-rule-mention.md rule="unnecessary_lambdas" %}
 
@@ -1086,12 +1086,12 @@ parameters as the function and invokes the underlying function when you call it.
 If all you need is a closure that invokes a named function with the same
 parameters as the closure accepts, don't manually wrap the call in a lambda.
 
-如果你引用了一个函数、方法或命名构造，但省略了括号，Dart 会尝试
-**tear-off**&mdash;&mdash;在调用时使用同样的参数对对应的方法创建闭包。
-如果你需要的仅仅是一个引用，请不要利用 lambda 手动包装。
+如果你參考了一個函式、方法或命名構造，但省略了括號，Dart 會嘗試
+**tear-off**&mdash;&mdash;在呼叫時使用同樣的引數對對應的方法建立閉套件。
+如果你需要的僅僅是一個參考，請不要利用 lambda 手動包裝。
 
-如果你有一个方法，这个方法调用了参数相同的另一个方法。
-那么，你不需要人为将这个方法包装到一个 lambda 表达式中。
+如果你有一個方法，這個方法呼叫了引數相同的另一個方法。
+那麼，你不需要人為將這個方法包裝到一個 lambda 表示式中。
 
 {:.good}
 <?code-excerpt "usage_good.dart (use-tear-off)"?>
@@ -1137,7 +1137,7 @@ var buffers = charCodes.map((code) => StringBuffer(code));
 
 ### DO use `=` to separate a named parameter from its default value.
 
-### **要** 使用 `=` 来分隔参数名和参数默认值。
+### **要** 使用 `=` 來分隔引數名和引數預設值。
 
 {% include linter-rule-mention.md rule="prefer_equal_for_default_values" %}
 
@@ -1145,8 +1145,8 @@ For legacy reasons, Dart allows both `:` and `=` as the default value separator
 for named parameters. For consistency with optional positional parameters, use
 `=`.
 
-由于遗留原因，Dart 同时支持 `:` 和 `=` 作为参数名和默认值的分隔符。
-为了与可选的位置参数保持一致，请使用 `=` 。
+由於遺留原因，Dart 同時支援 `:` 和 `=` 作為引數名和預設值的分隔符。
+為了與可選的位置引數保持一致，請使用 `=` 。
 
 {:.good}
 <?code-excerpt "usage_good.dart (default-separator)"?>
@@ -1162,7 +1162,7 @@ void insert(Object item, {int at: 0}) { ... }
 
 ## Variables
 
-## 变量
+## 變數
 
 The following best practices describe how to best use variables in Dart.
 
@@ -1186,14 +1186,14 @@ the variable is assigned later in the function.
 
 ### AVOID storing what you can calculate.
 
-### **避免** 保存可计算的结果。
+### **避免** 儲存可計算的結果。
 
 When designing a class, you often want to expose multiple views into the same
 underlying state. Often you see code that calculates all of those views in the
 constructor and then stores them:
 
-在设计类的时候，你常常希望暴露底层状态的多个表现属性。
-常常你会发现在类的构造函数中计算这些属性，然后保存起来：
+在設計類別的時候，你常常希望暴露底層狀態的多個表現屬性。
+常常你會發現在類別的建構函式中計算這些屬性，然後儲存起來：
 
 {:.bad}
 <?code-excerpt "usage_bad.dart (calc-vs-store1)"?>
@@ -1216,25 +1216,25 @@ calculations that we could recalculate from other data we already have. They are
 trading increased memory for reduced CPU usage. Do we know we have a performance
 problem that merits that trade-off?
 
-上面的代码有两个不妥之处。首先，这样浪费了内存。
-严格来说面积和周长是*缓存*数据。
-他们保存的结果可以通过已知的数据计算出来。
-他们减少了 CPU 消耗却增加了内存消耗。
-我们还没有权衡，到底存不存在性能问题？
+上面的程式碼有兩個不妥之處。首先，這樣浪費了記憶體。
+嚴格來說面積和周長是*快取*資料。
+他們儲存的結果可以透過已知的資料計算出來。
+他們減少了 CPU 消耗卻增加了記憶體消耗。
+我們還沒有權衡，到底存不存在效能問題？
 
 Worse, the code is *wrong*. The problem with caches is *invalidation*—how
 do you know when the cache is out of date and needs to be recalculated? Here, we
 never do, even though `radius` is mutable. You can assign a different value and
 the `area` and `circumference` will retain their previous, now incorrect values.
 
-更糟糕的是，代码是错误的。
-问题在于缓存是无效的 —— 你如何知道缓存何时会过期并且需要重新计算？
-即便半径是可变的，在这里我们也永远不会这样做。
-你可以赋一个不同的值，但面积和周长还是以前的值，现在的值是不正确的。
+更糟糕的是，程式碼是錯誤的。
+問題在於快取是無效的 —— 你如何知道快取何時會過期並且需要重新計算？
+即便半徑是可變的，在這裡我們也永遠不會這樣做。
+你可以賦一個不同的值，但面積和周長還是以前的值，現在的值是不正確的。
 
 To correctly handle cache invalidation, we would need to do this:
 
-为了正确处理缓存失效，我们需要这样做：
+為了正確處理快取失效，我們需要這樣做：
 
 {:.bad}
 <?code-excerpt "usage_bad.dart (calc-vs-store2)"?>
@@ -1267,8 +1267,8 @@ class Circle {
 That's an awful lot of code to write, maintain, debug, and read. Instead, your
 first implementation should be:
 
-这需要编写、维护、调试以及阅读更多的代码。
-如果你一开始这样写代码：
+這需要編寫、維護、除錯以及閱讀更多的程式碼。
+如果你一開始這樣寫程式碼：
 
 {:.good}
 <?code-excerpt "usage_good.dart (calc-vs-store)"?>
@@ -1287,32 +1287,32 @@ This code is shorter, uses less memory, and is less error-prone. It stores the
 minimal amount of data needed to represent the circle. There are no fields to
 get out of sync because there is only a single source of truth.
 
-上面的代码更加简洁、使用更少的内存、减少出错的可能性。
-它尽可能少的保存了表示圆所需要的数据。
-这里没有字段需要同步，因为这里只有一个有效数据源。
+上面的程式碼更加簡潔、使用更少的記憶體、減少出錯的可能性。
+它儘可能少的儲存了表示圓所需要的資料。
+這裡沒有欄位需要同步，因為這裡只有一個有效資料源。
 
 In some cases, you may need to cache the result of a slow calculation, but only
 do that after you know you have a performance problem, do it carefully, and
 leave a comment explaining the optimization.
 
-在某些情况下，当计算结果比较费时的时候可能需要缓存，
-但是只应该在你只有你有这样的性能问题的时候再去处理，
-处理时要仔细，并留下挂关于优化的注释。
+在某些情況下，當計算結果比較費時的時候可能需要快取，
+但是隻應該在你只有你有這樣的效能問題的時候再去處理，
+處理時要仔細，並留下掛關於最佳化的註釋。
 
 
 ## Members
 
-## 成员
+## 成員
 
 In Dart, objects have members which can be functions (methods) or data (instance
 variables). The following best practices apply to an object's members.
 
-在 Dart 中，对象成员可以是函数（方法）或数据（实例变量）。
-下面是关于对象成员的最佳实践。
+在 Dart 中，物件成員可以是函式（方法）或資料（例項變數）。
+下面是關於物件成員的最佳實踐。
 
 ### DON'T wrap a field in a getter and setter unnecessarily.
 
-### **不要** 为字段创建不必要的 getter 和 setter 方法。
+### **不要** 為欄位建立不必要的 getter 和 setter 方法。
 
 {% include linter-rule-mention.md rule="unnecessary_getters_setters" %}
 
@@ -1323,18 +1323,18 @@ to touch the call sites. This is because calling a getter method is different
 than accessing a field in Java, and accessing a property isn't binary-compatible
 with accessing a raw field in C#.
 
-在 Java 和 C# 中，通常情况下会将所有的字段隐藏到 getter 和 setter 方法中（在 C# 中被称为属性），
-即使实现中仅仅是指向这些字段。在这种方式下，即使你在这些成员上做多少的事情，你也不需要直接访问它们。
-这是因为，在 Java 中，调用 getter 方法和直接访问字段是不同的。
-在 C# 中，访问属性与访问字段不是二进制兼容的。
+在 Java 和 C# 中，通常情況下會將所有的欄位隱藏到 getter 和 setter 方法中（在 C# 中被稱為屬性），
+即使實現中僅僅是指向這些欄位。在這種方式下，即使你在這些成員上做多少的事情，你也不需要直接存取它們。
+這是因為，在 Java 中，呼叫 getter 方法和直接存取欄位是不同的。
+在 C# 中，存取屬性與存取欄位不是二進位制相容的。
 
 Dart doesn't have this limitation. Fields and getters/setters are completely
 indistinguishable. You can expose a field in a class and later wrap it in a
 getter and setter without having to touch any code that uses that field.
 
-Dart 不存在这个限制。字段和 getter/setter 是完全无法区分的。
-你可以在类中公开一个字段，然后将其包装在 getter 和 setter 中，
-而不会影响任何使用该字段的代码。
+Dart 不存在這個限制。欄位和 getter/setter 是完全無法區分的。
+你可以在類中公開一個欄位，然後將其包裝在 getter 和 setter 中，
+而不會影響任何使用該欄位的程式碼。
 
 {:.good}
 <?code-excerpt "usage_good.dart (dont-wrap-field)"?>
@@ -1358,15 +1358,15 @@ class Box {
 
 ### PREFER using a `final` field to make a read-only property.
 
-### **推荐** 使用 `final` 关键字来创建只读属性。
+### **推薦** 使用 `final` 關鍵字來建立唯讀屬性。
 
 {% include linter-rule-mention.md rule="unnecessary_getters_setters" %}
 
 If you have a field that outside code should be able to see but not assign to, a
 simple solution that works in many cases is to simply mark it `final`.
 
-如果一个变量对于外部代码来说只能读取不能修改，
-最简单的做法就是使用 `final` 关键字来标记这个变量。
+如果一個變數對於外部程式碼來說只能讀取不能修改，
+最簡單的做法就是使用 `final` 關鍵字來標記這個變數。
 
 {:.good}
 <?code-excerpt "usage_good.dart (final)"?>
@@ -1389,14 +1389,14 @@ Of course, if you need to internally assign to the field outside of the
 constructor, you may need to do the "private field, public getter" pattern, but
 don't reach for that until you need to.
 
-当然，如果你需要构造一个内部可以赋值，外部可以访问的字段，
-你可以需要这种“私有成员变量，公开访问函数”的模式，
-但是，如非必要，请不要使用这种模式。
+當然，如果你需要構造一個內部可以賦值，外部可以存取的欄位，
+你可以需要這種“私有成員變數，公開存取函式”的模式，
+但是，如非必要，請不要使用這種模式。
 
 
 ### CONSIDER using `=>` for simple members.
 
-### **考虑** 对简单成员使用 `=>` 。
+### **考慮** 對簡單成員使用 `=>` 。
 
 {% include linter-rule-mention.md rule="prefer_expression_function_bodies" %}
 
@@ -1404,9 +1404,9 @@ In addition to using `=>` for function expressions, Dart also lets you define
 members with it. That style is a good fit for simple members that just calculate
 and return a value.
 
-除了使用 `=>` 可以用作函数表达式以外，
-Dart 还允许使用它来定义成员。
-这种风格非常适合，仅进行计算并返回结果的简单成员。
+除了使用 `=>` 可以用作函式表示式以外，
+Dart 還允許使用它來定義成員。
+這種風格非常適合，僅進行計算並返回結果的簡單成員。
 
 {:.good}
 <?code-excerpt "usage_good.dart (use-arrow)"?>
@@ -1423,10 +1423,10 @@ lines or contains deeply nested expressions—cascades and conditional
 operators are common offenders—do yourself and everyone who has to read
 your code a favor and use a block body and some statements.
 
-*编写*代码的人似乎很喜欢 `=>` 语法，但是它很容易被滥用，最后导致代码不容易被*阅读*。
-如果你有很多行声明或包含深层的嵌套表达式（级联和条件运算符就是常见的罪魁祸首），
-你以及其他人有谁会愿意读这样的代码！
-你应该换做使用代码块和一些语句来实现。
+*編寫*程式碼的人似乎很喜歡 `=>` 語法，但是它很容易被濫用，最後導致程式碼不容易被*閱讀*。
+如果你有很多行宣告或包含深層的巢狀(Nesting)表示式（級聯和條件運算子就是常見的罪魁禍首），
+你以及其他人有誰會願意讀這樣的程式碼！
+你應該換做使用程式碼塊和一些陳述式來實現。
 
 {:.good}
 <?code-excerpt "usage_good.dart (arrow-long)"?>
@@ -1452,8 +1452,8 @@ Treasure? openChest(Chest chest, Point where) => _opened.containsKey(chest)
 You can also use `=>` on members that don't return a value. This is idiomatic
 when a setter is small and has a corresponding getter that uses `=>`.
 
-您还可以对不返回值的成员使用 `=>` 。 
-这里有个惯例，就是当 setter 和 getter 都比较简单的时候使用 `=>` 。
+您還可以對不返回值的成員使用 `=>` 。 
+這裡有個慣例，就是當 setter 和 getter 都比較簡單的時候使用 `=>` 。
 
 {:.good}
 <?code-excerpt "usage_good.dart (arrow-setter)"?>
@@ -1465,7 +1465,7 @@ set x(num value) => center = Point(value, center.y);
 
 ### DON'T use `this.` except to redirect to a named constructor or to avoid shadowing. {#dont-use-this-when-not-needed-to-avoid-shadowing}
 
-### **不要** 使用 `this.`，在重定向命名函数和避免冲突的情况下除外。
+### **不要** 使用 `this.`，在重新導向命名函式和避免衝突的情況下除外。
 
 {% include linter-rule-mention.md rule="unnecessary_this" %}
 
@@ -1473,15 +1473,15 @@ JavaScript requires an explicit `this.` to refer to members on the object whose
 method is currently being executed, but Dart—like C++, Java, and
 C#—doesn't have that limitation.
 
-JavaScript 需要使用 `this.` 来引用对象的成员变量，
-但是 Dart&mdash;和 C++, Java, 以及C#&mdash;没有这种限制。
+JavaScript 需要使用 `this.` 來參考物件的成員變數，
+但是 Dart&mdash;和 C++, Java, 以及C#&mdash;沒有這種限制。
 
 There are only two times you need to use `this.`. One is when a local variable
 with the same name shadows the member you want to access:
 
-只有当局部变量和成员变量名字一样的时候，你才需要使用 `this.` 来访问成员变量。
-只有两种情况需要使用 `this.`，
-其中一种情况是要访问的局部变量和成员变量命名一样的时候：
+只有當局部變數和成員變數名字一樣的時候，你才需要使用 `this.` 來存取成員變數。
+只有兩種情況需要使用 `this.`，
+其中一種情況是要存取的區域變數和成員變數命名一樣的時候：
 
 {:.bad}
 <?code-excerpt "usage_bad.dart (this-dot)"?>
@@ -1517,7 +1517,7 @@ class Box {
 
 The other time to use `this.` is when redirecting to a named constructor:
 
-另一种使用 `this.` 的情况是在重定向到一个命名函数的时候：
+另一種使用 `this.` 的情況是在重新導向到一個命名函式的時候：
 
 {:.bad}
 <?code-excerpt "usage_bad.dart (this-dot-constructor)"?>
@@ -1552,7 +1552,7 @@ class ShadeOfGray {
 Note that constructor parameters never shadow fields in constructor initializer
 lists:
 
-注意，构造函数初始化列表中的字段有永远不会与构造函数参数列表参数产生冲突。
+注意，建構函式初始化列表中的欄位有永遠不會與建構函式引數列表引數產生衝突。
 
 {:.good}
 <?code-excerpt "usage_good.dart (param-dont-shadow-field-ctr-init)"?>
@@ -1569,13 +1569,13 @@ class Box extends BaseBox {
 This looks surprising, but works like you want. Fortunately, code like this is
 relatively rare thanks to initializing formals and super initializers.
 
-这看起来很令人惊讶，但是实际结果是你想要的。
-幸运的是，由于初始化规则的特殊性，上面的代码很少见到。
+這看起來很令人驚訝，但是實際結果是你想要的。
+幸運的是，由於初始化規則的特殊性，上面的程式碼很少見到。
 
 
 ### DO initialize fields at their declaration when possible.
 
-### **要** 尽可能的在定义变量的时候初始化变量值。
+### **要** 儘可能的在定義變數的時候初始化變數值。
 
 If a field doesn't depend on any constructor parameters, it can and should be
 initialized at its declaration. It takes less code and avoids duplication when
@@ -1614,27 +1614,27 @@ field is marked `late`, then the initializer *can* access `this`.
 Of course, if a field depends on constructor parameters, or is initialized
 differently by different constructors, then this guideline does not apply.
 
-当然，对于变量取值依赖构造函数参数的情况以及不同的构造函数取值也不一样的情况，
-则不适合本条规则。
+當然，對於變數取值依賴建構函式引數的情況以及不同的建構函式取值也不一樣的情況，
+則不適合本條規則。
 
 
 ## Constructors
 
-## 构造函数
+## 建構函式
 
 The following best practices apply to declaring constructors for a class.
 
-下面对于类的构造函数的最佳实践。
+下面對於類別的建構函式的最佳實踐。
 
 ### DO use initializing formals when possible.
 
-### **要** 尽可能的使用初始化形式。
+### **要** 儘可能的使用初始化形式。
 
 {% include linter-rule-mention.md rule="prefer_initializing_formals" %}
 
 Many fields are initialized directly from a constructor parameter, like:
 
-许多字段直接使用构造函数参数来初始化，如：
+許多欄位直接使用建構函式引數來初始化，如：
 
 {:.bad}
 <?code-excerpt "usage_bad.dart (field-init-as-param)"?>
@@ -1649,8 +1649,8 @@ class Point {
 
 We've got to type `x` _four_ times here to define a field. We can do better:
 
-为了初始化一个字段，我们需要反复写下 `x` **四**次。
-使用下面的方式会更好：
+為了初始化一個欄位，我們需要反覆寫下 `x` **四**次。
+使用下面的方式會更好：
 
 {:.good}
 <?code-excerpt "usage_good.dart (field-init-as-param)"?>
@@ -1678,8 +1678,8 @@ compile-time error into a *runtime* error if you access the field before it is
 initialized. That's what you need in some cases, but often the right fix is to
 initialize the field in the constructor initializer list:
 
-如果构造函数参数使用 `this.` 的方式来初始化字段，
-这时参数的类型被认为和字段类型相同。
+如果建構函式引數使用 `this.` 的方式來初始化欄位，
+這時引數的型別被認為和欄位型別相同。
 
 {:.good}
 <?code-excerpt "usage_good.dart (late-init-list)"?>
@@ -1713,15 +1713,15 @@ performance.
 
 ### DO use `;` instead of `{}` for empty constructor bodies.
 
-### **要** 用 `;` 来替代空的构造函数体 `{}`。
+### **要** 用 `;` 來替代空的建構函式體 `{}`。
 
 {% include linter-rule-mention.md rule="empty_constructor_bodies" %}
 
 In Dart, a constructor with an empty body can be terminated with just a
 semicolon. (In fact, it's required for const constructors.)
 
-在 Dart 中，没有具体函数体的构造函数可以使用分号结尾。
-（事实上，这是不可变构造函数的要求。）
+在 Dart 中，沒有具體函式體的建構函式可以使用分號結尾。
+（事實上，這是不可變建構函式的要求。）
 
 {:.good}
 <?code-excerpt "usage_good.dart (semicolon-for-empty-body)"?>
@@ -1751,15 +1751,15 @@ Dart 2 makes the `new` keyword optional. Even in Dart 1, its meaning was never
 clear because factory constructors mean a `new` invocation may still not
 actually return a new object.
 
-Dart 2 `new` 关键字成为可选项。
-即使在Dart 1中，其含义也从未明确过，
-因为在工厂构造函数中，调用 `new` 可能并不意味着一定会返回一个新对象。
+Dart 2 `new` 關鍵字成為可選項。
+即使在Dart 1中，其含義也從未明確過，
+因為在工廠建構函式中，呼叫 `new` 可能並不意味著一定會返回一個新物件。
 
 The language still permits `new` in order to make migration less painful, but
 consider it deprecated and remove it from your code.
 
-为了减少代码迁移时的痛苦， Dart 语言仍允许使用 `new` 关键字，
-但请考在你的代码中弃用和删除 `new`。
+為了減少程式碼遷移時的痛苦， Dart 語言仍允許使用 `new` 關鍵字，
+但請考在你的程式碼中棄用和刪除 `new`。
 
 {:.good}
 <?code-excerpt "usage_good.dart (no-new)"?>
@@ -1794,7 +1794,7 @@ Widget build(BuildContext context) {
 
 ### DON'T use `const` redundantly.
 
-### **不要** 冗余地使用 `const` 。
+### **不要** 冗餘地使用 `const` 。
 
 {% include linter-rule-mention.md rule="unnecessary_const" %}
 
@@ -1802,41 +1802,41 @@ In contexts where an expression *must* be constant, the `const` keyword is
 implicit, doesn't need to be written, and shouldn't. Those contexts are any
 expression inside:
 
-在表达式一定是常量的上下文中，`const` 关键字是隐式的，不需要写，也不应该。
-这里包括：
+在表示式一定是常量的上下文中，`const` 關鍵字是隱含的，不需要寫，也不應該。
+這裡包括：
 
 * A const collection literal.
 
-  一个字面量常量集合。
+  一個字面量常量集合。
 
 * A const constructor call
 
-  调用一个常量构造函数。
+  呼叫一個常量建構函式。
 
 * A metadata annotation.
 
-  元数据注解。
+  元資料註解。
 
 * The initializer for a const variable declaration.
 
-  一个常量声明的初始化方法。
+  一個常量宣告的初始化方法。
 
 * A switch case expression—the part right after `case` before the `:`, not
   the body of the case.
 
-  switch case 表达式—— `case` 和 `:` 中间的部分，不是 case 执行体。
+  switch case 表示式—— `case` 和 `:` 中間的部分，不是 case 執行體。
 
 
 (Default values are not included in this list because future versions of Dart
 may support non-const default values.)
 
-（默认值并不包含在这个列表中，因为在 Dart 将来的版本中可能会在支持非常量的默认值。）
+（預設值並不包含在這個列表中，因為在 Dart 將來的版本中可能會在支援非常量的預設值。）
 
 Basically, any place where it would be an error to write `new` instead of
 `const`, Dart 2 allows you to omit the `const`.
 
-基本上，任何地方用 `new` 替代 `const` 的写法都是错的，
-因为 Dart 2 中允许省略 `const` 。
+基本上，任何地方用 `new` 替代 `const` 的寫法都是錯的，
+因為 Dart 2 中允許省略 `const` 。
 
 {:.good}
 <?code-excerpt "usage_good.dart (no-const)"?>
@@ -1860,17 +1860,17 @@ const primaryColors = [!const!] [
 
 ## Error handling
 
-## 错误处理
+## 錯誤處理
 
 Dart uses exceptions when an error occurs in your program. The following
 best practices apply to catching and throwing exceptions.
 
-Dart 使用异常来表示程序执行错误。
-下面是关于如何捕获和抛出异常的最佳实践。
+Dart 使用例外來表示程式執行錯誤。
+下面是關於如何捕獲和丟擲例外的最佳實踐。
 
 ### AVOID catches without `on` clauses.
 
-### **避免** 使用没有 `on` 语句的 catch。
+### **避免** 使用沒有 `on` 陳述式的 catch。
 
 {% include linter-rule-mention.md rule="avoid_catches_without_on_clauses" %}
 
@@ -1883,21 +1883,21 @@ would you rather that helpful [ArgumentError][] get swallowed? Do you want any
 `assert()` statements inside that code to effectively vanish since you're
 catching the thrown [AssertionError][]s?
 
-没有 `on` 限定的 catch 语句会捕获 try 代码块中抛出的*任何*异常。
-[Pokémon exception handling][pokemon] 可能并不是你想要的。
-你的代码是否正确的处理 [StackOverflowError][] 或者 [OutOfMemoryError][] 异常？
-如果你使用错误的参数调用函数，你是期望调试器定位出你的错误使用情况还是，
-把这个有用的 [ArgumentError][] 给吞噬了？
-由于你捕获了 [AssertionError][] 异常，
-导致所有 try 块内的 `assert()` 语句都失效了，这是你需要的结果吗？
+沒有 `on` 限定的 catch 陳述式會捕獲 try 程式碼塊中丟擲的*任何*例外。
+[Pokémon exception handling][pokemon] 可能並不是你想要的。
+你的程式碼是否正確的處理 [StackOverflowError][] 或者 [OutOfMemoryError][] 例外？
+如果你使用錯誤的引數呼叫函式，你是期望偵錯程式定位出你的錯誤使用情況還是，
+把這個有用的 [ArgumentError][] 給吞噬了？
+由於你捕獲了 [AssertionError][] 例外，
+導致所有 try 塊內的 `assert()` 陳述式都失效了，這是你需要的結果嗎？
 
 The answer is probably "no", in which case you should filter the types you
 catch. In most cases, you should have an `on` clause that limits you to the
 kinds of runtime failures you are aware of and are correctly handling.
 
-答案和可能是 "no"，在这种情况下，您应该过滤掉捕获的类型。
-在大多数情况下，您应该有一个 `on` 子句，
-这样它能够捕获程序在运行时你所关注的限定类型的异常并进行恰当处理。
+答案和可能是 "no"，在這種情況下，您應該過濾掉捕獲的型別。
+在大多數情況下，您應該有一個 `on` 子句，
+這樣它能夠捕獲程式在執行時你所關注的限定型別的例外並進行恰當處理。
 
 In rare cases, you may wish to catch any runtime error. This is usually in
 framework or low-level code that tries to insulate arbitrary application code
@@ -1908,42 +1908,42 @@ and excludes errors that indicate *programmatic* bugs in the code.
 
 ### DON'T discard errors from catches without `on` clauses.
 
-### **不要** 丢弃没有使用 `on` 语句捕获的异常。
+### **不要** 丟棄沒有使用 `on` 陳述式捕獲的例外。
 
 If you really do feel you need to catch *everything* that can be thrown from a
 region of code, *do something* with what you catch. Log it, display it to the
 user or rethrow it, but do not silently discard it.
 
-如果你真的期望捕获一段代码内的 *所有* 异常，
-请*在捕获异常的地方做些事情*。 记录下来并显示给用户，
-或者重新抛出 (rethrow) 异常信息，记得不要默默的丢弃该异常信息。
+如果你真的期望捕獲一段程式碼內的 *所有* 例外，
+請*在捕獲例外的地方做些事情*。 記錄下來並顯示給使用者，
+或者重新丟擲 (rethrow) 例外資訊，記得不要默默的丟棄該例外資訊。
 
 
 ### DO throw objects that implement `Error` only for programmatic errors.
 
-### **要** 只在代表编程错误的情况下才抛出实现了 `Error` 的异常。
+### **要** 只在代表程式設計錯誤的情況下才丟擲實現了 `Error` 的例外。
 
 The [Error][] class is the base class for *programmatic* errors. When an object
 of that type or one of its subinterfaces like [ArgumentError][] is thrown, it
 means there is a *bug* in your code. When your API wants to report to a caller
 that it is being used incorrectly throwing an Error sends that signal clearly.
 
-[Error][] 类是所有 *编码* 错误的基类。当一个该类型或者其子类型，
-例如 [ArgumentError][] 对象被抛出了，这意味着是你代码中的一个 *bug*。
-当你的 API 想要告诉调用者使用错误的时候可以抛出一个 Error 来表明你的意图。
+[Error][] 類是所有 *編碼* 錯誤的基底類別。當一個該型別或者其子類別型，
+例如 [ArgumentError][] 物件被丟擲了，這意味著是你程式碼中的一個 *bug*。
+當你的 API 想要告訴呼叫者使用錯誤的時候可以丟擲一個 Error 來表明你的意圖。
 
 
 Conversely, if the exception is some kind of runtime failure that doesn't
 indicate a bug in the code, then throwing an Error is misleading. Instead, throw
 one of the core Exception classes or some other type.
 
-同样的，如果一个异常表示为运行时异常而不是代码 bug， 则抛出 Error 则会误导调用者。
-应该抛出核心定义的 Exception 类或者其他类型。
+同樣的，如果一個例外表示為執行時例外而不是程式碼 bug， 則丟擲 Error 則會誤導呼叫者。
+應該丟擲核心定義的 Exception 類或者其他型別。
 
 
 ### DON'T explicitly catch `Error` or types that implement it.
 
-### **不要** 显示的捕获 `Error` 或者其子类。
+### **不要** 顯示的捕獲 `Error` 或者其子類別。
 
 {% include linter-rule-mention.md rule="avoid_catching_errors" %}
 
@@ -1951,20 +1951,20 @@ This follows from the above. Since an Error indicates a bug in your code, it
 should unwind the entire callstack, halt the program, and print a stack trace so
 you can locate and fix the bug.
 
-本条衔接上一条的内容。既然 Error 表示代码中的 bug，
-应该展开整个调用堆栈，暂停程序并打印堆栈跟踪，以便找到错误并修复。
+本條銜接上一條的內容。既然 Error 表示程式碼中的 bug，
+應該展開整個呼叫堆疊，暫停程式並列印堆疊追蹤，以便找到錯誤並修復。
 
 Catching errors of these types breaks that process and masks the bug. Instead of
 *adding* error-handling code to deal with this exception after the fact, go back
 and fix the code that is causing it to be thrown in the first place.
 
-捕获这类错误打破了处理流程并且代码中有 bug。
-不要在这里使用错误处理代码，而是需要到导致该错误出现的地方修复你的代码。
+捕獲這類錯誤打破了處理流程並且程式碼中有 bug。
+不要在這裡使用錯誤處理程式碼，而是需要到導致該錯誤出現的地方修復你的程式碼。
 
 
 ### DO use `rethrow` to rethrow a caught exception.
 
-### **要** 使用 `rethrow` 来重新抛出捕获的异常。
+### **要** 使用 `rethrow` 來重新丟擲捕獲的例外。
 
 {% include linter-rule-mention.md rule="use_rethrow_when_possible" %}
 
@@ -1973,9 +1973,9 @@ instead of throwing the same exception object using `throw`.
 `rethrow` preserves the original stack trace of the exception. `throw` on the
 other hand resets the stack trace to the last thrown position.
 
-如果你想重新抛出一个异常，推荐使用 `rethrow` 语句。
-`rethrow` 保留了原来的异常堆栈信息。 
-而 `throw` 会把异常堆栈信息重置为最后抛出的位置。
+如果你想重新丟擲一個例外，推薦使用 `rethrow` 陳述式。
+`rethrow` 保留了原來的例外堆疊資訊。 
+而 `throw` 會把例外堆疊資訊重置為最後丟擲的位置。
 
 {:.bad}
 <?code-excerpt "usage_bad.dart (rethrow)"?>
@@ -2002,26 +2002,26 @@ try {
 
 ## Asynchrony
 
-## 异步
+## 非同步
 
 Dart has several language features to support asynchronous programming.
 The following best practices apply to asynchronous coding.
 
-Dart 具有几个语言特性来支持异步编程。
-下面是针对异步编程的最佳实践。
+Dart 具有幾個語言特性來支援非同步程式設計。
+下面是針對非同步程式設計的最佳實踐。
 
 ### PREFER async/await over using raw futures.
 
-### **推荐** 使用 async/await 而不是直接使用底层的特性。
+### **推薦** 使用 async/await 而不是直接使用底層的特性。
 
 Asynchronous code is notoriously hard to read and debug, even when using a nice
 abstraction like futures. The `async`/`await` syntax improves readability and
 lets you use all of the Dart control flow structures within your async code.
 
-显式的异步代码是非常难以阅读和调试的，
+顯式的非同步程式碼是非常難以閱讀和除錯的，
 即使使用很好的抽象（比如 future）也是如此。
-这就是为何 Dart 提供了 `async`/`await`。
-这样可以显著的提高代码的可读性并且让你可以在异步代码中使用语言提供的所有流程控制语句。
+這就是為何 Dart 提供了 `async`/`await`。
+這樣可以顯著的提高程式碼的可讀性並且讓你可以在非同步程式碼中使用語言提供的所有流程控制陳述式。
 
 {:.good}
 <?code-excerpt "usage_good.dart (async-await)" replace="/async|await/[!$&!]/g"?>
@@ -2059,14 +2059,14 @@ Future<int> countActivePlayers(String teamName) {
 
 ### DON'T use `async` when it has no useful effect.
 
-### **不要** 在没有有用效果的情况下使用 `async` 。
+### **不要** 在沒有有用效果的情況下使用 `async` 。
 
 It's easy to get in the habit of using `async` on any function that does
 anything related to asynchrony. But in some cases, it's extraneous. If you can
 omit the `async` without changing the behavior of the function, do so.
 
-当成为习惯之后，你可能会在所有和异步相关的函数使用 `async`。但是在有些情况下，
-如果可以忽略 `async`  而不改变方法的行为，则应该这么做：
+當成為習慣之後，你可能會在所有和非同步相關的函式使用 `async`。但是在有些情況下，
+如果可以忽略 `async`  而不改變方法的行為，則應該這麼做：
 
 {:.good}
 <?code-excerpt "usage_good.dart (unnecessary-async)"?>
@@ -2086,21 +2086,21 @@ Future<int> fastestBranch(Future<int> left, Future<int> right) async {
 
 Cases where `async` *is* useful include:
 
-下面这些情况 `async` 是有用的：
+下面這些情況 `async` 是有用的：
 
 * You are using `await`. (This is the obvious one.)
 
-  你使用了 `await`。 (这是一个很明显的例子。)
+  你使用了 `await`。 (這是一個很明顯的例子。)
 
 * You are returning an error asynchronously. `async` and then `throw` is shorter
   than `return Future.error(...)`.
 
-  你在异步的抛出一个异常。 `async` 然后 `throw` 比 `return new Future.error(...)` 要简短很多。
+  你在非同步的丟擲一個例外。 `async` 然後 `throw` 比 `return new Future.error(...)` 要簡短很多。
 
 * You are returning a value and you want it implicitly wrapped in a future.
   `async` is shorter than `Future.value(...)`.
 
-  你在返回一个值，但是你希望他显式的使用 Future。`async` 比 `Future.value(...)` 要简短很多。
+  你在返回一個值，但是你希望他顯式的使用 Future。`async` 比 `Future.value(...)` 要簡短很多。
 
 {:.good}
 <?code-excerpt "usage_good.dart (async)"?>
@@ -2118,7 +2118,7 @@ Future<String> asyncValue() async => 'value';
 
 ### CONSIDER using higher-order methods to transform a stream.
 
-### **考虑** 使用高阶函数来转换事件流 (stream) 。
+### **考慮** 使用高階函式來轉換事件流 (stream) 。
 
 This parallels the above suggestion on iterables. Streams support many of the
 same methods and also handle things like transmitting errors, closing, etc.
@@ -2132,9 +2132,9 @@ Many people new to asynchronous programming want to write code that produces a
 future. The constructors in Future don't seem to fit their need so they
 eventually find the Completer class and use that.
 
-很多异步编程的新手想要编写生成一个 future 的代码。
-而 Future 的构造函数看起来并不满足他们的要求，
-然后他们就发现 Completer 类并使用它：
+很多非同步程式設計的新手想要編寫產生一個 future 的程式碼。
+而 Future 的建構函式看起來並不滿足他們的要求，
+然後他們就發現 Completer 類並使用它：
 
 {:.bad}
 <?code-excerpt "usage_bad.dart (avoid-completer)"?>
@@ -2155,10 +2155,10 @@ primitives, and interfacing with asynchronous code that doesn't use futures.
 Most other code should use async/await or [`Future.then()`][then], because
 they're clearer and make error handling easier.
 
-Completer 是用于两种底层代码的：
-新的异步原子操作和集成没有使用 Future 的异步代码。
-大部分的代码都应该使用 async/await 或者 [`Future.then()`][then]，
-这样代码更加清晰并且异常处理更加容易。
+Completer 是用於兩種底層程式碼的：
+新的非同步原子操作和整合沒有使用 Future 的非同步程式碼。
+大部分的程式碼都應該使用 async/await 或者 [`Future.then()`][then]，
+這樣程式碼更加清晰並且例外處理更加容易。
 
 [then]: {{site.dart-api}}/{{site.data.pkg-vers.SDK.channel}}/dart-async/Future/then.html
 
@@ -2184,7 +2184,7 @@ Future<bool> fileContainsBear(String path) async {
 
 ### DO test for `Future<T>` when disambiguating a `FutureOr<T>` whose type argument could be `Object`.
 
-### **要** 使用 `Future<T>` 对 `FutureOr<T>` 参数进行测试，以消除参数可能是 `Object` 类型的歧义。
+### **要** 使用 `Future<T>` 對 `FutureOr<T>` 引數進行測試，以消除引數可能是 `Object` 型別的歧義。
 
 Before you can do anything useful with a `FutureOr<T>`, you typically need to do
 an `is` check to see if you have a `Future<T>` or a bare `T`. If the type
@@ -2192,11 +2192,11 @@ argument is some specific type as in `FutureOr<int>`, it doesn't matter which
 test you use, `is int` or `is Future<int>`. Either works because those two types
 are disjoint.
 
-在使用 `FutureOr<T>` 执行任何有用的操作之前，
-通常需要做 `is` 检查，来确定你拥有的是 `Future<T>` 还是一个空的 `T`。
-如果类型参数是某个特定类型，如 `FutureOr <int>`，
-使用 `is int` 或 `is Future<int>` 那种测试都可以。
-两者都有效，因为这两种类型是不相交的。
+在使用 `FutureOr<T>` 執行任何有用的操作之前，
+通常需要做 `is` 檢查，來確定你擁有的是 `Future<T>` 還是一個空的 `T`。
+如果型別引數是某個特定型別，如 `FutureOr <int>`，
+使用 `is int` 或 `is Future<int>` 那種測試都可以。
+兩者都有效，因為這兩種型別是不相交的。
 
 However, if the value type is `Object` or a type parameter that could possibly
 be instantiated with `Object`, then the two branches overlap. `Future<Object>`
@@ -2204,11 +2204,11 @@ itself implements `Object`, so `is Object` or `is T` where `T` is some type
 parameter that could be instantiated with `Object` returns true even when the
 object is a future. Instead, explicitly test for the `Future` case:
 
-但是，如果值的类型是 `Object` 或者可能使用 `Object` 实例化的类型参数，这时要分两种情况。
-`Future<Object>` 本身继承 `Object` ，使用 `is Object` 或 `is T` ，
-其中 `T` 表示参数的类型，该参数可能是 `Object` 的实例，
-在这种情况下，即使是 future 对象也会返回 true 。
-相反，下面是确切测试 `Future` 的例子：
+但是，如果值的型別是 `Object` 或者可能使用 `Object` 例項化的型別引數，這時要分兩種情況。
+`Future<Object>` 本身繼承 `Object` ，使用 `is Object` 或 `is T` ，
+其中 `T` 表示引數的型別，該引數可能是 `Object` 的例項，
+在這種情況下，即使是 future 物件也會返回 true 。
+相反，下面是確切測試 `Future` 的例子：
 
 {:.good}
 <?code-excerpt "usage_good.dart (test-future-or)"?>
@@ -2243,8 +2243,8 @@ Future<T> logValue<T>(FutureOr<T> value) async {
 In the bad example, if you pass it a `Future<Object>`, it incorrectly treats it
 like a bare, synchronous value.
 
-在错误的示例中，如果给它传一个 `Future<Object>` ，
-它会错误地将其视为一个空的同步对象值。
+在錯誤的範例中，如果給它傳一個 `Future<Object>` ，
+它會錯誤地將其視為一個空的同步物件值。
 
 [pokemon]: https://blog.codinghorror.com/new-programming-jargon/
 [Error]: {{site.dart-api}}/{{site.data.pkg-vers.SDK.channel}}/dart-core/Error-class.html

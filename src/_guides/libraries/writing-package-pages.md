@@ -1,8 +1,8 @@
 ---
 title: Writing package pages
-title: 编写 package 的介绍页面
+title: 編寫 package 的介紹頁面
 description: Learn how to write a good package page.
-description: 学习如何编写 package 介绍页面
+description: 學習如何編寫 package 介紹頁面
 ---
 
 <style>

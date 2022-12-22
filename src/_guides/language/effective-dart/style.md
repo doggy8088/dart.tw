@@ -1,15 +1,15 @@
 ---
 title: "Effective Dart: Style"
-title: 高效 Dart 语言指南：代码风格
+title: 高效 Dart 語言指南：程式碼風格
 description: Formatting and naming rules for consistent, readable code.
 nextpage:
   url: /guides/language/effective-dart/documentation
   title: Documentation
-  title: 文档
+  title: 文件
 prevpage:
   url: /guides/language/effective-dart
   title: Overview
-  title: 概览
+  title: 概覽
 ---
 <?code-excerpt plaster="none"?>
 <?code-excerpt path-base="misc/lib/effective_dart"?>
@@ -21,50 +21,50 @@ ocular systems.  If we use a consistent style across the entire Dart ecosystem,
 it makes it easier for all of us to learn from and contribute to each others'
 code.
 
-好的代码有一个非常重要的特点就是拥有好的风格。
-一致的命名、一致的顺序、 以及一致的格式让代码看起来是一样的。
-这非常有利于发挥我们视力系统强大的模式匹配能力。
-如果我们整个 Dart 生态系统中都使用统一的风格，
-那么这将让我们彼此之间更容易的互相学习和互相贡献。
-它使我们所有人都可以更容易地学习并为彼此的代码做出贡献。
+好的程式碼有一個非常重要的特點就是擁有好的風格。
+一致的命名、一致的順序、 以及一致的格式讓程式碼看起來是一樣的。
+這非常有利於發揮我們視力系統強大的模式匹配能力。
+如果我們整個 Dart 生態系統中都使用統一的風格，
+那麼這將讓我們彼此之間更容易的互相學習和互相貢獻。
+它使我們所有人都可以更容易地學習併為彼此的程式碼做出貢獻。
 
 ## Identifiers
 
-## 标识符
+## 識別符號
 
 Identifiers come in three flavors in Dart.
 
-在 Dart 中标识符有三种类型。
+在 Dart 中識別符號有三種類型。
 
 *   `UpperCamelCase` names capitalize the first letter of each word, including
     the first.
 
-    `UpperCamelCase` 每个单词的首字母都大写，包含第一个单词。
+    `UpperCamelCase` 每個單詞的首字母都大寫，包含第一個單詞。
 
 *   `lowerCamelCase` names capitalize the first letter of each word, *except*
     the first which is always lowercase, even if it's an acronym.
 
-    `lowerCamelCase` 除了第一个字母始终是小写（即使是缩略词），每个单词的首字母都大写。
+    `lowerCamelCase` 除了第一個字母始終是小寫（即使是縮略詞），每個單詞的首字母都大寫。
 
 *   `lowercase_with_underscores` names use only lowercase letters,
     even for acronyms,
     and separate words with `_`.
 
-    `lowercase_with_underscores` 只是用小写字母单词，即使是缩略词，
-    并且单词之间使用 `_` 连接。
+    `lowercase_with_underscores` 只是用小寫字母單詞，即使是縮略詞，
+    並且單詞之間使用 `_` 連線。
 
 
 ### DO name types using `UpperCamelCase`.
 
-### **要** 使用 `UpperCamelCase` 风格命名类型。
+### **要** 使用 `UpperCamelCase` 風格命名型別。
 
 {% include linter-rule-mention.md rule="camel_case_types" %}
 
 Classes, enum types, typedefs, and type parameters should capitalize the first
 letter of each word (including the first word), and use no separators.
 
-Classes（类名）、 enums（枚举类型）、 typedefs（类型定义）、
-以及 type parameters（类型参数）应该把每个单词的首字母都大写（包含第一个单词）， 
+Classes（類別名稱）、 enums（列舉型別）、 typedefs（型別定義）、
+以及 type parameters（型別引數）應該把每個單詞的首字母都大寫（包含第一個單詞）， 
 不使用分隔符。
 
 {:.good}
@@ -79,7 +79,7 @@ typedef Predicate<T> = bool Function(T value);
 
 This even includes classes intended to be used in metadata annotations.
 
-这里包括使用元数据注解的类。
+這裡包括使用元資料註解的類別。
 
 {:.good}
 <?code-excerpt "style_good.dart (annotation-type-names)"?>
@@ -98,8 +98,8 @@ class B { ... }
 If the annotation class's constructor takes no parameters, you might want to
 create a separate `lowerCamelCase` constant for it.
 
-如果注解类的构造函数是无参函数，
-则可以使用一个 `lowerCamelCase` 风格的常量来初始化这个注解。
+如果註解類別的建構函式是無參函式，
+則可以使用一個 `lowerCamelCase` 風格的常量來初始化這個註解。
 
 {:.good}
 <?code-excerpt "style_good.dart (annotation-const)"?>
@@ -114,7 +114,7 @@ class C { ... }
 
 ### DO name extensions using `UpperCamelCase`.
 
-### **要** 使用 `UpperCamelCase` 风格类型作为扩展名
+### **要** 使用 `UpperCamelCase` 風格型別作為副檔名
 
 {% include linter-rule-mention.md rule="camel_case_extensions" %}
 
@@ -122,8 +122,8 @@ Like types, [extensions][] should capitalize the first letter of each word
 (including the first word),
 and use no separators.
 
-与类型命名一样，[扩展][extensions] 的名称也应大写每个单词的首字母
-（包括第一个单词），并且不使用分隔符。
+與型別命名一樣，[擴充][extensions] 的名稱也應大寫每個單詞的首字母
+（包括第一個單詞），並且不使用分隔符。
 
 {:.good}
 <?code-excerpt "style_good.dart (extension-names)"?>
@@ -137,7 +137,7 @@ extension SmartIterable<T> on Iterable<T> { ... }
 
 ### DO name libraries, packages, directories, and source files using `lowercase_with_underscores`. {#do-name-libraries-and-source-files-using-lowercase_with_underscores}
 
-### **要** 在`库`，`package`，`文件夹`，`源文件` 中使用 `lowercase_with_underscores` 方式命名。 {#do-name-libraries-and-source-files-using-lowercase_with_underscores}
+### **要** 在`庫`，`package`，`資料夾`，`原始檔` 中使用 `lowercase_with_underscores` 方式命名。 {#do-name-libraries-and-source-files-using-lowercase_with_underscores}
 
 {% include linter-rule-mention.md rule1="library_names" rule2="file_names" %}
 <!-- source for rules (update these if you update the guideline):
@@ -150,9 +150,9 @@ in that form. Using underscores as the separator ensures that the name is still
 a valid Dart identifier, which may be helpful if the language later supports
 symbolic imports.
 
-一些文件系统不区分大小写，所以很多项目要求文件名必须是小写字母。
-使用分隔符这种形式可以保证命名的可读性。使用下划线作为分隔符可确保名称仍然是有效的Dart标识符，
-如果语言后续支持符号导入，这将会起到非常大的帮助。
+一些檔案系統不區分大小寫，所以很多專案要求檔名必須是小寫字母。
+使用分隔符這種形式可以保證命名的可讀性。使用下劃線作為分隔符可確保名稱仍然是有效的Dart識別符號，
+如果語言後續支援符號匯入，這將會起到非常大的幫助。
 
 {:.good}
 <?code-excerpt "style_lib_good.dart" replace="/foo\///g"?>
@@ -177,14 +177,14 @@ import 'SliderMenu.dart';
   This guideline specifies *how* to name a library *if you choose to name it*. 
   It is fine to _omit_ the library directive in a file if you want.
 
-  如果你 **选择命名库**，本准则给定了 **如何** 为库取名。
-  如果需要，可以在文件中 **省略** 库指令。
+  如果你 **選擇命名庫**，本準則給定了 **如何** 為庫取名。
+  如果需要，可以在檔案中 **省略** 庫指令。
 
 {{site.alert.end}}
 
 ### DO name import prefixes using `lowercase_with_underscores`.
 
-### **要** 用 `lowercase_with_underscores` 风格命名库和源文件名。
+### **要** 用 `lowercase_with_underscores` 風格命名庫和原始檔名。
 
 {% include linter-rule-mention.md rule="library_prefixes" %}
 
@@ -207,7 +207,7 @@ import 'package:js/js.dart' as JS;
 
 ### DO name other identifiers using `lowerCamelCase`.
 
-### **要** 使用 `lowerCamelCase` 风格来命名其他的标识符。
+### **要** 使用 `lowerCamelCase` 風格來命名其他的識別符號。
 
 {% include linter-rule-mention.md rule="non_constant_identifier_names" %}
 
@@ -215,8 +215,8 @@ Class members, top-level definitions, variables, parameters, and named
 parameters should capitalize the first letter of each word *except* the first
 word, and use no separators.
 
-类成员、顶级定义、变量、参数以及命名参数等
-*除了*第一个单词，每个单词首字母都应大写，并且不使用分隔符。
+類成員、最上層定義、變數、引數以及命名引數等
+*除了*第一個單詞，每個單詞首字母都應大寫，並且不使用分隔符。
 
 {:.good}
 <?code-excerpt "style_good.dart (misc-names)"?>
@@ -233,13 +233,13 @@ void align(bool clearItems) {
 
 ### PREFER using `lowerCamelCase` for constant names.
 
-### **推荐** 使用 `lowerCamelCase` 来命名常量。
+### **推薦** 使用 `lowerCamelCase` 來命名常量。
 
 {% include linter-rule-mention.md rule="constant_identifier_names" %}
 
 In new code, use `lowerCamelCase` for constant variables, including enum values.
 
-在新的代码中，使用 `lowerCamelCase` 来命名常量，包括枚举的值。
+在新的程式碼中，使用 `lowerCamelCase` 來命名常量，包括列舉的值。
 
 {:.good}
 <?code-excerpt "style_good.dart (const-names)"?>
@@ -268,38 +268,38 @@ class Dice {
 You may use `SCREAMING_CAPS` for consistency with existing code,
 as in the following cases:
 
-您可以使用 `SCREAMING_CAPS` 与现有代码保持一致，比如：
+您可以使用 `SCREAMING_CAPS` 與現有程式碼保持一致，比如：
 
 * When adding code to a file or library that already uses `SCREAMING_CAPS`.
 
-  将代码添加到已使用 `SCREAMING_CAPS` 的文件或库时。
+  將程式碼新增到已使用 `SCREAMING_CAPS` 的檔案或庫時。
 
 * When generating Dart code that's parallel to Java code—for example, 
   in enumerated types generated from [protobufs.][]
 
-  生成与 Java 代码并行的 Dart 代码时。例如，来自 [protobufs][] 的枚举类型。
+  產生與 Java 程式碼並行的 Dart 程式碼時。例如，來自 [protobufs][] 的列舉型別。
 
 {{site.alert.note}}
   We initially used Java's `SCREAMING_CAPS` style for constants. We
   changed for a few reasons:
 
-  我们一开始使用 Java `SCREAMING_CAPS` 风格来命名常量。
-  我们之所以不再使用，是因为：
+  我們一開始使用 Java `SCREAMING_CAPS` 風格來命名常量。
+  我們之所以不再使用，是因為：
 
   *   `SCREAMING_CAPS` looks bad for many cases, particularly enum values for
       things like CSS colors.
 
-      `SCREAMING_CAPS` 很多情况下看起来比较糟糕，尤其类似于 CSS 颜色这类的枚举值。
+      `SCREAMING_CAPS` 很多情況下看起來比較糟糕，尤其類似於 CSS 顏色這類別的列舉值。
 
   *   Constants are often changed to final non-const variables, which would
       necessitate a name change.
 
-      常量常常被修改为 final 类型的非常量变量，这种情况你还需要修改变量的名字为小写字母形式。
+      常量常常被修改為 final 型別的非常量變數，這種情況你還需要修改變數的名字為小寫字母形式。
 
   *   The `values` property automatically defined on an enum type is const and
       lowercase.
 
-      在枚举类型中自动定义的 `values` 属性为常量并且是小写字母形式的。
+      在列舉型別中自動定義的 `values` 屬性為常量並且是小寫字母形式的。
 
 {{site.alert.end}}
 
@@ -309,29 +309,29 @@ as in the following cases:
 
 ### DO capitalize acronyms and abbreviations longer than two letters like words.
 
-### 把超过两个字母的首字母大写缩略词和缩写词当做一般单词来对待。
+### 把超過兩個字母的首字母大寫縮略詞和縮寫詞當做一般單詞來對待。
 
 Capitalized acronyms can be hard to read, and
 multiple adjacent acronyms can lead to ambiguous names.
 For example, given a name that starts with `HTTPSFTP`, there's no way
 to tell if it's referring to HTTPS FTP or HTTP SFTP.
 
-首字母大写缩略词比较难阅读，
-特别是多个缩略词连载一起的时候会引起歧义。
-例如，一个以 `HTTPSFTP` 开头的名字，
-没有办法判断它是指 HTTPS FTP 还是 HTTP SFTP。
+首字母大寫縮略詞比較難閱讀，
+特別是多個縮略詞連載一起的時候會引起歧義。
+例如，一個以 `HTTPSFTP` 開頭的名字，
+沒有辦法判斷它是指 HTTPS FTP 還是 HTTP SFTP。
 
 To avoid this, acronyms and abbreviations are capitalized like regular words.
 
-为了避免上面的情况，缩略词和缩写词要像普通单词一样首字母大写。
+為了避免上面的情況，縮略詞和縮寫詞要像普通單詞一樣首字母大寫。
 
 **Exception:** Two-letter *acronyms* like IO (input/output) are fully
 capitalized: `IO`. On the other hand, two-letter *abbreviations* like
 ID (identification) are still capitalized like regular words: `Id`.
 
-**例外情况** 两个字母情况下，类似 IO (input/output) 这样的 **缩略词** 要全大写。
-另外，两个字母的 **缩写词** 比如 ID (identification) 与其他常规单词一样，
-首字母大写即可: `Id`。
+**例外情況** 兩個字母情況下，類似 IO (input/output) 這樣的 **縮略詞** 要全大寫。
+另外，兩個字母的 **縮寫詞** 比如 ID (identification) 與其他常規單詞一樣，
+首字母大寫即可: `Id`。
 
 {:.good}
 {% prettify dart tag=pre+code %}
@@ -398,7 +398,7 @@ leading underscores in those names.
 
 ### DON'T use prefix letters.
 
-### **不要**使用前缀字母
+### **不要**使用字首字母
 
 [Hungarian notation](https://en.wikipedia.org/wiki/Hungarian_notation) and
 other schemes arose in the time of BCPL, when the compiler didn't do much to
@@ -406,11 +406,11 @@ help you understand your code. Because Dart can tell you the type, scope,
 mutability, and other properties of your declarations, there's no reason to
 encode those properties in identifier names.
 
-在编译器无法帮助你了解自己代码的时，
+在編譯器無法幫助你瞭解自己程式碼的時，
 [匈牙利命名法](https://en.wikipedia.org/wiki/Hungarian_notation)
-和其他方案出现在了 BCPL ，
-但是因为 Dart 可以提示你声明的类型，范围，可变性和其他属性，
-所以没有理由在标识符名称中对这些属性进行编码。
+和其他方案出現在了 BCPL ，
+但是因為 Dart 可以提示你宣告的型別，範圍，可變性和其他屬性，
+所以沒有理由在識別符號名稱中對這些屬性進行編碼。
 
 {:.good}
 {% prettify dart tag=pre+code %}
@@ -425,13 +425,13 @@ kDefaultTimeout
 
 ## Ordering
 
-## 顺序
+## 順序
 
 To keep the preamble of your file tidy, we have a prescribed order that
 directives should appear in. Each "section" should be separated by a blank line.
 
-为了使文件前面部分保持整洁，我们规定了关键字出现顺序的规则。
-每个“部分”应该使用空行分割。
+為了使檔案前面部分保持整潔，我們規定了關鍵字出現順序的規則。
+每個“部分”應該使用空行分割。
 
 A single linter rule handles all the ordering guidelines:
 [directives_ordering.](/tools/linter-rules#directives_ordering)
@@ -439,7 +439,7 @@ A single linter rule handles all the ordering guidelines:
 
 ### DO place "dart:" imports before other imports.
 
-### **要** 把 "dart:" 导入语句放到其他导入语句之前。
+### **要** 把 "dart:" 匯入陳述式放到其他匯入陳述式之前。
 
 {% include linter-rule-mention.md rule="directives_ordering" %}
 
@@ -456,7 +456,7 @@ import 'package:foo/foo.dart';
 
 ### DO place "package:" imports before relative imports.
 
-### **要** 把 "package:" 导入语句放到项目相关导入语句之前。
+### **要** 把 "package:" 匯入陳述式放到專案相關匯入陳述式之前。
 
 {% include linter-rule-mention.md rule="directives_ordering" %}
 
@@ -472,7 +472,7 @@ import 'util.dart';
 
 ### DO specify exports in a separate section after all imports.
 
-### **要** 把导出 (export) 语句作为一个单独的部分放到所有导入语句之后。
+### **要** 把匯出 (export) 陳述式作為一個單獨的部分放到所有匯入陳述式之後。
 
 {% include linter-rule-mention.md rule="directives_ordering" %}
 
@@ -496,7 +496,7 @@ import 'src/foo_bar.dart';
 
 ### DO sort sections alphabetically.
 
-### **要** 按照字母顺序来排序每个部分中的语句。
+### **要** 按照字母順序來排序每個部分中的陳述式。
 
 {% include linter-rule-mention.md rule="directives_ordering" %}
 
@@ -529,12 +529,12 @@ Like many languages, Dart ignores whitespace. However, *humans* don't. Having a
 consistent whitespace style helps ensure that human readers see code the same
 way the compiler does.
 
-和其他大部分语言一样， Dart 忽略空格。但是，*人*不会。
-具有一致的空格风格有助于帮助我们能够用编译器相同的方式理解代码。
+和其他大部分語言一樣， Dart 忽略空格。但是，*人*不會。
+具有一致的空格風格有助於幫助我們能夠用編譯器相同的方式理解程式碼。
 
 ### DO format your code using `dart format`.
 
-### **要** 使用 `dart format` 格式化你的代码。
+### **要** 使用 `dart format` 格式化你的程式碼。
 
 Formatting is tedious work and is particularly time-consuming during
 refactoring. Fortunately, you don't have to worry about it. We provide a
@@ -542,33 +542,33 @@ sophisticated automated code formatter called [`dart format`][] that does it for
 you. We have [some documentation][dart format docs] on the rules it applies, but the
 official whitespace-handling rules for Dart are *whatever `dart format` produces*.
 
-格式化是一项繁琐的工作，尤其在重构过程中特别耗时。
-庆幸的是，你不必担心。
-我们提供了一个名为 [`dart format`][] 的优秀的自动代码格式化程序，它可以为你完成格式化工作。
-我们有一些关于它适用的规则的 [文档][dart format docs] ，
-Dart 中任何官方的空格处理规则由 *`dart format` 生成*。
+格式化是一項繁瑣的工作，尤其在重構過程中特別耗時。
+慶幸的是，你不必擔心。
+我們提供了一個名為 [`dart format`][] 的優秀的自動程式碼格式化程式，它可以為你完成格式化工作。
+我們有一些關於它適用的規則的 [文件][dart format docs] ，
+Dart 中任何官方的空格處理規則由 *`dart format` 產生*。
 
 The remaining formatting guidelines are for the few things `dart format` cannot fix
 for you.
 
-其余格式指南用于 `dart format` 无法修复的一些规则。
+其餘格式指南用於 `dart format` 無法修復的一些規則。
 
 [`dart format`]: /tools/dart-format
 [dart format docs]: https://github.com/dart-lang/dart_style/wiki/Formatting-Rules
 
 ### CONSIDER changing your code to make it more formatter-friendly.
 
-### **考虑** 修改你的代码让格式更友好。
+### **考慮** 修改你的程式碼讓格式更友好。
 
 The formatter does the best it can with whatever code you throw at it, but it
 can't work miracles. If your code has particularly long identifiers, deeply
 nested expressions, a mixture of different kinds of operators, etc. the
 formatted output may still be hard to read.
 
-无论你扔给格式化程序什么样代码，它都会尽力去处理，
-但是格式化程序不会创造奇迹。
-如果代码里有特别长的标识符，深层嵌套的表达式，混合的不同类型运算符等。
-格式化输出的代码可能任然很难阅读。
+無論你扔給格式化程式什麼樣程式碼，它都會盡力去處理，
+但是格式化程式不會創造奇蹟。
+如果程式碼裡有特別長的識別符號，深層巢狀(Nesting)的表示式，混合的不同型別運算子等。
+格式化輸出的程式碼可能任然很難閱讀。
 
 When that happens, reorganize or simplify your code. Consider shortening a local
 variable name or hoisting out an expression into a new local variable. In other
@@ -577,16 +577,16 @@ formatting the code by hand and trying to make it more readable. Think of
 `dart format` as a partnership where you work together, sometimes iteratively, 
 to produce beautiful code.
 
-当有这样的情况发生时，那么就需要重新组织或简化你的代码。
-考虑缩短局部变量名或者将表达式抽取为一个新的局部变量。
-换句话说，你应该做一些手动格式化并增加代码的可读性的修改。
-在工作中应该把 `dart format` 看做一个合作伙伴，
-在代码的编写和迭代过程中互相协作输出优质的代码。
+當有這樣的情況發生時，那麼就需要重新組織或簡化你的程式碼。
+考慮縮短區域變數名或者將表示式抽取為一個新的區域變數。
+換句話說，你應該做一些手動格式化並增加程式碼的可讀性的修改。
+在工作中應該把 `dart format` 看做一個合作伙伴，
+在程式碼的編寫和迭代過程中互相協作輸出優質的程式碼。
 
 
 ### AVOID lines longer than 80 characters.
 
-### **避免** 单行超过 80 个字符。
+### **避免** 單行超過 80 個字元。
 
 {% include linter-rule-mention.md rule="lines_longer_than_80_chars" %}
 
@@ -594,9 +594,9 @@ Readability studies show that long lines of text are harder to read because your
 eye has to travel farther when moving to the beginning of the next line. This is
 why newspapers and magazines use multiple columns of text.
 
-可读性研究表明，长行的文字不易阅读，
-长行文字移动到下一行的开头时，眼睛需要移动更长的距离。
-这也是为什么报纸和杂志会使用多列样式的文字排版。
+可讀性研究表明，長行的文字不易閱讀，
+長行文字移動到下一行的開頭時，眼睛需要移動更長的距離。
+這也是為什麼報紙和雜誌會使用多列樣式的文字排版。
 
 If you really find yourself wanting lines longer than 80 characters, our
 experience is that your code is likely too verbose and could be a little more
@@ -604,28 +604,28 @@ compact. The main offender is usually `VeryLongCamelCaseClassNames`. Ask
 yourself, "Does each word in that type name tell me something critical or
 prevent a name collision?" If not, consider omitting it.
 
-如果你真的发现你需要的文字长度超过了 80 个字符，
-根据我们的经验，你的代码很可能过于冗长，
-而且有方式可以让它更紧凑。
-最常见的的一种情况就是使用 `VeryLongCamelCaseClassNames` （非常长的类名字和变量名字）。
-当遇到这种情况时，请自问一下：“那个类型名称中的每个单词都会告诉我一些关键的内容或阻止名称冲突吗？”，
-如果不是，考虑删除它。
+如果你真的發現你需要的文字長度超過了 80 個字元，
+根據我們的經驗，你的程式碼很可能過於冗長，
+而且有方式可以讓它更緊湊。
+最常見的的一種情況就是使用 `VeryLongCamelCaseClassNames` （非常長的類別名稱字和變數名字）。
+當遇到這種情況時，請自問一下：“那個型別名稱中的每個單詞都會告訴我一些關鍵的內容或阻止名稱衝突嗎？”，
+如果不是，考慮刪除它。
 
 Note that `dart format` does 99% of this for you, but the last 1% is you. 
 It does not split long string literals to fit in 80 columns, 
 so you have to do that manually.
 
-注意，`dart format` 能自动处理 99% 的情况，但是剩下的 1% 需要你自己处理。
-`dart format` 不会把很长的字符串字面量分割为 80 个字符的列，
-所以这种情况你**需要**自己手工确保每行不超过 80 个字符。
+注意，`dart format` 能自動處理 99% 的情況，但是剩下的 1% 需要你自己處理。
+`dart format` 不會把很長的字串字面量分割為 80 個字元的列，
+所以這種情況你**需要**自己手工確保每行不超過 80 個字元。
 
 **Exception:** When a URI or file path occurs in a comment or string (usually in
 an import or export), it may remain whole even if it causes the line to go over
 80 characters. This makes it easier to search source files for a path.
 
-**例外：** 当 URI 及文件路径出现在注释或字符串中时（通常在导入和导出语句中），
-即使文字超出行限制，也可能会保留在一行中。
-这样可以更轻松地搜索给定路径的源文件。
+**例外：** 當 URI 及檔案路徑出現在註釋或字串中時（通常在匯入和匯出陳述式中），
+即使文字超出行限制，也可能會保留在一行中。
+這樣可以更輕鬆地搜尋給定路徑的原始檔。
 
 **Exception:** Multi-line strings can contain lines longer than 80 characters
 because newlines are significant inside the string and splitting the lines into
@@ -633,13 +633,13 @@ shorter ones can alter the program.
 
 ### DO use curly braces for all flow control statements. {#do-use-curly-braces-for-all-flow-control-structures}
 
-### **要** 对所有流控制结构使用花括号。
+### **要** 對所有流控制結構使用花括號。
 
 {% include linter-rule-mention.md rule="curly_braces_in_flow_control_structures" %}
 
 Doing so avoids the [dangling else][] problem.
 
-这样可以避免 [dangling else][]（else悬挂）的问题。
+這樣可以避免 [dangling else][]（else懸掛）的問題。
 
 [dangling else]: https://en.wikipedia.org/wiki/Dangling_else
 
@@ -656,9 +656,9 @@ if (isWeekDay) {
 **Exception:** When you have an `if` statement with no `else` clause and the
 whole `if` statement fits on one line, you can omit the braces if you prefer:
 
-这里有一个例外：一个没有 `else` 的 `if` 语句，
-并且这个 `if` 语句以及它的执行体适合在一行中实现。
-在这种情况下，如果您愿意，可以不用括号：
+這裡有一個例外：一個沒有 `else` 的 `if` 陳述式，
+並且這個 `if` 陳述式以及它的執行體適合在一行中實現。
+在這種情況下，如果您願意，可以不用括號：
 
 {:.good}
 <?code-excerpt "style_good.dart (one-line-if)"?>
@@ -668,7 +668,7 @@ if (arg == null) return defaultValue;
 
 If the body wraps to the next line, though, use braces:
 
-但是，如果执行体包含下一行，请使用大括号：
+但是，如果執行體包含下一行，請使用大括號：
 
 {:.good}
 <?code-excerpt "style_good.dart (one-line-if-wrap)"?>

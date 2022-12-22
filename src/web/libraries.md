@@ -1,10 +1,10 @@
 ---
 title: Web libraries and packages
-title: 常用 Web 库和 package
+title: 常用 Web 庫和 package
 short-title: Web libraries
-short-title: Web 库
+short-title: Web 庫
 description: Libraries and packages that can help you write Dart web apps.
-description: 一些帮助你构建 Dart Web 应用的库和 package。
+description: 一些幫助你建構 Dart Web 應用的函式庫和 package。
 ---
 
 The [Dart SDK][] contains [dart:html][] and other libraries
