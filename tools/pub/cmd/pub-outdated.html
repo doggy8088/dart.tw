@@ -1,0 +1,1114 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Language" content="zh-cmn-Hans">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Google Tag Manager -->
+<!--  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':-->
+<!--  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],-->
+<!--  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=-->
+<!--  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);-->
+<!--  })(window,document,'script','dataLayer','GTM-5VSZM5J');</script>-->
+  <!-- End Google Tag Manager -->
+
+  <meta name="description" content="Use dart pub outdated to help you update your package dependencies.">
+  <title>dart pub outdated | Dart</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-28P0PYCRZ9"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-28P0PYCRZ9');
+  </script>
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?fa71f2474b82505e00203cf9956cf0bc";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+  <!-- Favicon / Touch Icons -->
+  <link rel="icon" sizes="64x64" href="/assets/shared/dart/icon/64.png">
+  <link href="/assets/img/touch-icon-iphone.png" rel="apple-touch-icon">
+  <link href="/assets/img/touch-icon-ipad.png" rel="apple-touch-icon" sizes="152x152">
+  <link href="/assets/img/touch-icon-iphone-retina.png" rel="apple-touch-icon" sizes="180x180">
+  <link href="/assets/img/touch-icon-ipad-retina.png" rel="apple-touch-icon" sizes="167x167">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@dart_lang">
+  <meta name="twitter:title" content="dart pub outdated">
+  <meta name="twitter:description" content="Use dart pub outdated to help you update your package dependencies.">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="dart pub outdated">
+  <meta property="og:description" content="Use dart pub outdated to help you update your package dependencies.">
+  <meta property="og:url" content="https://dart.tw.gh.miniasp.com/tools/pub/cmd/pub-outdated.html">
+
+  <meta property="og:image" content="https://dart.tw.gh.miniasp.com/assets/shared/dart-logo-for-shares.png?2">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Display:wght@400&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons&amp;display=swap" rel="stylesheet">
+  <script src="https://cdn.staticfile.org/font-awesome/5.15.4/js/all.js" data-auto-replace-svg="nest">
+  </script>
+
+  <link rel="stylesheet" href="/assets/css/main.css?v=1693674404">
+  <script src="https://cdn.staticfile.org/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.staticfile.org/popper.js/1.16.1/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.staticfile.org/bootstrap/4.6.2/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!-- <script src="https://cdn.staticfile.org/js-cookie/3.0.5/js.cookie.min.js"
+          integrity="sha512-nlp9/l96/EpjYBx7EP7pGASVXNe80hGhYAUrjeXnu/fyF5Py0/RXav4BBNs7n5Hx1WFhOEOWSAVjGeC3oKxDVQ=="
+          crossorigin="anonymous"
+          referrerpolicy="no-referrer"></script> -->
+
+  <script src="/assets/js/vendor/code-prettify/prettify.js"></script>
+  <script src="/assets/js/vendor/code-prettify/lang-dart.js"></script>
+  <script src="/assets/js/vendor/code-prettify/lang-yaml.js"></script>
+  <script src="/assets/js/os-tabs.js?v=1693674404"></script>
+  <script src="/assets/js/utilities.js?v=1693674404"></script>
+  <script src="/assets/js/main.js?v=1693674404"></script>
+
+  <script>
+
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-122680122-5', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+
+ <link href="/assets/translator/css/translator.css" rel="stylesheet"></head>
+
+  <body class="default show_banner">
+    <section id="cookie-notice">
+  <div class="container">
+    <p>Google uses cookies to deliver its services, to personalize ads, and to 
+      analyze traffic. You can adjust your privacy controls anytime in your 
+      <a href="https://myaccount.google.com/data-and-personalization" target="_blank" rel="noopener" class="no-automatic-external">Google settings</a>. 
+      <a href="https://policies.google.com/technologies/cookies" target="_blank" rel="noopener" class="no-automatic-external">Learn more</a>.
+    </p>
+    <button id="cookie-consent" class="btn btn-primary">Okay</button>
+  </div>
+</section>
+
+    <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=G-28P0PYCRZ9"
+ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+    <header id="page-header" class="site-header">
+  <nav id="mainnav" class="site-header">
+  <div id="menu-toggle"><i class="material-icons">menu</i></div>
+  <a href="/" class="brand" title="Dart">
+    <img src="/assets/img/shared/dart/logo+text/horizontal/white.svg" alt="Dart">
+  </a>
+  <ul class="navbar">
+    <li>
+      <a href="/overview" class="nav-link">概覽</a>
+    </li>
+    <li class="mainnav__get-started">
+      <a href="/guides" class="nav-link
+         active">
+        <span>文件</span>
+      </a>
+    </li>
+    <li>
+      <a href="/community" class="nav-link">社群</a>
+    </li>
+    <li>
+      <a href="/#try-dart" class="nav-link">嘗試 Dart</a>
+    </li>
+    <li>
+      <a href="/get-dart" class="nav-link">獲取 Dart SDK</a>
+    </li>
+    <li class="searchfield">
+      <form action="/search" class="site-header__search form-inline" id="cse-search-box">
+        <input type="hidden" name="cx" value="011220921317074318178:_yy-tmb5t_i">
+        <input type="hidden" name="ie" value="UTF-8">
+        <input type="hidden" name="hl" value="en">
+        <input class="site-header__searchfield form-control search-field" type="search" name="q" id="q" autocomplete="off" placeholder="Search" aria-label="Search">
+      </form>
+    </li>
+  </ul>
+</nav>
+
+  
+</header>
+ <div class="banner">
+  <p class="banner__text">
+    Dart 3 已釋出！帶來了全新的
+    <a href="https://dart.tw.gh.miniasp.com/language/records" class="no-automatic-external">記錄型別 (records)</a>、
+    <a href="https://dart.tw.gh.miniasp.com/language/patterns" class="no-automatic-external">模式匹配 (patterns)</a>
+    以及 <a href="https://dart.tw.gh.miniasp.com/language/class-modifiers" class="no-automatic-external">型別修飾符 (class modifiers)</a>。
+    <br>
+    <!--<a href="https://medium.com/p/53f065a10635" class="no-automatic-external">Check out the blog post</a>!-->
+  </p>
+</div>
+ 
+
+    <div id="sidenav" class="">
+  <form action="/search/" class="site-header__search form-inline">
+    <input class="site-header__searchfield form-control search-field" type="search" name="q" id="q" autocomplete="off" placeholder="Search" aria-label="Search">
+  </form>
+
+  <div class="site-sidebar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a href="/overview" class="nav-link">概覽</a>
+      </li>
+      <li class="nav-item">
+        <a href="/community" class="nav-link">社群</a>
+      </li>
+      <li class="nav-item">
+        <a href="https://dartpad.dev" class="nav-link">嘗試 Dart</a>
+      </li>
+      <li class="nav-item">
+        <a href="/get-dart" class="nav-link">獲取 Dart SDK</a>
+      </li>
+      <li class="nav-item">
+        <a href="/guides" class="nav-link active">文件</a>
+      </li>
+    </ul>
+
+    <ul class="nav flex-column"><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-1" role="button" aria-expanded="false" aria-controls="sidenav-1">範例和課程</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-1">
+        <li class="nav-item">
+    <a class="nav-link" href="/tutorials">語言概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable" data-toggle="collapse" data-target="#sidenav-1-2" href="#sidenav-1-2" role="button" aria-expanded="true" aria-controls="sidenav-1-2">Codelabs
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-1-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/codelabs">Codelabs 列表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/dart-cheatsheet">Dart 速查表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/iterables">可迭代集合</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/async-await">Dart 非同步程式設計</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/null-safety">空安全</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-2" role="button" aria-expanded="false" aria-controls="sidenav-2">Dart 開發語言</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2">
+        <li class="nav-item">
+    <a class="nav-link" href="/language">介紹</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-2" href="#sidenav-2-2" role="button" aria-expanded="false" aria-controls="sidenav-2-2">基礎表示式
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/variables">變數</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/operators">運運算元</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/comments">註釋</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/metadata">註解</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/libraries">庫 &amp; 導庫</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/keywords">關鍵字</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-3" href="#sidenav-2-3" role="button" aria-expanded="false" aria-controls="sidenav-2-3">型別
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-3">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/built-in-types">基本型別</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/records">記錄 (Records)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/collections">集合 (Collections)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/generics">泛型 (Generics)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/typedefs">別名 (Typedefs)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/type-system">型別系統</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-4" href="#sidenav-2-4" role="button" aria-expanded="false" aria-controls="sidenav-2-4">模式匹配
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-4">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/patterns">概覽 &amp; 用法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/pattern-types">模式匹配型別</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/language/functions">函式方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-6" href="#sidenav-2-6" role="button" aria-expanded="false" aria-controls="sidenav-2-6">控制流
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-6">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/loops">迴圈</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/branches">分支</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/language/error-handling">錯誤處理</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-8" href="#sidenav-2-8" role="button" aria-expanded="false" aria-controls="sidenav-2-8">類 &amp; 物件
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-8">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/classes">類</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/constructors">構造方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/methods">成員方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/extend">繼承</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/mixins">混入 (Mixin)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/enums">列舉</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/extension-methods">擴充方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/callable-objects">可呼叫的物件</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-9" href="#sidenav-2-9" role="button" aria-expanded="false" aria-controls="sidenav-2-9">型別修飾符
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-9">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/class-modifiers">概覽 &amp; 用法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/class-modifiers-for-apis">API 維護者應該用的型別修飾符</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/modifier-reference">速查表</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-10" href="#sidenav-2-10" role="button" aria-expanded="false" aria-controls="sidenav-2-10">併發
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-10">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/async">非同步支援</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/concurrency">Isolates</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-11" href="#sidenav-2-11" role="button" aria-expanded="false" aria-controls="sidenav-2-11">Null safety
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-11">
+      <li class="nav-item">
+    <a class="nav-link" href="/null-safety">健全的空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/migration-guide">遷移到空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/understanding-null-safety">深入理解空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/unsound-null-safety">非健全的空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/faq">空安全常見問題和解答</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-3" role="button" aria-expanded="false" aria-controls="sidenav-3">高效指南 (Effective Dart)</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-3">
+        <li class="nav-item">
+    <a class="nav-link" href="/effective-dart">概述</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/style">程式碼風格</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/documentation">文件</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/usage">用法範例</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/design">API 設計</a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-4" role="button" aria-expanded="false" aria-controls="sidenav-4">核心函式庫</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-4">
+        <li class="nav-item">
+    <a class="nav-link" href="/guides/libraries">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/library-tour">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-4-3" href="#sidenav-4-3" role="button" aria-expanded="false" aria-controls="sidenav-4-3">介紹文章
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-4-3">
+      <li class="nav-item">
+    <a class="nav-link" href="/articles/libraries/creating-streams">建立 stream</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-5" role="button" aria-expanded="false" aria-controls="sidenav-5">Packages</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-5">
+        <li class="nav-item">
+    <a class="nav-link" href="/guides/packages">如何使用 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/useful-libraries">常用 package 介紹</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/create-packages">建立 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/publishing">釋出 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/writing-package-pages">設定 package 介紹頁</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-5-6" href="#sidenav-5-6" role="button" aria-expanded="false" aria-controls="sidenav-5-6">Package 參考資料
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-5-6">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/pub/dependencies">依賴</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/glossary">術語表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/package-layout">Package 檔案結構</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/environment-variables">設定環境變數</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/pubspec">Pubspec 檔案</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/troubleshoot">問題排查</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/verified-publishers">釋出者認證</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/versioning">版本管理</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-6" role="button" aria-expanded="false" aria-controls="sidenav-6">開發文件</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6">
+        <li class="nav-item">
+    <a class="nav-link" href="/codelabs/async-await">Futures、async 和 await</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/language/streams">Streams 介紹</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/json">使用 JSON</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/numbers">Dart 中的數字</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-5" href="#sidenav-6-5" role="button" aria-expanded="false" aria-controls="sidenav-6-5">與其他語言進行互動呼叫
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-5">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/c-interop">與 C 互調</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/objective-c-interop">與 Objective-C 和 Swift 互調</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/java-interop">與 Java 和 Kotlin 互調</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/web/js-interop">與 JavaScript 互調</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/guides/google-apis">Google APIs</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/multiplatform-apps">跨平臺應用</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-8" href="#sidenav-6-8" role="button" aria-expanded="false" aria-controls="sidenav-6-8">命令列和伺服器端應用
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-8">
+      <li class="nav-item">
+    <a class="nav-link" href="/server">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/get-started">起步課程</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/cmdline">命令列應用</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/fetch-data">從網路上獲取資料</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/httpserver">編寫 HTTP 伺服器端應用</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/server/libraries">庫和 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/server/google-cloud">Google Cloud</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-9" href="#sidenav-6-9" role="button" aria-expanded="false" aria-controls="sidenav-6-9">網頁端 (Web) 應用
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-9">
+      <li class="nav-item">
+    <a class="nav-link" href="/web">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/get-started">開始使用</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-9-3" href="#sidenav-6-9-3" role="button" aria-expanded="false" aria-controls="sidenav-6-9-3">底層 Web 程式設計
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-9-3">
+      <li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/low-level-html/connect-dart-html">Dart 與 HTML 關聯</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/low-level-html/add-elements">向 DOM 新增元素</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/low-level-html/remove-elements">移除 DOM 元素</a>
+  </li>
+  </ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/web/deployment">部署</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/web/libraries">常用 Web 函式庫和 package</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/guides/environment-declarations">環境變數宣告</a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link active" data-toggle="collapse" href="#sidenav-7" role="button" aria-expanded="true" aria-controls="sidenav-7">開發工具和使用技巧</a>
+
+      <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-7">
+        <li class="nav-item">
+    <a class="nav-link" href="/tools">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-2" href="#sidenav-7-2" role="button" aria-expanded="false" aria-controls="sidenav-7-2">編輯器和除錯工具
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/jetbrains-plugin">使用 IntelliJ 和 Android Studio</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/vs-code">使用 VS Code</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/dart-devtools">Dart 開發者工具</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-2-4" href="#sidenav-7-2-4" role="button" aria-expanded="false" aria-controls="sidenav-7-2-4">線上執行 Dart 程式碼
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-2-4">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/dartpad">Overview</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dartpad/dartpad-best-practices">DartPad 課程</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dartpad/troubleshoot">DartPad 疑難解答</a>
+  </li>
+  </ul>
+  </li>
+</ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link active collapsable" data-toggle="collapse" data-target="#sidenav-7-3" href="#sidenav-7-3" role="button" aria-expanded="true" aria-controls="sidenav-7-3">命令列工具
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-7-3">
+      <li class="nav-item">
+    <a class="nav-link active collapsable" data-toggle="collapse" data-target="#sidenav-7-3-1" href="#sidenav-7-3-1" role="button" aria-expanded="true" aria-controls="sidenav-7-3-1">Dart SDK
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-7-3-1">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/sdk">概覽</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-tool">dart 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-analyze">dart analyze 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-compile">dart compile 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-create">dart create 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-doc">dart doc 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-fix">dart fix 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-format">dart format 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-info">dart info 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" href="/tools/pub/cmd">dart pub 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-run">dart run 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-test">dart test 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dartaotruntime">dartaotruntime 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/experiment-flags">實驗性命令標記</a>
+  </li>
+  </ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable" data-toggle="collapse" data-target="#sidenav-7-3-2" href="#sidenav-7-3-2" role="button" aria-expanded="true" aria-controls="sidenav-7-3-2">其他的命令列工具
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-7-3-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/build_runner">build_runner 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/webdev">webdev 命令</a>
+  </li>
+  </ul>
+  </li>
+</ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-4" href="#sidenav-7-4" role="button" aria-expanded="false" aria-controls="sidenav-7-4">原始碼管理
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-4">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/language/formatting">程式碼格式化</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/private-files">不應提交的內容</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-5" href="#sidenav-7-5" role="button" aria-expanded="false" aria-controls="sidenav-7-5">靜態分析
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-5">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/analysis">自訂靜態分析</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/sound-problems">修復常見的型別問題</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/diagnostic-messages">診斷訊息</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/linter-rules">Linter 規則</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-6" href="#sidenav-7-6" role="button" aria-expanded="false" aria-controls="sidenav-7-6">測試和調優
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-6">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/testing">測試</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/web/debugging">除錯 Web 應用</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-8" role="button" aria-expanded="false" aria-controls="sidenav-8">資源</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-8">
+        <li class="nav-item">
+    <a class="nav-link" href="/resources/faq">常見問題</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/evolution">版本演變</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/spec">語言規範</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/resources/dart-3-migration">Dart 3 遷移指南</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-8-5" href="#sidenav-8-5" role="button" aria-expanded="false" aria-controls="sidenav-8-5">從其他平台轉向 Dart
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-8-5">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/language/coming-from/js-to-dart">從 JavaScript 到 Dart</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/coming-from/swift-to-dart">從 Swift 到 Dart</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/resources/glossary">詞彙表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/resources/books">書籍資源</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/resources/videos">影片資源</a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link " data-toggle="collapse" href="#sidenav-9" role="button" aria-expanded="true" aria-controls="sidenav-9">相關站點</a>
+
+      <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-9">
+        <li class="nav-item">
+    <a class="nav-link" href="https://api.dart.dev" target="_blank" rel="noopener">API 文件<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://medium.com/dartlang" target="_blank" rel="noopener">Dart 團隊官方部落格<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://dartpad.dev" target="_blank" rel="noopener">DartPad (線上編輯器)<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://flutter.tw" target="_blank" rel="noopener">Flutter<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://pub.dev" target="_blank" rel="noopener">Package 網站<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-10" role="button" aria-expanded="false" aria-controls="sidenav-10">關於 Dart 中文文件</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-10">
+        <li class="nav-item">
+    <a class="nav-link" href="https://flutter.tw/about/docs-cn" target="_blank" rel="noopener">關於本站<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://flutter.tw/disclaimer" target="_blank" rel="noopener">免責條款 (Disclaimer)<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li>
+</ul>
+    </li></ul>
+
+  </div>
+</div>
+
+    <main id="page-content">
+      
+
+
+
+
+
+
+
+<div id="site-toc--side" class="site-toc ">
+  <header class="site-toc__title">
+    目錄
+    
+  </header>
+  <ul id="toc" class="section-nav">
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#overview">Overview</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#example">Example</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#output-columns">Output columns</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#options">Options</a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#--no-dependency-overrides">--[no-]dependency-overrides</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#--no-dev-dependencies">--[no-]dev-dependencies</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#--json">--json</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#--no-prereleases">--[no-]prereleases</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#--no-transitive">--[no-]transitive</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#--no-up-to-date">--[no-]up-to-date</a></li>
+</ul>
+</li>
+</ul>
+  
+</div>
+
+
+      <article>
+        <div class="content">
+          
+
+          <div id="site-content-title">
+            <div id="page-github-links" class="btn-group" aria-label="Page GitHub links" role="group">
+  <a href="https://github.com/doggy8088/dart.tw/tree/master/src/tools/pub/cmd/pub-outdated.md" class="btn no-automatic-external" title="View page source" target="_blank" rel="noopener">
+    <i class="material-icons">description</i>
+  </a>
+  <a href="https://github.com/doggy8088/dart.tw/issues/new?template=1_page_issue.yml&amp;title=[PAGE ISSUE]: 'dart pub outdated'&amp;page-url=https://dart.tw.gh.miniasp.com/tools/pub/cmd/pub-outdated.html&amp;page-source=https://github.com/doggy8088/dart.tw/tree/master/src/tools/pub/cmd/pub-outdated.md" class="btn no-automatic-external" title="Report an issue with this page" target="_blank" rel="noopener">
+    <i class="material-icons">bug_report</i>
+  </a>
+</div>
+
+            
+            <h1 id="dart-pub-outdated">dart pub outdated</h1>
+            </div>
+          
+
+
+
+
+
+
+
+<div id="site-toc--inline" class="site-toc toc-collapsible toc-collapsed">
+  <header class="site-toc__title">
+    目錄
+    
+      <span class="site-toc--inline__toggle toc-toggle-down"><i class="material-icons">keyboard_arrow_down</i></span>
+      <span class="site-toc--inline__toggle toc-toggle-up"><i class="material-icons">keyboard_arrow_up</i></span>
+    
+  </header>
+  <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#overview">Overview</a></li>
+<li class="toc-entry toc-h2"><a href="#example">Example</a></li>
+<li class="toc-entry toc-h2"><a href="#output-columns">Output columns</a></li>
+<li class="toc-entry toc-h2"><a href="#options">Options</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#--no-dependency-overrides">--[no-]dependency-overrides</a></li>
+<li class="toc-entry toc-h3"><a href="#--no-dev-dependencies">--[no-]dev-dependencies</a></li>
+<li class="toc-entry toc-h3"><a href="#--json">--json</a></li>
+<li class="toc-entry toc-h3"><a href="#--no-prereleases">--[no-]prereleases</a></li>
+<li class="toc-entry toc-h3"><a href="#--no-transitive">--[no-]transitive</a></li>
+<li class="toc-entry toc-h3"><a href="#--no-up-to-date">--[no-]up-to-date</a></li>
+</ul>
+</li>
+</ul>
+  
+    <span class="site-toc--inline__toggle toc-toggle-more-items"><i class="material-icons">more_horiz</i></span>
+  
+</div>
+
+
+          <p><em>Outdated</em> is one of the commands of the <a href="/tools/pub/cmd">pub tool</a>.</p>
+
+<pre><code class="language-nocode">$ dart pub outdated [options]
+</code></pre>
+
+<p>Use <code class="language-plaintext highlighter-rouge">dart pub outdated</code> to identify out-of-date <a href="/tools/pub/dependencies">package dependencies</a>
+and get advice on how to update them.
+<a href="/tools/pub/dependencies#best-practices">Best practices for dependency management</a>
+include using the most recent stable package versions,
+so you can get the latest bug fixes and improvements.</p>
+
+<h2 id="overview">
+<a class="anchor" href="#overview" aria-hidden="true"><span class="octicon octicon-link"></span></a>Overview</h2>
+
+<p>Here’s how you can use <code class="language-plaintext highlighter-rouge">dart pub outdated</code> to help you
+update the dependencies of a package that you own
+(whether it’s an app or regular package):</p>
+
+<ol>
+  <li>If your package doesn’t have a <code class="language-plaintext highlighter-rouge">pubspec.lock</code> file
+checked into source control,
+<strong>run <code class="language-plaintext highlighter-rouge">dart pub get</code></strong> in the top directory of the package—the
+directory that contains your package’s
+<a href="/tools/pub/pubspec"><code class="language-plaintext highlighter-rouge">pubspec.yaml</code></a> file.</li>
+  <li>
+<strong>Run <code class="language-plaintext highlighter-rouge">dart pub outdated</code></strong>
+to identify which package dependencies are out-of-date.
+Note the affected packages,
+so that later you can test the behavior of code that uses them.</li>
+  <li>Follow the recommendations of <code class="language-plaintext highlighter-rouge">dart pub outdated</code> for updating the packages.
+Some updates might require only running <code class="language-plaintext highlighter-rouge">dart pub upgrade</code>.
+Others might require updating <code class="language-plaintext highlighter-rouge">pubspec.yaml</code>
+before running <code class="language-plaintext highlighter-rouge">dart pub upgrade</code>.</li>
+  <li>
+<strong>Run <code class="language-plaintext highlighter-rouge">dart pub outdated</code></strong> to confirm that you’re using
+the latest compatible package versions.</li>
+  <li>
+<strong>Test</strong> your package to confirm that it still works as expected.</li>
+</ol>
+
+<p>You might still have out-of-date dependencies due to
+<a href="/tools/pub/glossary#transitive-dependency">transitive dependencies</a>.
+If you want to determine the cause,
+try running <a href="/tools/pub/cmd/pub-deps"><code class="language-plaintext highlighter-rouge">dart pub deps</code></a> and searching the output for
+the name of each out-of-date package.</p>
+
+<h2 id="example">
+<a class="anchor" href="#example" aria-hidden="true"><span class="octicon octicon-link"></span></a>Example</h2>
+
+<p>Here’s an example of running <code class="language-plaintext highlighter-rouge">dart pub outdated</code> on
+an example that has several out-of-date dependencies.
+Three of the dependencies (<code class="language-plaintext highlighter-rouge">args</code>, <code class="language-plaintext highlighter-rouge">http</code>, and <code class="language-plaintext highlighter-rouge">path</code>) are direct,
+and one is transitive (<code class="language-plaintext highlighter-rouge">meta</code>).
+As the following example shows,
+<code class="language-plaintext highlighter-rouge">dart pub outdated</code> colorizes the output by default
+when you run it on the command line.</p>
+
+<pre style="color:white; background-color:black">$<span style="color: rgb(138,138,138);"> dart pub outdated</span>
+
+<span style="font-weight:bold;">Package Name</span>  <span style="font-weight:bold;">Current</span>    <span style="font-weight:bold;">Upgradable</span>  <span style="font-weight:bold;">Resolvable</span>  <span style="font-weight:bold;">Latest</span>
+<span style="font-weight:bold;color:white;">
+direct dependencies:</span>
+args          <span style="color:red;">1.4.4</span><span style="color:white;">      1.6.0       </span><span style="color: rgb(138,138,138);">1.6.0</span>       <span style="color: rgb(138,138,138);">1.6.0</span>
+http          <span style="color:red;">0.11.3+17</span><span style="color:white;">  </span><span style="color:red;">0.11.3+17</span><span style="color:white;">   0.12.1      </span><span style="color: rgb(138,138,138);">0.12.1</span>  
+path          <span style="color:red;">1.6.2</span><span style="color:white;">      </span><span style="color:red;">1.6.2</span><span style="color:white;">       </span><span style="color:red;">1.6.2</span><span style="color:white;">       1.7.0   
+
+dev_dependencies: all up-to-date
+</span><span style="font-weight:bold;color:white;">
+transitive dependencies:</span>
+meta          <span style="color:red;">1.1.6</span><span style="color:white;">      </span><span style="color:red;">1.1.6</span><span style="color:white;">       </span><span style="color:red;">1.1.6</span><span style="color:white;">       1.1.8   
+
+transitive dev_dependencies: all up-to-date
+
+1 upgradable dependency is locked (in pubspec.lock) to an older version.
+To update it, use `dart pub upgrade`.
+
+1 dependency is constrained to a version that is older than a resolvable version.
+To update it, edit pubspec.yaml.
+</span>
+</pre>
+
+<p>The <strong>Resolvable</strong> column shows which versions you can upgrade to
+for each out-of-date dependency.
+You can get more information by looking for
+the <strong>leftmost column</strong> with a <strong>non-red value</strong>.
+For example, <code class="language-plaintext highlighter-rouge">args</code> is <em>upgradable</em> to 1.6.0,
+and <code class="language-plaintext highlighter-rouge">http</code> is <em>resolvable</em> to 0.12.1.
+The <code class="language-plaintext highlighter-rouge">path</code> and <code class="language-plaintext highlighter-rouge">meta</code> packages aren’t the latest versions,
+but are the most current <em>resolvable</em> versions,
+considering all the other dependencies.</p>
+
+<aside class="alert alert-success" role="alert">
+  <p><i class="material-icons" aria-hidden="true">tips_and_updates</i> <strong>小提示:</strong>
+  To see what changed in the new version of a package
+  that’s published on <a href="https://pub.dev">pub.dev,</a>
+  look at the changelog in the package page.
+  For example, you can look at the <strong>Changelog</strong> tabs on the pages for the
+  <a href="https://pub.dev/packages/args"><code class="language-plaintext highlighter-rouge">args</code></a> and <a href="https://pub.dev/packages/http"><code class="language-plaintext highlighter-rouge">http</code></a> packages.</p>
+</aside>
+
+<p>To fix the first dependency (<code class="language-plaintext highlighter-rouge">args</code>),
+which is listed as upgradable,
+you just need to run <code class="language-plaintext highlighter-rouge">dart pub upgrade</code>:</p>
+
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>dart pub upgrade
+<span class="go">Resolving dependencies... 
+</span><span class="gp">&gt;</span><span class="w"> </span>args 1.6.0 <span class="o">(</span>was 1.4.4<span class="o">)</span>
+<span class="c">  ...
+</span><span class="go">Changed 1 dependency!
+</span></code></pre></div></div>
+
+<p>To fix the second dependency (<code class="language-plaintext highlighter-rouge">http</code>),
+which is listed as resolvable,
+you can change the pubspec’s <code class="language-plaintext highlighter-rouge">http</code> entry to use
+the version in the <strong>Resolvable</strong> column
+(or a compatible higher version).
+In <a href="/tools/pub/dependencies#version-constraints">caret syntax</a>, that’s <strong><code class="language-plaintext highlighter-rouge">^0.12.1</code></strong>.
+Here’s the diff for <code class="language-plaintext highlighter-rouge">pubspec.yaml</code>:</p>
+
+<div class="language-diff highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gd">-  http: ^0.11.0
+</span><span class="gi">+  http: ^0.12.1
+</span></code></pre></div></div>
+
+<p>After editing <code class="language-plaintext highlighter-rouge">pubspec.yaml</code>, you run <code class="language-plaintext highlighter-rouge">dart pub upgrade</code> to
+update the <code class="language-plaintext highlighter-rouge">pubspec.lock</code> file.
+You can then run <code class="language-plaintext highlighter-rouge">dart pub outdated</code> to confirm that
+you’ve made all necessary changes.
+In this example, the <code class="language-plaintext highlighter-rouge">path</code> and <code class="language-plaintext highlighter-rouge">meta</code> packages are still out-of-date,
+due to constraints determined by other dependencies:</p>
+
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>dart pub upgrade
+<span class="c">...
+</span><span class="gp">$</span><span class="w"> </span>dart pub outdated
+<span class="go">Package Name  Current  Upgradable  Resolvable  Latest 
+
+direct dependencies:
+path          1.6.2    1.6.2       1.6.2       1.7.0   
+
+dev_dependencies: all up-to-date
+
+transitive dependencies:
+meta          1.1.6    1.1.6       1.1.6       1.1.8   
+
+transitive dev_dependencies: all up-to-date
+
+Dependencies are all on the latest resolvable versions.
+Newer versions, while available, are not mutually compatible.
+</span></code></pre></div></div>
+
+<p>To see why these packages are out-of-date, you can run <code class="language-plaintext highlighter-rouge">dart pub deps</code>
+and look for dependencies on these packages:</p>
+
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>dart pub deps <span class="nt">-s</span> list
+<span class="c">...
+</span><span class="go">dependencies:
+</span><span class="c">...
+</span><span class="go">- terminal_tools 0.1.0
+  - path 1.6.2
+  - meta 1.1.6
+</span><span class="c">...
+</span></code></pre></div></div>
+
+<p>As the preceding output shows,
+this package depends on the <code class="language-plaintext highlighter-rouge">terminal_tools</code> package,
+which depends on old versions of <code class="language-plaintext highlighter-rouge">path</code> and <code class="language-plaintext highlighter-rouge">meta</code>.
+Once the <code class="language-plaintext highlighter-rouge">terminal_tools</code> package is updated,
+it should be possible to update this package.</p>
+
+<aside class="alert alert-warning" role="alert">
+  <p><i class="material-icons" aria-hidden="true">error</i> <strong>重要說明:</strong>
+  Test your code to verify that it still works as expected
+  after updating the packages.</p>
+</aside>
+
+<h2 id="output-columns">
+<a class="anchor" href="#output-columns" aria-hidden="true"><span class="octicon octicon-link"></span></a>Output columns</h2>
+
+<p>The output of <code class="language-plaintext highlighter-rouge">dart pub outdated</code> has four columns of version information
+for each out-of-date dependency.
+Here is the part of the <a href="#example">example</a> output
+that shows the four version columns:
+Current, Upgradable, Resolvable, and Latest.</p>
+
+<pre style="color:white; background-color:black"><span style="font-weight:bold;">Package Name</span>  <span style="font-weight:bold;">Current</span>    <span style="font-weight:bold;">Upgradable</span>  <span style="font-weight:bold;">Resolvable</span>  <span style="font-weight:bold;">Latest</span>
+<span style="font-weight:bold;color:white;">
+direct dependencies:</span>
+args          <span style="color:red;">1.4.4</span><span style="color:white;">      1.6.0       </span><span style="color: rgb(138,138,138);">1.6.0</span>       <span style="color: rgb(138,138,138);">1.6.0</span>
+http          <span style="color:red;">0.11.3+17</span><span style="color:white;">  </span><span style="color:red;">0.11.3+17</span><span style="color:white;">   0.12.1      </span><span style="color: rgb(138,138,138);">0.12.1</span>  
+path          <span style="color:red;">1.6.2</span><span style="color:white;">      </span><span style="color:red;">1.6.2</span><span style="color:white;">       </span><span style="color:red;">1.6.2</span><span style="color:white;">       1.7.0   
+
+dev_dependencies: all up-to-date
+</span><span style="font-weight:bold;color:white;">
+transitive dependencies:</span>
+meta          <span style="color:red;">1.1.6</span><span style="color:white;">      </span><span style="color:red;">1.1.6</span><span style="color:white;">       </span><span style="color:red;">1.1.6</span><span style="color:white;">       1.1.8</span>
+</pre>
+
+<dl>
+  <dt>Current</dt>
+  <dd>The version used in your package, as recorded in <code class="language-plaintext highlighter-rouge">pubspec.lock</code>.
+If the package isn’t in <code class="language-plaintext highlighter-rouge">pubspec.lock</code>,
+the value is <code class="language-plaintext highlighter-rouge">-</code>.</dd>
+  <dt>Upgradable</dt>
+  <dd>The latest version allowed by your <code class="language-plaintext highlighter-rouge">pubspec.yaml</code> file.
+This is the version that <code class="language-plaintext highlighter-rouge">dart pub upgrade</code> resolves to.
+The value is <code class="language-plaintext highlighter-rouge">-</code> if the value in the <strong>Current</strong> column is <code class="language-plaintext highlighter-rouge">-</code>.</dd>
+  <dt>Resolvable</dt>
+  <dd>The latest version that can be resolved,
+when combined with all other dependencies.
+This version corresponds to what <code class="language-plaintext highlighter-rouge">dart pub upgrade</code> gives you
+if all version constraints in <code class="language-plaintext highlighter-rouge">pubspec.yaml</code> are unbounded.
+A value of <code class="language-plaintext highlighter-rouge">-</code> means that the package won’t be needed.</dd>
+  <dt>Latest</dt>
+  <dd>The latest version of the package available,
+excluding prereleases unless you use the option <code class="language-plaintext highlighter-rouge">--prereleases</code>.</dd>
+</dl>
+
+<p>For example, say your app depends on the <code class="language-plaintext highlighter-rouge">foo</code> and <code class="language-plaintext highlighter-rouge">bar</code> packages,
+but the latest version of <code class="language-plaintext highlighter-rouge">bar</code> allows only older major versions of <code class="language-plaintext highlighter-rouge">foo</code>.
+The result is that the latest <em>resolvable</em> version of <code class="language-plaintext highlighter-rouge">foo</code>
+is different from the <em>latest</em> version of <code class="language-plaintext highlighter-rouge">foo</code>.</p>
+
+<p>When you edit the <code class="language-plaintext highlighter-rouge">pubspec.yaml</code> file,
+you generally update the <strong>dependencies</strong> and <strong>dev_dependencies</strong> sections
+so that each package uses the versions in the <strong>Resolvable</strong> column.</p>
+
+<h2 id="options">
+<a class="anchor" href="#options" aria-hidden="true"><span class="octicon octicon-link"></span></a>Options</h2>
+
+<p>For options that apply to all pub commands, see
+<a href="/tools/pub/cmd#global-options">Global options</a>.</p>
+
+<h3 id="--no-dependency-overrides">
+<a class="anchor" href="#--no-dependency-overrides" aria-hidden="true"><span class="octicon octicon-link"></span></a><code class="language-plaintext highlighter-rouge">--[no-]dependency-overrides</code>
+</h3>
+
+<p>By default, accounts for <a href="/tools/pub/dependencies#dependency-overrides"><code class="language-plaintext highlighter-rouge">dependency_overrides</code></a>
+when resolving package constraints (<code class="language-plaintext highlighter-rouge">--dependency-overrides</code>).
+To not consider overrides, use <code class="language-plaintext highlighter-rouge">--no-dependency_overrides</code>.</p>
+
+<h3 id="--no-dev-dependencies">
+<a class="anchor" href="#--no-dev-dependencies" aria-hidden="true"><span class="octicon octicon-link"></span></a><code class="language-plaintext highlighter-rouge">--[no-]dev-dependencies</code>
+</h3>
+
+<p>By default, accounts for <a href="/tools/pub/dependencies#dev-dependencies">dev dependencies</a>
+when resolving package constraints (<code class="language-plaintext highlighter-rouge">--dev-dependencies</code>).
+To not consider dev dependencies, use <code class="language-plaintext highlighter-rouge">--no-dev-dependencies</code>.</p>
+
+<h3 id="--json">
+<a class="anchor" href="#--json" aria-hidden="true"><span class="octicon octicon-link"></span></a><code class="language-plaintext highlighter-rouge">--json</code>
+</h3>
+
+<p>Generates output in JSON format.</p>
+
+<h3 id="--no-prereleases">
+<a class="anchor" href="#--no-prereleases" aria-hidden="true"><span class="octicon octicon-link"></span></a><code class="language-plaintext highlighter-rouge">--[no-]prereleases</code>
+</h3>
+
+<p>By default, includes prereleases
+when determining the last package versions (<code class="language-plaintext highlighter-rouge">--prereleases</code>).
+To not consider preleases, use <code class="language-plaintext highlighter-rouge">--no-prereleases</code>.</p>
+
+<h3 id="--no-transitive">
+<a class="anchor" href="#--no-transitive" aria-hidden="true"><span class="octicon octicon-link"></span></a><code class="language-plaintext highlighter-rouge">--[no-]transitive</code>
+</h3>
+
+<p>By default, doesn’t include <a href="/tools/pub/glossary#transitive-dependency">transitive dependencies</a>
+as part of the output (<code class="language-plaintext highlighter-rouge">--no-transitive</code>).
+To include transitive dependencies, use <code class="language-plaintext highlighter-rouge">--transitive</code>.</p>
+
+<h3 id="--no-up-to-date">
+<a class="anchor" href="#--no-up-to-date" aria-hidden="true"><span class="octicon octicon-link"></span></a><code class="language-plaintext highlighter-rouge">--[no-]up-to-date</code>
+</h3>
+
+<p>By default, doesn’t include dependencies that
+are at the latest version (<code class="language-plaintext highlighter-rouge">--no-up-to-date</code>).
+To include up-to-date dependencies, use <code class="language-plaintext highlighter-rouge">--up-to-date</code>.</p>
+
+<aside class="alert alert-info" role="alert">
+  <p><i class="material-icons" aria-hidden="true">info</i>
+  <em>Problems?</em>
+  See <a href="/tools/pub/troubleshoot">Troubleshooting Pub</a>.</p>
+</aside>
+
+
+          
+
+        </div>
+      </article>
+    </main>
+    <footer id="page-footer">
+    <div class="footer-section footer-main">
+      <a href="/" class="brand" title="Dart">
+        <img src="/assets/img/shared/dart/logo+text/horizontal/white.svg" alt="Dart" width="164px">
+      </a>
+      <div class="footer-social-links">
+        <a href="https://github.com/doggy8088/dart.tw" target="_blank" rel="noopener" title="GitHub" class="no-automatic-external">
+          <svg>
+            <use href="/assets/img/social/github.svg#github"></use>
+          </svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-section footer-tray">
+      <div class="footer-licenses">
+        參考中文內容需註明本站及連結作為出處，英文內容和範例程式碼均遵從源站授權協議。
+      </div>
+      <div class="footer-utility-links">
+        <ul>
+          <li><a href="/terms" title="使用條款">使用條款</a></li>
+          <li><a href="https://policies.google.com/privacy?hl=zh-TW" target="_blank" rel="noopener" title="隱私政策" class="no-automatic-external">隱私政策</a></li>
+          <li><a href="/security" title="Security philosophy and practices">Dart 程式碼安全說明</a></li>
+          <li><a href="https://flutter.tw/about" target="_blank">關於中文文件</a>
+          </li><li><a href="https://flutter.tw/disclaimer" target="_blank">免責條款</a>
+          </li><li><a href="https://dart.cn/" target="_blank">Dart 簡體中文文檔</a>
+        </li></ul>
+      </div>
+    </div>
+  </footer>
+
+  
+
+<script src="/assets/translator/js/translator.js"></script></body></html>

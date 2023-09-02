@@ -1,0 +1,1495 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Language" content="zh-cmn-Hans">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Google Tag Manager -->
+<!--  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':-->
+<!--  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],-->
+<!--  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=-->
+<!--  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);-->
+<!--  })(window,document,'script','dataLayer','GTM-5VSZM5J');</script>-->
+  <!-- End Google Tag Manager -->
+
+  <meta name="description" content="將你現有的程式碼帶到空安全的世界">
+  <title>遷移至空安全 | Dart</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-28P0PYCRZ9"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-28P0PYCRZ9');
+  </script>
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?fa71f2474b82505e00203cf9956cf0bc";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+  <!-- Favicon / Touch Icons -->
+  <link rel="icon" sizes="64x64" href="/assets/shared/dart/icon/64.png">
+  <link href="/assets/img/touch-icon-iphone.png" rel="apple-touch-icon">
+  <link href="/assets/img/touch-icon-ipad.png" rel="apple-touch-icon" sizes="152x152">
+  <link href="/assets/img/touch-icon-iphone-retina.png" rel="apple-touch-icon" sizes="180x180">
+  <link href="/assets/img/touch-icon-ipad-retina.png" rel="apple-touch-icon" sizes="167x167">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@dart_lang">
+  <meta name="twitter:title" content="遷移至空安全">
+  <meta name="twitter:description" content="將你現有的程式碼帶到空安全的世界">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="遷移至空安全">
+  <meta property="og:description" content="將你現有的程式碼帶到空安全的世界">
+  <meta property="og:url" content="https://dart.tw.gh.miniasp.com/null-safety/migration-guide.html">
+
+  <meta property="og:image" content="https://dart.tw.gh.miniasp.com/assets/shared/dart-logo-for-shares.png?2">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Display:wght@400&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons&amp;display=swap" rel="stylesheet">
+  <script src="https://cdn.staticfile.org/font-awesome/5.15.4/js/all.js" data-auto-replace-svg="nest">
+  </script>
+
+  <link rel="stylesheet" href="/assets/css/main.css?v=1693674404">
+  <script src="https://cdn.staticfile.org/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.staticfile.org/popper.js/1.16.1/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.staticfile.org/bootstrap/4.6.2/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!-- <script src="https://cdn.staticfile.org/js-cookie/3.0.5/js.cookie.min.js"
+          integrity="sha512-nlp9/l96/EpjYBx7EP7pGASVXNe80hGhYAUrjeXnu/fyF5Py0/RXav4BBNs7n5Hx1WFhOEOWSAVjGeC3oKxDVQ=="
+          crossorigin="anonymous"
+          referrerpolicy="no-referrer"></script> -->
+
+  <script src="/assets/js/vendor/code-prettify/prettify.js"></script>
+  <script src="/assets/js/vendor/code-prettify/lang-dart.js"></script>
+  <script src="/assets/js/vendor/code-prettify/lang-yaml.js"></script>
+  <script src="/assets/js/os-tabs.js?v=1693674404"></script>
+  <script src="/assets/js/utilities.js?v=1693674404"></script>
+  <script src="/assets/js/main.js?v=1693674404"></script>
+
+  <script>
+
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-122680122-5', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+
+ <link href="/assets/translator/css/translator.css" rel="stylesheet"></head>
+
+  <body class="default show_banner">
+    <section id="cookie-notice">
+  <div class="container">
+    <p>Google uses cookies to deliver its services, to personalize ads, and to 
+      analyze traffic. You can adjust your privacy controls anytime in your 
+      <a href="https://myaccount.google.com/data-and-personalization" target="_blank" rel="noopener" class="no-automatic-external">Google settings</a>. 
+      <a href="https://policies.google.com/technologies/cookies" target="_blank" rel="noopener" class="no-automatic-external">Learn more</a>.
+    </p>
+    <button id="cookie-consent" class="btn btn-primary">Okay</button>
+  </div>
+</section>
+
+    <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=G-28P0PYCRZ9"
+ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+    <header id="page-header" class="site-header">
+  <nav id="mainnav" class="site-header">
+  <div id="menu-toggle"><i class="material-icons">menu</i></div>
+  <a href="/" class="brand" title="Dart">
+    <img src="/assets/img/shared/dart/logo+text/horizontal/white.svg" alt="Dart">
+  </a>
+  <ul class="navbar">
+    <li>
+      <a href="/overview" class="nav-link">概覽</a>
+    </li>
+    <li class="mainnav__get-started">
+      <a href="/guides" class="nav-link
+        ">
+        <span>文件</span>
+      </a>
+    </li>
+    <li>
+      <a href="/community" class="nav-link">社群</a>
+    </li>
+    <li>
+      <a href="/#try-dart" class="nav-link">嘗試 Dart</a>
+    </li>
+    <li>
+      <a href="/get-dart" class="nav-link">獲取 Dart SDK</a>
+    </li>
+    <li class="searchfield">
+      <form action="/search" class="site-header__search form-inline" id="cse-search-box">
+        <input type="hidden" name="cx" value="011220921317074318178:_yy-tmb5t_i">
+        <input type="hidden" name="ie" value="UTF-8">
+        <input type="hidden" name="hl" value="en">
+        <input class="site-header__searchfield form-control search-field" type="search" name="q" id="q" autocomplete="off" placeholder="Search" aria-label="Search">
+      </form>
+    </li>
+  </ul>
+</nav>
+
+  
+</header>
+ <div class="banner">
+  <p class="banner__text">
+    Dart 3 已釋出！帶來了全新的
+    <a href="https://dart.tw.gh.miniasp.com/language/records" class="no-automatic-external">記錄型別 (records)</a>、
+    <a href="https://dart.tw.gh.miniasp.com/language/patterns" class="no-automatic-external">模式匹配 (patterns)</a>
+    以及 <a href="https://dart.tw.gh.miniasp.com/language/class-modifiers" class="no-automatic-external">型別修飾符 (class modifiers)</a>。
+    <br>
+    <!--<a href="https://medium.com/p/53f065a10635" class="no-automatic-external">Check out the blog post</a>!-->
+  </p>
+</div>
+ 
+
+    <div id="sidenav" class="">
+  <form action="/search/" class="site-header__search form-inline">
+    <input class="site-header__searchfield form-control search-field" type="search" name="q" id="q" autocomplete="off" placeholder="Search" aria-label="Search">
+  </form>
+
+  <div class="site-sidebar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a href="/overview" class="nav-link">概覽</a>
+      </li>
+      <li class="nav-item">
+        <a href="/community" class="nav-link">社群</a>
+      </li>
+      <li class="nav-item">
+        <a href="https://dartpad.dev" class="nav-link">嘗試 Dart</a>
+      </li>
+      <li class="nav-item">
+        <a href="/get-dart" class="nav-link">獲取 Dart SDK</a>
+      </li>
+      <li class="nav-item">
+        <a href="/guides" class="nav-link">文件</a>
+      </li>
+    </ul>
+
+    <ul class="nav flex-column"><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-1" role="button" aria-expanded="false" aria-controls="sidenav-1">範例和課程</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-1">
+        <li class="nav-item">
+    <a class="nav-link" href="/tutorials">語言概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable" data-toggle="collapse" data-target="#sidenav-1-2" href="#sidenav-1-2" role="button" aria-expanded="true" aria-controls="sidenav-1-2">Codelabs
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-1-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/codelabs">Codelabs 列表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/dart-cheatsheet">Dart 速查表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/iterables">可迭代集合</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/async-await">Dart 非同步程式設計</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/null-safety">空安全</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link active" data-toggle="collapse" href="#sidenav-2" role="button" aria-expanded="true" aria-controls="sidenav-2">Dart 開發語言</a>
+
+      <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-2">
+        <li class="nav-item">
+    <a class="nav-link" href="/language">介紹</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-2" href="#sidenav-2-2" role="button" aria-expanded="false" aria-controls="sidenav-2-2">基礎表示式
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/variables">變數</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/operators">運運算元</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/comments">註釋</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/metadata">註解</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/libraries">庫 &amp; 導庫</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/keywords">關鍵字</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-3" href="#sidenav-2-3" role="button" aria-expanded="false" aria-controls="sidenav-2-3">型別
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-3">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/built-in-types">基本型別</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/records">記錄 (Records)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/collections">集合 (Collections)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/generics">泛型 (Generics)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/typedefs">別名 (Typedefs)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/type-system">型別系統</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-4" href="#sidenav-2-4" role="button" aria-expanded="false" aria-controls="sidenav-2-4">模式匹配
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-4">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/patterns">概覽 &amp; 用法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/pattern-types">模式匹配型別</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/language/functions">函式方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-6" href="#sidenav-2-6" role="button" aria-expanded="false" aria-controls="sidenav-2-6">控制流
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-6">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/loops">迴圈</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/branches">分支</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/language/error-handling">錯誤處理</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-8" href="#sidenav-2-8" role="button" aria-expanded="false" aria-controls="sidenav-2-8">類 &amp; 物件
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-8">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/classes">類</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/constructors">構造方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/methods">成員方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/extend">繼承</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/mixins">混入 (Mixin)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/enums">列舉</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/extension-methods">擴充方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/callable-objects">可呼叫的物件</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-9" href="#sidenav-2-9" role="button" aria-expanded="false" aria-controls="sidenav-2-9">型別修飾符
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-9">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/class-modifiers">概覽 &amp; 用法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/class-modifiers-for-apis">API 維護者應該用的型別修飾符</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/modifier-reference">速查表</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-10" href="#sidenav-2-10" role="button" aria-expanded="false" aria-controls="sidenav-2-10">併發
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-10">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/async">非同步支援</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/concurrency">Isolates</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link active collapsable" data-toggle="collapse" data-target="#sidenav-2-11" href="#sidenav-2-11" role="button" aria-expanded="true" aria-controls="sidenav-2-11">Null safety
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-2-11">
+      <li class="nav-item">
+    <a class="nav-link" href="/null-safety">健全的空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link active" href="/null-safety/migration-guide">遷移到空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/understanding-null-safety">深入理解空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/unsound-null-safety">非健全的空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/faq">空安全常見問題和解答</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-3" role="button" aria-expanded="false" aria-controls="sidenav-3">高效指南 (Effective Dart)</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-3">
+        <li class="nav-item">
+    <a class="nav-link" href="/effective-dart">概述</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/style">程式碼風格</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/documentation">文件</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/usage">用法範例</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/design">API 設計</a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-4" role="button" aria-expanded="false" aria-controls="sidenav-4">核心函式庫</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-4">
+        <li class="nav-item">
+    <a class="nav-link" href="/guides/libraries">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/library-tour">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-4-3" href="#sidenav-4-3" role="button" aria-expanded="false" aria-controls="sidenav-4-3">介紹文章
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-4-3">
+      <li class="nav-item">
+    <a class="nav-link" href="/articles/libraries/creating-streams">建立 stream</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-5" role="button" aria-expanded="false" aria-controls="sidenav-5">Packages</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-5">
+        <li class="nav-item">
+    <a class="nav-link" href="/guides/packages">如何使用 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/useful-libraries">常用 package 介紹</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/create-packages">建立 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/publishing">釋出 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/writing-package-pages">設定 package 介紹頁</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-5-6" href="#sidenav-5-6" role="button" aria-expanded="false" aria-controls="sidenav-5-6">Package 參考資料
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-5-6">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/pub/dependencies">依賴</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/glossary">術語表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/package-layout">Package 檔案結構</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/environment-variables">設定環境變數</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/pubspec">Pubspec 檔案</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/troubleshoot">問題排查</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/verified-publishers">釋出者認證</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/versioning">版本管理</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-6" role="button" aria-expanded="false" aria-controls="sidenav-6">開發文件</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6">
+        <li class="nav-item">
+    <a class="nav-link" href="/codelabs/async-await">Futures、async 和 await</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/language/streams">Streams 介紹</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/json">使用 JSON</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/numbers">Dart 中的數字</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-5" href="#sidenav-6-5" role="button" aria-expanded="false" aria-controls="sidenav-6-5">與其他語言進行互動呼叫
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-5">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/c-interop">與 C 互調</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/objective-c-interop">與 Objective-C 和 Swift 互調</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/java-interop">與 Java 和 Kotlin 互調</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/web/js-interop">與 JavaScript 互調</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/guides/google-apis">Google APIs</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/multiplatform-apps">跨平臺應用</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-8" href="#sidenav-6-8" role="button" aria-expanded="false" aria-controls="sidenav-6-8">命令列和伺服器端應用
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-8">
+      <li class="nav-item">
+    <a class="nav-link" href="/server">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/get-started">起步課程</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/cmdline">命令列應用</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/fetch-data">從網路上獲取資料</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/httpserver">編寫 HTTP 伺服器端應用</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/server/libraries">庫和 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/server/google-cloud">Google Cloud</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-9" href="#sidenav-6-9" role="button" aria-expanded="false" aria-controls="sidenav-6-9">網頁端 (Web) 應用
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-9">
+      <li class="nav-item">
+    <a class="nav-link" href="/web">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/get-started">開始使用</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-9-3" href="#sidenav-6-9-3" role="button" aria-expanded="false" aria-controls="sidenav-6-9-3">底層 Web 程式設計
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-9-3">
+      <li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/low-level-html/connect-dart-html">Dart 與 HTML 關聯</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/low-level-html/add-elements">向 DOM 新增元素</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/low-level-html/remove-elements">移除 DOM 元素</a>
+  </li>
+  </ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/web/deployment">部署</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/web/libraries">常用 Web 函式庫和 package</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/guides/environment-declarations">環境變數宣告</a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-7" role="button" aria-expanded="false" aria-controls="sidenav-7">開發工具和使用技巧</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7">
+        <li class="nav-item">
+    <a class="nav-link" href="/tools">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-2" href="#sidenav-7-2" role="button" aria-expanded="false" aria-controls="sidenav-7-2">編輯器和除錯工具
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/jetbrains-plugin">使用 IntelliJ 和 Android Studio</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/vs-code">使用 VS Code</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/dart-devtools">Dart 開發者工具</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-2-4" href="#sidenav-7-2-4" role="button" aria-expanded="false" aria-controls="sidenav-7-2-4">線上執行 Dart 程式碼
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-2-4">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/dartpad">Overview</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dartpad/dartpad-best-practices">DartPad 課程</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dartpad/troubleshoot">DartPad 疑難解答</a>
+  </li>
+  </ul>
+  </li>
+</ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-3" href="#sidenav-7-3" role="button" aria-expanded="false" aria-controls="sidenav-7-3">命令列工具
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-3">
+      <li class="nav-item">
+    <a class="nav-link collapsable" data-toggle="collapse" data-target="#sidenav-7-3-1" href="#sidenav-7-3-1" role="button" aria-expanded="true" aria-controls="sidenav-7-3-1">Dart SDK
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-7-3-1">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/sdk">概覽</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-tool">dart 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-analyze">dart analyze 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-compile">dart compile 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-create">dart create 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-doc">dart doc 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-fix">dart fix 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-format">dart format 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-info">dart info 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/pub/cmd">dart pub 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-run">dart run 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-test">dart test 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dartaotruntime">dartaotruntime 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/experiment-flags">實驗性命令標記</a>
+  </li>
+  </ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable" data-toggle="collapse" data-target="#sidenav-7-3-2" href="#sidenav-7-3-2" role="button" aria-expanded="true" aria-controls="sidenav-7-3-2">其他的命令列工具
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-7-3-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/build_runner">build_runner 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/webdev">webdev 命令</a>
+  </li>
+  </ul>
+  </li>
+</ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-4" href="#sidenav-7-4" role="button" aria-expanded="false" aria-controls="sidenav-7-4">原始碼管理
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-4">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/language/formatting">程式碼格式化</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/private-files">不應提交的內容</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-5" href="#sidenav-7-5" role="button" aria-expanded="false" aria-controls="sidenav-7-5">靜態分析
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-5">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/analysis">自訂靜態分析</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/sound-problems">修復常見的型別問題</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/diagnostic-messages">診斷訊息</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/linter-rules">Linter 規則</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-6" href="#sidenav-7-6" role="button" aria-expanded="false" aria-controls="sidenav-7-6">測試和調優
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-6">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/testing">測試</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/web/debugging">除錯 Web 應用</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-8" role="button" aria-expanded="false" aria-controls="sidenav-8">資源</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-8">
+        <li class="nav-item">
+    <a class="nav-link" href="/resources/faq">常見問題</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/evolution">版本演變</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/spec">語言規範</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/resources/dart-3-migration">Dart 3 遷移指南</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-8-5" href="#sidenav-8-5" role="button" aria-expanded="false" aria-controls="sidenav-8-5">從其他平台轉向 Dart
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-8-5">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/language/coming-from/js-to-dart">從 JavaScript 到 Dart</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/coming-from/swift-to-dart">從 Swift 到 Dart</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/resources/glossary">詞彙表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/resources/books">書籍資源</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/resources/videos">影片資源</a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link " data-toggle="collapse" href="#sidenav-9" role="button" aria-expanded="true" aria-controls="sidenav-9">相關站點</a>
+
+      <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-9">
+        <li class="nav-item">
+    <a class="nav-link" href="https://api.dart.dev" target="_blank" rel="noopener">API 文件<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://medium.com/dartlang" target="_blank" rel="noopener">Dart 團隊官方部落格<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://dartpad.dev" target="_blank" rel="noopener">DartPad (線上編輯器)<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://flutter.tw" target="_blank" rel="noopener">Flutter<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://pub.dev" target="_blank" rel="noopener">Package 網站<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-10" role="button" aria-expanded="false" aria-controls="sidenav-10">關於 Dart 中文文件</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-10">
+        <li class="nav-item">
+    <a class="nav-link" href="https://flutter.tw/about/docs-cn" target="_blank" rel="noopener">關於本站<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://flutter.tw/disclaimer" target="_blank" rel="noopener">免責條款 (Disclaimer)<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li>
+</ul>
+    </li></ul>
+
+  </div>
+</div>
+
+    <main id="page-content">
+      
+
+
+
+
+
+
+
+<div id="site-toc--side" class="site-toc ">
+  <header class="site-toc__title">
+    目錄
+    
+  </header>
+  <ul id="toc" class="section-nav">
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#step1-wait"><p>1. 等待遷移</p></a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#switch-to-the-latest-dart-219-release"><p>切換至 Dart 2.19 版本</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#check-dependency-status"><p>檢查所有依賴的遷移狀態</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#update-dependencies"><p>升級依賴</p></a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#step2-migrate"><p>2. 遷移</p></a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#migration-tool"><p>使用遷移工具</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#migrating-by-hand"><p>手動遷移</p></a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#step3-analyze"><p>3. 分析</p></a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#step4-test"><p>4. 測試</p></a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#step5-publish"><p>5. 釋出</p></a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#package-version"><p>更新 package 的版本</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#package-的版本">Package 的版本</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#check-your-pubspec"><p>檢查你的 pubspec</p></a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#welcome-to-null-safety"><p>歡迎使用空安全</p></a></li>
+</ul>
+  
+</div>
+
+
+      <article>
+        <div class="content">
+          
+
+          <div id="site-content-title">
+            <div id="page-github-links" class="btn-group" aria-label="Page GitHub links" role="group">
+  <a href="https://github.com/doggy8088/dart.tw/tree/master/src/null-safety/migration-guide.md" class="btn no-automatic-external" title="View page source" target="_blank" rel="noopener">
+    <i class="material-icons">description</i>
+  </a>
+  <a href="https://github.com/doggy8088/dart.tw/issues/new?template=1_page_issue.yml&amp;title=[PAGE ISSUE]: '遷移至空安全'&amp;page-url=https://dart.tw.gh.miniasp.com/null-safety/migration-guide.html&amp;page-source=https://github.com/doggy8088/dart.tw/tree/master/src/null-safety/migration-guide.md" class="btn no-automatic-external" title="Report an issue with this page" target="_blank" rel="noopener">
+    <i class="material-icons">bug_report</i>
+  </a>
+</div>
+
+            
+            <h1 id="遷移至空安全">遷移至空安全</h1>
+            </div>
+          
+
+
+
+
+
+
+
+<div id="site-toc--inline" class="site-toc toc-collapsible toc-collapsed">
+  <header class="site-toc__title">
+    目錄
+    
+      <span class="site-toc--inline__toggle toc-toggle-down"><i class="material-icons">keyboard_arrow_down</i></span>
+      <span class="site-toc--inline__toggle toc-toggle-up"><i class="material-icons">keyboard_arrow_up</i></span>
+    
+  </header>
+  <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#step1-wait"><p>1. 等待遷移</p></a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#switch-to-the-latest-dart-219-release"><p>切換至 Dart 2.19 版本</p></a></li>
+<li class="toc-entry toc-h3"><a href="#check-dependency-status"><p>檢查所有依賴的遷移狀態</p></a></li>
+<li class="toc-entry toc-h3"><a href="#update-dependencies"><p>升級依賴</p></a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#step2-migrate"><p>2. 遷移</p></a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#migration-tool"><p>使用遷移工具</p></a></li>
+<li class="toc-entry toc-h3"><a href="#migrating-by-hand"><p>手動遷移</p></a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#step3-analyze"><p>3. 分析</p></a></li>
+<li class="toc-entry toc-h2"><a href="#step4-test"><p>4. 測試</p></a></li>
+<li class="toc-entry toc-h2"><a href="#step5-publish"><p>5. 釋出</p></a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#package-version"><p>更新 package 的版本</p></a></li>
+<li class="toc-entry toc-h3"><a href="#package-的版本">Package 的版本</a></li>
+<li class="toc-entry toc-h3"><a href="#check-your-pubspec"><p>檢查你的 pubspec</p></a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#welcome-to-null-safety"><p>歡迎使用空安全</p></a></li>
+</ul>
+  
+    <span class="site-toc--inline__toggle toc-toggle-more-items"><i class="material-icons">more_horiz</i></span>
+  
+</div>
+
+
+          <aside class="alert alert-info" role="alert">
+  <p><i class="material-icons" aria-hidden="true">merge_type</i> <strong>版本提示:</strong></p>
+
+  <p>Dart 2.19 是最後一個支援空安全遷移並且包含 <code class="language-plaintext highlighter-rouge">dart migrate</code> 工具的版本。請使用最新的 Dart 2.19 SDK 進行遷移。你可以閱讀 <a href="/null-safety#dart-3-and-null-safety">Dart 3 與空安全</a> 瞭解更多。</p>
+
+  
+
+</aside>
+
+<p>本文將介紹如何將你的程式碼遷移至 <a href="/null-safety">空安全</a>。以下是對你的 package 逐個遷移的基本步驟：</p>
+
+
+
+<ol>
+  <li>
+    <p><a href="#step1-wait"><strong>等待</strong></a> 你依賴的 package 遷移完成。</p>
+
+    
+  </li>
+  <li>
+    <p><a href="#step2-migrate"><strong>遷移</strong></a> 你的 package 的程式碼，最好使用互動式的遷移工具。</p>
+
+    
+  </li>
+  <li>
+    <p><a href="#step3-analyze"><strong>靜態分析</strong></a> package 的程式碼。</p>
+
+    
+  </li>
+  <li>
+    <p><a href="#step4-test"><strong>測試</strong></a> 你的程式碼，確保可用。</p>
+
+    
+  </li>
+  <li>
+    <p>如果你已經在 pub.dev 上釋出了你的 package，可以將遷移完成的空安全版本以 <strong>預釋出</strong> 版本進行 <a href="#step5-publish"><strong>釋出</strong></a>。</p>
+
+    
+  </li>
+</ol>
+
+<aside class="alert alert-success" role="alert">
+  <p><i class="material-icons" aria-hidden="true">tips_and_updates</i> <strong>小提示:</strong></p>
+
+  <p>如果你的應用或庫過大，請參考
+  <a href="https://medium.com/dartlang/gradual-null-safety-migration-for-large-dart-projects-85acb10b64a9">漸進遷移大型 Dart 專案至空安全</a>。</p>
+
+  
+
+</aside>
+
+<aside class="alert alert-info" role="alert">
+  <p><i class="material-icons" aria-hidden="true">info</i></p>
+
+  <p><strong>理論上，遷移應用和遷移 package 的過程一致。</strong>
+  在遷移應用之前，確保你所依賴的 package 全部遷移完成後，再進行遷移。</p>
+
+  
+
+</aside>
+
+<p>如果你想預覽遷移工具的體驗，可以檢視以下影片：</p>
+
+
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/eBr5tlumwlg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+
+<p><strong>可互動的遷移工具讓你可以簡化遷移至空安全的過程。</strong></p>
+
+<h2 id="step1-wait">
+<a class="anchor" href="#step1-wait" aria-hidden="true"><span class="octicon octicon-link"></span></a>1. 等待遷移</h2>
+
+
+
+<p>我們強烈建議你按順序遷移程式碼，先遷移依賴關係中的處於最末端的依賴。例如，如果 C 依賴了 B，B 依賴了 A，那麼應該按照 A -&gt; B -&gt; C 的順序進行遷移。</p>
+
+
+
+<p><img src="/null-safety/null-safety-migration-order.png" alt="Illustration of C/B/A sentence" width="454px"><br></p>
+
+<p>雖然你在你的所有依賴遷移完成前就 <a href="/null-safety/unsound-null-safety"><strong>可以</strong> 進行遷移</a>，但在它們遷移完成後，你可能需要再對你的程式碼進行調整。例如，如果你推測一個函式可以接受一個可空的引數，但依賴的 package 遷移後變為了非空，在傳遞可空的引數時便會出現編譯錯誤。</p>
+
+
+
+<aside class="alert alert-info" role="alert">
+  <p><i class="material-icons" aria-hidden="true">info</i></p>
+
+  <p><strong>你應當在其他依賴於你的 package 進行遷移之前，對你的 package 進行遷移。</strong>
+  你已遷移的 package 對於未進行遷移的package 和應用而言，仍然可用（前提是使用的 Dart 2.12 或更高的版本）。例如，Dart 和 Flutter 的核心庫現已完全遷移至空安全，而尚未進行遷移的應用仍然可以使用。</p>
+
+  
+
+</aside>
+
+<p>該節會講述如何在空安全模式下，使用 <code class="language-plaintext highlighter-rouge">dart pub outdated</code> 檢查並更新你的依賴。如果你的程式碼應用了 <strong>版本管理</strong>，你可以隨時回滾所有的改動。</p>
+
+
+
+<p><a id="switch-to-the-latest-stable-dart-release"></a></p>
+<h3 id="switch-to-the-latest-dart-219-release">
+<a class="anchor" href="#switch-to-the-latest-dart-219-release" aria-hidden="true"><span class="octicon octicon-link"></span></a>切換至 Dart 2.19 版本</h3>
+
+
+
+<p>切換到 Dart SDK 的 <strong>Dart 2.19 穩定版</strong>，它包含在 Flutter 3.7 SDK 中。</p>
+
+
+
+<p>執行下面程式碼檢視是否使用了 Dart 2.19 版本:</p>
+
+
+
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>dart <span class="nt">--version</span>
+<span class="go">Dart SDK version: 2.19.6
+</span></code></pre></div></div>
+
+<h3 id="check-dependency-status">
+<a class="anchor" href="#check-dependency-status" aria-hidden="true"><span class="octicon octicon-link"></span></a>檢查所有依賴的遷移狀態</h3>
+
+
+
+<p>透過以下命令檢查你的 package 的遷移狀態：</p>
+
+
+
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>dart pub outdated <span class="nt">--mode</span><span class="o">=</span>null-safety
+</code></pre></div></div>
+
+<p>如果你看到所有依賴都已支援空安全，就意味著你可以開始遷移了。否則請使用 <strong>Resolvable</strong> 列內列舉的已遷移至空安全的版本。</p>
+
+
+
+<aside class="alert alert-info" role="alert">
+  <p><i class="material-icons" aria-hidden="true">info</i></p>
+
+  <p><strong>為何所有的依賴都需要支援空安全？</strong>
+  當應用的所有依賴都支援空安全時，你可以在健全的空安全下 <strong>執行應用</strong>。同樣，當開發期依賴也已支援時，你可以在健全的空安全下 <strong>進行測試</strong>。你可能會因為需要產生程式碼，而使用已遷移到空安全的開發期依賴。</p>
+
+  
+
+</aside>
+
+<p>這是一個簡單的 package 的輸入範例。每個 package 的綠色對勾代表著對應版本已支援空安全：</p>
+
+
+
+<p><img src="/null-safety/pub-outdated-output.png" alt="Output of dart pub outdated"></p>
+
+<p>上面的輸出說明了所有依賴的 package 都有可使用的已支援空安全的預釋出版本。</p>
+
+
+
+<p>如果你的 package 的依賴中，有一些 <strong>尚未</strong> 支援空安全，我們推薦你聯絡對應依賴的作者。你可以在 <a href="https://pub.dev">pub.dev</a> 對應 package 的頁面，找到作者的聯絡資訊。</p>
+
+
+
+<h3 id="update-dependencies">
+<a class="anchor" href="#update-dependencies" aria-hidden="true"><span class="octicon octicon-link"></span></a>升級依賴</h3>
+
+
+
+<p>在遷移你的 package 的程式碼之前，請將它的依賴項升級至空安全版本。</p>
+
+
+
+<ol>
+  <li>
+    <p>執行命令 <code class="language-plaintext highlighter-rouge">dart pub upgrade --null-safety</code> 將依賴升級至支援空安全的最新版本。
+<strong>注意：</strong> 該命令會更改你的 <code class="language-plaintext highlighter-rouge">pubspec.yaml</code> 檔案。</p>
+
+    
+  </li>
+  <li>
+    <p>執行命令 <code class="language-plaintext highlighter-rouge">dart pub get</code>。</p>
+
+    
+  </li>
+</ol>
+
+<h2 id="step2-migrate">
+<a class="anchor" href="#step2-migrate" aria-hidden="true"><span class="octicon octicon-link"></span></a>2. 遷移</h2>
+
+
+
+<p>你的程式碼裡大部分需要更改的程式碼，都是可以輕易推導的。例如，如果一個變數可以為空，<a href="/null-safety#creating-variables">它的型別需要 <code class="language-plaintext highlighter-rouge">?</code> 字尾</a>。一個不可以為空的命名引數，需要使用 <a href="/null-safety/understanding-null-safety#required-named-parameters"><code class="language-plaintext highlighter-rouge">required</code> 標記</a>，或者給定其一個 <a href="/language/functions#default-parameters">預設值</a>。</p>
+
+
+
+<p>針對遷移，你有兩個選項可以選擇：</p>
+
+
+
+<ul>
+  <li>
+    <p><a href="#migration-tool">使用遷移工具</a>，它可以幫你處理大多數可推導的變更。</p>
+
+    
+  </li>
+  <li>
+    <p><a href="#migrating-by-hand">自己動手，豐衣足食。</a></p>
+
+    
+  </li>
+</ul>
+
+<aside class="alert alert-success" role="alert">
+  <p><i class="material-icons" aria-hidden="true">tips_and_updates</i> <strong>小提示:</strong></p>
+
+  <p>若你在遷移過程中需要額外的幫助，請檢視 <a href="/null-safety/faq">空安全常見問題</a>。</p>
+
+  
+
+</aside>
+
+<h3 id="migration-tool">
+<a class="anchor" href="#migration-tool" aria-hidden="true"><span class="octicon octicon-link"></span></a>使用遷移工具</h3>
+
+
+
+<p>遷移工具會帶上一個非空安全的 package ，將它轉換至空安全。你可以先在程式碼中新增 <a href="#hint-markers">提示標記</a> 來引導遷移工具的轉換。</p>
+
+
+
+<p>開始轉換前，請做好如下的準備：</p>
+
+
+
+<ul>
+  <li>
+    <p>使用最新的 Dart 2.19 SDK 版本。</p>
+
+    
+  </li>
+  <li>
+    <p>執行 <code class="language-plaintext highlighter-rouge">dart pub outdated --mode=null-safety</code>
+以確保所有依賴為最新且空安全。</p>
+
+    
+  </li>
+</ul>
+
+<p>在包含 <code class="language-plaintext highlighter-rouge">pubspec.yaml</code> 的目錄下，執行 <code class="language-plaintext highlighter-rouge">dart migrate</code> 命令，啟動遷移工具。</p>
+
+
+
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>dart migrate
+</code></pre></div></div>
+
+<p>如果你的 package 可以進行遷移，工具會輸出類似以下的內容：</p>
+
+
+
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go">View the migration suggestions by visiting:
+
+  http://127.0.0.1:60278/Users/you/project/mypkg.console-simple?authToken=Xfz0jvpyeMI%3D
+</span></code></pre></div></div>
+
+<p>使用 Chrome 瀏覽器存取 URL，你可以看到一個互動式的介面，引導你進行遷移：</p>
+
+
+
+<p><img src="/null-safety/migration-tool.png" alt="Screenshot of migration tool"></p>
+
+<p>你可以在工具中看到其推斷的所有變數和型別註解。例如，在上面的截圖中，工具推斷第一行的 <code class="language-plaintext highlighter-rouge">ints</code> 列表元素可能為空，所以應該變為 <code class="language-plaintext highlighter-rouge">int?</code>（先前為 <code class="language-plaintext highlighter-rouge">int</code>）。</p>
+
+
+
+<h4 id="understanding-migration-results">理解遷移的結果</h4>
+
+
+
+<p>若要了解每個變化（或者未變化）的原因，點選 <strong>Proposed Edits</strong> 視窗中的行數，原因會出現在 <strong>Edit Details</strong> 視窗中。</p>
+
+
+
+<p>舉個例子，假設我們有如下的非空安全的程式碼：</p>
+
+
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="n">ints</span> <span class="o">=</span> <span class="kd">const</span> <span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;[</span><span class="mi">0</span><span class="p">,</span> <span class="kc">null</span><span class="p">];</span>
+<span class="kd">var</span> <span class="n">zero</span> <span class="o">=</span> <span class="n">ints</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+<span class="kd">var</span> <span class="n">one</span> <span class="o">=</span> <span class="n">zero</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+<span class="kd">var</span> <span class="n">zeroOne</span> <span class="o">=</span> <span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;[</span><span class="n">zero</span><span class="p">,</span> <span class="n">one</span><span class="p">];</span>
+</code></pre></div></div>
+
+<p>當這些程式碼處在函式外時，預設的遷移改動是向後相容的，但並不理想（在函式內時會稍有不同）：</p>
+
+
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="n">ints</span> <span class="o">=</span> <span class="kd">const</span> <span class="p">&lt;</span><span class="kt">int</span><span class="o">?</span><span class="p">&gt;[</span><span class="mi">0</span><span class="p">,</span> <span class="kc">null</span><span class="p">];</span>
+<span class="kd">var</span> <span class="n">zero</span> <span class="o">=</span> <span class="n">ints</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+<span class="kd">var</span> <span class="n">one</span> <span class="o">=</span> <span class="n">zero</span><span class="o">!</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+<span class="kd">var</span> <span class="n">zeroOne</span> <span class="o">=</span> <span class="p">&lt;</span><span class="kt">int</span><span class="o">?</span><span class="p">&gt;[</span><span class="n">zero</span><span class="p">,</span> <span class="n">one</span><span class="p">];</span>
+</code></pre></div></div>
+
+<p>點選 <strong>line 3</strong> 連結，你可以看到遷移工具新增 <code class="language-plaintext highlighter-rouge">!</code> 的原因。而因為你知道 <code class="language-plaintext highlighter-rouge">zero</code> 不會為空，所以你可以改進遷移結果。</p>
+
+
+
+<h4 id="hint-markers">改進遷移的結果</h4>
+
+
+
+<p>當分析結果推導了錯誤的可空性時，你可以新增臨時的提示標記來改變建議的編輯：</p>
+
+
+
+<ul>
+  <li>
+    <p>在遷移工具的 <strong>Edit Details</strong> 窗格中，你可以透過 <strong>Add <code class="language-plaintext highlighter-rouge">/*?*/</code> hint</strong> 和
+<strong>Add <code class="language-plaintext highlighter-rouge">/*!*/</code> hint</strong> 按鈕來新增提示標記。</p>
+
+    
+
+    <p>按下這些按鈕，相應的標記會立刻新增到程式碼中，並且 <strong>無法撤銷</strong>。如果你想刪除標記，可以和平常一樣使用程式碼編輯器刪除它。</p>
+
+    
+  </li>
+  <li>
+    <p>就算遷移工具正在執行，你也可以使用編輯器新增提示標記。由於你的程式碼還未遷移到空安全，所以無法使用空安全的新特性。但是你可以進行與空安全無關的改動，例如重構。</p>
+
+    
+
+    <p>當你完成編輯後，點選 <strong>Rerun from sources</strong> 進行更改。</p>
+
+    
+  </li>
+</ul>
+
+<p>下方的表格展示了可以使用的提示標記。</p>
+
+
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>
+<t>提示標記</t>
+</th>
+      <th>
+<t>對遷移工具的影響</t>
+</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code><em>expression</em>&nbsp;/*!*/</code></td>
+      <td>
+<t>新增 `!` 至程式碼中，將 **表示式** 轉換為其基礎型別對應的不可空的型別。</t>
+</td>
+    </tr>
+    <tr>
+      <td><code><em>type</em> /*!*/</code></td>
+      <td>
+<t>將 **型別** 標記為非空。</t>
+</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/*?*/</code></td>
+      <td>
+<t>將前面的型別標記為可空。</t>
+</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/*late*/</code></td>
+      <td>
+<t>將變數宣告標記為 `late`，表示其不會第一時間進行初始化。</t>
+</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/*late final*/</code></td>
+      <td>
+<t>將變數宣告標記為 `late final`，表示其不會第一時間進行初始化，且初始化後不可改變。</t>
+</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/*required*/</code></td>
+      <td>
+<t>將引數標記為 `required`。</t>
+</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>一個提示也可能產生蝴蝶效應，影響其他的程式碼。在先前的例子中，如果在 <code class="language-plaintext highlighter-rouge">zero</code> 被賦值的位置（第二行）新增一個 <code class="language-plaintext highlighter-rouge">/*!*/</code> 標記，遷移工具就會推斷 <code class="language-plaintext highlighter-rouge">zero</code> 的型別是 <code class="language-plaintext highlighter-rouge">int</code> 而非 <code class="language-plaintext highlighter-rouge">int?</code>。這就會影響到直接或間接使用了 <code class="language-plaintext highlighter-rouge">zero</code> 的程式碼。</p>
+
+
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="n">zero</span> <span class="o">=</span> <span class="n">ints</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="cm">/*!*/</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>透過添加了以上的提示，遷移工具將調整建議的更改，如下面的程式碼所示。第三行的 <code class="language-plaintext highlighter-rouge">zero</code> 後面不再有 <code class="language-plaintext highlighter-rouge">!</code>，第四行的 <code class="language-plaintext highlighter-rouge">zeroOne</code> 也被推斷為 <code class="language-plaintext highlighter-rouge">int</code> 列表而不是 <code class="language-plaintext highlighter-rouge">int?</code>。</p>
+
+
+
+<table>
+<tbody><tr>
+<th>
+<t>首次遷移</t>
+</th>
+<th>
+<t>新增提示後的遷移</t>
+</th>
+</tr>
+<tr>
+  <td>
+      <div class="language-dart highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="n">ints</span> <span class="o">=</span> <span class="kd">const</span> <span class="p">&lt;</span><span class="kt">int</span><span class="o">?</span><span class="p">&gt;[</span><span class="mi">0</span><span class="p">,</span> <span class="kc">null</span><span class="p">];</span>
+<span class="kd">var</span> <span class="n">zero</span> <span class="o">=</span> <span class="n">ints</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+<span class="kd">var</span> <span class="n">one</span> <span class="o">=</span> <span class="n">zero</span><span class="o">!</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+<span class="kd">var</span> <span class="n">zeroOne</span> <span class="o">=</span> <span class="p">&lt;</span><span class="kt">int</span><span class="o">?</span><span class="p">&gt;[</span><span class="n">zero</span><span class="p">,</span> <span class="n">one</span><span class="p">];</span>
+</code></pre></div>      </div>
+    </td>
+  <td>
+      <div class="language-dart highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="n">ints</span> <span class="o">=</span> <span class="kd">const</span> <span class="p">&lt;</span><span class="kt">int</span><span class="o">?</span><span class="p">&gt;[</span><span class="mi">0</span><span class="p">,</span> <span class="kc">null</span><span class="p">];</span>
+<span class="kd">var</span> <span class="n">zero</span> <span class="o">=</span> <span class="n">ints</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="cm">/*!*/</span><span class="p">;</span>
+<span class="kd">var</span> <span class="n">one</span> <span class="o">=</span> <span class="n">zero</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+<span class="kd">var</span> <span class="n">zeroOne</span> <span class="o">=</span> <span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;[</span><span class="n">zero</span><span class="p">,</span> <span class="n">one</span><span class="p">];</span>
+</code></pre></div>      </div>
+    </td>
+</tr>
+</tbody></table>
+
+<h4 id="opting-out-files">只遷移部分檔案</h4>
+
+
+
+<p>儘管我們希望你能一次性完成遷移工作，但對於大體量的應用或 package 而言並不是簡單的事。如果你想只遷移部分檔案，請將暫時不遷移的檔案前方的綠色勾選框取消勾選。稍後應用遷移更改時，這些檔案會加上 Dart 2.9 <a href="/guides/language/evolution#per-library-language-version-selection">版本註釋</a>，其他內容保持不變。</p>
+
+
+
+<p>更多有關漸進遷移空安全的內容，請閱讀 <a href="/null-safety/unsound-null-safety">非健全的空安全</a>。</p>
+
+
+
+<p>請注意，從 Dart 3 開始，只支援完全遷移到空安全的應用和 package。</p>
+
+
+
+<h4 id="applying-changes">應用更改</h4>
+
+
+
+<p>當你覺得遷移工具提示的更改部分可以應用了，點選 <strong>Apply migration</strong>。遷移工具會刪除所有的提示標記，儲存遷移後的程式碼。同時，遷移工具也會更改 pubspec 的 SDK 限制，將 package 遷移至空安全。</p>
+
+
+
+<p>下一步就是對程式碼進行 <a href="#step3-analyze"><strong>靜態分析</strong></a>。如果一切正常，下一步就是 <a href="#step4-test">測試你的程式碼</a>。最後，如果你已經將 package 釋出至 pub.dev，
+<a href="#step5-publish">釋出空安全的預覽版本</a>。</p>
+
+
+
+<h3 id="migrating-by-hand">
+<a class="anchor" href="#migrating-by-hand" aria-hidden="true"><span class="octicon octicon-link"></span></a>手動遷移</h3>
+
+
+
+<p>如果你不想使用遷移工具，你也可以手動進行遷移。</p>
+
+
+
+<p>我們推薦你 <strong>優先遷移最下層的函式庫</strong> —— 指的是沒有匯入其他 package 的函式庫。接著遷移直接依賴了下層庫的依賴庫。最後再遷移依賴項最多的函式庫。</p>
+
+
+
+<p>舉個例子，假設你的 <code class="language-plaintext highlighter-rouge">lib/src/util.dart</code> 匯入了其他（空安全）的 package 和核心庫，但它沒有包含任何 <code class="language-plaintext highlighter-rouge">import '&lt;本地路徑&gt;'</code> 的參考。那麼你應當優先考慮遷移 <code class="language-plaintext highlighter-rouge">util.dart</code>，然後遷移依賴了 <code class="language-plaintext highlighter-rouge">util.dart</code> 的檔案。如果有一些迴圈參考的函式庫（例如 A 參考了 B，B 參考了 C，C 參考了 A），建議同時對它們進行遷移。</p>
+
+
+
+<p>手動對 package 進行遷移時，請參考以下步驟：</p>
+
+
+
+<ol>
+  <li>
+    <p>編輯 package 的 <code class="language-plaintext highlighter-rouge">pubspec.yaml</code> 檔案，將最低 SDK 版本設定到至少為 <code class="language-plaintext highlighter-rouge">2.12.0</code>：</p>
+
+    
+
+    <div class="language-yaml highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code><span class="na">environment</span><span class="pi">:</span>
+  <span class="na">sdk</span><span class="pi">:</span> <span class="s1">'</span><span class="s">&gt;=2.12.0</span><span class="nv"> </span><span class="s">&lt;3.0.0'</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>重新產生 <a href="https://github.com/dart-lang/language/blob/main/accepted/2.8/language-versioning/package-config-file-v2.md">package 的配置檔案</a>：</p>
+
+    
+
+    <div class="language-terminal highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>dart pub get
+</code></pre></div>    </div>
+
+    <p>在版本最低是 <code class="language-plaintext highlighter-rouge">2.12.0</code> 的 SDK 上執行 <code class="language-plaintext highlighter-rouge">dart pub get</code> 時，會將每個 package 的預設 SDK 最低版本設定為 2.12，並且預設它們已經遷移至空安全。</p>
+
+    
+  </li>
+  <li>
+    <p>在你的 IDE 上開啟package 。<br>
+你也許會看到很多錯誤，沒關係，讓我們繼續。</p>
+
+    
+  </li>
+  <li>
+    <p>利用分析器來辨析靜態錯誤，逐個遷移 Dart 檔案。<br>
+按需新增 <code class="language-plaintext highlighter-rouge">?</code>、<code class="language-plaintext highlighter-rouge">!</code>、<code class="language-plaintext highlighter-rouge">required</code> 以及 <code class="language-plaintext highlighter-rouge">late</code> 來消除靜態錯誤。</p>
+
+    
+  </li>
+</ol>
+
+<p>想獲得更多手動遷移的幫助，請前往 <a href="/null-safety/unsound-null-safety">非健全的空安全</a>。</p>
+
+
+
+<h2 id="step3-analyze">
+<a class="anchor" href="#step3-analyze" aria-hidden="true"><span class="octicon octicon-link"></span></a>3. 分析</h2>
+
+
+
+<p>更新你的 package（在 IDE 或命令列工具中使用 <code class="language-plaintext highlighter-rouge">dart pub get</code>）後在 IDE 或命令列工具中對你的程式碼進行 <a href="/tools/analysis">靜態分析</a>：</p>
+
+
+
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>dart pub get
+<span class="gp">$</span><span class="w"> </span>dart analyze     <span class="c"># or `flutter analyze`</span>
+</code></pre></div></div>
+
+<h2 id="step4-test">
+<a class="anchor" href="#step4-test" aria-hidden="true"><span class="octicon octicon-link"></span></a>4. 測試</h2>
+
+
+
+<p>如果你的程式碼通過了分析，接下來可以開始測試：</p>
+
+
+
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>dart <span class="nb">test</span>       <span class="c"># or `flutter test`</span>
+</code></pre></div></div>
+
+<p>你可能需要更新使用了空值作為預期使用案例的測試程式碼。</p>
+
+
+
+<p>如果你需要對程式碼作出大量的更改，那麼你可能需要重新對程式碼進行遷移。這時請先回滾程式碼更改，再執行遷移工具進行遷移。</p>
+
+
+
+<h2 id="step5-publish">
+<a class="anchor" href="#step5-publish" aria-hidden="true"><span class="octicon octicon-link"></span></a>5. 釋出</h2>
+
+
+
+<p>我們希望你完成遷移後儘快將其釋出，可以作為預覽版：</p>
+
+
+
+<ul>
+  <li>
+    <p><a href="#package-version">調整 package 的版本，表示該版本包含了破壞性的改動。</a></p>
+
+    
+  </li>
+  <li>
+    <p><a href="#check-your-pubspec">更新 SDK 的限制和依賴的 package 的版本。</a></p>
+
+    
+  </li>
+  <li>
+    <p><a href="/tools/pub/publishing">釋出 package</a>。如果你不想釋出穩定版本，你可以
+<a href="/tools/pub/publishing#publishing-prereleases">釋出為預釋出版本</a>。</p>
+
+    
+  </li>
+</ul>
+
+<h3 id="package-version">
+<a class="anchor" href="#package-version" aria-hidden="true"><span class="octicon octicon-link"></span></a>更新 package 的版本</h3><h3 id="package-的版本">
+<a class="anchor" href="#package-version" aria-hidden="true"><span class="octicon octicon-link"></span></a>Package 的版本</h3>
+
+
+
+
+
+<p>你可以修改版本以表示該版本包含了破壞性的改動：</p>
+
+
+
+<ul>
+  <li>
+    <p>如果你的 package 版本已經大於或等於 <code class="language-plaintext highlighter-rouge">1.0.0</code>，請提升主版本。例如，上一個版本為 <code class="language-plaintext highlighter-rouge">2.3.2</code>，那麼新版本應該為 <strong><code class="language-plaintext highlighter-rouge">3.0.0</code></strong>。</p>
+
+    
+  </li>
+  <li>
+    <p>如果你的 package 的版本還未高於 <code class="language-plaintext highlighter-rouge">1.0.0</code>，你可以 <strong>提升次版本</strong>，也可以 <strong>提升至 <code class="language-plaintext highlighter-rouge">1.0.0</code></strong>。例如，上一個版本為 <code class="language-plaintext highlighter-rouge">0.3.2</code>，那麼新版本可以是 <strong><code class="language-plaintext highlighter-rouge">0.4.0</code></strong> 或 <strong><code class="language-plaintext highlighter-rouge">1.0.0</code></strong>。</p>
+
+    
+  </li>
+</ul>
+
+<h3 id="check-your-pubspec">
+<a class="anchor" href="#check-your-pubspec" aria-hidden="true"><span class="octicon octicon-link"></span></a>檢查你的 pubspec</h3>
+
+
+
+<p>在你釋出穩定版本的空安全 package 前，我們強烈建議你遵循以下 pubspec 的規則：</p>
+
+
+
+<ul>
+  <li>
+    <p>將 SDK 的最低限制設定為你測試過的最低穩定版本（至少是 <code class="language-plaintext highlighter-rouge">2.12.0</code>）。</p>
+
+    
+  </li>
+  <li>
+    <p>所有的直接依賴都使用穩定版本。</p>
+
+    
+  </li>
+</ul>
+
+<h2 id="welcome-to-null-safety">
+<a class="anchor" href="#welcome-to-null-safety" aria-hidden="true"><span class="octicon octicon-link"></span></a>歡迎使用空安全</h2>
+
+
+
+<p>If you made it this far,
+you should have a fully migrated, null-safe Dart package.</p>
+
+<p>If all of the packages you depend on are migrated too,
+then your program is sound with respect to null-reference errors.
+You should see output like this when running or compiling your code:</p>
+
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go">Compiling with sound null safety
+</span></code></pre></div></div>
+
+<p>如果你走到了這一步，你應該已經完全將你的 Dart package 遷移至空安全了。當你的所有依賴也都完成了遷移，那麼你的程式就是健全的，同時可以正確處理空參考的錯誤。</p>
+
+<p>謹代表 Dart 團隊的所有成員，<strong>感謝你</strong> 遷移你的程式碼。</p>
+
+
+
+          
+
+        </div>
+      </article>
+    </main>
+    <footer id="page-footer">
+    <div class="footer-section footer-main">
+      <a href="/" class="brand" title="Dart">
+        <img src="/assets/img/shared/dart/logo+text/horizontal/white.svg" alt="Dart" width="164px">
+      </a>
+      <div class="footer-social-links">
+        <a href="https://github.com/doggy8088/dart.tw" target="_blank" rel="noopener" title="GitHub" class="no-automatic-external">
+          <svg>
+            <use href="/assets/img/social/github.svg#github"></use>
+          </svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-section footer-tray">
+      <div class="footer-licenses">
+        參考中文內容需註明本站及連結作為出處，英文內容和範例程式碼均遵從源站授權協議。
+      </div>
+      <div class="footer-utility-links">
+        <ul>
+          <li><a href="/terms" title="使用條款">使用條款</a></li>
+          <li><a href="https://policies.google.com/privacy?hl=zh-TW" target="_blank" rel="noopener" title="隱私政策" class="no-automatic-external">隱私政策</a></li>
+          <li><a href="/security" title="Security philosophy and practices">Dart 程式碼安全說明</a></li>
+          <li><a href="https://flutter.tw/about" target="_blank">關於中文文件</a>
+          </li><li><a href="https://flutter.tw/disclaimer" target="_blank">免責條款</a>
+          </li><li><a href="https://dart.cn/" target="_blank">Dart 簡體中文文檔</a>
+        </li></ul>
+      </div>
+    </div>
+  </footer>
+
+  
+
+<script src="/assets/translator/js/translator.js"></script></body></html>

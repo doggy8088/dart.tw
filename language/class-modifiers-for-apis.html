@@ -1,0 +1,1258 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Language" content="zh-cmn-Hans">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Google Tag Manager -->
+<!--  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':-->
+<!--  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],-->
+<!--  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=-->
+<!--  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);-->
+<!--  })(window,document,'script','dataLayer','GTM-5VSZM5J');</script>-->
+  <!-- End Google Tag Manager -->
+
+  <meta name="description" content="How to use the class modifiers added in Dart 3.0 to make your package's API more robust and maintainable.">
+  <title>Class modifiers for API maintainers | Dart</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-28P0PYCRZ9"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-28P0PYCRZ9');
+  </script>
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?fa71f2474b82505e00203cf9956cf0bc";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+  <!-- Favicon / Touch Icons -->
+  <link rel="icon" sizes="64x64" href="/assets/shared/dart/icon/64.png">
+  <link href="/assets/img/touch-icon-iphone.png" rel="apple-touch-icon">
+  <link href="/assets/img/touch-icon-ipad.png" rel="apple-touch-icon" sizes="152x152">
+  <link href="/assets/img/touch-icon-iphone-retina.png" rel="apple-touch-icon" sizes="180x180">
+  <link href="/assets/img/touch-icon-ipad-retina.png" rel="apple-touch-icon" sizes="167x167">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@dart_lang">
+  <meta name="twitter:title" content="Class modifiers for API maintainers">
+  <meta name="twitter:description" content="How to use the class modifiers added in Dart 3.0 to make your package's API more robust and maintainable.">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Class modifiers for API maintainers">
+  <meta property="og:description" content="How to use the class modifiers added in Dart 3.0 to make your package's API more robust and maintainable.">
+  <meta property="og:url" content="https://dart.tw.gh.miniasp.com/language/class-modifiers-for-apis.html">
+
+  <meta property="og:image" content="https://dart.tw.gh.miniasp.com/assets/shared/dart-logo-for-shares.png?2">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Display:wght@400&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons&amp;display=swap" rel="stylesheet">
+  <script src="https://cdn.staticfile.org/font-awesome/5.15.4/js/all.js" data-auto-replace-svg="nest">
+  </script>
+
+  <link rel="stylesheet" href="/assets/css/main.css?v=1693674404">
+  <script src="https://cdn.staticfile.org/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.staticfile.org/popper.js/1.16.1/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.staticfile.org/bootstrap/4.6.2/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!-- <script src="https://cdn.staticfile.org/js-cookie/3.0.5/js.cookie.min.js"
+          integrity="sha512-nlp9/l96/EpjYBx7EP7pGASVXNe80hGhYAUrjeXnu/fyF5Py0/RXav4BBNs7n5Hx1WFhOEOWSAVjGeC3oKxDVQ=="
+          crossorigin="anonymous"
+          referrerpolicy="no-referrer"></script> -->
+
+  <script src="/assets/js/vendor/code-prettify/prettify.js"></script>
+  <script src="/assets/js/vendor/code-prettify/lang-dart.js"></script>
+  <script src="/assets/js/vendor/code-prettify/lang-yaml.js"></script>
+  <script src="/assets/js/os-tabs.js?v=1693674404"></script>
+  <script src="/assets/js/utilities.js?v=1693674404"></script>
+  <script src="/assets/js/main.js?v=1693674404"></script>
+
+  <script>
+
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-122680122-5', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+
+ <link href="/assets/translator/css/translator.css" rel="stylesheet"></head>
+
+  <body class="default show_banner">
+    <section id="cookie-notice">
+  <div class="container">
+    <p>Google uses cookies to deliver its services, to personalize ads, and to 
+      analyze traffic. You can adjust your privacy controls anytime in your 
+      <a href="https://myaccount.google.com/data-and-personalization" target="_blank" rel="noopener" class="no-automatic-external">Google settings</a>. 
+      <a href="https://policies.google.com/technologies/cookies" target="_blank" rel="noopener" class="no-automatic-external">Learn more</a>.
+    </p>
+    <button id="cookie-consent" class="btn btn-primary">Okay</button>
+  </div>
+</section>
+
+    <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=G-28P0PYCRZ9"
+ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+    <header id="page-header" class="site-header">
+  <nav id="mainnav" class="site-header">
+  <div id="menu-toggle"><i class="material-icons">menu</i></div>
+  <a href="/" class="brand" title="Dart">
+    <img src="/assets/img/shared/dart/logo+text/horizontal/white.svg" alt="Dart">
+  </a>
+  <ul class="navbar">
+    <li>
+      <a href="/overview" class="nav-link">概覽</a>
+    </li>
+    <li class="mainnav__get-started">
+      <a href="/guides" class="nav-link
+         active">
+        <span>文件</span>
+      </a>
+    </li>
+    <li>
+      <a href="/community" class="nav-link">社群</a>
+    </li>
+    <li>
+      <a href="/#try-dart" class="nav-link">嘗試 Dart</a>
+    </li>
+    <li>
+      <a href="/get-dart" class="nav-link">獲取 Dart SDK</a>
+    </li>
+    <li class="searchfield">
+      <form action="/search" class="site-header__search form-inline" id="cse-search-box">
+        <input type="hidden" name="cx" value="011220921317074318178:_yy-tmb5t_i">
+        <input type="hidden" name="ie" value="UTF-8">
+        <input type="hidden" name="hl" value="en">
+        <input class="site-header__searchfield form-control search-field" type="search" name="q" id="q" autocomplete="off" placeholder="Search" aria-label="Search">
+      </form>
+    </li>
+  </ul>
+</nav>
+
+  
+</header>
+ <div class="banner">
+  <p class="banner__text">
+    Dart 3 已釋出！帶來了全新的
+    <a href="https://dart.tw.gh.miniasp.com/language/records" class="no-automatic-external">記錄型別 (records)</a>、
+    <a href="https://dart.tw.gh.miniasp.com/language/patterns" class="no-automatic-external">模式匹配 (patterns)</a>
+    以及 <a href="https://dart.tw.gh.miniasp.com/language/class-modifiers" class="no-automatic-external">型別修飾符 (class modifiers)</a>。
+    <br>
+    <!--<a href="https://medium.com/p/53f065a10635" class="no-automatic-external">Check out the blog post</a>!-->
+  </p>
+</div>
+ 
+
+    <div id="sidenav" class="">
+  <form action="/search/" class="site-header__search form-inline">
+    <input class="site-header__searchfield form-control search-field" type="search" name="q" id="q" autocomplete="off" placeholder="Search" aria-label="Search">
+  </form>
+
+  <div class="site-sidebar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a href="/overview" class="nav-link">概覽</a>
+      </li>
+      <li class="nav-item">
+        <a href="/community" class="nav-link">社群</a>
+      </li>
+      <li class="nav-item">
+        <a href="https://dartpad.dev" class="nav-link">嘗試 Dart</a>
+      </li>
+      <li class="nav-item">
+        <a href="/get-dart" class="nav-link">獲取 Dart SDK</a>
+      </li>
+      <li class="nav-item">
+        <a href="/guides" class="nav-link active">文件</a>
+      </li>
+    </ul>
+
+    <ul class="nav flex-column"><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-1" role="button" aria-expanded="false" aria-controls="sidenav-1">範例和課程</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-1">
+        <li class="nav-item">
+    <a class="nav-link" href="/tutorials">語言概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable" data-toggle="collapse" data-target="#sidenav-1-2" href="#sidenav-1-2" role="button" aria-expanded="true" aria-controls="sidenav-1-2">Codelabs
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-1-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/codelabs">Codelabs 列表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/dart-cheatsheet">Dart 速查表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/iterables">可迭代集合</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/async-await">Dart 非同步程式設計</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/null-safety">空安全</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link active" data-toggle="collapse" href="#sidenav-2" role="button" aria-expanded="true" aria-controls="sidenav-2">Dart 開發語言</a>
+
+      <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-2">
+        <li class="nav-item">
+    <a class="nav-link" href="/language">介紹</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-2" href="#sidenav-2-2" role="button" aria-expanded="false" aria-controls="sidenav-2-2">基礎表示式
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/variables">變數</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/operators">運運算元</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/comments">註釋</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/metadata">註解</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/libraries">庫 &amp; 導庫</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/keywords">關鍵字</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-3" href="#sidenav-2-3" role="button" aria-expanded="false" aria-controls="sidenav-2-3">型別
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-3">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/built-in-types">基本型別</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/records">記錄 (Records)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/collections">集合 (Collections)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/generics">泛型 (Generics)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/typedefs">別名 (Typedefs)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/type-system">型別系統</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-4" href="#sidenav-2-4" role="button" aria-expanded="false" aria-controls="sidenav-2-4">模式匹配
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-4">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/patterns">概覽 &amp; 用法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/pattern-types">模式匹配型別</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/language/functions">函式方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-6" href="#sidenav-2-6" role="button" aria-expanded="false" aria-controls="sidenav-2-6">控制流
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-6">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/loops">迴圈</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/branches">分支</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/language/error-handling">錯誤處理</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-8" href="#sidenav-2-8" role="button" aria-expanded="false" aria-controls="sidenav-2-8">類 &amp; 物件
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-8">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/classes">類</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/constructors">構造方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/methods">成員方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/extend">繼承</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/mixins">混入 (Mixin)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/enums">列舉</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/extension-methods">擴充方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/callable-objects">可呼叫的物件</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link active collapsable" data-toggle="collapse" data-target="#sidenav-2-9" href="#sidenav-2-9" role="button" aria-expanded="true" aria-controls="sidenav-2-9">型別修飾符
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-2-9">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/class-modifiers">概覽 &amp; 用法</a>
+  </li><li class="nav-item">
+    <a class="nav-link active" href="/language/class-modifiers-for-apis">API 維護者應該用的型別修飾符</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/modifier-reference">速查表</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-10" href="#sidenav-2-10" role="button" aria-expanded="false" aria-controls="sidenav-2-10">併發
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-10">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/async">非同步支援</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/concurrency">Isolates</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-11" href="#sidenav-2-11" role="button" aria-expanded="false" aria-controls="sidenav-2-11">Null safety
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-11">
+      <li class="nav-item">
+    <a class="nav-link" href="/null-safety">健全的空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/migration-guide">遷移到空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/understanding-null-safety">深入理解空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/unsound-null-safety">非健全的空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/faq">空安全常見問題和解答</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-3" role="button" aria-expanded="false" aria-controls="sidenav-3">高效指南 (Effective Dart)</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-3">
+        <li class="nav-item">
+    <a class="nav-link" href="/effective-dart">概述</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/style">程式碼風格</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/documentation">文件</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/usage">用法範例</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/design">API 設計</a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-4" role="button" aria-expanded="false" aria-controls="sidenav-4">核心函式庫</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-4">
+        <li class="nav-item">
+    <a class="nav-link" href="/guides/libraries">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/library-tour">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-4-3" href="#sidenav-4-3" role="button" aria-expanded="false" aria-controls="sidenav-4-3">介紹文章
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-4-3">
+      <li class="nav-item">
+    <a class="nav-link" href="/articles/libraries/creating-streams">建立 stream</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-5" role="button" aria-expanded="false" aria-controls="sidenav-5">Packages</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-5">
+        <li class="nav-item">
+    <a class="nav-link" href="/guides/packages">如何使用 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/useful-libraries">常用 package 介紹</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/create-packages">建立 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/publishing">釋出 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/writing-package-pages">設定 package 介紹頁</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-5-6" href="#sidenav-5-6" role="button" aria-expanded="false" aria-controls="sidenav-5-6">Package 參考資料
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-5-6">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/pub/dependencies">依賴</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/glossary">術語表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/package-layout">Package 檔案結構</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/environment-variables">設定環境變數</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/pubspec">Pubspec 檔案</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/troubleshoot">問題排查</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/verified-publishers">釋出者認證</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/versioning">版本管理</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-6" role="button" aria-expanded="false" aria-controls="sidenav-6">開發文件</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6">
+        <li class="nav-item">
+    <a class="nav-link" href="/codelabs/async-await">Futures、async 和 await</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/language/streams">Streams 介紹</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/json">使用 JSON</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/numbers">Dart 中的數字</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-5" href="#sidenav-6-5" role="button" aria-expanded="false" aria-controls="sidenav-6-5">與其他語言進行互動呼叫
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-5">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/c-interop">與 C 互調</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/objective-c-interop">與 Objective-C 和 Swift 互調</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/java-interop">與 Java 和 Kotlin 互調</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/web/js-interop">與 JavaScript 互調</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/guides/google-apis">Google APIs</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/multiplatform-apps">跨平臺應用</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-8" href="#sidenav-6-8" role="button" aria-expanded="false" aria-controls="sidenav-6-8">命令列和伺服器端應用
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-8">
+      <li class="nav-item">
+    <a class="nav-link" href="/server">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/get-started">起步課程</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/cmdline">命令列應用</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/fetch-data">從網路上獲取資料</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/httpserver">編寫 HTTP 伺服器端應用</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/server/libraries">庫和 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/server/google-cloud">Google Cloud</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-9" href="#sidenav-6-9" role="button" aria-expanded="false" aria-controls="sidenav-6-9">網頁端 (Web) 應用
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-9">
+      <li class="nav-item">
+    <a class="nav-link" href="/web">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/get-started">開始使用</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-9-3" href="#sidenav-6-9-3" role="button" aria-expanded="false" aria-controls="sidenav-6-9-3">底層 Web 程式設計
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-9-3">
+      <li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/low-level-html/connect-dart-html">Dart 與 HTML 關聯</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/low-level-html/add-elements">向 DOM 新增元素</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/low-level-html/remove-elements">移除 DOM 元素</a>
+  </li>
+  </ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/web/deployment">部署</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/web/libraries">常用 Web 函式庫和 package</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/guides/environment-declarations">環境變數宣告</a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-7" role="button" aria-expanded="false" aria-controls="sidenav-7">開發工具和使用技巧</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7">
+        <li class="nav-item">
+    <a class="nav-link" href="/tools">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-2" href="#sidenav-7-2" role="button" aria-expanded="false" aria-controls="sidenav-7-2">編輯器和除錯工具
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/jetbrains-plugin">使用 IntelliJ 和 Android Studio</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/vs-code">使用 VS Code</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/dart-devtools">Dart 開發者工具</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-2-4" href="#sidenav-7-2-4" role="button" aria-expanded="false" aria-controls="sidenav-7-2-4">線上執行 Dart 程式碼
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-2-4">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/dartpad">Overview</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dartpad/dartpad-best-practices">DartPad 課程</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dartpad/troubleshoot">DartPad 疑難解答</a>
+  </li>
+  </ul>
+  </li>
+</ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-3" href="#sidenav-7-3" role="button" aria-expanded="false" aria-controls="sidenav-7-3">命令列工具
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-3">
+      <li class="nav-item">
+    <a class="nav-link collapsable" data-toggle="collapse" data-target="#sidenav-7-3-1" href="#sidenav-7-3-1" role="button" aria-expanded="true" aria-controls="sidenav-7-3-1">Dart SDK
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-7-3-1">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/sdk">概覽</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-tool">dart 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-analyze">dart analyze 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-compile">dart compile 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-create">dart create 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-doc">dart doc 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-fix">dart fix 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-format">dart format 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-info">dart info 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/pub/cmd">dart pub 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-run">dart run 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-test">dart test 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dartaotruntime">dartaotruntime 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/experiment-flags">實驗性命令標記</a>
+  </li>
+  </ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable" data-toggle="collapse" data-target="#sidenav-7-3-2" href="#sidenav-7-3-2" role="button" aria-expanded="true" aria-controls="sidenav-7-3-2">其他的命令列工具
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-7-3-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/build_runner">build_runner 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/webdev">webdev 命令</a>
+  </li>
+  </ul>
+  </li>
+</ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-4" href="#sidenav-7-4" role="button" aria-expanded="false" aria-controls="sidenav-7-4">原始碼管理
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-4">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/language/formatting">程式碼格式化</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/private-files">不應提交的內容</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-5" href="#sidenav-7-5" role="button" aria-expanded="false" aria-controls="sidenav-7-5">靜態分析
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-5">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/analysis">自訂靜態分析</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/sound-problems">修復常見的型別問題</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/diagnostic-messages">診斷訊息</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/linter-rules">Linter 規則</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-6" href="#sidenav-7-6" role="button" aria-expanded="false" aria-controls="sidenav-7-6">測試和調優
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-6">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/testing">測試</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/web/debugging">除錯 Web 應用</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-8" role="button" aria-expanded="false" aria-controls="sidenav-8">資源</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-8">
+        <li class="nav-item">
+    <a class="nav-link" href="/resources/faq">常見問題</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/evolution">版本演變</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/spec">語言規範</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/resources/dart-3-migration">Dart 3 遷移指南</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-8-5" href="#sidenav-8-5" role="button" aria-expanded="false" aria-controls="sidenav-8-5">從其他平台轉向 Dart
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-8-5">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/language/coming-from/js-to-dart">從 JavaScript 到 Dart</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/coming-from/swift-to-dart">從 Swift 到 Dart</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/resources/glossary">詞彙表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/resources/books">書籍資源</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/resources/videos">影片資源</a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link " data-toggle="collapse" href="#sidenav-9" role="button" aria-expanded="true" aria-controls="sidenav-9">相關站點</a>
+
+      <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-9">
+        <li class="nav-item">
+    <a class="nav-link" href="https://api.dart.dev" target="_blank" rel="noopener">API 文件<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://medium.com/dartlang" target="_blank" rel="noopener">Dart 團隊官方部落格<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://dartpad.dev" target="_blank" rel="noopener">DartPad (線上編輯器)<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://flutter.tw" target="_blank" rel="noopener">Flutter<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://pub.dev" target="_blank" rel="noopener">Package 網站<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-10" role="button" aria-expanded="false" aria-controls="sidenav-10">關於 Dart 中文文件</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-10">
+        <li class="nav-item">
+    <a class="nav-link" href="https://flutter.tw/about/docs-cn" target="_blank" rel="noopener">關於本站<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://flutter.tw/disclaimer" target="_blank" rel="noopener">免責條款 (Disclaimer)<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li>
+</ul>
+    </li></ul>
+
+  </div>
+</div>
+
+    <main id="page-content">
+      
+
+
+
+
+
+
+
+<div id="site-toc--side" class="site-toc ">
+  <header class="site-toc__title">
+    目錄
+    
+  </header>
+  <ul id="toc" class="section-nav">
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#the-mixin-modifier-on-classes">The mixin modifier on classes</a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#migrating-classes-as-mixins">Migrating classes as mixins</a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#other-opt-in-modifiers">Other opt-in modifiers</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#the-interface-modifier">The interface modifier</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#the-base-modifier">The base modifier</a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#base-transitivity">Base transitivity</a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#the-final-modifier">The final modifier</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#the-sealed-modifer">The sealed modifer</a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#sealed-versus-final">sealed versus final</a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#summary">Summary</a></li>
+</ul>
+  
+</div>
+
+
+      <article>
+        <div class="content">
+          
+<nav id="subnav">
+  <ul>
+    <li class="previous">
+      
+        <a href="/language/class-modifiers">⟨&nbsp;&nbsp;Class modifiers</a>
+      
+    </li>
+    <li class="next">
+      
+        <a href="/language/modifier-reference">Class modifiers reference&nbsp;&nbsp;⟩</a>
+      
+    </li>
+  </ul>
+</nav>
+
+
+          <div id="site-content-title">
+            <div id="page-github-links" class="btn-group" aria-label="Page GitHub links" role="group">
+  <a href="https://github.com/doggy8088/dart.tw/tree/master/src/language/class-modifiers-for-apis.md" class="btn no-automatic-external" title="View page source" target="_blank" rel="noopener">
+    <i class="material-icons">description</i>
+  </a>
+  <a href="https://github.com/doggy8088/dart.tw/issues/new?template=1_page_issue.yml&amp;title=[PAGE ISSUE]: 'Class modifiers for API maintainers'&amp;page-url=https://dart.tw.gh.miniasp.com/language/class-modifiers-for-apis.html&amp;page-source=https://github.com/doggy8088/dart.tw/tree/master/src/language/class-modifiers-for-apis.md" class="btn no-automatic-external" title="Report an issue with this page" target="_blank" rel="noopener">
+    <i class="material-icons">bug_report</i>
+  </a>
+</div>
+
+            
+            <h1 id="class-modifiers-for-api-maintainers">Class modifiers for API maintainers</h1>
+            </div>
+          
+
+
+
+
+
+
+
+<div id="site-toc--inline" class="site-toc toc-collapsible toc-collapsed">
+  <header class="site-toc__title">
+    目錄
+    
+      <span class="site-toc--inline__toggle toc-toggle-down"><i class="material-icons">keyboard_arrow_down</i></span>
+      <span class="site-toc--inline__toggle toc-toggle-up"><i class="material-icons">keyboard_arrow_up</i></span>
+    
+  </header>
+  <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#the-mixin-modifier-on-classes">The mixin modifier on classes</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#migrating-classes-as-mixins">Migrating classes as mixins</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#other-opt-in-modifiers">Other opt-in modifiers</a></li>
+<li class="toc-entry toc-h2"><a href="#the-interface-modifier">The interface modifier</a></li>
+<li class="toc-entry toc-h2"><a href="#the-base-modifier">The base modifier</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#base-transitivity">Base transitivity</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#the-final-modifier">The final modifier</a></li>
+<li class="toc-entry toc-h2"><a href="#the-sealed-modifer">The sealed modifer</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#sealed-versus-final">sealed versus final</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#summary">Summary</a></li>
+</ul>
+  
+    <span class="site-toc--inline__toggle toc-toggle-more-items"><i class="material-icons">more_horiz</i></span>
+  
+</div>
+
+
+          <p>Dart 3.0 adds a few <a href="/language/class-modifiers">new modifiers</a>
+that you can place on class and <a href="/language/mixins">mixin declarations</a>.
+If you are the author of a library package,
+these modifiers give you more control over what users are allowed to do
+with the types that your package exports.
+This can make it easier to evolve your package,
+and easier to know if a change to your code may break users.</p>
+
+<p>Dart 3.0 also includes a <a href="/resources/dart-3-migration#mixin">breaking change</a>
+around using classes as mixins.
+This change might not break <em>your</em> class,
+but it could break <em>users</em> of your class.</p>
+
+<p>This guide walks you through these changes
+so you know how to use the new modifiers,
+and how they affect users of your libraries.</p>
+
+<h2 id="the-mixin-modifier-on-classes">
+<a class="anchor" href="#the-mixin-modifier-on-classes" aria-hidden="true"><span class="octicon octicon-link"></span></a>The <code class="language-plaintext highlighter-rouge">mixin</code> modifier on classes</h2>
+
+<p>The most important modifier to be aware of is <code class="language-plaintext highlighter-rouge">mixin</code>.
+Language versions prior to Dart 3.0 allow any class to be used as a mixin
+in another class’s <code class="language-plaintext highlighter-rouge">with</code> clause, <em>UNLESS</em> the class:</p>
+
+<ul>
+  <li>Declares any non-factory constructors.</li>
+  <li>Extends any class other than <code class="language-plaintext highlighter-rouge">Object</code>.</li>
+</ul>
+
+<p>This makes it easy to accidentally break someone else’s code,
+by adding a constructor or <code class="language-plaintext highlighter-rouge">extends</code> clause to a class
+without realizing that others are using it in a <code class="language-plaintext highlighter-rouge">with</code> clause.</p>
+
+<p>Dart 3.0 no longer allows classes to be used as mixins by default.
+Instead, you must explicitly opt-in to that behavior by declaring a <code class="language-plaintext highlighter-rouge">mixin class</code>:</p>
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">mixin</span> <span class="nc">class</span> <span class="n">Both</span> <span class="p">{}</span>
+
+<span class="kd">class</span> <span class="nc">UseAsMixin</span> <span class="k">with</span> <span class="n">Both</span> <span class="p">{}</span>
+<span class="kd">class</span> <span class="nc">UseAsSuperclass</span> <span class="kd">extends</span> <span class="n">Both</span> <span class="p">{}</span>
+</code></pre></div></div>
+
+<p>If you update your package to Dart 3.0 and don’t change any of your code,
+you may not see any errors.
+But you may inadvertently break users of your package
+if they were using your classes as mixins.</p>
+
+<h3 id="migrating-classes-as-mixins">
+<a class="anchor" href="#migrating-classes-as-mixins" aria-hidden="true"><span class="octicon octicon-link"></span></a>Migrating classes as mixins</h3>
+
+<p>If the class has a non-factory constructor, an <code class="language-plaintext highlighter-rouge">extends</code> clause,
+or a <code class="language-plaintext highlighter-rouge">with</code> clause, then it already can’t be used as a mixin.
+Behavior won’t change with Dart 3.0; 
+there’s nothing to worry about and nothing you need to do.</p>
+
+<p>In practice, this describes about 90% of existing classes.
+For the remaining classes that can be used as mixins,
+you have to decide what you want to support.</p>
+
+<p>Here are a few questions to help decide. The first is pragmatic:</p>
+
+<ul>
+  <li>
+<strong>Do you want to risk breaking any users?</strong> If the answer is a hard “no”,
+then place <code class="language-plaintext highlighter-rouge">mixin</code> before any and all classes that
+<a href="#the-mixin-modifier-on-classes">could be used as a mixin</a>.
+This exactly preserves the existing behavior of your API.</li>
+</ul>
+
+<p>On the other hand, if you want to take this opportunity to rethink the
+affordances your API offers, then you may want to <em>not</em> turn it into a <code class="language-plaintext highlighter-rouge">mixin
+class</code>. Consider these two design questions:</p>
+
+<ul>
+  <li>
+    <p><strong>Do you want users to be able to construct instances of it directly?</strong>
+In other words, is the class deliberately not abstract?</p>
+  </li>
+  <li>
+    <p><strong>Do you <em>want</em> people to be able to use the declaration as a mixin?</strong>
+In other words, do you want them to be able to use it in <code class="language-plaintext highlighter-rouge">with</code> clauses?</p>
+  </li>
+</ul>
+
+<p>If the answer to both is “yes”, then make it a mixin class. If the answer to
+the second is “no”, then just leave it as a class. If the answer to the first
+is “no” and the second is “yes”, then change it from a class to a mixin
+declaration.</p>
+
+<p>The last two options, leaving it a class or turning it into a pure mixin,
+are breaking API changes. You’ll want to bump the major version of your package
+if you do this.</p>
+
+<h2 id="other-opt-in-modifiers">
+<a class="anchor" href="#other-opt-in-modifiers" aria-hidden="true"><span class="octicon octicon-link"></span></a>Other opt-in modifiers</h2>
+
+<p>Handling classes as mixins is the only critical change in Dart 3.0
+that affects the API of your package. Once you’ve gotten this far,
+you can stop if you don’t want to make other changes
+to what your package allows users to do.</p>
+
+<p>Note that if you do continue and use any of the modifiers described below,
+it is potentially a breaking change to your package’s API which necessitates
+a major version increment.</p>
+
+<h2 id="the-interface-modifier">
+<a class="anchor" href="#the-interface-modifier" aria-hidden="true"><span class="octicon octicon-link"></span></a>The <code class="language-plaintext highlighter-rouge">interface</code> modifier</h2>
+
+<p>Dart doesn’t have a separate syntax for declaring pure interfaces.
+Instead, you declare an abstract class that happens to contain only
+abstract methods.
+When a user sees that class in your package’s API,
+they may not know if it contains code they can reuse by extending the class,
+or whether it is instead meant to be used as an interface.</p>
+
+<p>You can clarify that by putting the <a href="/language/class-modifiers#interface"><code class="language-plaintext highlighter-rouge">interface</code></a>
+modifier on the class.
+That allows the class to be used in an <code class="language-plaintext highlighter-rouge">implements</code> clause,
+but prevents it from being used in <code class="language-plaintext highlighter-rouge">extends</code>.</p>
+
+<p>Even when the class <em>does</em> have non-abstract methods, you may want to prevent
+users from extending it.
+Inheritance is one of the most powerful kinds of coupling in software,
+because it enables code reuse.
+But that coupling is also <a href="https://en.wikipedia.org/wiki/Fragile_base_class">dangerous and fragile</a>.
+When inheritance crosses package boundaries,
+it can be hard to evolve the superclass without breaking subclasses.</p>
+
+<p>Marking the class <code class="language-plaintext highlighter-rouge">interface</code> lets users construct it (unless it’s <a href="/language/class-modifiers#abstract-interface">also marked
+<code class="language-plaintext highlighter-rouge">abstract</code></a>)
+and implement the class’s interface,
+but prevents them from reusing any of its code.</p>
+
+<p>When a class is marked <code class="language-plaintext highlighter-rouge">interface</code>, the restriction can be ignored within
+the library where the class is declared.
+Inside the library, you’re free to extend it since it’s all your code
+and presumably you know what you’re doing.
+The restriction applies to other packages,
+and even other libraries within your own package.</p>
+
+<h2 id="the-base-modifier">
+<a class="anchor" href="#the-base-modifier" aria-hidden="true"><span class="octicon octicon-link"></span></a>The <code class="language-plaintext highlighter-rouge">base</code> modifier</h2>
+
+<p>The <a href="/language/class-modifiers#base"><code class="language-plaintext highlighter-rouge">base</code></a>
+modifier is somewhat the opposite of <code class="language-plaintext highlighter-rouge">interface</code>.
+It allows you to use the class in an <code class="language-plaintext highlighter-rouge">extends</code> clause,
+or use a mixin or mixin class in a <code class="language-plaintext highlighter-rouge">with</code> clause.
+But, it disallows code outside of the class’s library
+from using the class or mixin in an <code class="language-plaintext highlighter-rouge">implements</code> clause.</p>
+
+<p>This ensures that every object that is an instance
+of your class or mixin’s interface inherits your actual implementation.
+In particular, this means that every instance will include
+all of the private members your class or mixin declares.
+This can help prevent runtime errors that might otherwise occur.</p>
+
+<p>Consider this library:</p>
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// a.dart</span>
+<span class="kd">class</span> <span class="nc">A</span> <span class="p">{</span>
+  <span class="kt">void</span> <span class="n">_privateMethod</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">print</span><span class="p">(</span><span class="s">'I inherited from A'</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">callPrivateMethod</span><span class="p">(</span><span class="n">A</span> <span class="n">a</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">a</span><span class="o">.</span><span class="na">_privateMethod</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>This code seems fine on its own,
+but there’s nothing preventing a user from creating another library like this:</p>
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// b.dart</span>
+<span class="kn">import</span> <span class="s">'a.dart'</span><span class="o">;</span>
+
+<span class="kd">class</span> <span class="nc">B</span> <span class="kd">implements</span> <span class="n">A</span> <span class="p">{</span>
+  <span class="c1">// No implementation of _privateMethod()!</span>
+<span class="p">}</span>
+
+<span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">callPrivateMethod</span><span class="p">(</span><span class="n">B</span><span class="p">());</span> <span class="c1">// Runtime exception!</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Adding the <code class="language-plaintext highlighter-rouge">base</code> modifier to the class can help prevent these runtime errors.
+As with <code class="language-plaintext highlighter-rouge">interface</code>, you can ignore this restriction
+in the same library where the <code class="language-plaintext highlighter-rouge">base</code> class or mixin is declared.
+Then subclasses in the same library
+will be reminded to implement the private methods.
+But note that the next section <em>does</em> apply:</p>
+
+<h3 id="base-transitivity">
+<a class="anchor" href="#base-transitivity" aria-hidden="true"><span class="octicon octicon-link"></span></a>Base transitivity</h3>
+
+<p>The goal of marking a class <code class="language-plaintext highlighter-rouge">base</code> is to ensure that
+every instance of that type concretely inherits from it.
+To maintain this, the base restriction is “contagious”.
+Every subtype of a type marked <code class="language-plaintext highlighter-rouge">base</code> – <em>direct or indirect</em> –
+must also prevent being implemented.
+That means it must be marked <code class="language-plaintext highlighter-rouge">base</code>
+(or <code class="language-plaintext highlighter-rouge">final</code> or <code class="language-plaintext highlighter-rouge">sealed</code>, which we’ll get to next).</p>
+
+<p>Applying <code class="language-plaintext highlighter-rouge">base</code> to a type requires some care, then.
+It affects not just what users can do with your class or mixin,
+but also the affordances <em>their</em> subclasses can offer.
+Once you’ve put <code class="language-plaintext highlighter-rouge">base</code> on a type, the whole hierarchy under it
+is prohibited from being implemented.</p>
+
+<p>That sounds intense, but it’s how most other programming languages
+have always worked.
+Most don’t have implicit interfaces at all,
+so when you declare a class in Java, C#, or other languages,
+you effectively have the same constraint.</p>
+
+<h2 id="the-final-modifier">
+<a class="anchor" href="#the-final-modifier" aria-hidden="true"><span class="octicon octicon-link"></span></a>The <code class="language-plaintext highlighter-rouge">final</code> modifier</h2>
+
+<p>If you want all of the restrictions of both <code class="language-plaintext highlighter-rouge">interface</code> and <code class="language-plaintext highlighter-rouge">base</code>,
+you can mark a class or mixin class <a href="/language/class-modifiers#final"><code class="language-plaintext highlighter-rouge">final</code></a>.
+This prevents anyone outside of your library from creating
+any kind of subtype of it:
+no using it in <code class="language-plaintext highlighter-rouge">implements</code>, <code class="language-plaintext highlighter-rouge">extends</code>, <code class="language-plaintext highlighter-rouge">with</code>, or <code class="language-plaintext highlighter-rouge">on</code> clauses.</p>
+
+<p>This is the most restrictive for users of the class.
+All they can do is construct it (unless it’s marked <code class="language-plaintext highlighter-rouge">abstract</code>).
+In return, you have the fewest restrictions as the class maintainer.
+You can add new methods, turn constructors into factory constructors, etc.
+without worrying about breaking any downstream users.</p>
+
+<h2 id="the-sealed-modifer">
+<a class="anchor" href="#the-sealed-modifer" aria-hidden="true"><span class="octicon octicon-link"></span></a>The <code class="language-plaintext highlighter-rouge">sealed</code> modifer</h2>
+
+<p>The last modifier, <a href="/language/class-modifiers#sealed"><code class="language-plaintext highlighter-rouge">sealed</code></a>, is special.
+It exists primarily to enable <a href="/language/branches#exhaustiveness-checking">exhaustiveness checking</a> in pattern matching.
+If a switch has cases for every direct subtype of a type marked <code class="language-plaintext highlighter-rouge">sealed</code>,
+then the compiler knows the switch is exhaustive.</p>
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// amigos.dart</span>
+<span class="kd">sealed</span> <span class="kd">class</span> <span class="nc">Amigo</span> <span class="p">{}</span>
+<span class="kd">class</span> <span class="nc">Lucky</span> <span class="kd">extends</span> <span class="n">Amigo</span> <span class="p">{}</span>
+<span class="kd">class</span> <span class="nc">Dusty</span> <span class="kd">extends</span> <span class="n">Amigo</span> <span class="p">{}</span>
+<span class="kd">class</span> <span class="nc">Ned</span> <span class="kd">extends</span> <span class="n">Amigo</span> <span class="p">{}</span>
+
+<span class="kt">String</span> <span class="nf">lastName</span><span class="p">(</span><span class="n">Amigo</span> <span class="n">amigo</span><span class="p">)</span> <span class="o">=</span><span class="p">&gt;</span>
+    <span class="k">switch</span> <span class="p">(</span><span class="n">amigo</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">case</span> <span class="n">Lucky</span> <span class="n">_</span> <span class="o">=</span><span class="p">&gt;</span> <span class="s">'Day'</span><span class="p">;</span>
+      <span class="k">case</span> <span class="n">Dusty</span> <span class="n">_</span> <span class="o">=</span><span class="p">&gt;</span> <span class="s">'Bottoms'</span><span class="p">;</span>
+      <span class="k">case</span> <span class="n">Ned</span> <span class="n">_</span>   <span class="o">=</span><span class="p">&gt;</span> <span class="s">'Nederlander'</span><span class="p">;</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<p>This switch has a case for each of the subtypes of <code class="language-plaintext highlighter-rouge">Amigo</code>.
+The compiler knows that every instance of <code class="language-plaintext highlighter-rouge">Amigo</code> must be an instance of one
+of those subtypes, so it knows the switch is safely exhaustive and doesn’t
+require any final default case.</p>
+
+<p>For this to be sound, the compiler enforces two restrictions:</p>
+
+<ol>
+  <li>
+    <p>The sealed class can’t itself be directly constructible.
+Otherwise, you could have an instance of <code class="language-plaintext highlighter-rouge">Amigo</code> that isn’t
+an instance of <em>any</em> of the subtypes.
+So every <code class="language-plaintext highlighter-rouge">sealed</code> class is implicitly <code class="language-plaintext highlighter-rouge">abstract</code> too.</p>
+  </li>
+  <li>
+    <p>Every direct subtype of the sealed type must be in the same library
+where the sealed type is declared.
+This way, the compiler can find them all. It knows that there aren’t
+other hidden subtypes floating around that would not match any of the cases.</p>
+  </li>
+</ol>
+
+<p>The second restriction is similar to <code class="language-plaintext highlighter-rouge">final</code>.
+Like <code class="language-plaintext highlighter-rouge">final</code>, it means that a class marked <code class="language-plaintext highlighter-rouge">sealed</code> can’t be directly
+extended, implemented, or mixed in outside of the library where it’s declared.
+But, unlike <code class="language-plaintext highlighter-rouge">base</code> and <code class="language-plaintext highlighter-rouge">final</code>, there is no <em>transitive</em> restriction:</p>
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// amigo.dart</span>
+<span class="kd">sealed</span> <span class="kd">class</span> <span class="nc">Amigo</span> <span class="p">{}</span>
+<span class="kd">class</span> <span class="nc">Lucky</span> <span class="kd">extends</span> <span class="n">Amigo</span> <span class="p">{}</span>
+<span class="kd">class</span> <span class="nc">Dusty</span> <span class="kd">extends</span> <span class="n">Amigo</span> <span class="p">{}</span>
+<span class="kd">class</span> <span class="nc">Ned</span> <span class="kd">extends</span> <span class="n">Amigo</span> <span class="p">{}</span>
+
+<span class="c1">// other.dart</span>
+
+<span class="c1">// This is an error:</span>
+<span class="kd">class</span> <span class="nc">Bad</span> <span class="kd">extends</span> <span class="n">Amigo</span> <span class="p">{}</span>
+
+<span class="c1">// But these are both fine:</span>
+<span class="kd">class</span> <span class="nc">OtherLucky</span> <span class="kd">extends</span> <span class="n">Lucky</span> <span class="p">{}</span>
+<span class="kd">class</span> <span class="nc">OtherDusty</span> <span class="kd">implements</span> <span class="n">Dusty</span> <span class="p">{}</span>
+</code></pre></div></div>
+
+<p>Of course, if you <em>want</em> the subtypes of your sealed type
+to be restricted as well, you can get that by marking them
+using <code class="language-plaintext highlighter-rouge">interface</code>, <code class="language-plaintext highlighter-rouge">base</code>, <code class="language-plaintext highlighter-rouge">final</code>, or <code class="language-plaintext highlighter-rouge">sealed</code>.</p>
+
+<h3 id="sealed-versus-final">
+<a class="anchor" href="#sealed-versus-final" aria-hidden="true"><span class="octicon octicon-link"></span></a><code class="language-plaintext highlighter-rouge">sealed</code> versus <code class="language-plaintext highlighter-rouge">final</code>
+</h3>
+
+<p>If you have a class that you don’t want users to be able to directly subtype,
+when should you use <code class="language-plaintext highlighter-rouge">sealed</code> versus <code class="language-plaintext highlighter-rouge">final</code>?
+A couple of simple rules:</p>
+
+<ul>
+  <li>
+    <p>If you want users to be able to directly construct instances of the class,
+then it <em>can’t</em> use <code class="language-plaintext highlighter-rouge">sealed</code> since sealed types are implicitly abstract.</p>
+  </li>
+  <li>
+    <p>If the class has no subtypes in your library, then there’s no point in using
+<code class="language-plaintext highlighter-rouge">sealed</code> since you get no exhaustiveness checking benefits.</p>
+  </li>
+</ul>
+
+<p>Otherwise, if the class does have some subtypes that you define,
+then <code class="language-plaintext highlighter-rouge">sealed</code> is likely what you want.
+If users see that the class has a few subtypes, it’s handy to be able
+to handle each of them separately as switch cases
+and have the compiler know that the entire type is covered.</p>
+
+<p>Using <code class="language-plaintext highlighter-rouge">sealed</code> does mean that if you later add another subtype to the library,
+it’s a breaking API change.
+When a new subtype appears,
+all of those existing switches become non-exhaustive
+since they don’t handle the new type.
+It’s exactly like adding a new value to an enum.</p>
+
+<p>Those non-exhaustive switch compile errors are <em>useful</em> to users
+because they draw the user’s attention to places in their code
+where they’ll need to handle the new type.</p>
+
+<p>But it does mean that whenever you add a new subtype, it’s a breaking change.
+If you want the freedom to add new subtypes in a non-breaking way,
+then it’s better to mark the supertype using <code class="language-plaintext highlighter-rouge">final</code> instead of <code class="language-plaintext highlighter-rouge">sealed</code>.
+That means that when a user switches on a value of that supertype,
+even if they have cases for all of the subtypes,
+the compiler will force them to add another default case.
+That default case will then be what is executed if you add more subtypes later.</p>
+
+<h2 id="summary">
+<a class="anchor" href="#summary" aria-hidden="true"><span class="octicon octicon-link"></span></a>Summary</h2>
+
+<p>As an API designer,
+these new modifiers give you control over how users work with your code,
+and conversely how you are able to evolve your code without breaking theirs.</p>
+
+<p>But these options carry complexity with them:
+you now have more choices to make as an API designer.
+Also, since these features are new,
+we still don’t know what the best practices will be.
+Every language’s ecosystem is different and has different needs.</p>
+
+<p>Fortunately, you don’t need to figure it out all at once.
+We chose the defaults deliberately so that even if you do nothing,
+your classes mostly have the same affordances they had before 3.0.
+If you just want to keep your API the way it was,
+put <code class="language-plaintext highlighter-rouge">mixin</code> on the classes that already supported that, and you’re done.</p>
+
+<p>Over time, as you get a sense of where you want finer control,
+you can consider applying some of the other modifiers:</p>
+
+<ul>
+  <li>
+    <p>Use <code class="language-plaintext highlighter-rouge">interface</code> to prevent users from reusing your class’s code
+while allowing them to re-implement its interface.</p>
+  </li>
+  <li>
+    <p>Use <code class="language-plaintext highlighter-rouge">base</code> to require users to reuse your class’s code
+and ensure every instance of your class’s type is an instance
+of that actual class or a subclass.</p>
+  </li>
+  <li>
+    <p>Use <code class="language-plaintext highlighter-rouge">final</code> to completely prevent a class from being extended.</p>
+  </li>
+  <li>
+    <p>Use <code class="language-plaintext highlighter-rouge">sealed</code> to opt in to exhaustiveness checking on a family of subtypes.</p>
+  </li>
+</ul>
+
+<p>When you do, increment the major version when publishing your package,
+since these modifiers all imply restrictions that are breaking changes.</p>
+
+          
+<nav id="subnav">
+  <ul>
+    <li class="previous">
+      
+        <a href="/language/class-modifiers">⟨&nbsp;&nbsp;Class modifiers</a>
+      
+    </li>
+    <li class="next">
+      
+        <a href="/language/modifier-reference">Class modifiers reference&nbsp;&nbsp;⟩</a>
+      
+    </li>
+  </ul>
+</nav>
+
+
+        </div>
+      </article>
+    </main>
+    <footer id="page-footer">
+    <div class="footer-section footer-main">
+      <a href="/" class="brand" title="Dart">
+        <img src="/assets/img/shared/dart/logo+text/horizontal/white.svg" alt="Dart" width="164px">
+      </a>
+      <div class="footer-social-links">
+        <a href="https://github.com/doggy8088/dart.tw" target="_blank" rel="noopener" title="GitHub" class="no-automatic-external">
+          <svg>
+            <use href="/assets/img/social/github.svg#github"></use>
+          </svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-section footer-tray">
+      <div class="footer-licenses">
+        參考中文內容需註明本站及連結作為出處，英文內容和範例程式碼均遵從源站授權協議。
+      </div>
+      <div class="footer-utility-links">
+        <ul>
+          <li><a href="/terms" title="使用條款">使用條款</a></li>
+          <li><a href="https://policies.google.com/privacy?hl=zh-TW" target="_blank" rel="noopener" title="隱私政策" class="no-automatic-external">隱私政策</a></li>
+          <li><a href="/security" title="Security philosophy and practices">Dart 程式碼安全說明</a></li>
+          <li><a href="https://flutter.tw/about" target="_blank">關於中文文件</a>
+          </li><li><a href="https://flutter.tw/disclaimer" target="_blank">免責條款</a>
+          </li><li><a href="https://dart.cn/" target="_blank">Dart 簡體中文文檔</a>
+        </li></ul>
+      </div>
+    </div>
+  </footer>
+
+  
+
+<script src="/assets/translator/js/translator.js"></script></body></html>

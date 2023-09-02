@@ -1,0 +1,2041 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Language" content="zh-cmn-Hans">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Google Tag Manager -->
+<!--  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':-->
+<!--  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],-->
+<!--  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=-->
+<!--  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);-->
+<!--  })(window,document,'script','dataLayer','GTM-5VSZM5J');</script>-->
+  <!-- End Google Tag Manager -->
+
+  <meta name="description" content="學習如何在 DartPad 中練習非同步程式設計！">
+  <title>非同步程式設計：使用 Future 和 async-await | Dart</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-28P0PYCRZ9"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-28P0PYCRZ9');
+  </script>
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?fa71f2474b82505e00203cf9956cf0bc";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+  <!-- Favicon / Touch Icons -->
+  <link rel="icon" sizes="64x64" href="/assets/shared/dart/icon/64.png">
+  <link href="/assets/img/touch-icon-iphone.png" rel="apple-touch-icon">
+  <link href="/assets/img/touch-icon-ipad.png" rel="apple-touch-icon" sizes="152x152">
+  <link href="/assets/img/touch-icon-iphone-retina.png" rel="apple-touch-icon" sizes="180x180">
+  <link href="/assets/img/touch-icon-ipad-retina.png" rel="apple-touch-icon" sizes="167x167">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@dart_lang">
+  <meta name="twitter:title" content="非同步程式設計：使用 Future 和 async-await">
+  <meta name="twitter:description" content="學習如何在 DartPad 中練習非同步程式設計！">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="非同步程式設計：使用 Future 和 async-await">
+  <meta property="og:description" content="學習如何在 DartPad 中練習非同步程式設計！">
+  <meta property="og:url" content="https://dart.tw.gh.miniasp.com/codelabs/async-await.html">
+
+  <meta property="og:image" content="https://dart.tw.gh.miniasp.com/assets/shared/dart-logo-for-shares.png?2">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Display:wght@400&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons&amp;display=swap" rel="stylesheet">
+  <script src="https://cdn.staticfile.org/font-awesome/5.15.4/js/all.js" data-auto-replace-svg="nest">
+  </script>
+
+  <link rel="stylesheet" href="/assets/css/main.css?v=1693674404">
+  <script src="https://cdn.staticfile.org/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.staticfile.org/popper.js/1.16.1/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.staticfile.org/bootstrap/4.6.2/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!-- <script src="https://cdn.staticfile.org/js-cookie/3.0.5/js.cookie.min.js"
+          integrity="sha512-nlp9/l96/EpjYBx7EP7pGASVXNe80hGhYAUrjeXnu/fyF5Py0/RXav4BBNs7n5Hx1WFhOEOWSAVjGeC3oKxDVQ=="
+          crossorigin="anonymous"
+          referrerpolicy="no-referrer"></script> -->
+
+  <script src="/assets/js/vendor/code-prettify/prettify.js"></script>
+  <script src="/assets/js/vendor/code-prettify/lang-dart.js"></script>
+  <script src="/assets/js/vendor/code-prettify/lang-yaml.js"></script>
+  <script src="/assets/js/os-tabs.js?v=1693674404"></script>
+  <script src="/assets/js/utilities.js?v=1693674404"></script>
+  <script src="/assets/js/main.js?v=1693674404"></script>
+
+  <script defer="" src="https://dartpad.dev/inject_embed.dart.js"></script>
+  <script>
+
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-122680122-5', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+
+ <link href="/assets/translator/css/translator.css" rel="stylesheet"></head>
+
+  <body class="default show_banner">
+    <section id="cookie-notice">
+  <div class="container">
+    <p>Google uses cookies to deliver its services, to personalize ads, and to 
+      analyze traffic. You can adjust your privacy controls anytime in your 
+      <a href="https://myaccount.google.com/data-and-personalization" target="_blank" rel="noopener" class="no-automatic-external">Google settings</a>. 
+      <a href="https://policies.google.com/technologies/cookies" target="_blank" rel="noopener" class="no-automatic-external">Learn more</a>.
+    </p>
+    <button id="cookie-consent" class="btn btn-primary">Okay</button>
+  </div>
+</section>
+
+    <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=G-28P0PYCRZ9"
+ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+    <header id="page-header" class="site-header">
+  <nav id="mainnav" class="site-header">
+  <div id="menu-toggle"><i class="material-icons">menu</i></div>
+  <a href="/" class="brand" title="Dart">
+    <img src="/assets/img/shared/dart/logo+text/horizontal/white.svg" alt="Dart">
+  </a>
+  <ul class="navbar">
+    <li>
+      <a href="/overview" class="nav-link">概覽</a>
+    </li>
+    <li class="mainnav__get-started">
+      <a href="/guides" class="nav-link
+         active">
+        <span>文件</span>
+      </a>
+    </li>
+    <li>
+      <a href="/community" class="nav-link">社群</a>
+    </li>
+    <li>
+      <a href="/#try-dart" class="nav-link">嘗試 Dart</a>
+    </li>
+    <li>
+      <a href="/get-dart" class="nav-link">獲取 Dart SDK</a>
+    </li>
+    <li class="searchfield">
+      <form action="/search" class="site-header__search form-inline" id="cse-search-box">
+        <input type="hidden" name="cx" value="011220921317074318178:_yy-tmb5t_i">
+        <input type="hidden" name="ie" value="UTF-8">
+        <input type="hidden" name="hl" value="en">
+        <input class="site-header__searchfield form-control search-field" type="search" name="q" id="q" autocomplete="off" placeholder="Search" aria-label="Search">
+      </form>
+    </li>
+  </ul>
+</nav>
+
+  
+</header>
+ <div class="banner">
+  <p class="banner__text">
+    Dart 3 已釋出！帶來了全新的
+    <a href="https://dart.tw.gh.miniasp.com/language/records" class="no-automatic-external">記錄型別 (records)</a>、
+    <a href="https://dart.tw.gh.miniasp.com/language/patterns" class="no-automatic-external">模式匹配 (patterns)</a>
+    以及 <a href="https://dart.tw.gh.miniasp.com/language/class-modifiers" class="no-automatic-external">型別修飾符 (class modifiers)</a>。
+    <br>
+    <!--<a href="https://medium.com/p/53f065a10635" class="no-automatic-external">Check out the blog post</a>!-->
+  </p>
+</div>
+ 
+
+    <div id="sidenav" class="">
+  <form action="/search/" class="site-header__search form-inline">
+    <input class="site-header__searchfield form-control search-field" type="search" name="q" id="q" autocomplete="off" placeholder="Search" aria-label="Search">
+  </form>
+
+  <div class="site-sidebar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a href="/overview" class="nav-link">概覽</a>
+      </li>
+      <li class="nav-item">
+        <a href="/community" class="nav-link">社群</a>
+      </li>
+      <li class="nav-item">
+        <a href="https://dartpad.dev" class="nav-link">嘗試 Dart</a>
+      </li>
+      <li class="nav-item">
+        <a href="/get-dart" class="nav-link">獲取 Dart SDK</a>
+      </li>
+      <li class="nav-item">
+        <a href="/guides" class="nav-link active">文件</a>
+      </li>
+    </ul>
+
+    <ul class="nav flex-column"><li class="nav-item">
+      <a class="nav-link active" data-toggle="collapse" href="#sidenav-1" role="button" aria-expanded="true" aria-controls="sidenav-1">範例和課程</a>
+
+      <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-1">
+        <li class="nav-item">
+    <a class="nav-link" href="/tutorials">語言概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link active collapsable" data-toggle="collapse" data-target="#sidenav-1-2" href="#sidenav-1-2" role="button" aria-expanded="true" aria-controls="sidenav-1-2">Codelabs
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-1-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/codelabs">Codelabs 列表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/dart-cheatsheet">Dart 速查表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/iterables">可迭代集合</a>
+  </li><li class="nav-item">
+    <a class="nav-link active" href="/codelabs/async-await">Dart 非同步程式設計</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/null-safety">空安全</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-2" role="button" aria-expanded="false" aria-controls="sidenav-2">Dart 開發語言</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2">
+        <li class="nav-item">
+    <a class="nav-link" href="/language">介紹</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-2" href="#sidenav-2-2" role="button" aria-expanded="false" aria-controls="sidenav-2-2">基礎表示式
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/variables">變數</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/operators">運運算元</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/comments">註釋</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/metadata">註解</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/libraries">庫 &amp; 導庫</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/keywords">關鍵字</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-3" href="#sidenav-2-3" role="button" aria-expanded="false" aria-controls="sidenav-2-3">型別
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-3">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/built-in-types">基本型別</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/records">記錄 (Records)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/collections">集合 (Collections)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/generics">泛型 (Generics)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/typedefs">別名 (Typedefs)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/type-system">型別系統</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-4" href="#sidenav-2-4" role="button" aria-expanded="false" aria-controls="sidenav-2-4">模式匹配
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-4">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/patterns">概覽 &amp; 用法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/pattern-types">模式匹配型別</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/language/functions">函式方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-6" href="#sidenav-2-6" role="button" aria-expanded="false" aria-controls="sidenav-2-6">控制流
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-6">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/loops">迴圈</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/branches">分支</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/language/error-handling">錯誤處理</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-8" href="#sidenav-2-8" role="button" aria-expanded="false" aria-controls="sidenav-2-8">類 &amp; 物件
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-8">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/classes">類</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/constructors">構造方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/methods">成員方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/extend">繼承</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/mixins">混入 (Mixin)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/enums">列舉</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/extension-methods">擴充方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/callable-objects">可呼叫的物件</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-9" href="#sidenav-2-9" role="button" aria-expanded="false" aria-controls="sidenav-2-9">型別修飾符
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-9">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/class-modifiers">概覽 &amp; 用法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/class-modifiers-for-apis">API 維護者應該用的型別修飾符</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/modifier-reference">速查表</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-10" href="#sidenav-2-10" role="button" aria-expanded="false" aria-controls="sidenav-2-10">併發
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-10">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/async">非同步支援</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/concurrency">Isolates</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-11" href="#sidenav-2-11" role="button" aria-expanded="false" aria-controls="sidenav-2-11">Null safety
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-11">
+      <li class="nav-item">
+    <a class="nav-link" href="/null-safety">健全的空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/migration-guide">遷移到空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/understanding-null-safety">深入理解空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/unsound-null-safety">非健全的空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/faq">空安全常見問題和解答</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-3" role="button" aria-expanded="false" aria-controls="sidenav-3">高效指南 (Effective Dart)</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-3">
+        <li class="nav-item">
+    <a class="nav-link" href="/effective-dart">概述</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/style">程式碼風格</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/documentation">文件</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/usage">用法範例</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/design">API 設計</a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-4" role="button" aria-expanded="false" aria-controls="sidenav-4">核心函式庫</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-4">
+        <li class="nav-item">
+    <a class="nav-link" href="/guides/libraries">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/library-tour">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-4-3" href="#sidenav-4-3" role="button" aria-expanded="false" aria-controls="sidenav-4-3">介紹文章
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-4-3">
+      <li class="nav-item">
+    <a class="nav-link" href="/articles/libraries/creating-streams">建立 stream</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-5" role="button" aria-expanded="false" aria-controls="sidenav-5">Packages</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-5">
+        <li class="nav-item">
+    <a class="nav-link" href="/guides/packages">如何使用 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/useful-libraries">常用 package 介紹</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/create-packages">建立 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/publishing">釋出 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/writing-package-pages">設定 package 介紹頁</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-5-6" href="#sidenav-5-6" role="button" aria-expanded="false" aria-controls="sidenav-5-6">Package 參考資料
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-5-6">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/pub/dependencies">依賴</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/glossary">術語表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/package-layout">Package 檔案結構</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/environment-variables">設定環境變數</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/pubspec">Pubspec 檔案</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/troubleshoot">問題排查</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/verified-publishers">釋出者認證</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/versioning">版本管理</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-6" role="button" aria-expanded="false" aria-controls="sidenav-6">開發文件</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6">
+        <li class="nav-item">
+    <a class="nav-link" href="/codelabs/async-await">Futures、async 和 await</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/language/streams">Streams 介紹</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/json">使用 JSON</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/numbers">Dart 中的數字</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-5" href="#sidenav-6-5" role="button" aria-expanded="false" aria-controls="sidenav-6-5">與其他語言進行互動呼叫
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-5">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/c-interop">與 C 互調</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/objective-c-interop">與 Objective-C 和 Swift 互調</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/java-interop">與 Java 和 Kotlin 互調</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/web/js-interop">與 JavaScript 互調</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/guides/google-apis">Google APIs</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/multiplatform-apps">跨平臺應用</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-8" href="#sidenav-6-8" role="button" aria-expanded="false" aria-controls="sidenav-6-8">命令列和伺服器端應用
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-8">
+      <li class="nav-item">
+    <a class="nav-link" href="/server">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/get-started">起步課程</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/cmdline">命令列應用</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/fetch-data">從網路上獲取資料</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/httpserver">編寫 HTTP 伺服器端應用</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/server/libraries">庫和 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/server/google-cloud">Google Cloud</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-9" href="#sidenav-6-9" role="button" aria-expanded="false" aria-controls="sidenav-6-9">網頁端 (Web) 應用
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-9">
+      <li class="nav-item">
+    <a class="nav-link" href="/web">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/get-started">開始使用</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-9-3" href="#sidenav-6-9-3" role="button" aria-expanded="false" aria-controls="sidenav-6-9-3">底層 Web 程式設計
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-9-3">
+      <li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/low-level-html/connect-dart-html">Dart 與 HTML 關聯</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/low-level-html/add-elements">向 DOM 新增元素</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/low-level-html/remove-elements">移除 DOM 元素</a>
+  </li>
+  </ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/web/deployment">部署</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/web/libraries">常用 Web 函式庫和 package</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/guides/environment-declarations">環境變數宣告</a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-7" role="button" aria-expanded="false" aria-controls="sidenav-7">開發工具和使用技巧</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7">
+        <li class="nav-item">
+    <a class="nav-link" href="/tools">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-2" href="#sidenav-7-2" role="button" aria-expanded="false" aria-controls="sidenav-7-2">編輯器和除錯工具
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/jetbrains-plugin">使用 IntelliJ 和 Android Studio</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/vs-code">使用 VS Code</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/dart-devtools">Dart 開發者工具</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-2-4" href="#sidenav-7-2-4" role="button" aria-expanded="false" aria-controls="sidenav-7-2-4">線上執行 Dart 程式碼
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-2-4">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/dartpad">Overview</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dartpad/dartpad-best-practices">DartPad 課程</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dartpad/troubleshoot">DartPad 疑難解答</a>
+  </li>
+  </ul>
+  </li>
+</ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-3" href="#sidenav-7-3" role="button" aria-expanded="false" aria-controls="sidenav-7-3">命令列工具
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-3">
+      <li class="nav-item">
+    <a class="nav-link collapsable" data-toggle="collapse" data-target="#sidenav-7-3-1" href="#sidenav-7-3-1" role="button" aria-expanded="true" aria-controls="sidenav-7-3-1">Dart SDK
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-7-3-1">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/sdk">概覽</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-tool">dart 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-analyze">dart analyze 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-compile">dart compile 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-create">dart create 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-doc">dart doc 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-fix">dart fix 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-format">dart format 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-info">dart info 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/pub/cmd">dart pub 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-run">dart run 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-test">dart test 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dartaotruntime">dartaotruntime 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/experiment-flags">實驗性命令標記</a>
+  </li>
+  </ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable" data-toggle="collapse" data-target="#sidenav-7-3-2" href="#sidenav-7-3-2" role="button" aria-expanded="true" aria-controls="sidenav-7-3-2">其他的命令列工具
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-7-3-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/build_runner">build_runner 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/webdev">webdev 命令</a>
+  </li>
+  </ul>
+  </li>
+</ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-4" href="#sidenav-7-4" role="button" aria-expanded="false" aria-controls="sidenav-7-4">原始碼管理
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-4">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/language/formatting">程式碼格式化</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/private-files">不應提交的內容</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-5" href="#sidenav-7-5" role="button" aria-expanded="false" aria-controls="sidenav-7-5">靜態分析
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-5">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/analysis">自訂靜態分析</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/sound-problems">修復常見的型別問題</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/diagnostic-messages">診斷訊息</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/linter-rules">Linter 規則</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-6" href="#sidenav-7-6" role="button" aria-expanded="false" aria-controls="sidenav-7-6">測試和調優
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-6">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/testing">測試</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/web/debugging">除錯 Web 應用</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-8" role="button" aria-expanded="false" aria-controls="sidenav-8">資源</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-8">
+        <li class="nav-item">
+    <a class="nav-link" href="/resources/faq">常見問題</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/evolution">版本演變</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/spec">語言規範</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/resources/dart-3-migration">Dart 3 遷移指南</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-8-5" href="#sidenav-8-5" role="button" aria-expanded="false" aria-controls="sidenav-8-5">從其他平台轉向 Dart
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-8-5">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/language/coming-from/js-to-dart">從 JavaScript 到 Dart</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/coming-from/swift-to-dart">從 Swift 到 Dart</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/resources/glossary">詞彙表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/resources/books">書籍資源</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/resources/videos">影片資源</a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link " data-toggle="collapse" href="#sidenav-9" role="button" aria-expanded="true" aria-controls="sidenav-9">相關站點</a>
+
+      <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-9">
+        <li class="nav-item">
+    <a class="nav-link" href="https://api.dart.dev" target="_blank" rel="noopener">API 文件<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://medium.com/dartlang" target="_blank" rel="noopener">Dart 團隊官方部落格<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://dartpad.dev" target="_blank" rel="noopener">DartPad (線上編輯器)<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://flutter.tw" target="_blank" rel="noopener">Flutter<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://pub.dev" target="_blank" rel="noopener">Package 網站<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-10" role="button" aria-expanded="false" aria-controls="sidenav-10">關於 Dart 中文文件</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-10">
+        <li class="nav-item">
+    <a class="nav-link" href="https://flutter.tw/about/docs-cn" target="_blank" rel="noopener">關於本站<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://flutter.tw/disclaimer" target="_blank" rel="noopener">免責條款 (Disclaimer)<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li>
+</ul>
+    </li></ul>
+
+  </div>
+</div>
+
+    <main id="page-content">
+      
+
+
+
+
+
+
+
+<div id="site-toc--side" class="site-toc ">
+  <header class="site-toc__title">
+    目錄
+    
+  </header>
+  <ul id="toc" class="section-nav">
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#why-asynchronous-code-matters">Why asynchronous code matters</a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#example-incorrectly-using-an-asynchronous-function">Example: Incorrectly using an asynchronous function</a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#what-is-a-future">What is a future?</a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#uncompleted">Uncompleted</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#completed">Completed</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#example-introducing-futures">Example: Introducing futures</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#example-completing-with-an-error">Example: Completing with an error</a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#working-with-futures-async-and-await">Working with futures: async and await</a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#execution-flow-with-async-and-await">Execution flow with async and await</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#example-execution-within-async-functions">Example: Execution within async functions</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#exercise-practice-using-async-and-await">Exercise: Practice using async and await</a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#handling-errors">Handling errors</a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#example-async-and-await-with-try-catch">Example: async and await with try-catch</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#exercise-practice-handling-errors">Exercise: Practice handling errors</a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#exercise-putting-it-all-together">Exercise: Putting it all together</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#whats-next">What’s next?</a></li>
+</ul>
+  
+</div>
+
+
+      <article>
+        <div class="content">
+          
+
+          <div id="site-content-title">
+            <div id="page-github-links" class="btn-group" aria-label="Page GitHub links" role="group">
+  <a href="https://github.com/doggy8088/dart.tw/tree/master/src/codelabs/async-await.md" class="btn no-automatic-external" title="View page source" target="_blank" rel="noopener">
+    <i class="material-icons">description</i>
+  </a>
+  <a href="https://github.com/doggy8088/dart.tw/issues/new?template=1_page_issue.yml&amp;title=[PAGE ISSUE]: '非同步程式設計：使用 Future 和 async-await'&amp;page-url=https://dart.tw.gh.miniasp.com/codelabs/async-await.html&amp;page-source=https://github.com/doggy8088/dart.tw/tree/master/src/codelabs/async-await.md" class="btn no-automatic-external" title="Report an issue with this page" target="_blank" rel="noopener">
+    <i class="material-icons">bug_report</i>
+  </a>
+</div>
+
+            
+            <h1 id="非同步程式設計使用-future-和-async-await">非同步程式設計：使用 Future 和 async-await</h1>
+            </div>
+          
+
+
+
+
+
+
+
+<div id="site-toc--inline" class="site-toc toc-collapsible toc-collapsed">
+  <header class="site-toc__title">
+    目錄
+    
+      <span class="site-toc--inline__toggle toc-toggle-down"><i class="material-icons">keyboard_arrow_down</i></span>
+      <span class="site-toc--inline__toggle toc-toggle-up"><i class="material-icons">keyboard_arrow_up</i></span>
+    
+  </header>
+  <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#why-asynchronous-code-matters">Why asynchronous code matters</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#example-incorrectly-using-an-asynchronous-function">Example: Incorrectly using an asynchronous function</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#what-is-a-future">What is a future?</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#uncompleted">Uncompleted</a></li>
+<li class="toc-entry toc-h3"><a href="#completed">Completed</a></li>
+<li class="toc-entry toc-h3"><a href="#example-introducing-futures">Example: Introducing futures</a></li>
+<li class="toc-entry toc-h3"><a href="#example-completing-with-an-error">Example: Completing with an error</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#working-with-futures-async-and-await">Working with futures: async and await</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#execution-flow-with-async-and-await">Execution flow with async and await</a></li>
+<li class="toc-entry toc-h3"><a href="#example-execution-within-async-functions">Example: Execution within async functions</a></li>
+<li class="toc-entry toc-h3"><a href="#exercise-practice-using-async-and-await">Exercise: Practice using async and await</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#handling-errors">Handling errors</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#example-async-and-await-with-try-catch">Example: async and await with try-catch</a></li>
+<li class="toc-entry toc-h3"><a href="#exercise-practice-handling-errors">Exercise: Practice handling errors</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#exercise-putting-it-all-together">Exercise: Putting it all together</a></li>
+<li class="toc-entry toc-h2"><a href="#whats-next">What’s next?</a></li>
+</ul>
+  
+    <span class="site-toc--inline__toggle toc-toggle-more-items"><i class="material-icons">more_horiz</i></span>
+  
+</div>
+
+
+          
+<p>This codelab teaches you how to write asynchronous code using
+futures and the <code class="language-plaintext highlighter-rouge">async</code> and <code class="language-plaintext highlighter-rouge">await</code> keywords. 
+Using embedded DartPad editors, 
+you can test your knowledge by running example code
+and completing exercises.</p>
+
+<p>To get the most out of this codelab, you should have the following:</p>
+
+<ul>
+  <li>Knowledge of <a href="/language">basic Dart syntax</a>.</li>
+  <li>Some experience writing asynchronous code in another language.</li>
+</ul>
+
+<p>This codelab covers the following material:</p>
+
+<ul>
+  <li>How and when to use the <code class="language-plaintext highlighter-rouge">async</code> and <code class="language-plaintext highlighter-rouge">await</code> keywords.</li>
+  <li>How using <code class="language-plaintext highlighter-rouge">async</code> and <code class="language-plaintext highlighter-rouge">await</code> affects execution order.</li>
+  <li>How to handle errors from an asynchronous call
+using <code class="language-plaintext highlighter-rouge">try-catch</code> expressions in <code class="language-plaintext highlighter-rouge">async</code> functions.</li>
+</ul>
+
+<p>Estimated time to complete this codelab: 40-60 minutes.</p>
+
+<aside class="alert alert-info" role="alert">
+  <p><i class="material-icons" aria-hidden="true">info</i> <strong>備註:</strong>
+  This page uses embedded DartPads to display examples and exercises.
+  If you see empty boxes instead of DartPads, go to the
+<a href="/tools/dartpad/troubleshoot">DartPad troubleshooting page</a>.</p>
+
+  <p>如果你只看到了空白的框框（而沒有任何內容），請查閱
+<a href="/tools/dartpad/troubleshoot">DartPad 常見問題頁面</a>。</p>
+</aside>
+
+<h2 id="why-asynchronous-code-matters">
+<a class="anchor" href="#why-asynchronous-code-matters" aria-hidden="true"><span class="octicon octicon-link"></span></a>Why asynchronous code matters</h2>
+
+<p>Asynchronous operations let your program complete work
+while waiting for another operation to finish. 
+Here are some common asynchronous operations:</p>
+
+<ul>
+  <li>Fetching data over a network.</li>
+  <li>Writing to a database.</li>
+  <li>Reading data from a file.</li>
+</ul>
+
+<p>Such asynchronous computations usually provide their result as a <code class="language-plaintext highlighter-rouge">Future</code>
+or, if the result has multiple parts, as a <code class="language-plaintext highlighter-rouge">Stream</code>.
+These computations introduce asynchrony into a program.
+To accommodate that initial asynchrony, 
+other plain Dart functions also need to become asynchronous.</p>
+
+<p>To interact with these asynchronous results,
+you can use the <code class="language-plaintext highlighter-rouge">async</code> and <code class="language-plaintext highlighter-rouge">await</code> keywords.
+Most asynchronous functions are just async Dart functions
+that depend, possibly deep down, 
+on an inherently asynchronous computation.</p>
+
+<h3 id="example-incorrectly-using-an-asynchronous-function">
+<a class="anchor" href="#example-incorrectly-using-an-asynchronous-function" aria-hidden="true"><span class="octicon octicon-link"></span></a>Example: Incorrectly using an asynchronous function</h3>
+
+<p>The following example shows the wrong way
+to use an asynchronous function (<code class="language-plaintext highlighter-rouge">fetchUserOrder()</code>). 
+Later you’ll fix the example using <code class="language-plaintext highlighter-rouge">async</code> and <code class="language-plaintext highlighter-rouge">await</code>.
+Before running this example, try to spot the issue – 
+what do you think the output will be?</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart:run-dartpad:height-380px:ga_id-incorrect_usage prettyprint lang-dart">// This example shows how *not* to write asynchronous Dart code.
+
+String createOrderMessage() {
+  var order = fetchUserOrder();
+  return 'Your order is: $order';
+}
+
+Future&lt;String&gt; fetchUserOrder() =&gt;
+    // Imagine that this function is more complex and slow.
+    Future.delayed(
+      const Duration(seconds: 2),
+      () =&gt; 'Large Latte',
+    );
+
+void main() {
+  print(createOrderMessage());
+}</code></pre></div>
+</div>
+
+<p>Here’s why the example fails to print the value
+that <code class="language-plaintext highlighter-rouge">fetchUserOrder()</code> eventually produces:</p>
+
+<ul>
+  <li>
+<code class="language-plaintext highlighter-rouge">fetchUserOrder()</code> is an asynchronous function that, after a delay,
+provides a string that describes the user’s order: a “Large Latte”.</li>
+  <li>To get the user’s order, <code class="language-plaintext highlighter-rouge">createOrderMessage()</code> should call <code class="language-plaintext highlighter-rouge">fetchUserOrder()</code>
+and wait for it to finish. Because <code class="language-plaintext highlighter-rouge">createOrderMessage()</code> does <em>not</em> wait
+for <code class="language-plaintext highlighter-rouge">fetchUserOrder()</code> to finish, <code class="language-plaintext highlighter-rouge">createOrderMessage()</code> fails to
+get the string value that <code class="language-plaintext highlighter-rouge">fetchUserOrder()</code> eventually provides.</li>
+  <li>Instead, <code class="language-plaintext highlighter-rouge">createOrderMessage()</code> gets a representation of pending work to be
+done: an uncompleted future. 
+You’ll learn more about futures in the next section.</li>
+  <li>Because <code class="language-plaintext highlighter-rouge">createOrderMessage()</code> fails to get the value describing the user’s
+order, the example fails to print “Large Latte” to the console, and instead
+prints “Your order is: Instance of ‘_Future&lt;String&gt;’”.</li>
+</ul>
+
+<p>In the next sections you’ll learn about futures and about working with futures
+(using <code class="language-plaintext highlighter-rouge">async</code> and <code class="language-plaintext highlighter-rouge">await</code>)
+so that you’ll be able to write the code necessary to make <code class="language-plaintext highlighter-rouge">fetchUserOrder()</code>
+print the desired value (“Large Latte”) to the console.</p>
+
+<aside class="alert alert-secondary" role="alert">
+  <p><strong>Key terms:</strong></p>
+
+  <ul>
+    <li>
+<strong>synchronous operation</strong>: A synchronous operation blocks other operations
+from executing until it completes.</li>
+    <li>
+<strong>synchronous function</strong>: A synchronous function only performs synchronous
+operations.</li>
+    <li>
+<strong>asynchronous operation</strong>: Once initiated, an asynchronous operation allows
+other operations to execute before it completes.</li>
+    <li>
+<strong>asynchronous function</strong>: An asynchronous function performs at least one
+asynchronous operation and can also perform <em>synchronous</em> operations.</li>
+  </ul>
+</aside>
+
+<h2 id="what-is-a-future">
+<a class="anchor" href="#what-is-a-future" aria-hidden="true"><span class="octicon octicon-link"></span></a>What is a future?</h2>
+
+<p>A future (lower case “f”) is an instance
+of the <a href="https://api.dart.dev/stable/dart-async/Future-class.html">Future</a> (capitalized “F”) class. 
+A future represents the result of an asynchronous operation, 
+and can have two states: uncompleted or completed.</p>
+
+<aside class="alert alert-info" role="alert">
+  <p><i class="material-icons" aria-hidden="true">info</i> <strong>備註:</strong>
+  <em>Uncompleted</em> is a Dart term referring to the state of a future
+  before it has produced a value.</p>
+</aside>
+
+<h3 id="uncompleted">
+<a class="anchor" href="#uncompleted" aria-hidden="true"><span class="octicon octicon-link"></span></a>Uncompleted</h3>
+
+<p>When you call an asynchronous function, it returns an uncompleted future.
+That future is waiting for the function’s asynchronous operation
+to finish or to throw an error.</p>
+
+<h3 id="completed">
+<a class="anchor" href="#completed" aria-hidden="true"><span class="octicon octicon-link"></span></a>Completed</h3>
+
+<p>If the asynchronous operation succeeds, 
+the future completes with a value. 
+Otherwise, it completes with an error.</p>
+
+<h4 id="completing-with-a-value">Completing with a value</h4>
+
+<p>A future of type <code class="language-plaintext highlighter-rouge">Future&lt;T&gt;</code> completes with a value of type <code class="language-plaintext highlighter-rouge">T</code>.
+For example, a future with type <code class="language-plaintext highlighter-rouge">Future&lt;String&gt;</code> produces a string value.
+If a future doesn’t produce a usable value, 
+then the future’s type is <code class="language-plaintext highlighter-rouge">Future&lt;void&gt;</code>.</p>
+
+<h4 id="completing-with-an-error">Completing with an error</h4>
+
+<p>If the asynchronous operation performed by the function fails for any reason,
+the future completes with an error.</p>
+
+<h3 id="example-introducing-futures">
+<a class="anchor" href="#example-introducing-futures" aria-hidden="true"><span class="octicon octicon-link"></span></a>Example: Introducing futures</h3>
+
+<p>In the following example, <code class="language-plaintext highlighter-rouge">fetchUserOrder()</code> returns a future
+that completes after printing to the console. 
+Because it doesn’t return a usable value,
+<code class="language-plaintext highlighter-rouge">fetchUserOrder()</code> has the type <code class="language-plaintext highlighter-rouge">Future&lt;void&gt;</code>. 
+Before you run the example,
+try to predict which will print first: 
+“Large Latte” or “Fetching user order…”.</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart:run-dartpad:height-300px:ga_id-introducting_futures prettyprint lang-dart">Future&lt;void&gt; fetchUserOrder() {
+  // Imagine that this function is fetching user info from another service or database.
+  return Future.delayed(const Duration(seconds: 2), () =&gt; print('Large Latte'));
+}
+
+void main() {
+  fetchUserOrder();
+  print('Fetching user order...');
+}</code></pre></div>
+</div>
+
+<p>In the preceding example, 
+even though <code class="language-plaintext highlighter-rouge">fetchUserOrder()</code> executes before the <code class="language-plaintext highlighter-rouge">print()</code> call on line 8, 
+the console shows the output from line 8(“Fetching user order…”) 
+before the output from <code class="language-plaintext highlighter-rouge">fetchUserOrder()</code> (“Large Latte”).
+This is because <code class="language-plaintext highlighter-rouge">fetchUserOrder()</code> delays before it prints “Large Latte”.</p>
+
+<h3 id="example-completing-with-an-error">
+<a class="anchor" href="#example-completing-with-an-error" aria-hidden="true"><span class="octicon octicon-link"></span></a>Example: Completing with an error</h3>
+
+<p>Run the following example to see how a future completes with an error.
+A bit later you’ll learn how to handle the error.</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart:run-dartpad:height-300px:ga_id-completing_with_error prettyprint lang-dart">Future&lt;void&gt; fetchUserOrder() {
+// Imagine that this function is fetching user info but encounters a bug
+  return Future.delayed(const Duration(seconds: 2),
+      () =&gt; throw Exception('Logout failed: user ID is invalid'));
+}
+
+void main() {
+  fetchUserOrder();
+  print('Fetching user order...');
+}</code></pre></div>
+</div>
+
+<p>In this example, <code class="language-plaintext highlighter-rouge">fetchUserOrder()</code> completes
+with an error indicating that the user ID is invalid.</p>
+
+<p>You’ve learned about futures and how they complete, 
+but how do you use the results of asynchronous functions? 
+In the next section you’ll learn how to get results
+with the <code class="language-plaintext highlighter-rouge">async</code> and <code class="language-plaintext highlighter-rouge">await</code> keywords.</p>
+
+<aside class="alert alert-secondary" role="alert">
+  <p><strong>Quick review:</strong></p>
+
+  <ul>
+    <li>A <a href="https://api.dart.dev/stable/dart-async/Future-class.html">Future&lt;T&gt;</a> instance produces a value of type <code class="language-plaintext highlighter-rouge">T</code>.</li>
+    <li>If a future doesn’t produce a usable value, 
+then the future’s type is <code class="language-plaintext highlighter-rouge">Future&lt;void&gt;</code>.</li>
+    <li>A future can be in one of two states: uncompleted or completed.</li>
+    <li>When you call a function that returns a future, 
+the function queues up work to be done and returns an uncompleted future.</li>
+    <li>When a future’s operation finishes, 
+the future completes with a value or with an error.</li>
+  </ul>
+
+  <p><strong>Key terms:</strong></p>
+
+  <ul>
+    <li>
+<strong>Future</strong>: the Dart <a href="https://api.dart.dev/stable/dart-async/Future-class.html">Future</a> class.</li>
+    <li>
+<strong>future</strong>: an instance of the Dart <code class="language-plaintext highlighter-rouge">Future</code> class.</li>
+  </ul>
+</aside>
+
+<h2 id="working-with-futures-async-and-await">
+<a class="anchor" href="#working-with-futures-async-and-await" aria-hidden="true"><span class="octicon octicon-link"></span></a>Working with futures: async and await</h2>
+
+<p>The <code class="language-plaintext highlighter-rouge">async</code> and <code class="language-plaintext highlighter-rouge">await</code> keywords provide a declarative way
+to define asynchronous functions and use their results. 
+Remember these two basic guidelines when using <code class="language-plaintext highlighter-rouge">async</code> and <code class="language-plaintext highlighter-rouge">await</code>:</p>
+
+<ul>
+  <li><strong>To define an async function, add <code class="language-plaintext highlighter-rouge">async</code> before the function body:</strong></li>
+  <li><strong>The <code class="language-plaintext highlighter-rouge">await</code> keyword works only in <code class="language-plaintext highlighter-rouge">async</code> functions.</strong></li>
+</ul>
+
+<p>Here’s an example  that converts <code class="language-plaintext highlighter-rouge">main()</code> 
+from a synchronous to asynchronous function.</p>
+
+<p>First, add the <code class="language-plaintext highlighter-rouge">async</code> keyword before the function body:</p>
+<pre class="prettyprint lang-dart"><code>void main() <span class="highlight">async</span> { ··· }</code></pre>
+
+<p>If the function has a declared return type, 
+then update the type to be <code class="language-plaintext highlighter-rouge">Future&lt;T&gt;</code>, 
+where <code class="language-plaintext highlighter-rouge">T</code> is the type of the value that the function returns.
+If the function doesn’t explicitly return a value,
+then the return type is <code class="language-plaintext highlighter-rouge">Future&lt;void&gt;</code>:</p>
+<pre class="prettyprint lang-dart"><code><span class="highlight">Future&lt;void&gt;</span> main() async { ··· }</code></pre>
+
+<p>Now that you have an <code class="language-plaintext highlighter-rouge">async</code> function, 
+you can use the <code class="language-plaintext highlighter-rouge">await</code> keyword to wait for a future to complete:</p>
+<pre class="prettyprint lang-dart"><code>print(<span class="highlight">await</span> createOrderMessage());</code></pre>
+
+<p>As the following two examples show, the <code class="language-plaintext highlighter-rouge">async</code> and <code class="language-plaintext highlighter-rouge">await</code> keywords 
+result in asynchronous code that looks a lot like synchronous code.
+The only differences are highlighted in the asynchronous example, 
+which—if your window is wide enough—is 
+to the right of the synchronous example.</p>
+
+<div class="container">
+<div class="row">
+<div class="col-sm">
+      <h4 id="example-synchronous-functions">Example: synchronous functions</h4>
+
+      <div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">String createOrderMessage() {
+  var order = fetchUserOrder();
+  return 'Your order is: $order';
+}
+
+Future&lt;String&gt; fetchUserOrder() =&gt;
+    // Imagine that this function is
+    // more complex and slow.
+    Future.delayed(
+      const Duration(seconds: 2),
+      () =&gt; 'Large Latte',
+    );
+
+void main() {
+  print('Fetching user order...');
+  print(createOrderMessage());
+}</code></pre></div>
+</div>
+
+      <pre class="console-output"><code class="language-nocode">Fetching user order...
+Your order is: Instance of '_Future&lt;String&gt;'
+</code></pre>
+    </div>
+<div class="col-sm">
+      <h4 id="example-asynchronous-functions">Example: asynchronous functions</h4>
+      <pre class="prettyprint lang-dart"><code><span class="highlight">Future&lt;String&gt;</span> createOrderMessage() <span class="highlight">async</span> {
+  var order = <span class="highlight">await</span> fetchUserOrder();
+  return 'Your order is: $order';
+}
+
+Future&lt;String&gt; fetchUserOrder() =&gt;
+    // Imagine that this function is
+    // more complex and slow.
+    Future.delayed(
+      const Duration(seconds: 2),
+      () =&gt; 'Large Latte',
+    );
+
+<span class="highlight">Future&lt;void&gt;</span> main() <span class="highlight">async</span> {
+  print('Fetching user order...');
+  print(<span class="highlight">await</span> createOrderMessage());
+}</code></pre>
+
+      <pre class="console-output"><code class="language-nocode">Fetching user order...
+Your order is: Large Latte
+</code></pre>
+    </div>
+</div>
+</div>
+
+<p>The asynchronous example is different in three ways:</p>
+
+<ul>
+  <li>The return type for <code class="language-plaintext highlighter-rouge">createOrderMessage()</code> changes 
+from <code class="language-plaintext highlighter-rouge">String</code> to <code class="language-plaintext highlighter-rouge">Future&lt;String&gt;</code>.</li>
+  <li>The <strong><code class="language-plaintext highlighter-rouge">async</code></strong> keyword appears before the function bodies for
+<code class="language-plaintext highlighter-rouge">createOrderMessage()</code> and <code class="language-plaintext highlighter-rouge">main()</code>.</li>
+  <li>The <strong><code class="language-plaintext highlighter-rouge">await</code></strong> keyword appears before calling the asynchronous functions
+<code class="language-plaintext highlighter-rouge">fetchUserOrder()</code> and <code class="language-plaintext highlighter-rouge">createOrderMessage()</code>.</li>
+</ul>
+
+<aside class="alert alert-secondary" role="alert">
+  <p><strong>Key terms:</strong></p>
+
+  <ul>
+    <li>
+<strong>async</strong>: You can use the <code class="language-plaintext highlighter-rouge">async</code> keyword before a function’s body to mark it as
+asynchronous.</li>
+    <li>
+<strong>async function</strong>:  An <code class="language-plaintext highlighter-rouge">async</code> function is a function labeled with the <code class="language-plaintext highlighter-rouge">async</code>
+keyword.</li>
+    <li>
+<strong>await</strong>: You can use the <code class="language-plaintext highlighter-rouge">await</code> keyword to get the completed result of an
+asynchronous expression. The <code class="language-plaintext highlighter-rouge">await</code> keyword only works within an <code class="language-plaintext highlighter-rouge">async</code> function.</li>
+  </ul>
+</aside>
+
+<h3 id="execution-flow-with-async-and-await">
+<a class="anchor" href="#execution-flow-with-async-and-await" aria-hidden="true"><span class="octicon octicon-link"></span></a>Execution flow with async and await</h3>
+
+<p>An <code class="language-plaintext highlighter-rouge">async</code> function runs synchronously until the first <code class="language-plaintext highlighter-rouge">await</code> keyword. 
+This means that within an <code class="language-plaintext highlighter-rouge">async</code> function body, 
+all synchronous code before the first <code class="language-plaintext highlighter-rouge">await</code> keyword executes immediately.</p>
+
+<h3 id="example-execution-within-async-functions">
+<a class="anchor" href="#example-execution-within-async-functions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Example: Execution within async functions</h3>
+
+<p>Run the following example to see how execution proceeds
+within an <code class="language-plaintext highlighter-rouge">async</code> function body. 
+What do you think the output will be?</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart:run-dartpad:height-530px:ga_id-execution_within_async_function prettyprint lang-dart">Future&lt;void&gt; printOrderMessage() async {
+  print('Awaiting user order...');
+  var order = await fetchUserOrder();
+  print('Your order is: $order');
+}
+
+Future&lt;String&gt; fetchUserOrder() {
+  // Imagine that this function is more complex and slow.
+  return Future.delayed(const Duration(seconds: 4), () =&gt; 'Large Latte');
+}
+
+void main() async {
+  countSeconds(4);
+  await printOrderMessage();
+}
+
+// You can ignore this function - it's here to visualize delay time in this example.
+void countSeconds(int s) {
+  for (var i = 1; i &lt;= s; i++) {
+    Future.delayed(Duration(seconds: i), () =&gt; print(i));
+  }
+}</code></pre></div>
+</div>
+
+<p>After running the code in the preceding example, try reversing lines 2 and 3:</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">var order = await fetchUserOrder();
+print('Awaiting user order...');</code></pre></div>
+</div>
+
+<p>Notice that timing of the output shifts, now that <code class="language-plaintext highlighter-rouge">print('Awaiting user order')</code>
+appears after the first <code class="language-plaintext highlighter-rouge">await</code> keyword in <code class="language-plaintext highlighter-rouge">printOrderMessage()</code>.</p>
+
+<h3 id="exercise-practice-using-async-and-await">
+<a class="anchor" href="#exercise-practice-using-async-and-await" aria-hidden="true"><span class="octicon octicon-link"></span></a>Exercise: Practice using async and await</h3>
+
+<p>The following exercise is a failing unit test
+that contains partially completed code snippets. 
+Your task is to complete the exercise by writing code to make the tests pass.
+You don’t need to implement <code class="language-plaintext highlighter-rouge">main()</code>.</p>
+
+<p>To simulate asynchronous operations, call the following functions, 
+which are provided for you:</p>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Function</th>
+      <th>Type signature</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>fetchRole()</td>
+      <td><code class="language-plaintext highlighter-rouge">Future&lt;String&gt; fetchRole()</code></td>
+      <td>Gets a short description of the user’s role.</td>
+    </tr>
+    <tr>
+      <td>fetchLoginAmount()</td>
+      <td><code class="language-plaintext highlighter-rouge">Future&lt;int&gt; fetchLoginAmount()</code></td>
+      <td>Gets the number of times a user has logged in.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="part-1-reportuserrole">Part 1: <code class="language-plaintext highlighter-rouge">reportUserRole()</code>
+</h4>
+
+<p>Add code to the <code class="language-plaintext highlighter-rouge">reportUserRole()</code> function so that it does the following:</p>
+<ul>
+  <li>Returns a future that completes with the following
+string: <code class="language-plaintext highlighter-rouge">"User role: &lt;user role&gt;"</code>
+    <ul>
+      <li>Note: You must use the actual value returned by <code class="language-plaintext highlighter-rouge">fetchRole()</code>; 
+copying and pasting the example return value won’t make the test pass.</li>
+      <li>Example return value: <code class="language-plaintext highlighter-rouge">"User role: tester"</code>
+</li>
+    </ul>
+  </li>
+  <li>Gets the user role by calling the provided function <code class="language-plaintext highlighter-rouge">fetchRole()</code>.</li>
+</ul>
+
+<h4 id="part-2-reportlogins">Part 2: <code class="language-plaintext highlighter-rouge">reportLogins()</code>
+</h4>
+
+<p>Implement an <code class="language-plaintext highlighter-rouge">async</code> function <code class="language-plaintext highlighter-rouge">reportLogins()</code> so that it does the following:</p>
+
+<ul>
+  <li>Returns the string <code class="language-plaintext highlighter-rouge">"Total number of logins: &lt;# of logins&gt;"</code>.
+    <ul>
+      <li>Note: You must use the actual value returned by <code class="language-plaintext highlighter-rouge">fetchLoginAmount()</code>; 
+copying and pasting the example return value won’t make the test pass.</li>
+      <li>Example return value from <code class="language-plaintext highlighter-rouge">reportLogins()</code>: <code class="language-plaintext highlighter-rouge">"Total number of logins: 57"</code>
+</li>
+    </ul>
+  </li>
+  <li>Gets the number of logins by calling the provided function <code class="language-plaintext highlighter-rouge">fetchLoginAmount()</code>.</li>
+</ul>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart:start-dartpad:theme-dark:height-380px:ga_id-practice_using:file-main.dart prettyprint lang-dart">// Part 1
+// You can call the provided async function fetchRole()
+// to return the user role.
+Future&lt;String&gt; reportUserRole() async {
+  TODO('Your implementation goes here.');
+}
+
+// Part 2
+// Implement reportLogins here
+// You can call the provided async function fetchLoginAmount()
+// to return the number of times that the user has logged in.
+reportLogins() {}</code></pre></div>
+</div>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart:file-solution.dart prettyprint lang-dart">Future&lt;String&gt; reportUserRole() async {
+  var username = await fetchRole();
+  return 'User role: $username';
+}
+
+Future&lt;String&gt; reportLogins() async {
+  var logins = await fetchLoginAmount();
+  return 'Total number of logins: $logins';
+}</code></pre></div>
+</div>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart:file-test.dart prettyprint lang-dart">const role = 'administrator';
+const logins = 42;
+const passed = 'PASSED';
+const testFailedMessage = 'Test failed for the function:';
+const typoMessage = 'Test failed! Check for typos in your return value';
+const didNotImplement =
+    'Test failed! Did you forget to implement or return from ';
+const oneSecond = Duration(seconds: 1);
+List&lt;String&gt; messages = [];
+Future&lt;String&gt; fetchRole() =&gt; Future.delayed(oneSecond, () =&gt; role);
+Future&lt;int&gt; fetchLoginAmount() =&gt; Future.delayed(oneSecond, () =&gt; logins);
+
+void main() async {
+  try {
+    messages
+      ..add(makeReadable(
+          testLabel: 'Part 1',
+          testResult: await asyncEquals(
+              expected: 'User role: administrator',
+              actual: await reportUserRole(),
+              typoKeyword: role),
+          readableErrors: {
+            typoMessage: typoMessage,
+            'null': '$didNotImplement reportUserRole?',
+            'User role: Instance of \'Future&lt;String&gt;\'':
+                '$testFailedMessage reportUserRole. Did you use the await keyword?',
+            'User role: Instance of \'_Future&lt;String&gt;\'':
+                '$testFailedMessage reportUserRole. Did you use the await keyword?',
+            'User role:':
+                '$testFailedMessage reportUserRole. Did you return a user role?',
+            'User role: ':
+                '$testFailedMessage reportUserRole. Did you return a user role?',
+            'User role: tester':
+                '$testFailedMessage reportUserRole. Did you invoke fetchRole to fetch the user\'s role?',
+          }))
+      ..add(makeReadable(
+          testLabel: 'Part 2',
+          testResult: await asyncEquals(
+              expected: 'Total number of logins: 42',
+              actual: await reportLogins(),
+              typoKeyword: logins.toString()),
+          readableErrors: {
+            typoMessage: typoMessage,
+            'null': '$didNotImplement reportLogins?',
+            'Total number of logins: Instance of \'Future&lt;int&gt;\'':
+                '$testFailedMessage reportLogins. Did you use the await keyword?',
+            'Total number of logins: Instance of \'_Future&lt;int&gt;\'':
+                '$testFailedMessage reportLogins. Did you use the await keyword?',
+            'Total number of logins: ':
+                '$testFailedMessage reportLogins. Did you return the number of logins?',
+            'Total number of logins:':
+                '$testFailedMessage reportLogins. Did you return the number of logins?',
+            'Total number of logins: 57':
+                '$testFailedMessage reportLogins. Did you invoke fetchLoginAmount to fetch the number of user logins?',
+          }))
+      ..removeWhere((m) =&gt; m.contains(passed))
+      ..toList();
+
+    if (messages.isEmpty) {
+      _result(true);
+    } else {
+      _result(false, messages);
+    }
+  } on UnimplementedError {
+    _result(false, [
+      '$didNotImplement reportUserRole?',
+    ]);
+  } catch (e) {
+    _result(false, ['Tried to run solution, but received an exception: $e']);
+  }
+}
+
+////////////////////////////////////////
+///////////// Test Helpers /////////////
+////////////////////////////////////////
+String makeReadable({
+  required String testResult,
+  required Map&lt;String, String&gt; readableErrors,
+  required String testLabel,
+}) {
+  if (readableErrors.containsKey(testResult)) {
+    var readable = readableErrors[testResult];
+    return '$testLabel $readable';
+  } else {
+    return '$testLabel $testResult';
+  }
+}
+
+///////////////////////////////////////
+//////////// Assertions ///////////////
+///////////////////////////////////////
+Future&lt;String&gt; asyncEquals({
+  required String expected,
+  required dynamic actual,
+  required String typoKeyword,
+}) async {
+  var strActual = actual is String ? actual : actual.toString();
+  try {
+    if (expected == actual) {
+      return passed;
+    } else if (strActual.contains(typoKeyword)) {
+      return typoMessage;
+    } else {
+      return strActual;
+    }
+  } catch (e) {
+    return e.toString();
+  }
+}</code></pre></div>
+</div>
+
+<pre><code class="language-text:end-dartpad:file-hint.txt">Did you remember to add the async keyword to the reportUserRole() function?
+
+Did you remember to use the await keyword before invoking fetchRole()?
+
+Remember: reportUserRole() needs to return a future!
+</code></pre>
+
+<aside class="alert alert-info" role="alert">
+  <p><i class="material-icons" aria-hidden="true">info</i> <strong>備註:</strong>
+  If your code passes the tests, you can ignore
+  <a href="/tools/analysis#customizing-analysis-rules">info-level messages.</a></p>
+</aside>
+
+<h2 id="handling-errors">
+<a class="anchor" href="#handling-errors" aria-hidden="true"><span class="octicon octicon-link"></span></a>Handling errors</h2>
+
+<p>To handle errors in an <code class="language-plaintext highlighter-rouge">async</code> function, use try-catch:</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">try {
+  print('Awaiting user order...');
+  var order = await fetchUserOrder();
+} catch (err) {
+  print('Caught error: $err');
+}</code></pre></div>
+</div>
+
+<p>Within an <code class="language-plaintext highlighter-rouge">async</code> function, you can write 
+<a href="/language/error-handling#catch">try-catch clauses</a>
+the same way you would in synchronous code.</p>
+
+<h3 id="example-async-and-await-with-try-catch">
+<a class="anchor" href="#example-async-and-await-with-try-catch" aria-hidden="true"><span class="octicon octicon-link"></span></a>Example: async and await with try-catch</h3>
+
+<p>Run the following example to see how to handle an error
+from an asynchronous function. 
+What do you think the output will be?</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart:run-dartpad:height-530px:ga_id-try_catch prettyprint lang-dart">Future&lt;void&gt; printOrderMessage() async {
+  try {
+    print('Awaiting user order...');
+    var order = await fetchUserOrder();
+    print(order);
+  } catch (err) {
+    print('Caught error: $err');
+  }
+}
+
+Future&lt;String&gt; fetchUserOrder() {
+  // Imagine that this function is more complex.
+  var str = Future.delayed(
+      const Duration(seconds: 4),
+      () =&gt; throw 'Cannot locate user order');
+  return str;
+}
+
+void main() async {
+  await printOrderMessage();
+}</code></pre></div>
+</div>
+
+<h3 id="exercise-practice-handling-errors">
+<a class="anchor" href="#exercise-practice-handling-errors" aria-hidden="true"><span class="octicon octicon-link"></span></a>Exercise: Practice handling errors</h3>
+
+<p>The following exercise provides practice handling errors with asynchronous code,
+using the approach described in the previous section. To simulate asynchronous
+operations, your code will call the following function, which is provided for you:</p>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Function</th>
+      <th>Type signature</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>fetchNewUsername()</td>
+      <td><code class="language-plaintext highlighter-rouge">Future&lt;String&gt; fetchNewUsername()</code></td>
+      <td>Returns the new username that you can use to replace an old one.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Use <code class="language-plaintext highlighter-rouge">async</code> and <code class="language-plaintext highlighter-rouge">await</code> to implement an asynchronous <code class="language-plaintext highlighter-rouge">changeUsername()</code> function
+that does the following:</p>
+
+<ul>
+  <li>Calls the provided asynchronous function <code class="language-plaintext highlighter-rouge">fetchNewUsername()</code> 
+and returns its result.
+    <ul>
+      <li>Example return value from <code class="language-plaintext highlighter-rouge">changeUsername()</code>: <code class="language-plaintext highlighter-rouge">"jane_smith_92"</code>
+</li>
+    </ul>
+  </li>
+  <li>Catches any error that occurs and returns the string value of the error.
+    <ul>
+      <li>You can use the
+<a href="https://api.dart.dev/stable/dart-core/ArgumentError/toString.html">toString()</a>
+method to stringify both
+<a href="https://api.dart.dev/stable/dart-core/Exception-class.html">Exceptions</a> 
+and
+<a href="https://api.dart.dev/stable/dart-core/Error-class.html">Errors.</a>
+</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart:start-dartpad:theme-dark:height-380px:ga_id-practice_errors:file-main.dart prettyprint lang-dart">// Implement changeUsername here
+changeUsername() {}</code></pre></div>
+</div>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart:file-solution.dart prettyprint lang-dart">Future&lt;String&gt; changeUsername() async {
+  try {
+    return await fetchNewUsername();
+  } catch (err) {
+    return err.toString();
+  }
+}</code></pre></div>
+</div>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart:file-test.dart prettyprint lang-dart">List&lt;String&gt; messages = [];
+bool logoutSucceeds = false;
+const passed = 'PASSED';
+const noCatch = 'NO_CATCH';
+const typoMessage = 'Test failed! Check for typos in your return value';
+const oneSecond = Duration(seconds: 1);
+
+class UserError implements Exception {
+  String errMsg() =&gt; 'New username is invalid';
+}
+
+Future&lt;String&gt; fetchNewUsername() {
+  var str = Future.delayed(oneSecond, () =&gt; throw UserError());
+  return str;
+}
+
+void main() async {
+  try {
+    messages
+      ..add(makeReadable(
+          testLabel: '',
+          testResult: await asyncDidCatchException(changeUsername),
+          readableErrors: {
+            typoMessage: typoMessage,
+            noCatch:
+                'Did you remember to call fetchNewUsername within a try/catch block?',
+          }))
+      ..add(makeReadable(
+          testLabel: '',
+          testResult: await asyncErrorEquals(changeUsername),
+          readableErrors: {
+            typoMessage: typoMessage,
+            noCatch:
+                'Did you remember to call fetchNewUsername within a try/catch block?',
+          }))
+      ..removeWhere((m) =&gt; m.contains(passed))
+      ..toList();
+
+    if (messages.isEmpty) {
+      _result(true);
+    } else {
+      _result(false, messages);
+    }
+  } catch (e) {
+    _result(false, ['Tried to run solution, but received an exception: $e']);
+  }
+}
+
+////////////////////////////////////////
+///////////// Test Helpers /////////////
+////////////////////////////////////////
+String makeReadable({
+  required String testResult,
+  required Map&lt;String, String&gt; readableErrors,
+  required String testLabel,
+}) {
+  if (readableErrors.containsKey(testResult)) {
+    var readable = readableErrors[testResult];
+    return '$testLabel $readable';
+  } else {
+    return '$testLabel $testResult';
+  }
+}
+
+void passIfNoMessages(List&lt;String&gt; messages, Map&lt;String, String&gt; readable) {
+  if (messages.isEmpty) {
+    _result(true);
+  } else {
+    final userMessages = messages
+        .where((message) =&gt; readable.containsKey(message))
+        .map((message) =&gt; readable[message]!)
+        .toList();
+    print(messages);
+
+    _result(false, userMessages);
+  }
+}
+
+///////////////////////////////////////
+//////////// Assertions ///////////////
+///////////////////////////////////////
+Future&lt;String&gt; asyncErrorEquals(Function fn) async {
+  var result = await fn();
+  if (result == UserError().toString()) {
+    return passed;
+  } else {
+    return 'Test failed! Did you stringify and return the caught error?';
+  }
+}
+
+Future&lt;String&gt; asyncDidCatchException(Function fn) async {
+  var caught = true;
+  try {
+    await fn();
+  } on UserError catch (_) {
+    caught = false;
+  }
+
+  if (caught == false) {
+    return noCatch;
+  } else {
+    return passed;
+  }
+}</code></pre></div>
+</div>
+
+<pre><code class="language-text:end-dartpad:file-hint.txt">Implement changeUsername() to return the string from fetchNewUsername() or
+(if that fails) the string value of any error that occurs.
+You'll need a try-catch statement to catch and handle errors.
+</code></pre>
+
+<h2 id="exercise-putting-it-all-together">
+<a class="anchor" href="#exercise-putting-it-all-together" aria-hidden="true"><span class="octicon octicon-link"></span></a>Exercise: Putting it all together</h2>
+
+<p>It’s time to practice what you’ve learned in one final exercise.
+To simulate asynchronous operations, this exercise provides the asynchronous
+functions <code class="language-plaintext highlighter-rouge">fetchUsername()</code> and <code class="language-plaintext highlighter-rouge">logoutUser()</code>:</p>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Function</th>
+      <th>Type signature</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>fetchUsername()</td>
+      <td><code class="language-plaintext highlighter-rouge">Future&lt;String&gt; fetchUsername()</code></td>
+      <td>Returns the name associated with the current user.</td>
+    </tr>
+    <tr>
+      <td>logoutUser()</td>
+      <td><code class="language-plaintext highlighter-rouge">Future&lt;String&gt; logoutUser()</code></td>
+      <td>Performs logout of current user and returns the username that was logged out.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Write the following:</p>
+
+<h4 id="part-1-addhello">Part 1: <code class="language-plaintext highlighter-rouge">addHello()</code>
+</h4>
+
+<ul>
+  <li>Write a function <code class="language-plaintext highlighter-rouge">addHello()</code> that takes a single <code class="language-plaintext highlighter-rouge">String</code> argument.</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">addHello()</code> returns its <code class="language-plaintext highlighter-rouge">String</code> argument preceded by <code class="language-plaintext highlighter-rouge">'Hello '</code>.<br>
+Example: <code class="language-plaintext highlighter-rouge">addHello('Jon')</code> returns <code class="language-plaintext highlighter-rouge">'Hello Jon'</code>.</li>
+</ul>
+
+<h4 id="part-2-greetuser">Part 2: <code class="language-plaintext highlighter-rouge">greetUser()</code>
+</h4>
+
+<ul>
+  <li>Write a function <code class="language-plaintext highlighter-rouge">greetUser()</code> that takes no arguments.</li>
+  <li>To get the username, <code class="language-plaintext highlighter-rouge">greetUser()</code> calls the provided asynchronous
+function <code class="language-plaintext highlighter-rouge">fetchUsername()</code>.</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">greetUser()</code> creates a greeting for the user by calling <code class="language-plaintext highlighter-rouge">addHello()</code>,
+passing it the username, and returning the result.<br>
+Example: If <code class="language-plaintext highlighter-rouge">fetchUsername()</code> returns <code class="language-plaintext highlighter-rouge">'Jenny'</code>, then
+<code class="language-plaintext highlighter-rouge">greetUser()</code> returns <code class="language-plaintext highlighter-rouge">'Hello Jenny'</code>.</li>
+</ul>
+
+<h4 id="part-3-saygoodbye">Part 3: <code class="language-plaintext highlighter-rouge">sayGoodbye()</code>
+</h4>
+
+<ul>
+  <li>Write a function <code class="language-plaintext highlighter-rouge">sayGoodbye()</code> that does the following:
+    <ul>
+      <li>Takes no arguments.</li>
+      <li>Catches any errors.</li>
+      <li>Calls the provided asynchronous function <code class="language-plaintext highlighter-rouge">logoutUser()</code>.</li>
+    </ul>
+  </li>
+  <li>If <code class="language-plaintext highlighter-rouge">logoutUser()</code> fails, <code class="language-plaintext highlighter-rouge">sayGoodbye()</code> returns any string you like.</li>
+  <li>If <code class="language-plaintext highlighter-rouge">logoutUser()</code> succeeds, <code class="language-plaintext highlighter-rouge">sayGoodbye()</code> returns the string
+<code class="language-plaintext highlighter-rouge">'&lt;result&gt; Thanks, see you next time'</code>, where <code class="language-plaintext highlighter-rouge">&lt;result&gt;</code> is
+the string value returned by calling <code class="language-plaintext highlighter-rouge">logoutUser()</code>.</li>
+</ul>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart:start-dartpad:theme-dark:height-380px:ga_id-putting_it_all_together:file-main.dart prettyprint lang-dart">// Part 1
+addHello(String user) {}
+
+// Part 2
+// You can call the provided async function fetchUsername()
+// to return the username.
+greetUser() {}
+
+// Part 3
+// You can call the provided async function logoutUser()
+// to log out the user.
+sayGoodbye() {}</code></pre></div>
+</div>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart:file-solution.dart prettyprint lang-dart">String addHello(String user) =&gt; 'Hello $user';
+
+Future&lt;String&gt; greetUser() async {
+  var username = await fetchUsername();
+  return addHello(username);
+}
+
+Future&lt;String&gt; sayGoodbye() async {
+  try {
+    var result = await logoutUser();
+    return '$result Thanks, see you next time';
+  } catch (e) {
+    return 'Failed to logout user: $e';
+  }
+}</code></pre></div>
+</div>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart:file-test.dart prettyprint lang-dart">List&lt;String&gt; messages = [];
+bool logoutSucceeds = false;
+const passed = 'PASSED';
+const noCatch = 'NO_CATCH';
+const typoMessage = 'Test failed! Check for typos in your return value';
+const didNotImplement =
+    'Test failed! Did you forget to implement or return from ';
+const oneSecond = Duration(seconds: 1);
+
+Future&lt;String&gt; fetchUsername() =&gt; Future.delayed(oneSecond, () =&gt; 'Jean');
+String failOnce() {
+  if (logoutSucceeds) {
+    return 'Success!';
+  } else {
+    logoutSucceeds = true;
+    throw Exception('Logout failed');
+  }
+}
+
+Future&lt;String&gt; logoutUser() =&gt; Future.delayed(oneSecond, failOnce);
+
+void main() async {
+  try {
+    messages
+      ..add(makeReadable(
+          testLabel: 'Part 1',
+          testResult: await asyncEquals(
+              expected: 'Hello Jerry',
+              actual: addHello('Jerry'),
+              typoKeyword: 'Jerry'),
+          readableErrors: {
+            typoMessage: typoMessage,
+            'null': '$didNotImplement addHello?',
+            'Hello Instance of \'Future&lt;String&gt;\'':
+                'Looks like you forgot to use the \'await\' keyword!',
+            'Hello Instance of \'_Future&lt;String&gt;\'':
+                'Looks like you forgot to use the \'await\' keyword!',
+          }))
+      ..add(makeReadable(
+          testLabel: 'Part 2',
+          testResult: await asyncEquals(
+              expected: 'Hello Jean',
+              actual: await greetUser(),
+              typoKeyword: 'Jean'),
+          readableErrors: {
+            typoMessage: typoMessage,
+            'null': '$didNotImplement greetUser?',
+            'HelloJean':
+                'Looks like you forgot the space between \'Hello\' and \'Jean\'',
+            'Hello Instance of \'Future&lt;String&gt;\'':
+                'Looks like you forgot to use the \'await\' keyword!',
+            'Hello Instance of \'_Future&lt;String&gt;\'':
+                'Looks like you forgot to use the \'await\' keyword!',
+            '{Closure: (String) =&gt; dynamic from Function \'addHello\': static.(await fetchUsername())}':
+                'Did you place the \'\$\' character correctly?',
+            '{Closure \'addHello\'(await fetchUsername())}':
+                'Did you place the \'\$\' character correctly?',
+          }))
+      ..add(makeReadable(
+          testLabel: 'Part 3',
+          testResult: await asyncDidCatchException(sayGoodbye),
+          readableErrors: {
+            typoMessage:
+                '$typoMessage. Did you add the text \'Thanks, see you next time\'?',
+            'null': '$didNotImplement sayGoodbye?',
+            noCatch:
+                'Did you remember to call logoutUser within a try/catch block?',
+            'Instance of \'Future&lt;String&gt;\' Thanks, see you next time':
+                'Did you remember to use the \'await\' keyword in the sayGoodbye function?',
+            'Instance of \'_Future&lt;String&gt;\' Thanks, see you next time':
+                'Did you remember to use the \'await\' keyword in the sayGoodbye function?',
+          }))
+      ..add(makeReadable(
+          testLabel: 'Part 3',
+          testResult: await asyncEquals(
+              expected: 'Success! Thanks, see you next time',
+              actual: await sayGoodbye(),
+              typoKeyword: 'Success'),
+          readableErrors: {
+            typoMessage:
+                '$typoMessage. Did you add the text \'Thanks, see you next time\'?',
+            'null': '$didNotImplement sayGoodbye?',
+            noCatch:
+                'Did you remember to call logoutUser within a try/catch block?',
+            'Instance of \'Future&lt;String&gt;\' Thanks, see you next time':
+                'Did you remember to use the \'await\' keyword in the sayGoodbye function?',
+            'Instance of \'_Future&lt;String&gt;\' Thanks, see you next time':
+                'Did you remember to use the \'await\' keyword in the sayGoodbye function?',
+            'Instance of \'_Exception\'':
+                'CAUGHT Did you remember to return a string?',
+          }))
+      ..removeWhere((m) =&gt; m.contains(passed))
+      ..toList();
+
+    if (messages.isEmpty) {
+      _result(true);
+    } else {
+      _result(false, messages);
+    }
+  } catch (e) {
+    _result(false, ['Tried to run solution, but received an exception: $e']);
+  }
+}
+
+////////////////////////////////////////
+///////////// Test Helpers /////////////
+////////////////////////////////////////
+String makeReadable({
+  required String testResult,
+  required Map&lt;String, String&gt; readableErrors,
+  required String testLabel,
+}) {
+  String? readable;
+  if (readableErrors.containsKey(testResult)) {
+    readable = readableErrors[testResult];
+    return '$testLabel $readable';
+  } else if ((testResult != passed) &amp;&amp; (testResult.length &lt; 18)) {
+    readable = typoMessage;
+    return '$testLabel $readable';
+  } else {
+    return '$testLabel $testResult';
+  }
+}
+
+void passIfNoMessages(List&lt;String&gt; messages, Map&lt;String, String&gt; readable) {
+  if (messages.isEmpty) {
+    _result(true);
+  } else {
+    final userMessages = messages
+        .where((message) =&gt; readable.containsKey(message))
+        .map((message) =&gt; readable[message]!)
+        .toList();
+    print(messages);
+
+    _result(false, userMessages);
+  }
+}
+
+///////////////////////////////////////
+//////////// Assertions ///////////////
+///////////////////////////////////////
+Future&lt;String&gt; asyncEquals({
+  required String expected,
+  required dynamic actual,
+  required String typoKeyword,
+}) async {
+  var strActual = actual is String ? actual : actual.toString();
+  try {
+    if (expected == actual) {
+      return passed;
+    } else if (strActual.contains(typoKeyword)) {
+      return typoMessage;
+    } else {
+      return strActual;
+    }
+  } catch (e) {
+    return e.toString();
+  }
+}
+
+Future&lt;String&gt; asyncDidCatchException(Function fn) async {
+  var caught = true;
+  try {
+    await fn();
+  } on Exception catch (_) {
+    caught = false;
+  }
+
+  if (caught == true) {
+    return passed;
+  } else {
+    return noCatch;
+  }
+}</code></pre></div>
+</div>
+
+<pre><code class="language-text:end-dartpad:file-hint.txt">The greetUser() and sayGoodbye() functions are asynchronous;
+addHello() isn't.
+</code></pre>
+
+<h2 id="whats-next">
+<a class="anchor" href="#whats-next" aria-hidden="true"><span class="octicon octicon-link"></span></a>What’s next?</h2>
+
+<p>Congratulations, you’ve finished the codelab! If you’d like to learn more, here
+are some suggestions for where to go next:</p>
+
+<ul>
+  <li>Play with <a href="https://dartpad.dev">DartPad.</a>
+</li>
+  <li>Try another <a href="/codelabs">codelab</a>.</li>
+  <li>Learn more about futures and asynchrony:
+    <ul>
+      <li>
+<a href="/tutorials/language/streams">Streams tutorial</a>:
+Learn how to work with a sequence of asynchronous events.</li>
+      <li>
+<a href="/language/concurrency">Concurrency in Dart</a>
+Understand and learn how to implement concurrency in Dart.</li>
+      <li>
+<a href="https://www.youtube.com/playlist?list=PLjxrf2q8roU0Net_g1NT5_vOO3s_FR02J">Dart videos from Google:</a>
+Watch one or more of the videos about asynchronous coding.
+Or, if you prefer, read the articles that are based on these videos.
+(Start with <a href="https://medium.com/dartlang/dart-asynchronous-programming-isolates-and-event-loops-bffc3e296a6a">isolates and event loops.</a>)</li>
+    </ul>
+  </li>
+  <li><a href="/get-dart">Get the Dart SDK.</a></li>
+</ul>
+
+<p>If you’re interested in using embedded DartPads, like this codelab does, see
+<a href="/tools/dartpad/dartpad-best-practices">best practices for using DartPad in tutorials</a>.</p>
+
+
+          
+
+        </div>
+      </article>
+    </main>
+    <footer id="page-footer">
+    <div class="footer-section footer-main">
+      <a href="/" class="brand" title="Dart">
+        <img src="/assets/img/shared/dart/logo+text/horizontal/white.svg" alt="Dart" width="164px">
+      </a>
+      <div class="footer-social-links">
+        <a href="https://github.com/doggy8088/dart.tw" target="_blank" rel="noopener" title="GitHub" class="no-automatic-external">
+          <svg>
+            <use href="/assets/img/social/github.svg#github"></use>
+          </svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-section footer-tray">
+      <div class="footer-licenses">
+        參考中文內容需註明本站及連結作為出處，英文內容和範例程式碼均遵從源站授權協議。
+      </div>
+      <div class="footer-utility-links">
+        <ul>
+          <li><a href="/terms" title="使用條款">使用條款</a></li>
+          <li><a href="https://policies.google.com/privacy?hl=zh-TW" target="_blank" rel="noopener" title="隱私政策" class="no-automatic-external">隱私政策</a></li>
+          <li><a href="/security" title="Security philosophy and practices">Dart 程式碼安全說明</a></li>
+          <li><a href="https://flutter.tw/about" target="_blank">關於中文文件</a>
+          </li><li><a href="https://flutter.tw/disclaimer" target="_blank">免責條款</a>
+          </li><li><a href="https://dart.cn/" target="_blank">Dart 簡體中文文檔</a>
+        </li></ul>
+      </div>
+    </div>
+  </footer>
+
+  
+
+<script src="/assets/translator/js/translator.js"></script></body></html>

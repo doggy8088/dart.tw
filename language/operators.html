@@ -1,0 +1,1643 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Language" content="zh-cmn-Hans">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Google Tag Manager -->
+<!--  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':-->
+<!--  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],-->
+<!--  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=-->
+<!--  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);-->
+<!--  })(window,document,'script','dataLayer','GTM-5VSZM5J');</script>-->
+  <!-- End Google Tag Manager -->
+
+  <meta name="description" content="Learn about the operators Dart supports.">
+  <title>Operators | Dart</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-28P0PYCRZ9"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-28P0PYCRZ9');
+  </script>
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?fa71f2474b82505e00203cf9956cf0bc";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+  <!-- Favicon / Touch Icons -->
+  <link rel="icon" sizes="64x64" href="/assets/shared/dart/icon/64.png">
+  <link href="/assets/img/touch-icon-iphone.png" rel="apple-touch-icon">
+  <link href="/assets/img/touch-icon-ipad.png" rel="apple-touch-icon" sizes="152x152">
+  <link href="/assets/img/touch-icon-iphone-retina.png" rel="apple-touch-icon" sizes="180x180">
+  <link href="/assets/img/touch-icon-ipad-retina.png" rel="apple-touch-icon" sizes="167x167">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@dart_lang">
+  <meta name="twitter:title" content="Operators">
+  <meta name="twitter:description" content="Learn about the operators Dart supports.">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Operators">
+  <meta property="og:description" content="Learn about the operators Dart supports.">
+  <meta property="og:url" content="https://dart.tw.gh.miniasp.com/language/operators.html">
+
+  <meta property="og:image" content="https://dart.tw.gh.miniasp.com/assets/shared/dart-logo-for-shares.png?2">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Display:wght@400&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons&amp;display=swap" rel="stylesheet">
+  <script src="https://cdn.staticfile.org/font-awesome/5.15.4/js/all.js" data-auto-replace-svg="nest">
+  </script>
+
+  <link rel="stylesheet" href="/assets/css/main.css?v=1693674404">
+  <script src="https://cdn.staticfile.org/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.staticfile.org/popper.js/1.16.1/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.staticfile.org/bootstrap/4.6.2/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!-- <script src="https://cdn.staticfile.org/js-cookie/3.0.5/js.cookie.min.js"
+          integrity="sha512-nlp9/l96/EpjYBx7EP7pGASVXNe80hGhYAUrjeXnu/fyF5Py0/RXav4BBNs7n5Hx1WFhOEOWSAVjGeC3oKxDVQ=="
+          crossorigin="anonymous"
+          referrerpolicy="no-referrer"></script> -->
+
+  <script src="/assets/js/vendor/code-prettify/prettify.js"></script>
+  <script src="/assets/js/vendor/code-prettify/lang-dart.js"></script>
+  <script src="/assets/js/vendor/code-prettify/lang-yaml.js"></script>
+  <script src="/assets/js/os-tabs.js?v=1693674404"></script>
+  <script src="/assets/js/utilities.js?v=1693674404"></script>
+  <script src="/assets/js/main.js?v=1693674404"></script>
+
+  <script>
+
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-122680122-5', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+
+ <link href="/assets/translator/css/translator.css" rel="stylesheet"></head>
+
+  <body class="default show_banner">
+    <section id="cookie-notice">
+  <div class="container">
+    <p>Google uses cookies to deliver its services, to personalize ads, and to 
+      analyze traffic. You can adjust your privacy controls anytime in your 
+      <a href="https://myaccount.google.com/data-and-personalization" target="_blank" rel="noopener" class="no-automatic-external">Google settings</a>. 
+      <a href="https://policies.google.com/technologies/cookies" target="_blank" rel="noopener" class="no-automatic-external">Learn more</a>.
+    </p>
+    <button id="cookie-consent" class="btn btn-primary">Okay</button>
+  </div>
+</section>
+
+    <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=G-28P0PYCRZ9"
+ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+    <header id="page-header" class="site-header">
+  <nav id="mainnav" class="site-header">
+  <div id="menu-toggle"><i class="material-icons">menu</i></div>
+  <a href="/" class="brand" title="Dart">
+    <img src="/assets/img/shared/dart/logo+text/horizontal/white.svg" alt="Dart">
+  </a>
+  <ul class="navbar">
+    <li>
+      <a href="/overview" class="nav-link">概覽</a>
+    </li>
+    <li class="mainnav__get-started">
+      <a href="/guides" class="nav-link
+         active">
+        <span>文件</span>
+      </a>
+    </li>
+    <li>
+      <a href="/community" class="nav-link">社群</a>
+    </li>
+    <li>
+      <a href="/#try-dart" class="nav-link">嘗試 Dart</a>
+    </li>
+    <li>
+      <a href="/get-dart" class="nav-link">獲取 Dart SDK</a>
+    </li>
+    <li class="searchfield">
+      <form action="/search" class="site-header__search form-inline" id="cse-search-box">
+        <input type="hidden" name="cx" value="011220921317074318178:_yy-tmb5t_i">
+        <input type="hidden" name="ie" value="UTF-8">
+        <input type="hidden" name="hl" value="en">
+        <input class="site-header__searchfield form-control search-field" type="search" name="q" id="q" autocomplete="off" placeholder="Search" aria-label="Search">
+      </form>
+    </li>
+  </ul>
+</nav>
+
+  
+</header>
+ <div class="banner">
+  <p class="banner__text">
+    Dart 3 已釋出！帶來了全新的
+    <a href="https://dart.tw.gh.miniasp.com/language/records" class="no-automatic-external">記錄型別 (records)</a>、
+    <a href="https://dart.tw.gh.miniasp.com/language/patterns" class="no-automatic-external">模式匹配 (patterns)</a>
+    以及 <a href="https://dart.tw.gh.miniasp.com/language/class-modifiers" class="no-automatic-external">型別修飾符 (class modifiers)</a>。
+    <br>
+    <!--<a href="https://medium.com/p/53f065a10635" class="no-automatic-external">Check out the blog post</a>!-->
+  </p>
+</div>
+ 
+
+    <div id="sidenav" class="">
+  <form action="/search/" class="site-header__search form-inline">
+    <input class="site-header__searchfield form-control search-field" type="search" name="q" id="q" autocomplete="off" placeholder="Search" aria-label="Search">
+  </form>
+
+  <div class="site-sidebar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a href="/overview" class="nav-link">概覽</a>
+      </li>
+      <li class="nav-item">
+        <a href="/community" class="nav-link">社群</a>
+      </li>
+      <li class="nav-item">
+        <a href="https://dartpad.dev" class="nav-link">嘗試 Dart</a>
+      </li>
+      <li class="nav-item">
+        <a href="/get-dart" class="nav-link">獲取 Dart SDK</a>
+      </li>
+      <li class="nav-item">
+        <a href="/guides" class="nav-link active">文件</a>
+      </li>
+    </ul>
+
+    <ul class="nav flex-column"><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-1" role="button" aria-expanded="false" aria-controls="sidenav-1">範例和課程</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-1">
+        <li class="nav-item">
+    <a class="nav-link" href="/tutorials">語言概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable" data-toggle="collapse" data-target="#sidenav-1-2" href="#sidenav-1-2" role="button" aria-expanded="true" aria-controls="sidenav-1-2">Codelabs
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-1-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/codelabs">Codelabs 列表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/dart-cheatsheet">Dart 速查表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/iterables">可迭代集合</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/async-await">Dart 非同步程式設計</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/null-safety">空安全</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link active" data-toggle="collapse" href="#sidenav-2" role="button" aria-expanded="true" aria-controls="sidenav-2">Dart 開發語言</a>
+
+      <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-2">
+        <li class="nav-item">
+    <a class="nav-link" href="/language">介紹</a>
+  </li><li class="nav-item">
+    <a class="nav-link active collapsable" data-toggle="collapse" data-target="#sidenav-2-2" href="#sidenav-2-2" role="button" aria-expanded="true" aria-controls="sidenav-2-2">基礎表示式
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-2-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/variables">變數</a>
+  </li><li class="nav-item">
+    <a class="nav-link active" href="/language/operators">運運算元</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/comments">註釋</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/metadata">註解</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/libraries">庫 &amp; 導庫</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/keywords">關鍵字</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-3" href="#sidenav-2-3" role="button" aria-expanded="false" aria-controls="sidenav-2-3">型別
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-3">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/built-in-types">基本型別</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/records">記錄 (Records)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/collections">集合 (Collections)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/generics">泛型 (Generics)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/typedefs">別名 (Typedefs)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/type-system">型別系統</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-4" href="#sidenav-2-4" role="button" aria-expanded="false" aria-controls="sidenav-2-4">模式匹配
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-4">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/patterns">概覽 &amp; 用法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/pattern-types">模式匹配型別</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/language/functions">函式方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-6" href="#sidenav-2-6" role="button" aria-expanded="false" aria-controls="sidenav-2-6">控制流
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-6">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/loops">迴圈</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/branches">分支</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/language/error-handling">錯誤處理</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-8" href="#sidenav-2-8" role="button" aria-expanded="false" aria-controls="sidenav-2-8">類 &amp; 物件
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-8">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/classes">類</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/constructors">構造方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/methods">成員方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/extend">繼承</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/mixins">混入 (Mixin)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/enums">列舉</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/extension-methods">擴充方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/callable-objects">可呼叫的物件</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-9" href="#sidenav-2-9" role="button" aria-expanded="false" aria-controls="sidenav-2-9">型別修飾符
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-9">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/class-modifiers">概覽 &amp; 用法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/class-modifiers-for-apis">API 維護者應該用的型別修飾符</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/modifier-reference">速查表</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-10" href="#sidenav-2-10" role="button" aria-expanded="false" aria-controls="sidenav-2-10">併發
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-10">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/async">非同步支援</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/concurrency">Isolates</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-11" href="#sidenav-2-11" role="button" aria-expanded="false" aria-controls="sidenav-2-11">Null safety
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-11">
+      <li class="nav-item">
+    <a class="nav-link" href="/null-safety">健全的空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/migration-guide">遷移到空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/understanding-null-safety">深入理解空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/unsound-null-safety">非健全的空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/faq">空安全常見問題和解答</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-3" role="button" aria-expanded="false" aria-controls="sidenav-3">高效指南 (Effective Dart)</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-3">
+        <li class="nav-item">
+    <a class="nav-link" href="/effective-dart">概述</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/style">程式碼風格</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/documentation">文件</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/usage">用法範例</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/design">API 設計</a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-4" role="button" aria-expanded="false" aria-controls="sidenav-4">核心函式庫</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-4">
+        <li class="nav-item">
+    <a class="nav-link" href="/guides/libraries">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/library-tour">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-4-3" href="#sidenav-4-3" role="button" aria-expanded="false" aria-controls="sidenav-4-3">介紹文章
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-4-3">
+      <li class="nav-item">
+    <a class="nav-link" href="/articles/libraries/creating-streams">建立 stream</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-5" role="button" aria-expanded="false" aria-controls="sidenav-5">Packages</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-5">
+        <li class="nav-item">
+    <a class="nav-link" href="/guides/packages">如何使用 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/useful-libraries">常用 package 介紹</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/create-packages">建立 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/publishing">釋出 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/writing-package-pages">設定 package 介紹頁</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-5-6" href="#sidenav-5-6" role="button" aria-expanded="false" aria-controls="sidenav-5-6">Package 參考資料
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-5-6">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/pub/dependencies">依賴</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/glossary">術語表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/package-layout">Package 檔案結構</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/environment-variables">設定環境變數</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/pubspec">Pubspec 檔案</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/troubleshoot">問題排查</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/verified-publishers">釋出者認證</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/versioning">版本管理</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-6" role="button" aria-expanded="false" aria-controls="sidenav-6">開發文件</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6">
+        <li class="nav-item">
+    <a class="nav-link" href="/codelabs/async-await">Futures、async 和 await</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/language/streams">Streams 介紹</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/json">使用 JSON</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/numbers">Dart 中的數字</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-5" href="#sidenav-6-5" role="button" aria-expanded="false" aria-controls="sidenav-6-5">與其他語言進行互動呼叫
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-5">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/c-interop">與 C 互調</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/objective-c-interop">與 Objective-C 和 Swift 互調</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/java-interop">與 Java 和 Kotlin 互調</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/web/js-interop">與 JavaScript 互調</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/guides/google-apis">Google APIs</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/multiplatform-apps">跨平臺應用</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-8" href="#sidenav-6-8" role="button" aria-expanded="false" aria-controls="sidenav-6-8">命令列和伺服器端應用
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-8">
+      <li class="nav-item">
+    <a class="nav-link" href="/server">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/get-started">起步課程</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/cmdline">命令列應用</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/fetch-data">從網路上獲取資料</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/httpserver">編寫 HTTP 伺服器端應用</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/server/libraries">庫和 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/server/google-cloud">Google Cloud</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-9" href="#sidenav-6-9" role="button" aria-expanded="false" aria-controls="sidenav-6-9">網頁端 (Web) 應用
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-9">
+      <li class="nav-item">
+    <a class="nav-link" href="/web">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/get-started">開始使用</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-9-3" href="#sidenav-6-9-3" role="button" aria-expanded="false" aria-controls="sidenav-6-9-3">底層 Web 程式設計
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-9-3">
+      <li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/low-level-html/connect-dart-html">Dart 與 HTML 關聯</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/low-level-html/add-elements">向 DOM 新增元素</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/low-level-html/remove-elements">移除 DOM 元素</a>
+  </li>
+  </ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/web/deployment">部署</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/web/libraries">常用 Web 函式庫和 package</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/guides/environment-declarations">環境變數宣告</a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-7" role="button" aria-expanded="false" aria-controls="sidenav-7">開發工具和使用技巧</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7">
+        <li class="nav-item">
+    <a class="nav-link" href="/tools">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-2" href="#sidenav-7-2" role="button" aria-expanded="false" aria-controls="sidenav-7-2">編輯器和除錯工具
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/jetbrains-plugin">使用 IntelliJ 和 Android Studio</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/vs-code">使用 VS Code</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/dart-devtools">Dart 開發者工具</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-2-4" href="#sidenav-7-2-4" role="button" aria-expanded="false" aria-controls="sidenav-7-2-4">線上執行 Dart 程式碼
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-2-4">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/dartpad">Overview</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dartpad/dartpad-best-practices">DartPad 課程</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dartpad/troubleshoot">DartPad 疑難解答</a>
+  </li>
+  </ul>
+  </li>
+</ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-3" href="#sidenav-7-3" role="button" aria-expanded="false" aria-controls="sidenav-7-3">命令列工具
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-3">
+      <li class="nav-item">
+    <a class="nav-link collapsable" data-toggle="collapse" data-target="#sidenav-7-3-1" href="#sidenav-7-3-1" role="button" aria-expanded="true" aria-controls="sidenav-7-3-1">Dart SDK
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-7-3-1">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/sdk">概覽</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-tool">dart 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-analyze">dart analyze 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-compile">dart compile 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-create">dart create 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-doc">dart doc 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-fix">dart fix 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-format">dart format 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-info">dart info 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/pub/cmd">dart pub 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-run">dart run 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-test">dart test 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dartaotruntime">dartaotruntime 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/experiment-flags">實驗性命令標記</a>
+  </li>
+  </ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable" data-toggle="collapse" data-target="#sidenav-7-3-2" href="#sidenav-7-3-2" role="button" aria-expanded="true" aria-controls="sidenav-7-3-2">其他的命令列工具
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-7-3-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/build_runner">build_runner 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/webdev">webdev 命令</a>
+  </li>
+  </ul>
+  </li>
+</ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-4" href="#sidenav-7-4" role="button" aria-expanded="false" aria-controls="sidenav-7-4">原始碼管理
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-4">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/language/formatting">程式碼格式化</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/private-files">不應提交的內容</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-5" href="#sidenav-7-5" role="button" aria-expanded="false" aria-controls="sidenav-7-5">靜態分析
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-5">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/analysis">自訂靜態分析</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/sound-problems">修復常見的型別問題</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/diagnostic-messages">診斷訊息</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/linter-rules">Linter 規則</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-6" href="#sidenav-7-6" role="button" aria-expanded="false" aria-controls="sidenav-7-6">測試和調優
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-6">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/testing">測試</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/web/debugging">除錯 Web 應用</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-8" role="button" aria-expanded="false" aria-controls="sidenav-8">資源</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-8">
+        <li class="nav-item">
+    <a class="nav-link" href="/resources/faq">常見問題</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/evolution">版本演變</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/spec">語言規範</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/resources/dart-3-migration">Dart 3 遷移指南</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-8-5" href="#sidenav-8-5" role="button" aria-expanded="false" aria-controls="sidenav-8-5">從其他平台轉向 Dart
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-8-5">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/language/coming-from/js-to-dart">從 JavaScript 到 Dart</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/coming-from/swift-to-dart">從 Swift 到 Dart</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/resources/glossary">詞彙表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/resources/books">書籍資源</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/resources/videos">影片資源</a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link " data-toggle="collapse" href="#sidenav-9" role="button" aria-expanded="true" aria-controls="sidenav-9">相關站點</a>
+
+      <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-9">
+        <li class="nav-item">
+    <a class="nav-link" href="https://api.dart.dev" target="_blank" rel="noopener">API 文件<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://medium.com/dartlang" target="_blank" rel="noopener">Dart 團隊官方部落格<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://dartpad.dev" target="_blank" rel="noopener">DartPad (線上編輯器)<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://flutter.tw" target="_blank" rel="noopener">Flutter<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://pub.dev" target="_blank" rel="noopener">Package 網站<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-10" role="button" aria-expanded="false" aria-controls="sidenav-10">關於 Dart 中文文件</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-10">
+        <li class="nav-item">
+    <a class="nav-link" href="https://flutter.tw/about/docs-cn" target="_blank" rel="noopener">關於本站<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://flutter.tw/disclaimer" target="_blank" rel="noopener">免責條款 (Disclaimer)<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li>
+</ul>
+    </li></ul>
+
+  </div>
+</div>
+
+    <main id="page-content">
+      
+
+
+
+
+
+
+
+<div id="site-toc--side" class="site-toc ">
+  <header class="site-toc__title">
+    目錄
+    
+  </header>
+  <ul id="toc" class="section-nav">
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#operator-precedence-example">Operator precedence example</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#arithmetic-operators">Arithmetic operators</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#equality-and-relational-operators">Equality and relational operators</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#type-test-operators">Type test operators</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#assignment-operators">Assignment operators</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#logical-operators">Logical operators</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#bitwise-and-shift-operators">Bitwise and shift operators</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#conditional-expressions">Conditional expressions</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#cascade-notation">Cascade notation</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#other-operators">Other operators</a></li>
+</ul>
+  
+</div>
+
+
+      <article>
+        <div class="content">
+          
+<nav id="subnav">
+  <ul>
+    <li class="previous">
+      
+        <a href="/language/variables">⟨&nbsp;&nbsp;Variables</a>
+      
+    </li>
+    <li class="next">
+      
+        <a href="/language/comments">Comments&nbsp;&nbsp;⟩</a>
+      
+    </li>
+  </ul>
+</nav>
+
+
+          <div id="site-content-title">
+            <div id="page-github-links" class="btn-group" aria-label="Page GitHub links" role="group">
+  <a href="https://github.com/doggy8088/dart.tw/tree/master/src/language/operators.md" class="btn no-automatic-external" title="View page source" target="_blank" rel="noopener">
+    <i class="material-icons">description</i>
+  </a>
+  <a href="https://github.com/doggy8088/dart.tw/issues/new?template=1_page_issue.yml&amp;title=[PAGE ISSUE]: 'Operators'&amp;page-url=https://dart.tw.gh.miniasp.com/language/operators.html&amp;page-source=https://github.com/doggy8088/dart.tw/tree/master/src/language/operators.md" class="btn no-automatic-external" title="Report an issue with this page" target="_blank" rel="noopener">
+    <i class="material-icons">bug_report</i>
+  </a>
+</div>
+
+            
+            <h1 id="operators">Operators</h1>
+            </div>
+          
+
+
+
+
+
+
+
+<div id="site-toc--inline" class="site-toc toc-collapsible toc-collapsed">
+  <header class="site-toc__title">
+    目錄
+    
+      <span class="site-toc--inline__toggle toc-toggle-down"><i class="material-icons">keyboard_arrow_down</i></span>
+      <span class="site-toc--inline__toggle toc-toggle-up"><i class="material-icons">keyboard_arrow_up</i></span>
+    
+  </header>
+  <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#operator-precedence-example">Operator precedence example</a></li>
+<li class="toc-entry toc-h2"><a href="#arithmetic-operators">Arithmetic operators</a></li>
+<li class="toc-entry toc-h2"><a href="#equality-and-relational-operators">Equality and relational operators</a></li>
+<li class="toc-entry toc-h2"><a href="#type-test-operators">Type test operators</a></li>
+<li class="toc-entry toc-h2"><a href="#assignment-operators">Assignment operators</a></li>
+<li class="toc-entry toc-h2"><a href="#logical-operators">Logical operators</a></li>
+<li class="toc-entry toc-h2"><a href="#bitwise-and-shift-operators">Bitwise and shift operators</a></li>
+<li class="toc-entry toc-h2"><a href="#conditional-expressions">Conditional expressions</a></li>
+<li class="toc-entry toc-h2"><a href="#cascade-notation">Cascade notation</a></li>
+<li class="toc-entry toc-h2"><a href="#other-operators">Other operators</a></li>
+</ul>
+  
+    <span class="site-toc--inline__toggle toc-toggle-more-items"><i class="material-icons">more_horiz</i></span>
+  
+</div>
+
+
+          
+<p><a name="operators"></a></p>
+
+<p>Dart supports the operators shown in the following table.
+The table shows Dart’s operator associativity 
+and <a href="#operator-precedence-example">operator precedence</a> from highest to lowest,
+which are an <strong>approximation</strong> of Dart’s operator relationships.
+You can implement many of these <a href="/language/methods#operators">operators as class members</a>.</p>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Description</th>
+      <th>Operator</th>
+      <th>Associativity</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>unary postfix</td>
+      <td>
+<code><em>expr</em>++</code> &nbsp;&nbsp; <code><em>expr</em>--</code> &nbsp;&nbsp; <code class="language-plaintext highlighter-rouge">()</code> &nbsp;&nbsp; <code class="language-plaintext highlighter-rouge">[]</code> &nbsp;&nbsp; <code class="language-plaintext highlighter-rouge">?[]</code> &nbsp;&nbsp; <code class="language-plaintext highlighter-rouge">.</code> &nbsp;&nbsp; <code class="language-plaintext highlighter-rouge">?.</code> &nbsp;&nbsp; <code class="language-plaintext highlighter-rouge">!</code>
+</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <td>unary prefix</td>
+      <td>
+<code>-<em>expr</em></code> &nbsp;&nbsp; <code>!<em>expr</em></code> &nbsp;&nbsp; <code>~<em>expr</em></code> &nbsp;&nbsp; <code>++<em>expr</em></code> &nbsp;&nbsp; <code>--<em>expr</em></code> &nbsp;&nbsp;&nbsp;&nbsp; <code>await <em>expr</em></code> &nbsp;&nbsp;</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <td>multiplicative</td>
+      <td>
+<code class="language-plaintext highlighter-rouge">*</code> &nbsp;&nbsp; <code class="language-plaintext highlighter-rouge">/</code> &nbsp;&nbsp; <code class="language-plaintext highlighter-rouge">%</code>   &nbsp;<code class="language-plaintext highlighter-rouge">~/</code>
+</td>
+      <td>Left</td>
+    </tr>
+    <tr>
+      <td>additive</td>
+      <td>
+<code class="language-plaintext highlighter-rouge">+</code> &nbsp;&nbsp; <code class="language-plaintext highlighter-rouge">-</code>
+</td>
+      <td>Left</td>
+    </tr>
+    <tr>
+      <td>shift</td>
+      <td>
+<code class="language-plaintext highlighter-rouge">&lt;&lt;</code> &nbsp;&nbsp; <code class="language-plaintext highlighter-rouge">&gt;&gt;</code> &nbsp;&nbsp; <code class="language-plaintext highlighter-rouge">&gt;&gt;&gt;</code>
+</td>
+      <td>Left</td>
+    </tr>
+    <tr>
+      <td>bitwise AND</td>
+      <td><code class="language-plaintext highlighter-rouge">&amp;</code></td>
+      <td>Left</td>
+    </tr>
+    <tr>
+      <td>bitwise XOR</td>
+      <td><code class="language-plaintext highlighter-rouge">^</code></td>
+      <td>Left</td>
+    </tr>
+    <tr>
+      <td>bitwise OR</td>
+      <td><code class="language-plaintext highlighter-rouge">|</code></td>
+      <td>Left</td>
+    </tr>
+    <tr>
+      <td>relational&nbsp;and&nbsp;type&nbsp;test</td>
+      <td>
+<code class="language-plaintext highlighter-rouge">&gt;=</code> &nbsp;&nbsp; <code class="language-plaintext highlighter-rouge">&gt;</code> &nbsp;&nbsp; <code class="language-plaintext highlighter-rouge">&lt;=</code> &nbsp;&nbsp; <code class="language-plaintext highlighter-rouge">&lt;</code> &nbsp;&nbsp; <code class="language-plaintext highlighter-rouge">as</code> &nbsp;&nbsp; <code class="language-plaintext highlighter-rouge">is</code> &nbsp;&nbsp; <code class="language-plaintext highlighter-rouge">is!</code>
+</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <td>equality</td>
+      <td>
+<code class="language-plaintext highlighter-rouge">==</code> &nbsp;&nbsp; <code class="language-plaintext highlighter-rouge">!=</code> &nbsp;&nbsp;</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <td>logical AND</td>
+      <td><code class="language-plaintext highlighter-rouge">&amp;&amp;</code></td>
+      <td>Left</td>
+    </tr>
+    <tr>
+      <td>logical OR</td>
+      <td><code class="language-plaintext highlighter-rouge">||</code></td>
+      <td>Left</td>
+    </tr>
+    <tr>
+      <td>if null</td>
+      <td><code class="language-plaintext highlighter-rouge">??</code></td>
+      <td>Left</td>
+    </tr>
+    <tr>
+      <td>conditional</td>
+      <td><code><em>expr1</em> ? <em>expr2</em> : <em>expr3</em></code></td>
+      <td>Right</td>
+    </tr>
+    <tr>
+      <td>cascade</td>
+      <td>
+<code class="language-plaintext highlighter-rouge">..</code> &nbsp;&nbsp; <code class="language-plaintext highlighter-rouge">?..</code>
+</td>
+      <td>Left</td>
+    </tr>
+    <tr>
+      <td>assignment</td>
+      <td>
+<code class="language-plaintext highlighter-rouge">=</code> &nbsp;&nbsp; <code class="language-plaintext highlighter-rouge">*=</code> &nbsp;&nbsp; <code class="language-plaintext highlighter-rouge">/=</code>  &nbsp;&nbsp;<code class="language-plaintext highlighter-rouge">+=</code>  &nbsp;&nbsp;<code class="language-plaintext highlighter-rouge">-=</code>  &nbsp;&nbsp;<code class="language-plaintext highlighter-rouge">&amp;=</code>  &nbsp;&nbsp;<code class="language-plaintext highlighter-rouge">^=</code>  &nbsp;&nbsp;<em>etc.</em>
+</td>
+      <td>Right</td>
+    </tr>
+  </tbody>
+</table>
+
+<aside class="alert alert-warning" role="alert">
+  <p><i class="material-icons" aria-hidden="true">report_problem</i> <strong>請注意:</strong>
+  The previous table should only be used as a helpful guide.
+  The notion of operator precedence and associativity
+  is an approximation of the truth found in the language grammar.
+  You can find the authoritative behavior of Dart’s operator relationships
+  in the grammar defined in the <a href="/guides/language/spec">Dart language specification</a>.</p>
+</aside>
+
+<p>When you use operators, you create expressions. Here are some examples
+of operator expressions:</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">a++
+a + b
+a = b
+a == b
+c ? a : b
+a is T</code></pre></div>
+</div>
+
+<h2 id="operator-precedence-example">
+<a class="anchor" href="#operator-precedence-example" aria-hidden="true"><span class="octicon octicon-link"></span></a>Operator precedence example</h2>
+
+<p>In the <a href="#operators">operator table</a>,
+each operator has higher precedence than the operators in the rows
+that follow it. For example, the multiplicative operator <code class="language-plaintext highlighter-rouge">%</code> has higher
+precedence than (and thus executes before) the equality operator <code class="language-plaintext highlighter-rouge">==</code>,
+which has higher precedence than the logical AND operator <code class="language-plaintext highlighter-rouge">&amp;&amp;</code>. That
+precedence means that the following two lines of code execute the same
+way:</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">// Parentheses improve readability.
+if ((n % i == 0) &amp;&amp; (d % i == 0)) ...
+
+// Harder to read, but equivalent.
+if (n % i == 0 &amp;&amp; d % i == 0) ...</code></pre></div>
+</div>
+
+<aside class="alert alert-warning" role="alert">
+  <p><i class="material-icons" aria-hidden="true">report_problem</i> <strong>請注意:</strong>
+  For operators that take two operands, the leftmost operand determines which
+  method is used. For example, if you have a <code class="language-plaintext highlighter-rouge">Vector</code> object and
+  a <code class="language-plaintext highlighter-rouge">Point</code> object, then <code class="language-plaintext highlighter-rouge">aVector + aPoint</code> uses <code class="language-plaintext highlighter-rouge">Vector</code> addition (<code class="language-plaintext highlighter-rouge">+</code>).</p>
+</aside>
+
+<h2 id="arithmetic-operators">
+<a class="anchor" href="#arithmetic-operators" aria-hidden="true"><span class="octicon octicon-link"></span></a>Arithmetic operators</h2>
+
+<p>Dart supports the usual arithmetic operators, as shown in the following table.</p>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Operator</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">+</code></td>
+      <td>Add</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">-</code></td>
+      <td>Subtract</td>
+    </tr>
+    <tr>
+      <td><code>-<em>expr</em></code></td>
+      <td>Unary minus, also known as negation (reverse the sign of the expression)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">*</code></td>
+      <td>Multiply</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/</code></td>
+      <td>Divide</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">~/</code></td>
+      <td>Divide, returning an integer result</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">%</code></td>
+      <td>Get the remainder of an integer division (modulo)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example:</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">assert(2 + 3 == 5);
+assert(2 - 3 == -1);
+assert(2 * 3 == 6);
+assert(5 / 2 == 2.5); // Result is a double
+assert(5 ~/ 2 == 2); // Result is an int
+assert(5 % 2 == 1); // Remainder
+
+assert('5/2 = ${5 ~/ 2} r ${5 % 2}' == '5/2 = 2 r 1');</code></pre></div>
+</div>
+
+<p>Dart also supports both prefix and postfix increment and decrement
+operators.</p>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Operator</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>++<em>var</em></code></td>
+      <td>
+<code><em>var</em> = <em>var</em> + 1</code> (expression value is <code><em>var</em> + 1</code>)</td>
+    </tr>
+    <tr>
+      <td><code><em>var</em>++</code></td>
+      <td>
+<code><em>var</em> = <em>var</em> + 1</code> (expression value is <code><em>var</em></code>)</td>
+    </tr>
+    <tr>
+      <td><code>--<em>var</em></code></td>
+      <td>
+<code><em>var</em> = <em>var</em> - 1</code> (expression value is <code><em>var</em> - 1</code>)</td>
+    </tr>
+    <tr>
+      <td><code><em>var</em>--</code></td>
+      <td>
+<code><em>var</em> = <em>var</em> - 1</code> (expression value is <code><em>var</em></code>)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example:</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">int a;
+int b;
+
+a = 0;
+b = ++a; // Increment a before b gets its value.
+assert(a == b); // 1 == 1
+
+a = 0;
+b = a++; // Increment a after b gets its value.
+assert(a != b); // 1 != 0
+
+a = 0;
+b = --a; // Decrement a before b gets its value.
+assert(a == b); // -1 == -1
+
+a = 0;
+b = a--; // Decrement a after b gets its value.
+assert(a != b); // -1 != 0</code></pre></div>
+</div>
+
+<h2 id="equality-and-relational-operators">
+<a class="anchor" href="#equality-and-relational-operators" aria-hidden="true"><span class="octicon octicon-link"></span></a>Equality and relational operators</h2>
+
+<p>The following table lists the meanings of equality and relational operators.</p>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Operator</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">==</code></td>
+      <td>Equal; see discussion below</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">!=</code></td>
+      <td>Not equal</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&gt;</code></td>
+      <td>Greater than</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&lt;</code></td>
+      <td>Less than</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&gt;=</code></td>
+      <td>Greater than or equal to</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&lt;=</code></td>
+      <td>Less than or equal to</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>To test whether two objects x and y represent the same thing, use the
+<code class="language-plaintext highlighter-rouge">==</code> operator. (In the rare case where you need to know whether two
+objects are the exact same object, use the <a href="https://api.dart.dev/stable/dart-core/identical.html">identical()</a>
+function instead.) Here’s how the <code class="language-plaintext highlighter-rouge">==</code> operator works:</p>
+
+<ol>
+  <li>
+    <p>If <em>x</em> or <em>y</em> is null, return true if both are null, and false if only
+one is null.</p>
+  </li>
+  <li>
+    <p>Return the result of invoking the <code class="language-plaintext highlighter-rouge">==</code> method on <em>x</em> with the argument <em>y</em>.
+(That’s right, operators such as <code class="language-plaintext highlighter-rouge">==</code> are methods that
+are invoked on their first operand.
+For details, see <a href="/language/methods#operators">Operators</a>.)</p>
+  </li>
+</ol>
+
+<p>Here’s an example of using each of the equality and relational
+operators:</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">assert(2 == 2);
+assert(2 != 3);
+assert(3 &gt; 2);
+assert(2 &lt; 3);
+assert(3 &gt;= 3);
+assert(2 &lt;= 3);</code></pre></div>
+</div>
+
+<h2 id="type-test-operators">
+<a class="anchor" href="#type-test-operators" aria-hidden="true"><span class="octicon octicon-link"></span></a>Type test operators</h2>
+
+<p>The <code class="language-plaintext highlighter-rouge">as</code>, <code class="language-plaintext highlighter-rouge">is</code>, and <code class="language-plaintext highlighter-rouge">is!</code> operators are handy for checking types at
+runtime.</p>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Operator</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">as</code></td>
+      <td>Typecast (also used to specify <a href="/language/libraries#specifying-a-library-prefix">library prefixes</a>)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">is</code></td>
+      <td>True if the object has the specified type</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">is!</code></td>
+      <td>True if the object doesn’t have the specified type</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The result of <code class="language-plaintext highlighter-rouge">obj is T</code> is true if <code class="language-plaintext highlighter-rouge">obj</code> implements the interface
+specified by <code class="language-plaintext highlighter-rouge">T</code>. For example, <code class="language-plaintext highlighter-rouge">obj is Object?</code> is always true.</p>
+
+<p>Use the <code class="language-plaintext highlighter-rouge">as</code> operator to cast an object to a particular type if and only if
+you are sure that the object is of that type. Example:</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">(employee as Person).firstName = 'Bob';</code></pre></div>
+</div>
+
+<p>If you aren’t sure that the object is of type <code class="language-plaintext highlighter-rouge">T</code>, then use <code class="language-plaintext highlighter-rouge">is T</code> to check the
+type before using the object.</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">if (employee is Person) {
+  // Type check
+  employee.firstName = 'Bob';
+}</code></pre></div>
+</div>
+
+<aside class="alert alert-info" role="alert">
+  <p><i class="material-icons" aria-hidden="true">info</i> <strong>備註:</strong>
+  The code isn’t equivalent. If <code class="language-plaintext highlighter-rouge">employee</code> is null or not a <code class="language-plaintext highlighter-rouge">Person</code>, the
+  first example throws an exception; the second does nothing.</p>
+</aside>
+
+<h2 id="assignment-operators">
+<a class="anchor" href="#assignment-operators" aria-hidden="true"><span class="octicon octicon-link"></span></a>Assignment operators</h2>
+
+<p>As you’ve already seen, you can assign values using the <code class="language-plaintext highlighter-rouge">=</code> operator.
+To assign only if the assigned-to variable is null,
+use the <code class="language-plaintext highlighter-rouge">??=</code> operator.</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">// Assign value to a
+a = value;
+// Assign value to b if b is null; otherwise, b stays the same
+b ??= value;</code></pre></div>
+</div>
+
+<p>Compound assignment operators such as <code class="language-plaintext highlighter-rouge">+=</code> combine
+an operation with an assignment.</p>
+
+<table class="table">
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">=</code></td>
+      <td><code class="language-plaintext highlighter-rouge">*=</code></td>
+      <td><code class="language-plaintext highlighter-rouge">%=</code></td>
+      <td><code class="language-plaintext highlighter-rouge">&gt;&gt;&gt;=</code></td>
+      <td><code class="language-plaintext highlighter-rouge">^=</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">+=</code></td>
+      <td><code class="language-plaintext highlighter-rouge">/=</code></td>
+      <td><code class="language-plaintext highlighter-rouge">&lt;&lt;=</code></td>
+      <td><code class="language-plaintext highlighter-rouge">&amp;=</code></td>
+      <td><code class="language-plaintext highlighter-rouge">|=</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">-=</code></td>
+      <td><code class="language-plaintext highlighter-rouge">~/=</code></td>
+      <td><code class="language-plaintext highlighter-rouge">&gt;&gt;=</code></td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Here’s how compound assignment operators work:</p>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>&nbsp;</th>
+      <th>Compound assignment</th>
+      <th>Equivalent expression</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>For an operator <em>op</em>:</strong></td>
+      <td><code>a <em>op</em>= b</code></td>
+      <td><code>a = a <em>op</em> b</code></td>
+    </tr>
+    <tr>
+      <td><strong>Example:</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">a += b</code></td>
+      <td><code class="language-plaintext highlighter-rouge">a = a + b</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The following example uses assignment and compound assignment
+operators:</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">var a = 2; // Assign using =
+a *= 3; // Assign and multiply: a = a * 3
+assert(a == 6);</code></pre></div>
+</div>
+
+<h2 id="logical-operators">
+<a class="anchor" href="#logical-operators" aria-hidden="true"><span class="octicon octicon-link"></span></a>Logical operators</h2>
+
+<p>You can invert or combine boolean expressions using the logical
+operators.</p>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Operator</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>!<em>expr</em></code></td>
+      <td>inverts the following expression (changes false to true, and vice versa)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">||</code></td>
+      <td>logical OR</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&amp;&amp;</code></td>
+      <td>logical AND</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Here’s an example of using the logical operators:</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">if (!done &amp;&amp; (col == 0 || col == 3)) {
+  // ...Do something...
+}</code></pre></div>
+</div>
+
+<h2 id="bitwise-and-shift-operators">
+<a class="anchor" href="#bitwise-and-shift-operators" aria-hidden="true"><span class="octicon octicon-link"></span></a>Bitwise and shift operators</h2>
+
+<p>You can manipulate the individual bits of numbers in Dart. Usually,
+you’d use these bitwise and shift operators with integers.</p>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Operator</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&amp;</code></td>
+      <td>AND</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">|</code></td>
+      <td>OR</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">^</code></td>
+      <td>XOR</td>
+    </tr>
+    <tr>
+      <td><code>~<em>expr</em></code></td>
+      <td>Unary bitwise complement (0s become 1s; 1s become 0s)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&lt;&lt;</code></td>
+      <td>Shift left</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&gt;&gt;</code></td>
+      <td>Shift right</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&gt;&gt;&gt;</code></td>
+      <td>Unsigned shift right</td>
+    </tr>
+  </tbody>
+</table>
+
+<aside class="alert alert-info" role="alert">
+  <p><i class="material-icons" aria-hidden="true">info</i> <strong>備註:</strong>
+  The behavior of bitwise operations with large or negative operands
+  might differ between platforms.
+  To learn more, check out
+  <a href="/guides/language/numbers#bitwise-operations">Bitwise operations platform differences</a>.</p>
+</aside>
+
+<p>Here’s an example of using bitwise and shift operators:</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">final value = 0x22;
+final bitmask = 0x0f;
+
+assert((value &amp; bitmask) == 0x02); // AND
+assert((value &amp; ~bitmask) == 0x20); // AND NOT
+assert((value | bitmask) == 0x2f); // OR
+assert((value ^ bitmask) == 0x2d); // XOR
+
+assert((value &lt;&lt; 4) == 0x220); // Shift left
+assert((value &gt;&gt; 4) == 0x02); // Shift right
+
+// Shift right example that results in different behavior on web
+// because the operand value changes when masked to 32 bits:
+assert((-value &gt;&gt; 4) == -0x03);
+
+assert((value &gt;&gt;&gt; 4) == 0x02); // Unsigned shift right
+assert((-value &gt;&gt;&gt; 4) &gt; 0); // Unsigned shift right</code></pre></div>
+</div>
+
+<aside class="alert alert-info" role="alert">
+  <p><i class="material-icons" aria-hidden="true">merge_type</i> <strong>版本提示:</strong>
+  The <code class="language-plaintext highlighter-rouge">&gt;&gt;&gt;</code> operator (known as <em>triple-shift</em> or <em>unsigned shift</em>)
+  requires a <a href="/guides/language/evolution#language-versioning">language version</a> of at least 2.14.</p>
+</aside>
+
+<h2 id="conditional-expressions">
+<a class="anchor" href="#conditional-expressions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Conditional expressions</h2>
+
+<p>Dart has two operators that let you concisely evaluate expressions
+that might otherwise require <a href="/language/branches#if">if-else</a> statements:</p>
+
+<dl>
+  <dt><code><em>condition</em>&nbsp;?&nbsp;<em>expr1</em>&nbsp;:&nbsp;<em>expr2</em></code></dt>
+  <dd>If <em>condition</em> is true, evaluates <em>expr1</em> (and returns its value);
+otherwise, evaluates and returns the value of <em>expr2</em>.</dd>
+  <dt><code><em>expr1</em> ?? <em>expr2</em></code></dt>
+  <dd>If <em>expr1</em> is non-null, returns its value;
+otherwise, evaluates and returns the value of <em>expr2</em>.</dd>
+</dl>
+
+<p>When you need to assign a value
+based on a boolean expression,
+consider using <code class="language-plaintext highlighter-rouge">?</code> and <code class="language-plaintext highlighter-rouge">:</code>.</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">var visibility = isPublic ? 'public' : 'private';</code></pre></div>
+</div>
+
+<p>If the boolean expression tests for null,
+consider using <code class="language-plaintext highlighter-rouge">??</code>.</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">String playerName(String? name) =&gt; name ?? 'Guest';</code></pre></div>
+</div>
+
+<p>The previous example could have been written at least two other ways,
+but not as succinctly:</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">// Slightly longer version uses ?: operator.
+String playerName(String? name) =&gt; name != null ? name : 'Guest';
+
+// Very long version uses if-else statement.
+String playerName(String? name) {
+  if (name != null) {
+    return name;
+  } else {
+    return 'Guest';
+  }
+}</code></pre></div>
+</div>
+
+<h2 id="cascade-notation">
+<a class="anchor" href="#cascade-notation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Cascade notation</h2>
+
+<p>Cascades (<code class="language-plaintext highlighter-rouge">..</code>, <code class="language-plaintext highlighter-rouge">?..</code>) allow you to make a sequence of operations
+on the same object. In addition to accessing instance members,
+you can also call instance methods on that same object.
+This often saves you the step of creating a temporary variable and
+allows you to write more fluid code.</p>
+
+<p>Consider the following code:</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">var paint = Paint()
+  ..color = Colors.black
+  ..strokeCap = StrokeCap.round
+  ..strokeWidth = 5.0;</code></pre></div>
+</div>
+
+<p>The constructor, <code class="language-plaintext highlighter-rouge">Paint()</code>,
+returns a <code class="language-plaintext highlighter-rouge">Paint</code> object.
+The code that follows the cascade notation operates
+on this object, ignoring any values that
+might be returned.</p>
+
+<p>The previous example is equivalent to this code:</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">var paint = Paint();
+paint.color = Colors.black;
+paint.strokeCap = StrokeCap.round;
+paint.strokeWidth = 5.0;</code></pre></div>
+</div>
+
+<p>If the object that the cascade operates on can be null,
+then use a <em>null-shorting</em> cascade (<code class="language-plaintext highlighter-rouge">?..</code>) for the first operation.
+Starting with <code class="language-plaintext highlighter-rouge">?..</code> guarantees that none of the cascade operations
+are attempted on that null object.</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">querySelector('#confirm') // Get an object.
+  ?..text = 'Confirm' // Use its members.
+  ..classes.add('important')
+  ..onClick.listen((e) =&gt; window.alert('Confirmed!'))
+  ..scrollIntoView();</code></pre></div>
+</div>
+
+<aside class="alert alert-info" role="alert">
+  <p><i class="material-icons" aria-hidden="true">merge_type</i> <strong>版本提示:</strong>
+  The <code class="language-plaintext highlighter-rouge">?..</code> syntax requires a <a href="/guides/language/evolution#language-versioning">language version</a> of at least 2.12.</p>
+</aside>
+
+<p>The previous code is equivalent to the following:</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">var button = querySelector('#confirm');
+button?.text = 'Confirm';
+button?.classes.add('important');
+button?.onClick.listen((e) =&gt; window.alert('Confirmed!'));
+button?.scrollIntoView();</code></pre></div>
+</div>
+
+<p>You can also nest cascades. For example:</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">final addressBook = (AddressBookBuilder()
+      ..name = 'jenny'
+      ..email = 'jenny@example.com'
+      ..phone = (PhoneNumberBuilder()
+            ..number = '415-555-0100'
+            ..label = 'home')
+          .build())
+    .build();</code></pre></div>
+</div>
+
+<p>Be careful to construct your cascade on a function that returns
+an actual object. For example, the following code fails:</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">var sb = StringBuffer();
+sb.write('foo')
+  ..write('bar'); // Error: method 'write' isn't defined for 'void'.</code></pre></div>
+</div>
+
+<p>The <code class="language-plaintext highlighter-rouge">sb.write()</code> call returns void,
+and you can’t construct a cascade on <code class="language-plaintext highlighter-rouge">void</code>.</p>
+
+<aside class="alert alert-info" role="alert">
+  <p><i class="material-icons" aria-hidden="true">info</i> <strong>備註:</strong>
+  Strictly speaking, the “double dot” notation for cascades isn’t an operator.
+  It’s just part of the Dart syntax.</p>
+</aside>
+
+<h2 id="other-operators">
+<a class="anchor" href="#other-operators" aria-hidden="true"><span class="octicon octicon-link"></span></a>Other operators</h2>
+
+<p>You’ve seen most of the remaining operators in other examples:</p>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Operator</th>
+      <th>Name</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">()</code></td>
+      <td>Function application</td>
+      <td>Represents a function call</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">[]</code></td>
+      <td>Subscript access</td>
+      <td>Represents a call to the overridable <code class="language-plaintext highlighter-rouge">[]</code> operator; example: <code class="language-plaintext highlighter-rouge">fooList[1]</code> passes the int <code class="language-plaintext highlighter-rouge">1</code> to <code class="language-plaintext highlighter-rouge">fooList</code> to access the element at index <code class="language-plaintext highlighter-rouge">1</code>
+</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">?[]</code></td>
+      <td>Conditional subscript access</td>
+      <td>Like <code class="language-plaintext highlighter-rouge">[]</code>, but the leftmost operand can be null; example: <code class="language-plaintext highlighter-rouge">fooList?[1]</code> passes the int <code class="language-plaintext highlighter-rouge">1</code> to <code class="language-plaintext highlighter-rouge">fooList</code> to access the element at index <code class="language-plaintext highlighter-rouge">1</code> unless <code class="language-plaintext highlighter-rouge">fooList</code> is null (in which case the expression evaluates to null)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">.</code></td>
+      <td>Member access</td>
+      <td>Refers to a property of an expression; example: <code class="language-plaintext highlighter-rouge">foo.bar</code> selects property <code class="language-plaintext highlighter-rouge">bar</code> from expression <code class="language-plaintext highlighter-rouge">foo</code>
+</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">?.</code></td>
+      <td>Conditional member access</td>
+      <td>Like <code class="language-plaintext highlighter-rouge">.</code>, but the leftmost operand can be null; example: <code class="language-plaintext highlighter-rouge">foo?.bar</code> selects property <code class="language-plaintext highlighter-rouge">bar</code> from expression <code class="language-plaintext highlighter-rouge">foo</code> unless <code class="language-plaintext highlighter-rouge">foo</code> is null (in which case the value of <code class="language-plaintext highlighter-rouge">foo?.bar</code> is null)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">!</code></td>
+      <td>Null assertion operator</td>
+      <td>Casts an expression to its underlying non-nullable type, throwing a runtime exception if the cast fails; example: <code class="language-plaintext highlighter-rouge">foo!.bar</code> asserts <code class="language-plaintext highlighter-rouge">foo</code> is non-null and selects the property <code class="language-plaintext highlighter-rouge">bar</code>, unless <code class="language-plaintext highlighter-rouge">foo</code> is null in which case a runtime exception is thrown</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>For more information about the <code class="language-plaintext highlighter-rouge">.</code>, <code class="language-plaintext highlighter-rouge">?.</code>, and <code class="language-plaintext highlighter-rouge">..</code> operators, see
+<a href="/language/classes">Classes</a>.</p>
+
+
+          
+<nav id="subnav">
+  <ul>
+    <li class="previous">
+      
+        <a href="/language/variables">⟨&nbsp;&nbsp;Variables</a>
+      
+    </li>
+    <li class="next">
+      
+        <a href="/language/comments">Comments&nbsp;&nbsp;⟩</a>
+      
+    </li>
+  </ul>
+</nav>
+
+
+        </div>
+      </article>
+    </main>
+    <footer id="page-footer">
+    <div class="footer-section footer-main">
+      <a href="/" class="brand" title="Dart">
+        <img src="/assets/img/shared/dart/logo+text/horizontal/white.svg" alt="Dart" width="164px">
+      </a>
+      <div class="footer-social-links">
+        <a href="https://github.com/doggy8088/dart.tw" target="_blank" rel="noopener" title="GitHub" class="no-automatic-external">
+          <svg>
+            <use href="/assets/img/social/github.svg#github"></use>
+          </svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-section footer-tray">
+      <div class="footer-licenses">
+        參考中文內容需註明本站及連結作為出處，英文內容和範例程式碼均遵從源站授權協議。
+      </div>
+      <div class="footer-utility-links">
+        <ul>
+          <li><a href="/terms" title="使用條款">使用條款</a></li>
+          <li><a href="https://policies.google.com/privacy?hl=zh-TW" target="_blank" rel="noopener" title="隱私政策" class="no-automatic-external">隱私政策</a></li>
+          <li><a href="/security" title="Security philosophy and practices">Dart 程式碼安全說明</a></li>
+          <li><a href="https://flutter.tw/about" target="_blank">關於中文文件</a>
+          </li><li><a href="https://flutter.tw/disclaimer" target="_blank">免責條款</a>
+          </li><li><a href="https://dart.cn/" target="_blank">Dart 簡體中文文檔</a>
+        </li></ul>
+      </div>
+    </div>
+  </footer>
+
+  
+
+<script src="/assets/translator/js/translator.js"></script></body></html>

@@ -1,0 +1,1297 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Language" content="zh-cmn-Hans">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Google Tag Manager -->
+<!--  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':-->
+<!--  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],-->
+<!--  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=-->
+<!--  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);-->
+<!--  })(window,document,'script','dataLayer','GTM-5VSZM5J');</script>-->
+  <!-- End Google Tag Manager -->
+
+  <meta name="description" content="使用 pub 命令管理 package 的版本。">
+  <title>Package 的版本管理 | Dart</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-28P0PYCRZ9"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-28P0PYCRZ9');
+  </script>
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?fa71f2474b82505e00203cf9956cf0bc";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+  <!-- Favicon / Touch Icons -->
+  <link rel="icon" sizes="64x64" href="/assets/shared/dart/icon/64.png">
+  <link href="/assets/img/touch-icon-iphone.png" rel="apple-touch-icon">
+  <link href="/assets/img/touch-icon-ipad.png" rel="apple-touch-icon" sizes="152x152">
+  <link href="/assets/img/touch-icon-iphone-retina.png" rel="apple-touch-icon" sizes="180x180">
+  <link href="/assets/img/touch-icon-ipad-retina.png" rel="apple-touch-icon" sizes="167x167">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@dart_lang">
+  <meta name="twitter:title" content="Package 的版本管理">
+  <meta name="twitter:description" content="使用 pub 命令管理 package 的版本。">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Package 的版本管理">
+  <meta property="og:description" content="使用 pub 命令管理 package 的版本。">
+  <meta property="og:url" content="https://dart.tw.gh.miniasp.com/tools/pub/versioning.html">
+
+  <meta property="og:image" content="https://dart.tw.gh.miniasp.com/assets/shared/dart-logo-for-shares.png?2">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Display:wght@400&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons&amp;display=swap" rel="stylesheet">
+  <script src="https://cdn.staticfile.org/font-awesome/5.15.4/js/all.js" data-auto-replace-svg="nest">
+  </script>
+
+  <link rel="stylesheet" href="/assets/css/main.css?v=1693674404">
+  <script src="https://cdn.staticfile.org/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.staticfile.org/popper.js/1.16.1/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.staticfile.org/bootstrap/4.6.2/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!-- <script src="https://cdn.staticfile.org/js-cookie/3.0.5/js.cookie.min.js"
+          integrity="sha512-nlp9/l96/EpjYBx7EP7pGASVXNe80hGhYAUrjeXnu/fyF5Py0/RXav4BBNs7n5Hx1WFhOEOWSAVjGeC3oKxDVQ=="
+          crossorigin="anonymous"
+          referrerpolicy="no-referrer"></script> -->
+
+  <script src="/assets/js/vendor/code-prettify/prettify.js"></script>
+  <script src="/assets/js/vendor/code-prettify/lang-dart.js"></script>
+  <script src="/assets/js/vendor/code-prettify/lang-yaml.js"></script>
+  <script src="/assets/js/os-tabs.js?v=1693674404"></script>
+  <script src="/assets/js/utilities.js?v=1693674404"></script>
+  <script src="/assets/js/main.js?v=1693674404"></script>
+
+  <script>
+
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-122680122-5', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+
+ <link href="/assets/translator/css/translator.css" rel="stylesheet"></head>
+
+  <body class="default show_banner">
+    <section id="cookie-notice">
+  <div class="container">
+    <p>Google uses cookies to deliver its services, to personalize ads, and to 
+      analyze traffic. You can adjust your privacy controls anytime in your 
+      <a href="https://myaccount.google.com/data-and-personalization" target="_blank" rel="noopener" class="no-automatic-external">Google settings</a>. 
+      <a href="https://policies.google.com/technologies/cookies" target="_blank" rel="noopener" class="no-automatic-external">Learn more</a>.
+    </p>
+    <button id="cookie-consent" class="btn btn-primary">Okay</button>
+  </div>
+</section>
+
+    <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=G-28P0PYCRZ9"
+ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+    <header id="page-header" class="site-header">
+  <nav id="mainnav" class="site-header">
+  <div id="menu-toggle"><i class="material-icons">menu</i></div>
+  <a href="/" class="brand" title="Dart">
+    <img src="/assets/img/shared/dart/logo+text/horizontal/white.svg" alt="Dart">
+  </a>
+  <ul class="navbar">
+    <li>
+      <a href="/overview" class="nav-link">概覽</a>
+    </li>
+    <li class="mainnav__get-started">
+      <a href="/guides" class="nav-link
+         active">
+        <span>文件</span>
+      </a>
+    </li>
+    <li>
+      <a href="/community" class="nav-link">社群</a>
+    </li>
+    <li>
+      <a href="/#try-dart" class="nav-link">嘗試 Dart</a>
+    </li>
+    <li>
+      <a href="/get-dart" class="nav-link">獲取 Dart SDK</a>
+    </li>
+    <li class="searchfield">
+      <form action="/search" class="site-header__search form-inline" id="cse-search-box">
+        <input type="hidden" name="cx" value="011220921317074318178:_yy-tmb5t_i">
+        <input type="hidden" name="ie" value="UTF-8">
+        <input type="hidden" name="hl" value="en">
+        <input class="site-header__searchfield form-control search-field" type="search" name="q" id="q" autocomplete="off" placeholder="Search" aria-label="Search">
+      </form>
+    </li>
+  </ul>
+</nav>
+
+  
+</header>
+ <div class="banner">
+  <p class="banner__text">
+    Dart 3 已釋出！帶來了全新的
+    <a href="https://dart.tw.gh.miniasp.com/language/records" class="no-automatic-external">記錄型別 (records)</a>、
+    <a href="https://dart.tw.gh.miniasp.com/language/patterns" class="no-automatic-external">模式匹配 (patterns)</a>
+    以及 <a href="https://dart.tw.gh.miniasp.com/language/class-modifiers" class="no-automatic-external">型別修飾符 (class modifiers)</a>。
+    <br>
+    <!--<a href="https://medium.com/p/53f065a10635" class="no-automatic-external">Check out the blog post</a>!-->
+  </p>
+</div>
+ 
+
+    <div id="sidenav" class="">
+  <form action="/search/" class="site-header__search form-inline">
+    <input class="site-header__searchfield form-control search-field" type="search" name="q" id="q" autocomplete="off" placeholder="Search" aria-label="Search">
+  </form>
+
+  <div class="site-sidebar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a href="/overview" class="nav-link">概覽</a>
+      </li>
+      <li class="nav-item">
+        <a href="/community" class="nav-link">社群</a>
+      </li>
+      <li class="nav-item">
+        <a href="https://dartpad.dev" class="nav-link">嘗試 Dart</a>
+      </li>
+      <li class="nav-item">
+        <a href="/get-dart" class="nav-link">獲取 Dart SDK</a>
+      </li>
+      <li class="nav-item">
+        <a href="/guides" class="nav-link active">文件</a>
+      </li>
+    </ul>
+
+    <ul class="nav flex-column"><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-1" role="button" aria-expanded="false" aria-controls="sidenav-1">範例和課程</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-1">
+        <li class="nav-item">
+    <a class="nav-link" href="/tutorials">語言概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable" data-toggle="collapse" data-target="#sidenav-1-2" href="#sidenav-1-2" role="button" aria-expanded="true" aria-controls="sidenav-1-2">Codelabs
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-1-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/codelabs">Codelabs 列表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/dart-cheatsheet">Dart 速查表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/iterables">可迭代集合</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/async-await">Dart 非同步程式設計</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/null-safety">空安全</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-2" role="button" aria-expanded="false" aria-controls="sidenav-2">Dart 開發語言</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2">
+        <li class="nav-item">
+    <a class="nav-link" href="/language">介紹</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-2" href="#sidenav-2-2" role="button" aria-expanded="false" aria-controls="sidenav-2-2">基礎表示式
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/variables">變數</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/operators">運運算元</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/comments">註釋</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/metadata">註解</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/libraries">庫 &amp; 導庫</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/keywords">關鍵字</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-3" href="#sidenav-2-3" role="button" aria-expanded="false" aria-controls="sidenav-2-3">型別
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-3">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/built-in-types">基本型別</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/records">記錄 (Records)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/collections">集合 (Collections)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/generics">泛型 (Generics)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/typedefs">別名 (Typedefs)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/type-system">型別系統</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-4" href="#sidenav-2-4" role="button" aria-expanded="false" aria-controls="sidenav-2-4">模式匹配
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-4">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/patterns">概覽 &amp; 用法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/pattern-types">模式匹配型別</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/language/functions">函式方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-6" href="#sidenav-2-6" role="button" aria-expanded="false" aria-controls="sidenav-2-6">控制流
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-6">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/loops">迴圈</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/branches">分支</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/language/error-handling">錯誤處理</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-8" href="#sidenav-2-8" role="button" aria-expanded="false" aria-controls="sidenav-2-8">類 &amp; 物件
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-8">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/classes">類</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/constructors">構造方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/methods">成員方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/extend">繼承</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/mixins">混入 (Mixin)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/enums">列舉</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/extension-methods">擴充方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/callable-objects">可呼叫的物件</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-9" href="#sidenav-2-9" role="button" aria-expanded="false" aria-controls="sidenav-2-9">型別修飾符
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-9">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/class-modifiers">概覽 &amp; 用法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/class-modifiers-for-apis">API 維護者應該用的型別修飾符</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/modifier-reference">速查表</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-10" href="#sidenav-2-10" role="button" aria-expanded="false" aria-controls="sidenav-2-10">併發
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-10">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/async">非同步支援</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/concurrency">Isolates</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-11" href="#sidenav-2-11" role="button" aria-expanded="false" aria-controls="sidenav-2-11">Null safety
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-11">
+      <li class="nav-item">
+    <a class="nav-link" href="/null-safety">健全的空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/migration-guide">遷移到空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/understanding-null-safety">深入理解空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/unsound-null-safety">非健全的空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/faq">空安全常見問題和解答</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-3" role="button" aria-expanded="false" aria-controls="sidenav-3">高效指南 (Effective Dart)</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-3">
+        <li class="nav-item">
+    <a class="nav-link" href="/effective-dart">概述</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/style">程式碼風格</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/documentation">文件</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/usage">用法範例</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/design">API 設計</a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-4" role="button" aria-expanded="false" aria-controls="sidenav-4">核心函式庫</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-4">
+        <li class="nav-item">
+    <a class="nav-link" href="/guides/libraries">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/library-tour">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-4-3" href="#sidenav-4-3" role="button" aria-expanded="false" aria-controls="sidenav-4-3">介紹文章
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-4-3">
+      <li class="nav-item">
+    <a class="nav-link" href="/articles/libraries/creating-streams">建立 stream</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link active" data-toggle="collapse" href="#sidenav-5" role="button" aria-expanded="true" aria-controls="sidenav-5">Packages</a>
+
+      <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-5">
+        <li class="nav-item">
+    <a class="nav-link" href="/guides/packages">如何使用 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/useful-libraries">常用 package 介紹</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/create-packages">建立 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/publishing">釋出 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/writing-package-pages">設定 package 介紹頁</a>
+  </li><li class="nav-item">
+    <a class="nav-link active collapsable" data-toggle="collapse" data-target="#sidenav-5-6" href="#sidenav-5-6" role="button" aria-expanded="true" aria-controls="sidenav-5-6">Package 參考資料
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-5-6">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/pub/dependencies">依賴</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/glossary">術語表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/package-layout">Package 檔案結構</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/environment-variables">設定環境變數</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/pubspec">Pubspec 檔案</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/troubleshoot">問題排查</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/verified-publishers">釋出者認證</a>
+  </li><li class="nav-item">
+    <a class="nav-link active" href="/tools/pub/versioning">版本管理</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-6" role="button" aria-expanded="false" aria-controls="sidenav-6">開發文件</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6">
+        <li class="nav-item">
+    <a class="nav-link" href="/codelabs/async-await">Futures、async 和 await</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/language/streams">Streams 介紹</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/json">使用 JSON</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/numbers">Dart 中的數字</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-5" href="#sidenav-6-5" role="button" aria-expanded="false" aria-controls="sidenav-6-5">與其他語言進行互動呼叫
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-5">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/c-interop">與 C 互調</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/objective-c-interop">與 Objective-C 和 Swift 互調</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/java-interop">與 Java 和 Kotlin 互調</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/web/js-interop">與 JavaScript 互調</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/guides/google-apis">Google APIs</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/multiplatform-apps">跨平臺應用</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-8" href="#sidenav-6-8" role="button" aria-expanded="false" aria-controls="sidenav-6-8">命令列和伺服器端應用
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-8">
+      <li class="nav-item">
+    <a class="nav-link" href="/server">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/get-started">起步課程</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/cmdline">命令列應用</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/fetch-data">從網路上獲取資料</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/httpserver">編寫 HTTP 伺服器端應用</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/server/libraries">庫和 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/server/google-cloud">Google Cloud</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-9" href="#sidenav-6-9" role="button" aria-expanded="false" aria-controls="sidenav-6-9">網頁端 (Web) 應用
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-9">
+      <li class="nav-item">
+    <a class="nav-link" href="/web">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/get-started">開始使用</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-9-3" href="#sidenav-6-9-3" role="button" aria-expanded="false" aria-controls="sidenav-6-9-3">底層 Web 程式設計
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-9-3">
+      <li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/low-level-html/connect-dart-html">Dart 與 HTML 關聯</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/low-level-html/add-elements">向 DOM 新增元素</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/low-level-html/remove-elements">移除 DOM 元素</a>
+  </li>
+  </ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/web/deployment">部署</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/web/libraries">常用 Web 函式庫和 package</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/guides/environment-declarations">環境變數宣告</a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-7" role="button" aria-expanded="false" aria-controls="sidenav-7">開發工具和使用技巧</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7">
+        <li class="nav-item">
+    <a class="nav-link" href="/tools">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-2" href="#sidenav-7-2" role="button" aria-expanded="false" aria-controls="sidenav-7-2">編輯器和除錯工具
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/jetbrains-plugin">使用 IntelliJ 和 Android Studio</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/vs-code">使用 VS Code</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/dart-devtools">Dart 開發者工具</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-2-4" href="#sidenav-7-2-4" role="button" aria-expanded="false" aria-controls="sidenav-7-2-4">線上執行 Dart 程式碼
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-2-4">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/dartpad">Overview</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dartpad/dartpad-best-practices">DartPad 課程</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dartpad/troubleshoot">DartPad 疑難解答</a>
+  </li>
+  </ul>
+  </li>
+</ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-3" href="#sidenav-7-3" role="button" aria-expanded="false" aria-controls="sidenav-7-3">命令列工具
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-3">
+      <li class="nav-item">
+    <a class="nav-link collapsable" data-toggle="collapse" data-target="#sidenav-7-3-1" href="#sidenav-7-3-1" role="button" aria-expanded="true" aria-controls="sidenav-7-3-1">Dart SDK
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-7-3-1">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/sdk">概覽</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-tool">dart 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-analyze">dart analyze 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-compile">dart compile 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-create">dart create 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-doc">dart doc 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-fix">dart fix 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-format">dart format 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-info">dart info 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/pub/cmd">dart pub 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-run">dart run 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-test">dart test 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dartaotruntime">dartaotruntime 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/experiment-flags">實驗性命令標記</a>
+  </li>
+  </ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable" data-toggle="collapse" data-target="#sidenav-7-3-2" href="#sidenav-7-3-2" role="button" aria-expanded="true" aria-controls="sidenav-7-3-2">其他的命令列工具
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-7-3-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/build_runner">build_runner 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/webdev">webdev 命令</a>
+  </li>
+  </ul>
+  </li>
+</ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-4" href="#sidenav-7-4" role="button" aria-expanded="false" aria-controls="sidenav-7-4">原始碼管理
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-4">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/language/formatting">程式碼格式化</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/private-files">不應提交的內容</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-5" href="#sidenav-7-5" role="button" aria-expanded="false" aria-controls="sidenav-7-5">靜態分析
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-5">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/analysis">自訂靜態分析</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/sound-problems">修復常見的型別問題</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/diagnostic-messages">診斷訊息</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/linter-rules">Linter 規則</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-6" href="#sidenav-7-6" role="button" aria-expanded="false" aria-controls="sidenav-7-6">測試和調優
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-6">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/testing">測試</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/web/debugging">除錯 Web 應用</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-8" role="button" aria-expanded="false" aria-controls="sidenav-8">資源</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-8">
+        <li class="nav-item">
+    <a class="nav-link" href="/resources/faq">常見問題</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/evolution">版本演變</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/spec">語言規範</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/resources/dart-3-migration">Dart 3 遷移指南</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-8-5" href="#sidenav-8-5" role="button" aria-expanded="false" aria-controls="sidenav-8-5">從其他平台轉向 Dart
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-8-5">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/language/coming-from/js-to-dart">從 JavaScript 到 Dart</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/coming-from/swift-to-dart">從 Swift 到 Dart</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/resources/glossary">詞彙表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/resources/books">書籍資源</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/resources/videos">影片資源</a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link " data-toggle="collapse" href="#sidenav-9" role="button" aria-expanded="true" aria-controls="sidenav-9">相關站點</a>
+
+      <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-9">
+        <li class="nav-item">
+    <a class="nav-link" href="https://api.dart.dev" target="_blank" rel="noopener">API 文件<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://medium.com/dartlang" target="_blank" rel="noopener">Dart 團隊官方部落格<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://dartpad.dev" target="_blank" rel="noopener">DartPad (線上編輯器)<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://flutter.tw" target="_blank" rel="noopener">Flutter<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://pub.dev" target="_blank" rel="noopener">Package 網站<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-10" role="button" aria-expanded="false" aria-controls="sidenav-10">關於 Dart 中文文件</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-10">
+        <li class="nav-item">
+    <a class="nav-link" href="https://flutter.tw/about/docs-cn" target="_blank" rel="noopener">關於本站<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://flutter.tw/disclaimer" target="_blank" rel="noopener">免責條款 (Disclaimer)<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li>
+</ul>
+    </li></ul>
+
+  </div>
+</div>
+
+    <main id="page-content">
+      
+
+
+
+
+
+
+
+<div id="site-toc--side" class="site-toc ">
+  <header class="site-toc__title">
+    目錄
+    
+  </header>
+  <ul id="toc" class="section-nav">
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#a-name-and-a-number">A name and a number</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#resolving-shared-dependencies">Resolving shared dependencies</a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#unshared-libraries-the-npm-approach">Unshared libraries (the npm approach)</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#version-lock-the-dead-end-approach">Version lock (the dead end approach)</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#version-constraints-the-dart-approach">Version constraints (the Dart approach)</a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#semantic-versions">Semantic versions</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#constraint-solving">Constraint solving</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#constraint-context">Constraint context</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#constraint-solving-for-exported-dependencies">Constraint solving for exported dependencies</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#lockfiles">Lockfiles</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#when-things-go-wrong">When things go wrong</a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#you-can-have-disjoint-constraints">You can have disjoint constraints</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#you-can-have-ranges-that-dont-contain-a-released-version">You can have ranges that don’t contain a released version</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#you-can-have-an-unstable-graph">You can have an unstable graph</a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#summary">Summary</a></li>
+</ul>
+  
+</div>
+
+
+      <article>
+        <div class="content">
+          
+
+          <div id="site-content-title">
+            <div id="page-github-links" class="btn-group" aria-label="Page GitHub links" role="group">
+  <a href="https://github.com/doggy8088/dart.tw/tree/master/src/tools/pub/versioning.md" class="btn no-automatic-external" title="View page source" target="_blank" rel="noopener">
+    <i class="material-icons">description</i>
+  </a>
+  <a href="https://github.com/doggy8088/dart.tw/issues/new?template=1_page_issue.yml&amp;title=[PAGE ISSUE]: 'Package 的版本管理'&amp;page-url=https://dart.tw.gh.miniasp.com/tools/pub/versioning.html&amp;page-source=https://github.com/doggy8088/dart.tw/tree/master/src/tools/pub/versioning.md" class="btn no-automatic-external" title="Report an issue with this page" target="_blank" rel="noopener">
+    <i class="material-icons">bug_report</i>
+  </a>
+</div>
+
+            
+            <h1 id="package-的版本管理">Package 的版本管理</h1>
+            </div>
+          
+
+
+
+
+
+
+
+<div id="site-toc--inline" class="site-toc toc-collapsible toc-collapsed">
+  <header class="site-toc__title">
+    目錄
+    
+      <span class="site-toc--inline__toggle toc-toggle-down"><i class="material-icons">keyboard_arrow_down</i></span>
+      <span class="site-toc--inline__toggle toc-toggle-up"><i class="material-icons">keyboard_arrow_up</i></span>
+    
+  </header>
+  <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#a-name-and-a-number">A name and a number</a></li>
+<li class="toc-entry toc-h2"><a href="#resolving-shared-dependencies">Resolving shared dependencies</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#unshared-libraries-the-npm-approach">Unshared libraries (the npm approach)</a></li>
+<li class="toc-entry toc-h3"><a href="#version-lock-the-dead-end-approach">Version lock (the dead end approach)</a></li>
+<li class="toc-entry toc-h3"><a href="#version-constraints-the-dart-approach">Version constraints (the Dart approach)</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#semantic-versions">Semantic versions</a></li>
+<li class="toc-entry toc-h2"><a href="#constraint-solving">Constraint solving</a></li>
+<li class="toc-entry toc-h2"><a href="#constraint-context">Constraint context</a></li>
+<li class="toc-entry toc-h2"><a href="#constraint-solving-for-exported-dependencies">Constraint solving for exported dependencies</a></li>
+<li class="toc-entry toc-h2"><a href="#lockfiles">Lockfiles</a></li>
+<li class="toc-entry toc-h2"><a href="#when-things-go-wrong">When things go wrong</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#you-can-have-disjoint-constraints">You can have disjoint constraints</a></li>
+<li class="toc-entry toc-h3"><a href="#you-can-have-ranges-that-dont-contain-a-released-version">You can have ranges that don’t contain a released version</a></li>
+<li class="toc-entry toc-h3"><a href="#you-can-have-an-unstable-graph">You can have an unstable graph</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#summary">Summary</a></li>
+</ul>
+  
+    <span class="site-toc--inline__toggle toc-toggle-more-items"><i class="material-icons">more_horiz</i></span>
+  
+</div>
+
+
+          <p>One of the main jobs of the <a href="/guides/packages">pub package manager</a>
+is helping you work with versioning.
+This document explains a bit about the history of versioning and pub’s
+approach to it.
+Consider this to be advanced information. If you want a better picture of <em>why</em>
+pub was designed the way it was, read on. If you just want to <em>use</em> pub,
+the <a href="/guides/packages">other docs</a> will serve you better.</p>
+
+<p>Modern software development, especially web development, leans heavily on
+reusing lots and lots of existing code. That includes code <em>you</em> wrote in the
+past, but also code from third-parties, everything from big frameworks to small
+utility libraries. It’s not uncommon for an application to depend on
+dozens of different packages and libraries.</p>
+
+<p>It’s hard to understate how powerful this is. When you see stories of small web
+startups building a site in a few weeks that gets millions of users, the
+only reason they can achieve this is because the open source community has
+laid a feast of software at their feet.</p>
+
+<p>But this doesn’t come for free: There’s a challenge to code
+reuse, especially reusing code you don’t maintain. When your app uses code
+being developed by other people, what happens when they change it?
+They don’t want to break your app, and you certainly don’t either.
+We solve this problem by <em>versioning</em>.</p>
+
+<h2 id="a-name-and-a-number">
+<a class="anchor" href="#a-name-and-a-number" aria-hidden="true"><span class="octicon octicon-link"></span></a>A name and a number</h2>
+
+<p>When you depend on some piece of outside code,
+you don’t just say “My app uses <code class="language-plaintext highlighter-rouge">widgets</code>.” You say, “My app uses
+<code class="language-plaintext highlighter-rouge">widgets 2.0.5</code>.” That combination of name and version number uniquely
+identifies an <em>immutable</em> chunk of code. The people updating <code class="language-plaintext highlighter-rouge">widgets</code> can
+make all of the changes they want, but they promise to not touch any already
+released versions. They can put out <code class="language-plaintext highlighter-rouge">2.0.6</code> or <code class="language-plaintext highlighter-rouge">3.0.0</code> and it won’t affect you
+one bit because the version you use is unchanged.</p>
+
+<p>When you <em>do</em> want to get those changes, you can always point your app to a
+newer version of <code class="language-plaintext highlighter-rouge">widgets</code> and you don’t have to coordinate with those
+developers to do it. However, that doesn’t entirely solve the problem.</p>
+
+<h2 id="resolving-shared-dependencies">
+<a class="anchor" href="#resolving-shared-dependencies" aria-hidden="true"><span class="octicon octicon-link"></span></a>Resolving shared dependencies</h2>
+
+<p>Depending on specific versions works fine when your dependency
+<em>graph</em> is really just a dependency <em>tree</em>. If your app depends on a bunch of
+packages, and those things in turn have their own dependencies and so on, that
+all works fine as long as none of those dependencies <em>overlap</em>.</p>
+
+<p>But consider the following example:</p>
+
+<p><img src="/assets/img/tools/pub/PubConstraintsDiagram.png" alt="dependency graph"></p>
+
+<p>So your app uses <code class="language-plaintext highlighter-rouge">widgets</code> and <code class="language-plaintext highlighter-rouge">templates</code>, and <em>both</em> of those use
+<code class="language-plaintext highlighter-rouge">collection</code>. This is called a <strong>shared dependency</strong>. Now what happens when
+<code class="language-plaintext highlighter-rouge">widgets</code> wants to use <code class="language-plaintext highlighter-rouge">collection 2.3.5</code> and <code class="language-plaintext highlighter-rouge">templates</code> wants
+<code class="language-plaintext highlighter-rouge">collection 2.3.7</code>? What if they don’t agree on a version?</p>
+
+<h3 id="unshared-libraries-the-npm-approach">
+<a class="anchor" href="#unshared-libraries-the-npm-approach" aria-hidden="true"><span class="octicon octicon-link"></span></a>Unshared libraries (the npm approach)</h3>
+
+<p>One option is to just let the app use both
+versions of <code class="language-plaintext highlighter-rouge">collection</code>. It will have two copies of the library at different
+versions and <code class="language-plaintext highlighter-rouge">widgets</code> and <code class="language-plaintext highlighter-rouge">templates</code> will each get the one they want.</p>
+
+<p>This is what <a href="https://npmjs.org/">npm</a> does for node.js. Would it work for Dart? Consider this
+scenario:</p>
+
+<ol>
+  <li>
+<code class="language-plaintext highlighter-rouge">collection</code> defines some <code class="language-plaintext highlighter-rouge">Dictionary</code> class.</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">widgets</code> gets an instance of it from its copy of <code class="language-plaintext highlighter-rouge">collection</code> (<code class="language-plaintext highlighter-rouge">2.3.5</code>).
+It then passes it up to <code class="language-plaintext highlighter-rouge">my_app</code>.</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">my_app</code> sends the dictionary over to <code class="language-plaintext highlighter-rouge">templates</code>.</li>
+  <li>That in turn sends it down to <em>its</em> version of <code class="language-plaintext highlighter-rouge">collection</code> (<code class="language-plaintext highlighter-rouge">2.3.7</code>).</li>
+  <li>The method that takes it has a <code class="language-plaintext highlighter-rouge">Dictionary</code> type annotation for that object.</li>
+</ol>
+
+<p>As far as Dart is concerned, <code class="language-plaintext highlighter-rouge">collection 2.3.5</code> and <code class="language-plaintext highlighter-rouge">collection 2.3.7</code> are
+entirely unrelated libraries. If you take an instance of class <code class="language-plaintext highlighter-rouge">Dictionary</code>
+from one and pass it to a method in the other, that’s a completely different
+<code class="language-plaintext highlighter-rouge">Dictionary</code> type. That means it will fail to match a <code class="language-plaintext highlighter-rouge">Dictionary</code> type
+annotation in the receiving library. Oops.</p>
+
+<p>Because of this (and because of the headaches of trying to debug an app that
+has multiple versions of things with the same name), we’ve decided npm’s model
+isn’t a good fit.</p>
+
+<h3 id="version-lock-the-dead-end-approach">
+<a class="anchor" href="#version-lock-the-dead-end-approach" aria-hidden="true"><span class="octicon octicon-link"></span></a>Version lock (the dead end approach)</h3>
+
+<p>Instead, when you depend on a package, your app only uses a single copy of
+that package. When you have a shared dependency, everything that depends on it
+has to agree on which version to use. If they don’t, you get an error.</p>
+
+<p>That doesn’t actually solve your problem though. When you <em>do</em> get that error,
+you need to be able to resolve it. So let’s say you’ve gotten yourself into
+that situation in the previous example. You want to use <code class="language-plaintext highlighter-rouge">widgets</code> and
+<code class="language-plaintext highlighter-rouge">templates</code>, but they are using different versions of <code class="language-plaintext highlighter-rouge">collection</code>. What do
+you do?</p>
+
+<p>The answer is to try to upgrade one of those. <code class="language-plaintext highlighter-rouge">templates</code> wants
+<code class="language-plaintext highlighter-rouge">collection 2.3.7</code>. Is there a later version of <code class="language-plaintext highlighter-rouge">widgets</code> that you can upgrade
+to that works with that version?</p>
+
+<p>In many cases, the answer will be “no”. Look at it from the perspective of the
+people developing <code class="language-plaintext highlighter-rouge">widgets</code>. They want to put out a new version with new changes
+to <em>their</em> code, and they want as many people to be able to upgrade to it as
+possible. If they stick to their <em>current</em> version of <code class="language-plaintext highlighter-rouge">collection</code> then anyone
+who is using the current version <code class="language-plaintext highlighter-rouge">widgets</code> will be able to drop in this new one
+too.</p>
+
+<p>If they were to upgrade <em>their</em> dependency on <code class="language-plaintext highlighter-rouge">collection</code> then everyone who
+upgrades <code class="language-plaintext highlighter-rouge">widgets</code> would have to as well, <em>whether they want to or not</em>.
+That’s painful, so you end up with a disincentive to upgrade dependencies.
+That’s called <strong>version lock</strong>:
+everyone wants to move their dependencies forward,
+but no one can take the first step because it forces everyone else to as well.</p>
+
+<h3 id="version-constraints-the-dart-approach">
+<a class="anchor" href="#version-constraints-the-dart-approach" aria-hidden="true"><span class="octicon octicon-link"></span></a>Version constraints (the Dart approach)</h3>
+
+<p>To solve version lock, we loosen the constraints that packages place on their
+dependencies. If <code class="language-plaintext highlighter-rouge">widgets</code> and <code class="language-plaintext highlighter-rouge">templates</code> can both indicate a <em>range</em> of
+versions for <code class="language-plaintext highlighter-rouge">collection</code> that they work with, then that gives us enough
+wiggle room to move our dependencies forward to newer versions. As long as there
+is overlap in their ranges, we can still find a single version that makes them
+both happy.</p>
+
+<p>This is the model that <a href="https://bundler.io/">bundler</a> follows,
+and is pub’s model too. When you add a dependency in your pubspec,
+you can specify a <em>range</em> of versions that you can accept.
+If the pubspec for <code class="language-plaintext highlighter-rouge">widgets</code> looked like this:</p>
+
+<pre class="prettyprint lang-yaml"><code>dependencies:
+  collection: '&gt;=2.3.5 &lt;2.4.0'</code></pre>
+
+<p>Then we could pick version <code class="language-plaintext highlighter-rouge">2.3.7</code> for <code class="language-plaintext highlighter-rouge">collection</code> and then both <code class="language-plaintext highlighter-rouge">widgets</code>
+and <code class="language-plaintext highlighter-rouge">templates</code> have their constraints satisfied by a single concrete version.</p>
+
+<h2 id="semantic-versions">
+<a class="anchor" href="#semantic-versions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Semantic versions</h2>
+
+<p>When you add a dependency to your package, you’ll sometimes want to specify a
+range of versions to allow. How do you know what range to pick? You need to be
+forward compatible, so ideally the range encompasses future versions that
+haven’t been released yet. But how do you know your package is going to work
+with some new version that doesn’t even exist yet?</p>
+
+<p>To solve that, you need to agree on what a version number <em>means</em>.
+Imagine that the developers of a package you depend on say,
+“If we make any backwards incompatible change,
+then we promise to increment the major version number.”
+If you trust them, then if you know your package works with <code class="language-plaintext highlighter-rouge">2.3.5</code> of theirs,
+you can rely on it working all the way up to <code class="language-plaintext highlighter-rouge">3.0.0</code>.
+You can set your range like:</p>
+
+<pre class="prettyprint lang-yaml"><code>dependencies:
+  collection: ^2.3.5</code></pre>
+
+<aside class="alert alert-info" role="alert">
+  <p><i class="material-icons" aria-hidden="true">info</i> <strong>備註:</strong>
+  This example uses <em>caret syntax</em> to express a range of versions.
+  The string <code class="language-plaintext highlighter-rouge">^2.3.5</code> means 
+  “the range of all versions from 2.3.5 to 3.0.0, not including 3.0.0.” 
+  For more information, 
+  see <a href="/tools/pub/dependencies#caret-syntax">Caret syntax</a>.</p>
+</aside>
+
+<p>To make this work, then, we need to come up with that set of promises.
+Fortunately, other smart people have done the work of figuring this all out and
+named it <a href="https://semver.org/spec/v2.0.0-rc.1.html"><em>semantic versioning</em></a>.</p>
+
+<p>That describes the format of a version number, and the exact API behavioral
+differences when you increment to a later version number. Pub requires versions
+to be formatted that way, and to play well with the pub community, your package
+should follow the semantics it specifies. You should assume that the packages
+you depend on also follow it. (And if you find out they don’t, let their
+authors know!)</p>
+
+<p>Although semantic versioning doesn’t promise any compatibility between versions
+prior to <code class="language-plaintext highlighter-rouge">1.0.0</code>, the Dart community convention is to treat those versions
+semantically as well. The interpretation of each number is just shifted down one
+slot: going from <code class="language-plaintext highlighter-rouge">0.1.2</code> to <code class="language-plaintext highlighter-rouge">0.2.0</code> indicates a breaking change, going to
+<code class="language-plaintext highlighter-rouge">0.1.3</code> indicates a new feature, and going to <code class="language-plaintext highlighter-rouge">0.1.2+1</code> indicates a change that
+doesn’t affect the public API.
+For simplicity’s sake, avoid using <code class="language-plaintext highlighter-rouge">+</code> after the version reaches <code class="language-plaintext highlighter-rouge">1.0.0</code>.</p>
+
+<p>We’ve got almost all of the pieces we need to deal with versioning and API
+evolution now. Let’s see how they play together and what pub does.</p>
+
+<h2 id="constraint-solving">
+<a class="anchor" href="#constraint-solving" aria-hidden="true"><span class="octicon octicon-link"></span></a>Constraint solving</h2>
+
+<p>When you define your package, you list its
+<a href="/tools/pub/glossary#immediate-dependency"><strong>immediate dependencies</strong></a>—the
+packages it itself uses. For each one, you specify the range of versions it
+allows. Each of those dependent packages may in turn have their own
+dependencies (called
+<a href="/tools/pub/glossary#transitive-dependency"><strong>transitive dependencies</strong></a>. Pub
+traverses these and builds up the entire deep dependency graph for your app.</p>
+
+<p>For each package in the graph, pub looks at everything that depends on it. It
+gathers together all of their version constraints and tries to simultaneously
+solve them. (Basically, it intersects their ranges.) Then it looks at the
+actual versions that have been released for that package and selects the best
+(most recent) one that meets all of those constraints.</p>
+
+<p>For example, let’s say our dependency graph contains <code class="language-plaintext highlighter-rouge">collection</code>, and three
+packages depend on it. Their version constraints are:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;=1.7.0
+^1.4.0
+&lt;1.9.0
+</code></pre></div></div>
+
+<p>The developers of <code class="language-plaintext highlighter-rouge">collection</code> have released these versions of it:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1.7.0
+1.7.1
+1.8.0
+1.8.1
+1.8.2
+1.9.0
+</code></pre></div></div>
+
+<p>The highest version number that fits in all of those ranges is <code class="language-plaintext highlighter-rouge">1.8.2</code>, so pub
+picks that. That means your app <em>and every package your app uses</em> will all use
+<code class="language-plaintext highlighter-rouge">collection 1.8.2</code>.</p>
+
+<h2 id="constraint-context">
+<a class="anchor" href="#constraint-context" aria-hidden="true"><span class="octicon octicon-link"></span></a>Constraint context</h2>
+
+<p>The fact that selecting a package version takes into account <em>every</em> package
+that depends on it has an important consequence: <em>the specific version that
+will be selected for a package is a global property of the app using that
+package.</em></p>
+
+<p>The following example shows what this means. Let’s say we have
+two apps. Here are their pubspecs:</p>
+
+<pre class="prettyprint lang-yaml"><code>name: my_app
+dependencies:
+  widgets:</code></pre>
+
+<pre class="prettyprint lang-yaml"><code>name: other_app
+dependencies:
+  widgets:
+  collection: '&lt;1.5.0'</code></pre>
+
+<p>They both depend on <code class="language-plaintext highlighter-rouge">widgets</code>, whose pubspec is:</p>
+
+<pre class="prettyprint lang-yaml"><code>name: widgets
+dependencies:
+  collection: '&gt;=1.0.0 &lt;2.0.0'</code></pre>
+
+<p>The <code class="language-plaintext highlighter-rouge">other_app</code> package depends directly on <code class="language-plaintext highlighter-rouge">collection</code> itself. The
+interesting part is that it happens to have a different version constraint on
+it than <code class="language-plaintext highlighter-rouge">widgets</code> does.</p>
+
+<p>This means that you can’t just look at the <code class="language-plaintext highlighter-rouge">widgets</code> package in
+isolation to figure out what version of <code class="language-plaintext highlighter-rouge">collection</code> it will use. It depends
+on the context. In <code class="language-plaintext highlighter-rouge">my_app</code>, <code class="language-plaintext highlighter-rouge">widgets</code> will use <code class="language-plaintext highlighter-rouge">collection 1.9.9</code>. But
+in <code class="language-plaintext highlighter-rouge">other_app</code>, <code class="language-plaintext highlighter-rouge">widgets</code> will get saddled with <code class="language-plaintext highlighter-rouge">collection 1.4.9</code> because of
+the <em>other</em> constraint that <code class="language-plaintext highlighter-rouge">otherapp</code> places on it.</p>
+
+<p>This is why each app gets its own <code class="language-plaintext highlighter-rouge">package_config.json</code> file: 
+The concrete version selected for each package depends on
+the entire dependency graph of the containing app.</p>
+
+<h2 id="constraint-solving-for-exported-dependencies">
+<a class="anchor" href="#constraint-solving-for-exported-dependencies" aria-hidden="true"><span class="octicon octicon-link"></span></a>Constraint solving for exported dependencies</h2>
+
+<p>Package authors must define package constraints with care.
+Consider the following scenario:</p>
+
+<p><img src="/assets/img/tools/pub/PubExportedConstraints.png" alt="dependency graph"></p>
+
+<p>The <code class="language-plaintext highlighter-rouge">bookshelf</code> package depends on <code class="language-plaintext highlighter-rouge">widgets</code>.
+The <code class="language-plaintext highlighter-rouge">widgets</code> package, currently at 1.2.0, exports
+<code class="language-plaintext highlighter-rouge">collection</code> via <code class="language-plaintext highlighter-rouge">export 'package:collection/collection.dart'</code>, and is
+at 2.4.0. The pubspec files are as follows:</p>
+
+<pre class="prettyprint lang-yaml"><code>name: bookshelf
+dependencies:
+  widgets:  ^1.2.0</code></pre>
+
+<pre class="prettyprint lang-yaml"><code>name: widgets
+dependencies:
+  collection:  ^2.4.0</code></pre>
+
+<p>The <code class="language-plaintext highlighter-rouge">collection</code> package is then updated to 2.5.0.
+The 2.5.0 version of <code class="language-plaintext highlighter-rouge">collection</code> includes a new method called <code class="language-plaintext highlighter-rouge">sortBackwards()</code>.
+<code class="language-plaintext highlighter-rouge">bookshelf</code> may call <code class="language-plaintext highlighter-rouge">sortBackwards()</code>,
+because it’s part of the API exposed by <code class="language-plaintext highlighter-rouge">widgets</code>,
+despite <code class="language-plaintext highlighter-rouge">bookshelf</code> having only a transitive dependency on <code class="language-plaintext highlighter-rouge">collection</code>.</p>
+
+<p>Because <code class="language-plaintext highlighter-rouge">widgets</code> has an API that is not reflected in its version number,
+the app that uses the <code class="language-plaintext highlighter-rouge">bookshelf</code> package and calls <code class="language-plaintext highlighter-rouge">sortBackwards()</code> may crash.</p>
+
+<p>Exporting an API causes that API to be treated as if it is
+defined in the package itself, but it can’t increase the version number when
+the API adds features. This means that <code class="language-plaintext highlighter-rouge">bookshelf</code> has no way of declaring
+that it needs a version of <code class="language-plaintext highlighter-rouge">widgets</code> that supports <code class="language-plaintext highlighter-rouge">sortBackwards()</code>.</p>
+
+<p>For this reason, when dealing with exported packages,
+it’s recommended that the package’s author keeps a tighter
+limit on the upper and lower bounds of a dependency.
+In this case, the range for the <code class="language-plaintext highlighter-rouge">widgets</code> package should be narrowed:</p>
+
+<pre class="prettyprint lang-yaml"><code>name: bookshelf
+dependencies:
+  widgets:  '&gt;=1.2.0 &lt;1.3.0'</code></pre>
+
+<pre class="prettyprint lang-yaml"><code>name: widgets
+dependencies:
+  collection:  '&gt;=2.4.0 &lt;2.5.0'</code></pre>
+
+<p>This translates to a lower bound of 1.2.0 for <code class="language-plaintext highlighter-rouge">widgets</code> and 2.4.0
+for <code class="language-plaintext highlighter-rouge">collection</code>.
+When the 2.5.0 version of <code class="language-plaintext highlighter-rouge">collection</code> is released,
+then <code class="language-plaintext highlighter-rouge">widgets</code> is also updated to 1.3.0 and the corresponding constraints
+are also updated.</p>
+
+<p>Using this convention ensures that users have the correct version of
+both packages, even if one is not a direct dependency.</p>
+
+<h2 id="lockfiles">
+<a class="anchor" href="#lockfiles" aria-hidden="true"><span class="octicon octicon-link"></span></a>Lockfiles</h2>
+
+<p>So once pub has solved your app’s version constraints, then what? The end
+result is a complete list of every package that your app depends on either
+directly or indirectly and the best version of that package that will work with
+your app’s constraints.</p>
+
+<p>For each package, pub takes that information,
+computes a <a href="/tools/pub/glossary#content-hashes">content hash</a> from it,
+and writes both to a <a href="/tools/pub/glossary#lockfile"><strong>lockfile</strong></a>
+in your app’s directory called <code class="language-plaintext highlighter-rouge">pubspec.lock</code>. 
+When pub builds the <code class="language-plaintext highlighter-rouge">.dart_tool/package_config.json</code> file for your app, 
+it uses the lockfile to know what versions of each package to refer to. 
+(And if you’re curious to see what versions it selected, 
+you can read the lockfile to find out.)</p>
+
+<p>The next important thing pub does is it <em>stops touching the lockfile</em>. Once
+you’ve got a lockfile for your app, pub won’t touch it until you tell it to.
+This is important. It means you won’t spontaneously start using new versions
+of random packages in your app without intending to. Once your app is locked,
+it stays locked until you manually tell it to update the lockfile.</p>
+
+<p>If your package is for an app, you <em>check your lockfile into your source
+control system!</em> That way, everyone on your team will be using
+the exact same versions of every dependency when they build your app. You’ll
+also use this when you deploy your app so you can ensure that your production
+servers are using the exact same packages that you’re developing with.</p>
+
+<h2 id="when-things-go-wrong">
+<a class="anchor" href="#when-things-go-wrong" aria-hidden="true"><span class="octicon octicon-link"></span></a>When things go wrong</h2>
+
+<p>Of course, all of this presumes that your dependency graph is perfect and
+flawless. Even with version ranges and pub’s constraint solving and
+semantic versioning, you can never be entirely spared from the
+dangers of versionitis.</p>
+
+<p>You might run into one of the following problems:</p>
+
+<h3 id="you-can-have-disjoint-constraints">
+<a class="anchor" href="#you-can-have-disjoint-constraints" aria-hidden="true"><span class="octicon octicon-link"></span></a>You can have disjoint constraints</h3>
+
+<p>Lets say your app uses <code class="language-plaintext highlighter-rouge">widgets</code> and
+<code class="language-plaintext highlighter-rouge">templates</code> and both use <code class="language-plaintext highlighter-rouge">collection</code>. But <code class="language-plaintext highlighter-rouge">widgets</code> asks for a version
+of it between <code class="language-plaintext highlighter-rouge">1.0.0</code> and <code class="language-plaintext highlighter-rouge">2.0.0</code> and <code class="language-plaintext highlighter-rouge">templates</code> wants something
+between <code class="language-plaintext highlighter-rouge">3.0.0</code> and <code class="language-plaintext highlighter-rouge">4.0.0</code>. Those ranges don’t even overlap. There’s no
+possible version that would work.</p>
+
+<h3 id="you-can-have-ranges-that-dont-contain-a-released-version">
+<a class="anchor" href="#you-can-have-ranges-that-dont-contain-a-released-version" aria-hidden="true"><span class="octicon octicon-link"></span></a>You can have ranges that don’t contain a released version</h3>
+
+<p>Let’s say after
+putting all of the constraints on a shared dependency together, you’re
+left with the narrow range of <code class="language-plaintext highlighter-rouge">&gt;=1.2.4 &lt;1.2.6</code>. It’s not an empty range.
+If there was a version <code class="language-plaintext highlighter-rouge">1.2.4</code> of the dependency, you’d be golden. But maybe
+they never released that and instead went straight from <code class="language-plaintext highlighter-rouge">1.2.3</code> to <code class="language-plaintext highlighter-rouge">1.3.0</code>.
+You’ve got a range but nothing exists inside it.</p>
+
+<h3 id="you-can-have-an-unstable-graph">
+<a class="anchor" href="#you-can-have-an-unstable-graph" aria-hidden="true"><span class="octicon octicon-link"></span></a>You can have an unstable graph</h3>
+
+<p>This is, by far, the most challenging part of
+pub’s version solving process. The process was described as <em>build up the
+dependency graph and then solve all of the constraints and pick versions</em>.
+But it doesn’t actually work that way. How could you build up the <em>whole</em>
+dependency graph before you’ve picked <em>any</em> versions? <em>The pubspecs
+themselves are version-specific.</em> Different versions of the same package
+may have different sets of dependencies.</p>
+
+<p>As you’re selecting versions of packages, they are changing the shape of
+the dependency graph itself. As the graph changes, that may change
+constraints, which can cause you to select different versions, and then you
+go right back around in a circle.</p>
+
+<p>Sometimes this process never settles down into a stable solution.
+Gaze into the abyss:</p>
+
+<pre class="prettyprint lang-yaml"><code>name: my_app
+version: 0.0.0
+dependencies:
+  yin: '&gt;=1.0.0'</code></pre>
+
+<pre class="prettyprint lang-yaml"><code>name: yin
+version: 1.0.0
+dependencies:</code></pre>
+
+<pre class="prettyprint lang-yaml"><code>name: yin
+version: 2.0.0
+dependencies:
+  yang: '1.0.0'</code></pre>
+
+<pre class="prettyprint lang-yaml"><code>name: yang
+version: 1.0.0
+dependencies:
+  yin: '1.0.0'</code></pre>
+
+<p>In all of these cases, there is no set of concrete versions that will work for
+your app, and when this happens pub reports an error and tells you what’s
+going on. It definitely won’t leave you in some weird state where you
+think things can work but won’t.</p>
+
+<h2 id="summary">
+<a class="anchor" href="#summary" aria-hidden="true"><span class="octicon octicon-link"></span></a>Summary</h2>
+
+<p>That was a lot of information, but here are the key points:</p>
+
+<ul>
+  <li>Code reuse is great, but in order to let developers move quickly, packages
+need to be able to evolve independently.</li>
+  <li>Versioning is how you enable that. But depending on single concrete versions
+is too precise and with shared dependencies leads to version lock.</li>
+  <li>To cope with that, you depend on <em>ranges</em> of versions. Pub then walks
+your dependency graph and picks the best versions for you. If it can’t, it
+tells you.</li>
+  <li>Once your app has a solid set of versions for its dependencies, that gets
+pinned down in a <em>lockfile</em>. That ensures that every machine your app is
+on is using the same versions of all of its dependencies.</li>
+</ul>
+
+<p>If you’d like to know more about pub’s version solving algorithm,
+see the article
+<a href="https://medium.com/@nex3/pubgrub-2fb6470504f">PubGrub: Next-Generation Version Solving.</a></p>
+
+          
+
+        </div>
+      </article>
+    </main>
+    <footer id="page-footer">
+    <div class="footer-section footer-main">
+      <a href="/" class="brand" title="Dart">
+        <img src="/assets/img/shared/dart/logo+text/horizontal/white.svg" alt="Dart" width="164px">
+      </a>
+      <div class="footer-social-links">
+        <a href="https://github.com/doggy8088/dart.tw" target="_blank" rel="noopener" title="GitHub" class="no-automatic-external">
+          <svg>
+            <use href="/assets/img/social/github.svg#github"></use>
+          </svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-section footer-tray">
+      <div class="footer-licenses">
+        參考中文內容需註明本站及連結作為出處，英文內容和範例程式碼均遵從源站授權協議。
+      </div>
+      <div class="footer-utility-links">
+        <ul>
+          <li><a href="/terms" title="使用條款">使用條款</a></li>
+          <li><a href="https://policies.google.com/privacy?hl=zh-TW" target="_blank" rel="noopener" title="隱私政策" class="no-automatic-external">隱私政策</a></li>
+          <li><a href="/security" title="Security philosophy and practices">Dart 程式碼安全說明</a></li>
+          <li><a href="https://flutter.tw/about" target="_blank">關於中文文件</a>
+          </li><li><a href="https://flutter.tw/disclaimer" target="_blank">免責條款</a>
+          </li><li><a href="https://dart.cn/" target="_blank">Dart 簡體中文文檔</a>
+        </li></ul>
+      </div>
+    </div>
+  </footer>
+
+  
+
+<script src="/assets/translator/js/translator.js"></script></body></html>

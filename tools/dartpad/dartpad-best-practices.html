@@ -1,0 +1,1434 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Language" content="zh-cmn-Hans">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Google Tag Manager -->
+<!--  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':-->
+<!--  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],-->
+<!--  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=-->
+<!--  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);-->
+<!--  })(window,document,'script','dataLayer','GTM-5VSZM5J');</script>-->
+  <!-- End Google Tag Manager -->
+
+  <meta name="description" content="經過研究測試的建議的指南，旨在為Dart和Flutter使用者建立有效且高品質的課程。">
+  <title>DartPad 最佳實踐課程 | Dart</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-28P0PYCRZ9"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-28P0PYCRZ9');
+  </script>
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?fa71f2474b82505e00203cf9956cf0bc";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+  <!-- Favicon / Touch Icons -->
+  <link rel="icon" sizes="64x64" href="/assets/shared/dart/icon/64.png">
+  <link href="/assets/img/touch-icon-iphone.png" rel="apple-touch-icon">
+  <link href="/assets/img/touch-icon-ipad.png" rel="apple-touch-icon" sizes="152x152">
+  <link href="/assets/img/touch-icon-iphone-retina.png" rel="apple-touch-icon" sizes="180x180">
+  <link href="/assets/img/touch-icon-ipad-retina.png" rel="apple-touch-icon" sizes="167x167">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@dart_lang">
+  <meta name="twitter:title" content="DartPad 最佳實踐課程">
+  <meta name="twitter:description" content="經過研究測試的建議的指南，旨在為Dart和Flutter使用者建立有效且高品質的課程。">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="DartPad 最佳實踐課程">
+  <meta property="og:description" content="經過研究測試的建議的指南，旨在為Dart和Flutter使用者建立有效且高品質的課程。">
+  <meta property="og:url" content="https://dart.tw.gh.miniasp.com/tools/dartpad/dartpad-best-practices.html">
+
+  <meta property="og:image" content="https://dart.tw.gh.miniasp.com/assets/shared/dart-logo-for-shares.png?2">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Display:wght@400&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons&amp;display=swap" rel="stylesheet">
+  <script src="https://cdn.staticfile.org/font-awesome/5.15.4/js/all.js" data-auto-replace-svg="nest">
+  </script>
+
+  <link rel="stylesheet" href="/assets/css/main.css?v=1693674404">
+  <script src="https://cdn.staticfile.org/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.staticfile.org/popper.js/1.16.1/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.staticfile.org/bootstrap/4.6.2/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!-- <script src="https://cdn.staticfile.org/js-cookie/3.0.5/js.cookie.min.js"
+          integrity="sha512-nlp9/l96/EpjYBx7EP7pGASVXNe80hGhYAUrjeXnu/fyF5Py0/RXav4BBNs7n5Hx1WFhOEOWSAVjGeC3oKxDVQ=="
+          crossorigin="anonymous"
+          referrerpolicy="no-referrer"></script> -->
+
+  <script src="/assets/js/vendor/code-prettify/prettify.js"></script>
+  <script src="/assets/js/vendor/code-prettify/lang-dart.js"></script>
+  <script src="/assets/js/vendor/code-prettify/lang-yaml.js"></script>
+  <script src="/assets/js/os-tabs.js?v=1693674404"></script>
+  <script src="/assets/js/utilities.js?v=1693674404"></script>
+  <script src="/assets/js/main.js?v=1693674404"></script>
+
+  <script>
+
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-122680122-5', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+
+ <link href="/assets/translator/css/translator.css" rel="stylesheet"></head>
+
+  <body class="default show_banner">
+    <section id="cookie-notice">
+  <div class="container">
+    <p>Google uses cookies to deliver its services, to personalize ads, and to 
+      analyze traffic. You can adjust your privacy controls anytime in your 
+      <a href="https://myaccount.google.com/data-and-personalization" target="_blank" rel="noopener" class="no-automatic-external">Google settings</a>. 
+      <a href="https://policies.google.com/technologies/cookies" target="_blank" rel="noopener" class="no-automatic-external">Learn more</a>.
+    </p>
+    <button id="cookie-consent" class="btn btn-primary">Okay</button>
+  </div>
+</section>
+
+    <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=G-28P0PYCRZ9"
+ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+    <header id="page-header" class="site-header">
+  <nav id="mainnav" class="site-header">
+  <div id="menu-toggle"><i class="material-icons">menu</i></div>
+  <a href="/" class="brand" title="Dart">
+    <img src="/assets/img/shared/dart/logo+text/horizontal/white.svg" alt="Dart">
+  </a>
+  <ul class="navbar">
+    <li>
+      <a href="/overview" class="nav-link">概覽</a>
+    </li>
+    <li class="mainnav__get-started">
+      <a href="/guides" class="nav-link
+         active">
+        <span>文件</span>
+      </a>
+    </li>
+    <li>
+      <a href="/community" class="nav-link">社群</a>
+    </li>
+    <li>
+      <a href="/#try-dart" class="nav-link">嘗試 Dart</a>
+    </li>
+    <li>
+      <a href="/get-dart" class="nav-link">獲取 Dart SDK</a>
+    </li>
+    <li class="searchfield">
+      <form action="/search" class="site-header__search form-inline" id="cse-search-box">
+        <input type="hidden" name="cx" value="011220921317074318178:_yy-tmb5t_i">
+        <input type="hidden" name="ie" value="UTF-8">
+        <input type="hidden" name="hl" value="en">
+        <input class="site-header__searchfield form-control search-field" type="search" name="q" id="q" autocomplete="off" placeholder="Search" aria-label="Search">
+      </form>
+    </li>
+  </ul>
+</nav>
+
+  
+</header>
+ <div class="banner">
+  <p class="banner__text">
+    Dart 3 已釋出！帶來了全新的
+    <a href="https://dart.tw.gh.miniasp.com/language/records" class="no-automatic-external">記錄型別 (records)</a>、
+    <a href="https://dart.tw.gh.miniasp.com/language/patterns" class="no-automatic-external">模式匹配 (patterns)</a>
+    以及 <a href="https://dart.tw.gh.miniasp.com/language/class-modifiers" class="no-automatic-external">型別修飾符 (class modifiers)</a>。
+    <br>
+    <!--<a href="https://medium.com/p/53f065a10635" class="no-automatic-external">Check out the blog post</a>!-->
+  </p>
+</div>
+ 
+
+    <div id="sidenav" class="">
+  <form action="/search/" class="site-header__search form-inline">
+    <input class="site-header__searchfield form-control search-field" type="search" name="q" id="q" autocomplete="off" placeholder="Search" aria-label="Search">
+  </form>
+
+  <div class="site-sidebar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a href="/overview" class="nav-link">概覽</a>
+      </li>
+      <li class="nav-item">
+        <a href="/community" class="nav-link">社群</a>
+      </li>
+      <li class="nav-item">
+        <a href="https://dartpad.dev" class="nav-link">嘗試 Dart</a>
+      </li>
+      <li class="nav-item">
+        <a href="/get-dart" class="nav-link">獲取 Dart SDK</a>
+      </li>
+      <li class="nav-item">
+        <a href="/guides" class="nav-link active">文件</a>
+      </li>
+    </ul>
+
+    <ul class="nav flex-column"><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-1" role="button" aria-expanded="false" aria-controls="sidenav-1">範例和課程</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-1">
+        <li class="nav-item">
+    <a class="nav-link" href="/tutorials">語言概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable" data-toggle="collapse" data-target="#sidenav-1-2" href="#sidenav-1-2" role="button" aria-expanded="true" aria-controls="sidenav-1-2">Codelabs
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-1-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/codelabs">Codelabs 列表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/dart-cheatsheet">Dart 速查表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/iterables">可迭代集合</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/async-await">Dart 非同步程式設計</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/null-safety">空安全</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-2" role="button" aria-expanded="false" aria-controls="sidenav-2">Dart 開發語言</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2">
+        <li class="nav-item">
+    <a class="nav-link" href="/language">介紹</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-2" href="#sidenav-2-2" role="button" aria-expanded="false" aria-controls="sidenav-2-2">基礎表示式
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/variables">變數</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/operators">運運算元</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/comments">註釋</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/metadata">註解</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/libraries">庫 &amp; 導庫</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/keywords">關鍵字</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-3" href="#sidenav-2-3" role="button" aria-expanded="false" aria-controls="sidenav-2-3">型別
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-3">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/built-in-types">基本型別</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/records">記錄 (Records)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/collections">集合 (Collections)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/generics">泛型 (Generics)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/typedefs">別名 (Typedefs)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/type-system">型別系統</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-4" href="#sidenav-2-4" role="button" aria-expanded="false" aria-controls="sidenav-2-4">模式匹配
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-4">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/patterns">概覽 &amp; 用法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/pattern-types">模式匹配型別</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/language/functions">函式方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-6" href="#sidenav-2-6" role="button" aria-expanded="false" aria-controls="sidenav-2-6">控制流
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-6">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/loops">迴圈</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/branches">分支</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/language/error-handling">錯誤處理</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-8" href="#sidenav-2-8" role="button" aria-expanded="false" aria-controls="sidenav-2-8">類 &amp; 物件
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-8">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/classes">類</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/constructors">構造方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/methods">成員方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/extend">繼承</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/mixins">混入 (Mixin)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/enums">列舉</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/extension-methods">擴充方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/callable-objects">可呼叫的物件</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-9" href="#sidenav-2-9" role="button" aria-expanded="false" aria-controls="sidenav-2-9">型別修飾符
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-9">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/class-modifiers">概覽 &amp; 用法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/class-modifiers-for-apis">API 維護者應該用的型別修飾符</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/modifier-reference">速查表</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-10" href="#sidenav-2-10" role="button" aria-expanded="false" aria-controls="sidenav-2-10">併發
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-10">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/async">非同步支援</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/concurrency">Isolates</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-11" href="#sidenav-2-11" role="button" aria-expanded="false" aria-controls="sidenav-2-11">Null safety
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-11">
+      <li class="nav-item">
+    <a class="nav-link" href="/null-safety">健全的空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/migration-guide">遷移到空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/understanding-null-safety">深入理解空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/unsound-null-safety">非健全的空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/faq">空安全常見問題和解答</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-3" role="button" aria-expanded="false" aria-controls="sidenav-3">高效指南 (Effective Dart)</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-3">
+        <li class="nav-item">
+    <a class="nav-link" href="/effective-dart">概述</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/style">程式碼風格</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/documentation">文件</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/usage">用法範例</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/design">API 設計</a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-4" role="button" aria-expanded="false" aria-controls="sidenav-4">核心函式庫</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-4">
+        <li class="nav-item">
+    <a class="nav-link" href="/guides/libraries">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/library-tour">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-4-3" href="#sidenav-4-3" role="button" aria-expanded="false" aria-controls="sidenav-4-3">介紹文章
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-4-3">
+      <li class="nav-item">
+    <a class="nav-link" href="/articles/libraries/creating-streams">建立 stream</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-5" role="button" aria-expanded="false" aria-controls="sidenav-5">Packages</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-5">
+        <li class="nav-item">
+    <a class="nav-link" href="/guides/packages">如何使用 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/useful-libraries">常用 package 介紹</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/create-packages">建立 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/publishing">釋出 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/writing-package-pages">設定 package 介紹頁</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-5-6" href="#sidenav-5-6" role="button" aria-expanded="false" aria-controls="sidenav-5-6">Package 參考資料
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-5-6">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/pub/dependencies">依賴</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/glossary">術語表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/package-layout">Package 檔案結構</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/environment-variables">設定環境變數</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/pubspec">Pubspec 檔案</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/troubleshoot">問題排查</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/verified-publishers">釋出者認證</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/versioning">版本管理</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-6" role="button" aria-expanded="false" aria-controls="sidenav-6">開發文件</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6">
+        <li class="nav-item">
+    <a class="nav-link" href="/codelabs/async-await">Futures、async 和 await</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/language/streams">Streams 介紹</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/json">使用 JSON</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/numbers">Dart 中的數字</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-5" href="#sidenav-6-5" role="button" aria-expanded="false" aria-controls="sidenav-6-5">與其他語言進行互動呼叫
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-5">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/c-interop">與 C 互調</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/objective-c-interop">與 Objective-C 和 Swift 互調</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/java-interop">與 Java 和 Kotlin 互調</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/web/js-interop">與 JavaScript 互調</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/guides/google-apis">Google APIs</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/multiplatform-apps">跨平臺應用</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-8" href="#sidenav-6-8" role="button" aria-expanded="false" aria-controls="sidenav-6-8">命令列和伺服器端應用
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-8">
+      <li class="nav-item">
+    <a class="nav-link" href="/server">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/get-started">起步課程</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/cmdline">命令列應用</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/fetch-data">從網路上獲取資料</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/httpserver">編寫 HTTP 伺服器端應用</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/server/libraries">庫和 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/server/google-cloud">Google Cloud</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-9" href="#sidenav-6-9" role="button" aria-expanded="false" aria-controls="sidenav-6-9">網頁端 (Web) 應用
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-9">
+      <li class="nav-item">
+    <a class="nav-link" href="/web">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/get-started">開始使用</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-9-3" href="#sidenav-6-9-3" role="button" aria-expanded="false" aria-controls="sidenav-6-9-3">底層 Web 程式設計
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-9-3">
+      <li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/low-level-html/connect-dart-html">Dart 與 HTML 關聯</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/low-level-html/add-elements">向 DOM 新增元素</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/low-level-html/remove-elements">移除 DOM 元素</a>
+  </li>
+  </ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/web/deployment">部署</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/web/libraries">常用 Web 函式庫和 package</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/guides/environment-declarations">環境變數宣告</a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link active" data-toggle="collapse" href="#sidenav-7" role="button" aria-expanded="true" aria-controls="sidenav-7">開發工具和使用技巧</a>
+
+      <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-7">
+        <li class="nav-item">
+    <a class="nav-link" href="/tools">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link active collapsable" data-toggle="collapse" data-target="#sidenav-7-2" href="#sidenav-7-2" role="button" aria-expanded="true" aria-controls="sidenav-7-2">編輯器和除錯工具
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-7-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/jetbrains-plugin">使用 IntelliJ 和 Android Studio</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/vs-code">使用 VS Code</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/dart-devtools">Dart 開發者工具</a>
+  </li><li class="nav-item">
+    <a class="nav-link active collapsable" data-toggle="collapse" data-target="#sidenav-7-2-4" href="#sidenav-7-2-4" role="button" aria-expanded="true" aria-controls="sidenav-7-2-4">線上執行 Dart 程式碼
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-7-2-4">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/dartpad">Overview</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" href="/tools/dartpad/dartpad-best-practices">DartPad 課程</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dartpad/troubleshoot">DartPad 疑難解答</a>
+  </li>
+  </ul>
+  </li>
+</ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-3" href="#sidenav-7-3" role="button" aria-expanded="false" aria-controls="sidenav-7-3">命令列工具
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-3">
+      <li class="nav-item">
+    <a class="nav-link collapsable" data-toggle="collapse" data-target="#sidenav-7-3-1" href="#sidenav-7-3-1" role="button" aria-expanded="true" aria-controls="sidenav-7-3-1">Dart SDK
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-7-3-1">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/sdk">概覽</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-tool">dart 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-analyze">dart analyze 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-compile">dart compile 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-create">dart create 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-doc">dart doc 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-fix">dart fix 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-format">dart format 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-info">dart info 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/pub/cmd">dart pub 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-run">dart run 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-test">dart test 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dartaotruntime">dartaotruntime 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/experiment-flags">實驗性命令標記</a>
+  </li>
+  </ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable" data-toggle="collapse" data-target="#sidenav-7-3-2" href="#sidenav-7-3-2" role="button" aria-expanded="true" aria-controls="sidenav-7-3-2">其他的命令列工具
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-7-3-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/build_runner">build_runner 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/webdev">webdev 命令</a>
+  </li>
+  </ul>
+  </li>
+</ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-4" href="#sidenav-7-4" role="button" aria-expanded="false" aria-controls="sidenav-7-4">原始碼管理
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-4">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/language/formatting">程式碼格式化</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/private-files">不應提交的內容</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-5" href="#sidenav-7-5" role="button" aria-expanded="false" aria-controls="sidenav-7-5">靜態分析
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-5">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/analysis">自訂靜態分析</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/sound-problems">修復常見的型別問題</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/diagnostic-messages">診斷訊息</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/linter-rules">Linter 規則</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-6" href="#sidenav-7-6" role="button" aria-expanded="false" aria-controls="sidenav-7-6">測試和調優
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-6">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/testing">測試</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/web/debugging">除錯 Web 應用</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-8" role="button" aria-expanded="false" aria-controls="sidenav-8">資源</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-8">
+        <li class="nav-item">
+    <a class="nav-link" href="/resources/faq">常見問題</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/evolution">版本演變</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/spec">語言規範</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/resources/dart-3-migration">Dart 3 遷移指南</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-8-5" href="#sidenav-8-5" role="button" aria-expanded="false" aria-controls="sidenav-8-5">從其他平台轉向 Dart
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-8-5">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/language/coming-from/js-to-dart">從 JavaScript 到 Dart</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/coming-from/swift-to-dart">從 Swift 到 Dart</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/resources/glossary">詞彙表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/resources/books">書籍資源</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/resources/videos">影片資源</a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link " data-toggle="collapse" href="#sidenav-9" role="button" aria-expanded="true" aria-controls="sidenav-9">相關站點</a>
+
+      <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-9">
+        <li class="nav-item">
+    <a class="nav-link" href="https://api.dart.dev" target="_blank" rel="noopener">API 文件<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://medium.com/dartlang" target="_blank" rel="noopener">Dart 團隊官方部落格<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://dartpad.dev" target="_blank" rel="noopener">DartPad (線上編輯器)<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://flutter.tw" target="_blank" rel="noopener">Flutter<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://pub.dev" target="_blank" rel="noopener">Package 網站<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-10" role="button" aria-expanded="false" aria-controls="sidenav-10">關於 Dart 中文文件</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-10">
+        <li class="nav-item">
+    <a class="nav-link" href="https://flutter.tw/about/docs-cn" target="_blank" rel="noopener">關於本站<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://flutter.tw/disclaimer" target="_blank" rel="noopener">免責條款 (Disclaimer)<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li>
+</ul>
+    </li></ul>
+
+  </div>
+</div>
+
+    <main id="page-content">
+      
+
+
+
+
+
+
+
+<div id="site-toc--side" class="site-toc ">
+  <header class="site-toc__title">
+    目錄
+    
+  </header>
+  <ul id="toc" class="section-nav">
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#what-is-dartpad">What is DartPad?</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#why-use-dartpad-in-a-tutorial">Why use DartPad in a tutorial?</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#what-youll-learn-from-this-guide">What you’ll learn from this guide</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#design-principles-for-interactive-tutorials">Design principles for interactive tutorials</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#ways-of-using-dartpad-in-tutorials">Ways of using DartPad in tutorials</a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#i-demo">I. Demo</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#ii-exercise">II. Exercise</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#iii-quiz">III. Quiz</a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#case-study-the-dart-futures-codelab">Case study: the Dart Futures codelab</a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#i-demo-1">I. Demo</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#ii-exercise-1">II. Exercise</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#iii-quiz-1">III. Quiz</a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#final-words">Final words</a></li>
+</ul>
+  
+</div>
+
+
+      <article>
+        <div class="content">
+          
+
+          <div id="site-content-title">
+            <div id="page-github-links" class="btn-group" aria-label="Page GitHub links" role="group">
+  <a href="https://github.com/doggy8088/dart.tw/tree/master/src/tools/dartpad/dartpad-best-practices.md" class="btn no-automatic-external" title="View page source" target="_blank" rel="noopener">
+    <i class="material-icons">description</i>
+  </a>
+  <a href="https://github.com/doggy8088/dart.tw/issues/new?template=1_page_issue.yml&amp;title=[PAGE ISSUE]: 'DartPad 最佳實踐課程'&amp;page-url=https://dart.tw.gh.miniasp.com/tools/dartpad/dartpad-best-practices.html&amp;page-source=https://github.com/doggy8088/dart.tw/tree/master/src/tools/dartpad/dartpad-best-practices.md" class="btn no-automatic-external" title="Report an issue with this page" target="_blank" rel="noopener">
+    <i class="material-icons">bug_report</i>
+  </a>
+</div>
+
+            
+            <h1 id="dartpad-最佳實踐課程">DartPad 最佳實踐課程</h1>
+            </div>
+          
+
+
+
+
+
+
+
+<div id="site-toc--inline" class="site-toc toc-collapsible toc-collapsed">
+  <header class="site-toc__title">
+    目錄
+    
+      <span class="site-toc--inline__toggle toc-toggle-down"><i class="material-icons">keyboard_arrow_down</i></span>
+      <span class="site-toc--inline__toggle toc-toggle-up"><i class="material-icons">keyboard_arrow_up</i></span>
+    
+  </header>
+  <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#what-is-dartpad">What is DartPad?</a></li>
+<li class="toc-entry toc-h2"><a href="#why-use-dartpad-in-a-tutorial">Why use DartPad in a tutorial?</a></li>
+<li class="toc-entry toc-h2"><a href="#what-youll-learn-from-this-guide">What you’ll learn from this guide</a></li>
+<li class="toc-entry toc-h2"><a href="#design-principles-for-interactive-tutorials">Design principles for interactive tutorials</a></li>
+<li class="toc-entry toc-h2"><a href="#ways-of-using-dartpad-in-tutorials">Ways of using DartPad in tutorials</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#i-demo">I. Demo</a></li>
+<li class="toc-entry toc-h3"><a href="#ii-exercise">II. Exercise</a></li>
+<li class="toc-entry toc-h3"><a href="#iii-quiz">III. Quiz</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#case-study-the-dart-futures-codelab">Case study: the Dart Futures codelab</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#i-demo-1">I. Demo</a></li>
+<li class="toc-entry toc-h3"><a href="#ii-exercise-1">II. Exercise</a></li>
+<li class="toc-entry toc-h3"><a href="#iii-quiz-1">III. Quiz</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#final-words">Final words</a></li>
+</ul>
+  
+    <span class="site-toc--inline__toggle toc-toggle-more-items"><i class="material-icons">more_horiz</i></span>
+  
+</div>
+
+
+          <style>
+
+@media (max-width: 575.98px) {
+  .img-xs-wrapper {
+    text-align: center; 
+  }
+  .img-xs-wrapper img {
+    max-width: 250px;
+    padding: 15px 0;
+  }
+}
+
+</style>
+
+<p>This guide introduces DartPad,
+a tool for creating effective and engaging educational content for
+Dart and Flutter users.
+It provides you, the tutorial author,
+with advice, tips, and examples for using DartPad.</p>
+
+<h2 id="what-is-dartpad">
+<a class="anchor" href="#what-is-dartpad" aria-hidden="true"><span class="octicon octicon-link"></span></a>What is DartPad?</h2>
+
+<p><a href="https://dartpad.dev">DartPad</a> is an online code editor for the Dart language.
+In addition to executing regular Dart programs,
+it can run Flutter programs and show graphic output.
+DartPad enables learners to engage with the content without
+having to set up a development environment.
+The following screenshot shows DartPad.</p>
+
+<div class="col-md-10">
+  <p><img src="/assets/img/dartpad-best-practices/anatomy.png" alt="A screenshot of DartPad with annotations"></p>
+  <p style="text-align: center;">
+  <em>A screenshot of DartPad with annotations</em>
+</p>
+</div>
+
+<div class="container">
+<div class="row">
+<div class="col-sm-7">
+
+      <p><strong>1. Tabs:</strong> Dart, Solution, and Tests (hidden) <br>
+<strong>2. Hint:</strong> Offers help <br>
+<strong>3. Format:</strong> Runs the code formatter (dart format) <br>
+<strong>4. Reset:</strong> Erases your work and restores the editor to its original state <br>
+<strong>5. Run</strong></p>
+
+    </div>
+<div class="col-sm-5">
+
+      <p><strong>6. Menu:</strong> The Tests tab toggle  <br>
+<strong>7. Code pane</strong> <br>
+<strong>8. Output:</strong> Console, UI output <br>
+<strong>9. Analyzer:</strong> Instantly checks the code</p>
+
+    </div>
+</div>
+</div>
+
+<p>DartPad is under development.
+If you find a bug or have suggestions, please <a href="https://github.com/dart-lang/dart-pad/issues/new/choose">create an issue.</a>
+To learn more about DartPad read the
+<a href="/tools/dartpad">DartPad documentation</a>,
+visit the <a href="https://github.com/dart-lang/dart-pad">DartPad GitHub repo,</a>
+and read the <a href="https://github.com/dart-lang/dart-pad/wiki/Embedding-Guide">DartPad Embedding Guide.</a></p>
+
+<h2 id="why-use-dartpad-in-a-tutorial">
+<a class="anchor" href="#why-use-dartpad-in-a-tutorial" aria-hidden="true"><span class="octicon octicon-link"></span></a>Why use DartPad in a tutorial?</h2>
+
+<div class="row">
+<div class="col-lg-8 col-md-8 col-sm">
+
+    <p>A traditional tutorial provides learners with
+step-by-step instructions and static code snippets
+aimed at helping the learner to
+complete a software development task.</p>
+
+    <p>DartPad enables learners to test their knowledge by
+running example code and by completing exercises as
+they go through the steps in the tutorial.</p>
+
+    <p>Coding tutorials are sometimes referred to as <em>codelabs.</em></p>
+
+    <h2 id="what-youll-learn-from-this-guide">
+<a class="anchor" href="#what-youll-learn-from-this-guide" aria-hidden="true"><span class="octicon octicon-link"></span></a>What you’ll learn from this guide</h2>
+
+    <ul>
+      <li>Design principles for interactive tutorials</li>
+      <li>Ways of using DartPad in tutorials</li>
+      <li>Case study: DartPad in a Google tutorial</li>
+    </ul>
+
+  </div>
+<div class="col-lg-4 col-md-4 col-sm">
+
+    <p class="img-xs-wrapper"><img src="/assets/img/dartpad-best-practices/codelab.png" alt="An illustration of people studying"></p>
+
+  </div>
+</div>
+
+<p>This guide doesn’t provide general technical writing information,
+which you can find in the following resources:</p>
+
+<ul>
+  <li>
+<a href="https://developers.google.com/style/">Google Developer Documentation Style Guide:</a>
+The primary writing style reference for Google-related developer documentation</li>
+  <li>
+<a href="https://cloud.google.com/shell/docs/cloud-shell-tutorials/style-guide#writing_style">Cloud Shell Walkthrough Writing Guide:</a>
+Suggestions about high-level tutorial structure</li>
+  <li><a href="https://web.dev/handbook#content-guidelines">Content guidelines: Content handbook for web.dev</a></li>
+  <li><a href="https://developers.google.com/style#editorial-resources">Other editorial resources</a></li>
+</ul>
+
+<p>The guidance provided in this page is based on
+Google’s internal research and
+related academic research about instructional design.
+This document will evolve as we learn more about what works.</p>
+
+<hr>
+
+<h2 id="design-principles-for-interactive-tutorials">
+<a class="anchor" href="#design-principles-for-interactive-tutorials" aria-hidden="true"><span class="octicon octicon-link"></span></a>Design principles for interactive tutorials</h2>
+
+<p>DartPad enhances a traditional tutorial through its ability to
+support <a href="https://www.globalcognition.org/guided-discovery-learning/">guided discovery learning,</a>
+a recognized learning approach that calls for a balance between
+the student’s freedom of exploration and
+the teacher’s scaffolding of the learning process.</p>
+
+<p>Past research (<a href="https://www.csun.edu/learningnet/TeachScience/UPimages/1/12/MayerThreeStrikesAP04.pdf">Mayer, Richard E., 2004</a>) suggested that
+guided discovery learning was more effective than
+pure discovery learning in helping students learn and transfer their learning.
+Pedagogical principles of coding tutorials
+(<a href="https://faculty.washington.edu/ajko/papers/Kim2017CodingTutorialEvaluation.pdf">Kim, Ada S., and Amy J. Ko., 2017</a>) also emphasize the importance of
+utilization, actionability and feedback, transfer learning, and support.</p>
+
+<p>Based on the guided discovery learning approach and
+our application of it on coding tutorial development,
+we identified the following principles for
+using DartPad in interactive tutorials:</p>
+
+<div class="row">
+<div class="col-md-3">
+
+    <p class="img-xs-wrapper"><img src="/assets/img/dartpad-best-practices/p_hands-on.png" alt="An illustration of hands-on exercise"></p>
+
+    <h4 id="enable-hands-on-exercises"><strong>Enable hands-on exercises</strong></h4>
+
+    <p>Provide code examples and hands-on practice that
+engage learners in actively writing code.</p>
+
+  </div>
+<div class="col-md-3">
+
+    <p class="img-xs-wrapper"><img src="/assets/img/dartpad-best-practices/p_feedback.png" alt="An illustration of feedback"></p>
+
+    <h4 id="give-just-in-time-and-just-enough-help-and-feedback"><strong>Give just-in-time and just-enough help, and feedback</strong></h4>
+
+    <p>Offer precise, contextualized, and immediate feedback on
+learners’ progress without taking away learning opportunities.</p>
+
+  </div>
+<div class="col-md-3">
+
+    <p class="img-xs-wrapper"><img src="/assets/img/dartpad-best-practices/p_reflection.png" alt="An illustration of reflection"></p>
+
+    <h4 id="facilitate-reflection"><strong>Facilitate reflection</strong></h4>
+
+    <p>Encourage meta-cognitive learning, the learners’ ability to
+predict the outcomes of their learning and monitor their understanding.</p>
+
+  </div>
+<div class="col-md-3">
+
+    <p class="img-xs-wrapper"><img src="/assets/img/dartpad-best-practices/p_transferlearning.png" alt="An illustration of learning transfer"></p>
+
+    <h4 id="support-learning-transfer"><strong>Support learning transfer</strong></h4>
+
+    <p>Help learners leverage accumulated knowledge gained from tutorials and
+apply it to new settings.</p>
+
+  </div>
+</div>
+
+<hr>
+
+<h2 id="ways-of-using-dartpad-in-tutorials">
+<a class="anchor" href="#ways-of-using-dartpad-in-tutorials" aria-hidden="true"><span class="octicon octicon-link"></span></a>Ways of using DartPad in tutorials</h2>
+
+<p>The pedagogical principles previously described are realized by
+configuring DartPad to show demos, exercises, and quizzes.</p>
+
+<div class="row">
+<div class="col-md-3">
+
+    <p><strong>I. Demo</strong></p>
+
+    <p class="img-xs-wrapper"><img src="/assets/img/dartpad-best-practices/m_demo.png" alt="An illustration of andemo"></p>
+
+  </div>
+<div class="col-md-3">
+
+    <p><strong>II. Exercise</strong></p>
+
+    <p class="img-xs-wrapper"><img src="/assets/img/dartpad-best-practices/m_exercise.png" alt="An illustration of an exercise"></p>
+
+  </div>
+<div class="col-md-3">
+
+    <p><strong>III. Quiz</strong></p>
+
+    <p class="img-xs-wrapper"><img src="/assets/img/dartpad-best-practices/m_quiz.png" alt="An illustration of a quiz"></p>
+
+  </div>
+</div>
+
+<h3 id="i-demo">
+<a class="anchor" href="#i-demo" aria-hidden="true"><span class="octicon octicon-link"></span></a>I. Demo</h3>
+
+<p>The <em>demo</em> provides interactive code examples for concepts and feature use.
+This is similar to how science teachers bring experiments into the classroom to make concepts concrete and memorable.</p>
+
+<div class="col-md-11">
+
+  <p><img src="/assets/img/dartpad-best-practices/demo_screenshot.png" alt="A screenshot of a demo"></p>
+  <p style="text-align: center;">
+  <em>A code demo: abstract execution flow and instructions for changing code</em>
+</p>
+
+</div>
+
+<h3 id="ii-exercise">
+<a class="anchor" href="#ii-exercise" aria-hidden="true"><span class="octicon octicon-link"></span></a>II. Exercise</h3>
+
+<p>The <em>exercise</em> provides the necessary scaffolds for the learner to carry out a specific task.
+The scaffolds can include a starting template, key information, check points,
+and other kinds of feedback and help.</p>
+
+<div class="col-md-11">
+
+  <p><img src="/assets/img/dartpad-best-practices/exercise_screenshot.png" alt="A screenshot of an exercise"></p>
+  <p style="text-align: center;">
+  <em>A coding exercise: implementing two async functions</em>
+</p>
+
+</div>
+
+<h3 id="iii-quiz">
+<a class="anchor" href="#iii-quiz" aria-hidden="true"><span class="octicon octicon-link"></span></a>III. Quiz</h3>
+
+<p>The <em>quiz</em> enables the learner to work on another similar problem,
+and automatically check if the solution is correct.
+This is useful to evaluate whether the <a href="https://en.wikipedia.org/wiki/Transfer_of_learning">transfer of learning</a> happened.</p>
+
+<div class="col-md-11">
+
+  <p><img src="/assets/img/dartpad-best-practices/quiz_future.png" alt="A screenshot of a quiz"></p>
+  <p style="text-align: center;">
+  *A quiz on async functions, the async and await keywords,
+  and errors handling
+</p>
+
+</div>
+
+<p>What’s the difference between exercise and quiz?
+There are two main differences:</p>
+
+<ol>
+  <li>
+<strong>Exercises provide more scaffolds.</strong>
+  When you write exercise instructions,
+  in addition to describing the expected results
+  (for example, add two boxes and ensure that the extra space
+  between the two are divided evenly),
+  you may step learners through how to get to that outcome
+  (for example,  enter two <code class="language-plaintext highlighter-rouge">Text</code> widgets inside the <code class="language-plaintext highlighter-rouge">Row</code> and
+  use the <code class="language-plaintext highlighter-rouge">manAxisAlignment.SpaceBetween</code> property).
+  Also, there might be more pre-filled code snippets in the starting state,
+  and more hints in the exercises than in a quiz.</li>
+  <li>
+<strong>A quiz is more challenging than an exercise.</strong>
+  A quiz tests the transfer of learning.
+  The problem in a quiz is usually a bit harder than a problem in an exercise,
+  and requires a real understanding of how to complete a task,
+  instead of just copying and pasting code snippets.
+  Until now, we might not have explicitly claimed “this is a quiz” because
+  we didn’t know how users would perceive the word <em>quiz,</em>
+  and we didn’t want to add too much pressure.</li>
+</ol>
+
+<hr>
+
+<h2 id="case-study-the-dart-futures-codelab">
+<a class="anchor" href="#case-study-the-dart-futures-codelab" aria-hidden="true"><span class="octicon octicon-link"></span></a>Case study: the Dart Futures codelab</h2>
+
+<p>So far you’ve learned about the guiding principles and
+ways of using DartPad for creating interactive tutorials.
+But how do you apply these principles when you’re
+developing a real-world tutorial?
+We’ll explain that through a detailed case study.
+In the case study we used DartPad in the instructional design of
+a tutorial titled <em><a href="/codelabs/async-await">Asynchronous programming: futures, async, await</a>,</em>
+or <em>the Dart Futures codelab</em> for short.</p>
+
+<div class="col-md-10">
+
+  <p><img src="/assets/img/dartpad-best-practices/futurecodelab2.png" alt="A screenshot of the Dart Futures codelab"></p>
+  <p style="text-align: center;">
+  <em>The Dart Futures codelab</em>
+</p>
+
+</div>
+
+<p>This tutorial teaches developers how to write asynchronous code in Dart using
+the <code class="language-plaintext highlighter-rouge">Future</code> class and the <code class="language-plaintext highlighter-rouge">async</code> and <code class="language-plaintext highlighter-rouge">await</code> keywords.
+The following chart shows the general structure of the codelab and
+where DartPad is used to support learning,
+including demos, exercises, and a quiz.
+In the following topics,
+we walk you through how each use case is used in the design of this tutorial.</p>
+
+<div class="col-md-9">
+
+  <p><img src="/assets/img/dartpad-best-practices/ToC.png" alt="Table of contents: 5 demos, 2 exercises, and 1 final quiz"></p>
+  <p style="text-align: center;">
+  <em>Table of contents: 5 demos, 2 exercises, and 1 final quiz</em>
+</p>
+
+</div>
+
+<h3 id="i-demo-1">
+<a class="anchor" href="#i-demo-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>I. Demo</h3>
+
+<p>First, demos were used to accomplish the following goals:</p>
+
+<ul>
+  <li>Demonstrate how concepts work in action and
+show the use of features in concrete examples.</li>
+  <li>Familiarize learners with how to use
+<code class="language-plaintext highlighter-rouge">Future</code> objects and the <code class="language-plaintext highlighter-rouge">async</code> and <code class="language-plaintext highlighter-rouge">await</code> keywords.</li>
+  <li>Provide sample code as a reference for hands-on coding exercises.</li>
+</ul>
+
+<p>When you design a demo using DartPad, pay attention to the following things.</p>
+
+<h4 id="facilitate-reflection-by-explicitly-telling-learners-what-to-do"><strong>Facilitate reflection by explicitly telling learners what to do</strong></h4>
+
+<p>Demos make important points about a concept, but to get those points across,
+we need to tell users what they should be looking for in the demo.
+Instead of unconsciously jumping into the output,
+explicit instructions encourage learners to think about
+what they thought would happen and what might not make sense to them.</p>
+
+<p>For example, the following <a href="/codelabs/async-await#example-incorrectly-using-an-asynchronous-function">demo</a> presents learners with
+an example of incorrectly using an asynchronous function.
+Above the code snippet is a prompt:
+<em>Before running this example, try to spot the issue -
+what do you think the output will be?</em>
+Beneath the code example is a description of what the code example is about,
+how the code is executed,
+and an explanation of why the code fails to print the desired value.</p>
+
+<div class="col-md-11">
+
+  <p><img src="/assets/img/dartpad-best-practices/demo_incorrect_usecase.png" alt="A prompt to ask the user to consider the output of an example that incorrectly uses an asynchronous function, followed by an explanation."></p>
+  <p style="text-align: center;">
+  <em>A prompt to ask the user to consider the output of an example that
+  incorrectly uses an asynchronous function, followed by an explanation.</em>
+</p>
+
+</div>
+
+<h4 id="encourage-learners-to-play-with-the-code-and-observe-the-results"><strong>Encourage learners to play with the code and observe the results</strong></h4>
+
+<p>Interactive demos make hard-to-explain concepts concrete because
+they allow learners to actively explore and experiment with the code.
+The following example encourages learners to first think about
+how execution proceeds within an async function body.
+Next, learners are encouraged to reverse line 4 and line 5,
+and then observe the difference in the timing of the output.
+With this demo,
+learners can better understand the execution flow in asynchronous code.</p>
+
+<div class="col-md-11">
+
+  <p><img src="/assets/img/dartpad-best-practices/demo_changecode.png" alt="A code example: abstract execution flow and instructions for changing code"></p>
+  <p style="text-align: center;">
+  <em>A code example:
+  abstract execution flow and instructions for changing code</em>
+</p>
+
+</div>
+
+<h3 id="ii-exercise-1">
+<a class="anchor" href="#ii-exercise-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>II. Exercise</h3>
+
+<p>After the learner is exposed to the basic concepts and operations of
+asynchronous programming in Dart,
+the tutorial provides <a href="/codelabs/async-await#exercise-practice-using-async-and-await">exercises</a> to help them
+put this newly acquired knowledge into action.
+For example, the following exercise requires learners to
+implement two async functions, <code class="language-plaintext highlighter-rouge">reportUserRole()</code> and <code class="language-plaintext highlighter-rouge">reportLogins(),</code>
+using the <code class="language-plaintext highlighter-rouge">Future</code> class, the <code class="language-plaintext highlighter-rouge">async</code> keyword, and the <code class="language-plaintext highlighter-rouge">await</code> keyword.
+Learners have an opportunity to practice what they just learned from the demos.</p>
+
+<div class="col-md-11">
+  <p><img src="/assets/img/dartpad-best-practices/exercise_future.png" alt="A coding exercise: implementing two async functions"></p>
+  <p style="text-align: center;">
+  <em>A coding exercise: implementing two async functions</em>
+</p>
+</div>
+
+<p>When you design a coding exercise,
+there are a few things you need to pay attention to.</p>
+
+<h4 id="describe-the-exercise-workflow"><strong>Describe the exercise workflow</strong></h4>
+
+<p>Learners look for clear direction on what to expect next.
+When an exercise is first presented to the learner,
+provide a brief description of the exercise’s workflow.
+In this case, it’s important to point out that
+the goal is to modify the snippet, to make the unit test pass.</p>
+
+<p>For example, the following exercise starts with an introduction:
+<em>The following exercise is a failing unit test that
+contains partially completed code snippets.
+Your task is to complete the exercise by writing code to make the tests pass.</em>
+In addition to explaining what the exercise is about,
+the author also clearly communicates that learners don’t need to
+implement the hidden code that was provided, such as <code class="language-plaintext highlighter-rouge">main()</code> and
+two asynchronous functions, <code class="language-plaintext highlighter-rouge">getRole()</code> and <code class="language-plaintext highlighter-rouge">getLoginAmount()</code>.</p>
+
+<div class="col-md-9">
+  <p><img src="/assets/img/dartpad-best-practices/exercise_workflow.png" alt="Briefly explain what the exercise is about and what learners are supposed (or not supposed) to do."></p>
+  <p style="text-align: center;">
+  <em>Briefly explain what the exercise is about and
+  what learners are supposed (or not supposed) to do.</em>
+</p>
+</div>
+
+<h4 id="visually-distinguish-between-demos-and-exercises"><strong>Visually distinguish between demos and exercises</strong></h4>
+
+<p>When DartPad is embedded in multiple places in a tutorial,
+a clear, visual distinction between demos and exercises help
+users quickly recognize the expected actions.
+When we used the same UIs for both demos and exercises,
+one of our study participants said,
+“I wasn’t sure whether I should just code something or
+I’m supposed to just run it to see it.”</p>
+
+<p>In the published Futures codelab,
+all embedded DartPads are labeled with clear headings,
+such as <em>Example: Introducing futures</em> and
+<em>Exercise: Practice using async and await.</em>
+Also, we adopted the light DartPad theme for demos and
+the dark DartPad theme for exercises.
+The continuous improvement is tracked using <a href="https://github.com/dart-lang/dart-pad/issues/1150">this GitHub issue.</a></p>
+
+<div class="col-md-9">
+  <p><img src="/assets/img/dartpad-best-practices/instruction_title.png" alt="Clearly label the titles, and use different themes for demos and exercises."></p>
+  <p style="text-align: center;">
+  <em>Clearly label the titles,
+  and use different themes for demos and exercises.</em>
+</p>
+</div>
+
+<h4 id="steps-toward-greater-confidence"><strong>Steps toward greater confidence</strong></h4>
+
+<p>Interactive tutorials provide hands-on practice so that
+learners can accumulate knowledge as they tackle
+more and more sophisticated problems.
+However, learners can get frustrated if the tutorial
+doesn’t prepare them for bigger challenges.
+We learned four lessons from developing the Futures codelab.</p>
+
+<p>First, including demos and exercises for each concept before the final quiz
+can provide a gradual progression that novices can follow.
+An earlier draft of this codelab had a demo for handling errors,
+but didn’t have a corresponding exercise to
+practice the try-catch concept before the final quiz.
+One of our study participants who tried that version said,
+“When you have to do something for the first time during the test,
+it doesn’t feel good.
+Because I’m not confident that I’ll get this part right.”</p>
+
+<p>Second, exercises need to provide necessary scaffolds.
+When an exercise has multiple tasks,
+consider providing more support in the first task.
+In the following example, Part 1, <code class="language-plaintext highlighter-rouge">reportUserRole()</code>,
+has more pre-filled code snippets in the starting state,
+while in Part 2, <code class="language-plaintext highlighter-rouge">reportLogins()</code>, only the function name is offered.</p>
+
+<div class="col-md-9">
+  <p><img src="/assets/img/dartpad-best-practices/codesnippet_scaffold.png" alt="Part 1 has more complete code snippets in the starting state than Part 2 does."></p>
+  <p style="text-align: center;">
+  <em>Part 1 has more complete code snippets in the starting state than
+  Part 2 does.</em>
+</p>
+</div>
+
+<p>Third, learners appreciate that they can refer to code examples when
+working on exercises.
+As they get more familiar with the topic and syntax,
+they check the code examples less frequently.
+In the Futures codelab,
+all code examples and exercises are put on the same page.
+One of our study participants said,
+“I liked how I could be typing here but then also
+refer back to the examples to see where I should put stuff.”</p>
+
+<p>Last, demos and exercises (or quizzes) shouldn’t be too similar,
+to avoid feeling redundant.
+Providing almost identical examples and exercises may confuse learners.
+Ultimately, they just copy and paste the code
+instead of practicing on their own.
+In our initial prototype, the demos and the first exercise used
+a similar context and function names, <code class="language-plaintext highlighter-rouge">getUserOrder()</code> and <code class="language-plaintext highlighter-rouge">reportChange()</code>.
+One of our study participants said,
+“This exercise is slightly odd that they’re looking for
+basically the exact same code as the example.
+I’m not sure what they’re asking me to do.”
+We then improved this by changing the context of exercise to
+access control instead of ordering coffee.</p>
+
+<h3 id="iii-quiz-1">
+<a class="anchor" href="#iii-quiz-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>III. Quiz</h3>
+
+<p>Before wrapping up, the tutorial provides a final quiz that
+covers all the concepts, to help learners apply everything
+that they learned in the tutorial to a new setting.
+For instance, the following quiz requires learners to
+implement three functions, including a non-async function, <code class="language-plaintext highlighter-rouge">addHello()</code>,
+and async functions, <code class="language-plaintext highlighter-rouge">greetUser()</code> and <code class="language-plaintext highlighter-rouge">sayGoodbye()</code>.
+Learners can practice when to use async functions,
+where to use the <code class="language-plaintext highlighter-rouge">Future</code> class,
+how to use the <code class="language-plaintext highlighter-rouge">async</code> and <code class="language-plaintext highlighter-rouge">await</code> keywords,
+and how to handle errors.</p>
+
+<p>Even though this section is not explicitly labeled as a quiz,
+learners may still consider it as a final assessment.
+As one of our study participants said,
+“Whenever you do like a tutorial and it’s the final part,
+it’s usually to me that means it’s like a test of
+every single thing that you’ve written out and combining them.“</p>
+
+<div class="col-md-9">
+  <p><img src="/assets/img/dartpad-best-practices/quiz_future.png" alt="A coding quiz: implementing 3 functions about async functions, async/await keywords and handling errors"></p>
+  <p style="text-align: center;">
+  <em>A coding quiz: implementing 3 functions about async functions,
+  async/await keywords, and handling errors</em>
+</p>
+</div>
+
+<h4 id="minimal-amount-of-help-and-scaffolds-in-a-quiz"><strong>Minimal amount of help and scaffolds in a quiz</strong></h4>
+
+<p>The problem in a quiz is usually a bit harder than
+the problem in an exercise and less guidance is provided.
+Compared to the previous “Exercise: Practice using async and await,”
+the partially completed code in the starting point for this quiz is minimized.
+Also, this quiz has no <strong>Hint</strong> button.</p>
+
+<h2 id="final-words">
+<a class="anchor" href="#final-words" aria-hidden="true"><span class="octicon octicon-link"></span></a>Final words</h2>
+
+<p>We solicited feedback about the tutorial using
+moderated UX studies and an embedded survey.
+Learners are satisfied overall with
+this interactive tutorial for the following reasons:</p>
+
+<ul>
+  <li>Provides hands-on exercises without
+having to set up a development environment.</li>
+  <li>Content is well-explained, straightforward, and easy to read.</li>
+  <li>Gives just-in-time and just-enough help and feedback.</li>
+</ul>
+
+<p>DartPad enables us to create effective tutorials that
+lower the learning curves, are easy to use, and are more engaging.
+If you write tutorials for Dart or Flutter,
+we encourage you to consider using DartPad to enhance your tutorial.</p>
+
+<p>“<em>Exercises are an excellent learning tool!!! Thank you!</em>”</p>
+
+<p>“<em>I learn coding concepts the best when I have to
+think through the entire process versus just being handed the solution.</em>”</p>
+
+<p>“<em>I like the live coding parts are free form.
+As long as you get the return correct,
+being able to write how you write it is nice.</em>”</p>
+
+
+          
+
+        </div>
+      </article>
+    </main>
+    <footer id="page-footer">
+    <div class="footer-section footer-main">
+      <a href="/" class="brand" title="Dart">
+        <img src="/assets/img/shared/dart/logo+text/horizontal/white.svg" alt="Dart" width="164px">
+      </a>
+      <div class="footer-social-links">
+        <a href="https://github.com/doggy8088/dart.tw" target="_blank" rel="noopener" title="GitHub" class="no-automatic-external">
+          <svg>
+            <use href="/assets/img/social/github.svg#github"></use>
+          </svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-section footer-tray">
+      <div class="footer-licenses">
+        參考中文內容需註明本站及連結作為出處，英文內容和範例程式碼均遵從源站授權協議。
+      </div>
+      <div class="footer-utility-links">
+        <ul>
+          <li><a href="/terms" title="使用條款">使用條款</a></li>
+          <li><a href="https://policies.google.com/privacy?hl=zh-TW" target="_blank" rel="noopener" title="隱私政策" class="no-automatic-external">隱私政策</a></li>
+          <li><a href="/security" title="Security philosophy and practices">Dart 程式碼安全說明</a></li>
+          <li><a href="https://flutter.tw/about" target="_blank">關於中文文件</a>
+          </li><li><a href="https://flutter.tw/disclaimer" target="_blank">免責條款</a>
+          </li><li><a href="https://dart.cn/" target="_blank">Dart 簡體中文文檔</a>
+        </li></ul>
+      </div>
+    </div>
+  </footer>
+
+  
+
+<script src="/assets/translator/js/translator.js"></script></body></html>

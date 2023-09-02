@@ -1,0 +1,1462 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Language" content="zh-cmn-Hans">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Google Tag Manager -->
+<!--  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':-->
+<!--  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],-->
+<!--  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=-->
+<!--  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);-->
+<!--  })(window,document,'script','dataLayer','GTM-5VSZM5J');</script>-->
+  <!-- End Google Tag Manager -->
+
+  <meta name="description" content="學習如何將 Dart package 釋出到 pub.dev 網站。">
+  <title>釋出 package | Dart</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-28P0PYCRZ9"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-28P0PYCRZ9');
+  </script>
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?fa71f2474b82505e00203cf9956cf0bc";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+  <!-- Favicon / Touch Icons -->
+  <link rel="icon" sizes="64x64" href="/assets/shared/dart/icon/64.png">
+  <link href="/assets/img/touch-icon-iphone.png" rel="apple-touch-icon">
+  <link href="/assets/img/touch-icon-ipad.png" rel="apple-touch-icon" sizes="152x152">
+  <link href="/assets/img/touch-icon-iphone-retina.png" rel="apple-touch-icon" sizes="180x180">
+  <link href="/assets/img/touch-icon-ipad-retina.png" rel="apple-touch-icon" sizes="167x167">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@dart_lang">
+  <meta name="twitter:title" content="釋出 package">
+  <meta name="twitter:description" content="學習如何將 Dart package 釋出到 pub.dev 網站。">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="釋出 package">
+  <meta property="og:description" content="學習如何將 Dart package 釋出到 pub.dev 網站。">
+  <meta property="og:url" content="https://dart.tw.gh.miniasp.com/tools/pub/publishing.html">
+
+  <meta property="og:image" content="https://dart.tw.gh.miniasp.com/assets/shared/dart-logo-for-shares.png?2">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Display:wght@400&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons&amp;display=swap" rel="stylesheet">
+  <script src="https://cdn.staticfile.org/font-awesome/5.15.4/js/all.js" data-auto-replace-svg="nest">
+  </script>
+
+  <link rel="stylesheet" href="/assets/css/main.css?v=1693674404">
+  <script src="https://cdn.staticfile.org/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.staticfile.org/popper.js/1.16.1/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.staticfile.org/bootstrap/4.6.2/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!-- <script src="https://cdn.staticfile.org/js-cookie/3.0.5/js.cookie.min.js"
+          integrity="sha512-nlp9/l96/EpjYBx7EP7pGASVXNe80hGhYAUrjeXnu/fyF5Py0/RXav4BBNs7n5Hx1WFhOEOWSAVjGeC3oKxDVQ=="
+          crossorigin="anonymous"
+          referrerpolicy="no-referrer"></script> -->
+
+  <script src="/assets/js/vendor/code-prettify/prettify.js"></script>
+  <script src="/assets/js/vendor/code-prettify/lang-dart.js"></script>
+  <script src="/assets/js/vendor/code-prettify/lang-yaml.js"></script>
+  <script src="/assets/js/os-tabs.js?v=1693674404"></script>
+  <script src="/assets/js/utilities.js?v=1693674404"></script>
+  <script src="/assets/js/main.js?v=1693674404"></script>
+
+  <script>
+
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-122680122-5', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+
+ <link href="/assets/translator/css/translator.css" rel="stylesheet"></head>
+
+  <body class="default show_banner">
+    <section id="cookie-notice">
+  <div class="container">
+    <p>Google uses cookies to deliver its services, to personalize ads, and to 
+      analyze traffic. You can adjust your privacy controls anytime in your 
+      <a href="https://myaccount.google.com/data-and-personalization" target="_blank" rel="noopener" class="no-automatic-external">Google settings</a>. 
+      <a href="https://policies.google.com/technologies/cookies" target="_blank" rel="noopener" class="no-automatic-external">Learn more</a>.
+    </p>
+    <button id="cookie-consent" class="btn btn-primary">Okay</button>
+  </div>
+</section>
+
+    <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=G-28P0PYCRZ9"
+ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+    <header id="page-header" class="site-header">
+  <nav id="mainnav" class="site-header">
+  <div id="menu-toggle"><i class="material-icons">menu</i></div>
+  <a href="/" class="brand" title="Dart">
+    <img src="/assets/img/shared/dart/logo+text/horizontal/white.svg" alt="Dart">
+  </a>
+  <ul class="navbar">
+    <li>
+      <a href="/overview" class="nav-link">概覽</a>
+    </li>
+    <li class="mainnav__get-started">
+      <a href="/guides" class="nav-link
+         active">
+        <span>文件</span>
+      </a>
+    </li>
+    <li>
+      <a href="/community" class="nav-link">社群</a>
+    </li>
+    <li>
+      <a href="/#try-dart" class="nav-link">嘗試 Dart</a>
+    </li>
+    <li>
+      <a href="/get-dart" class="nav-link">獲取 Dart SDK</a>
+    </li>
+    <li class="searchfield">
+      <form action="/search" class="site-header__search form-inline" id="cse-search-box">
+        <input type="hidden" name="cx" value="011220921317074318178:_yy-tmb5t_i">
+        <input type="hidden" name="ie" value="UTF-8">
+        <input type="hidden" name="hl" value="en">
+        <input class="site-header__searchfield form-control search-field" type="search" name="q" id="q" autocomplete="off" placeholder="Search" aria-label="Search">
+      </form>
+    </li>
+  </ul>
+</nav>
+
+  
+</header>
+ <div class="banner">
+  <p class="banner__text">
+    Dart 3 已釋出！帶來了全新的
+    <a href="https://dart.tw.gh.miniasp.com/language/records" class="no-automatic-external">記錄型別 (records)</a>、
+    <a href="https://dart.tw.gh.miniasp.com/language/patterns" class="no-automatic-external">模式匹配 (patterns)</a>
+    以及 <a href="https://dart.tw.gh.miniasp.com/language/class-modifiers" class="no-automatic-external">型別修飾符 (class modifiers)</a>。
+    <br>
+    <!--<a href="https://medium.com/p/53f065a10635" class="no-automatic-external">Check out the blog post</a>!-->
+  </p>
+</div>
+ 
+
+    <div id="sidenav" class="">
+  <form action="/search/" class="site-header__search form-inline">
+    <input class="site-header__searchfield form-control search-field" type="search" name="q" id="q" autocomplete="off" placeholder="Search" aria-label="Search">
+  </form>
+
+  <div class="site-sidebar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a href="/overview" class="nav-link">概覽</a>
+      </li>
+      <li class="nav-item">
+        <a href="/community" class="nav-link">社群</a>
+      </li>
+      <li class="nav-item">
+        <a href="https://dartpad.dev" class="nav-link">嘗試 Dart</a>
+      </li>
+      <li class="nav-item">
+        <a href="/get-dart" class="nav-link">獲取 Dart SDK</a>
+      </li>
+      <li class="nav-item">
+        <a href="/guides" class="nav-link active">文件</a>
+      </li>
+    </ul>
+
+    <ul class="nav flex-column"><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-1" role="button" aria-expanded="false" aria-controls="sidenav-1">範例和課程</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-1">
+        <li class="nav-item">
+    <a class="nav-link" href="/tutorials">語言概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable" data-toggle="collapse" data-target="#sidenav-1-2" href="#sidenav-1-2" role="button" aria-expanded="true" aria-controls="sidenav-1-2">Codelabs
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-1-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/codelabs">Codelabs 列表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/dart-cheatsheet">Dart 速查表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/iterables">可迭代集合</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/async-await">Dart 非同步程式設計</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/null-safety">空安全</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-2" role="button" aria-expanded="false" aria-controls="sidenav-2">Dart 開發語言</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2">
+        <li class="nav-item">
+    <a class="nav-link" href="/language">介紹</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-2" href="#sidenav-2-2" role="button" aria-expanded="false" aria-controls="sidenav-2-2">基礎表示式
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/variables">變數</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/operators">運運算元</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/comments">註釋</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/metadata">註解</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/libraries">庫 &amp; 導庫</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/keywords">關鍵字</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-3" href="#sidenav-2-3" role="button" aria-expanded="false" aria-controls="sidenav-2-3">型別
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-3">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/built-in-types">基本型別</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/records">記錄 (Records)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/collections">集合 (Collections)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/generics">泛型 (Generics)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/typedefs">別名 (Typedefs)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/type-system">型別系統</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-4" href="#sidenav-2-4" role="button" aria-expanded="false" aria-controls="sidenav-2-4">模式匹配
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-4">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/patterns">概覽 &amp; 用法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/pattern-types">模式匹配型別</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/language/functions">函式方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-6" href="#sidenav-2-6" role="button" aria-expanded="false" aria-controls="sidenav-2-6">控制流
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-6">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/loops">迴圈</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/branches">分支</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/language/error-handling">錯誤處理</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-8" href="#sidenav-2-8" role="button" aria-expanded="false" aria-controls="sidenav-2-8">類 &amp; 物件
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-8">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/classes">類</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/constructors">構造方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/methods">成員方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/extend">繼承</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/mixins">混入 (Mixin)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/enums">列舉</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/extension-methods">擴充方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/callable-objects">可呼叫的物件</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-9" href="#sidenav-2-9" role="button" aria-expanded="false" aria-controls="sidenav-2-9">型別修飾符
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-9">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/class-modifiers">概覽 &amp; 用法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/class-modifiers-for-apis">API 維護者應該用的型別修飾符</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/modifier-reference">速查表</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-10" href="#sidenav-2-10" role="button" aria-expanded="false" aria-controls="sidenav-2-10">併發
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-10">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/async">非同步支援</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/concurrency">Isolates</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-11" href="#sidenav-2-11" role="button" aria-expanded="false" aria-controls="sidenav-2-11">Null safety
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-11">
+      <li class="nav-item">
+    <a class="nav-link" href="/null-safety">健全的空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/migration-guide">遷移到空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/understanding-null-safety">深入理解空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/unsound-null-safety">非健全的空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/faq">空安全常見問題和解答</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-3" role="button" aria-expanded="false" aria-controls="sidenav-3">高效指南 (Effective Dart)</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-3">
+        <li class="nav-item">
+    <a class="nav-link" href="/effective-dart">概述</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/style">程式碼風格</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/documentation">文件</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/usage">用法範例</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/design">API 設計</a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-4" role="button" aria-expanded="false" aria-controls="sidenav-4">核心函式庫</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-4">
+        <li class="nav-item">
+    <a class="nav-link" href="/guides/libraries">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/library-tour">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-4-3" href="#sidenav-4-3" role="button" aria-expanded="false" aria-controls="sidenav-4-3">介紹文章
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-4-3">
+      <li class="nav-item">
+    <a class="nav-link" href="/articles/libraries/creating-streams">建立 stream</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link active" data-toggle="collapse" href="#sidenav-5" role="button" aria-expanded="true" aria-controls="sidenav-5">Packages</a>
+
+      <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-5">
+        <li class="nav-item">
+    <a class="nav-link" href="/guides/packages">如何使用 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/useful-libraries">常用 package 介紹</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/create-packages">建立 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link active" href="/tools/pub/publishing">釋出 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/writing-package-pages">設定 package 介紹頁</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-5-6" href="#sidenav-5-6" role="button" aria-expanded="false" aria-controls="sidenav-5-6">Package 參考資料
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-5-6">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/pub/dependencies">依賴</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/glossary">術語表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/package-layout">Package 檔案結構</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/environment-variables">設定環境變數</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/pubspec">Pubspec 檔案</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/troubleshoot">問題排查</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/verified-publishers">釋出者認證</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/versioning">版本管理</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-6" role="button" aria-expanded="false" aria-controls="sidenav-6">開發文件</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6">
+        <li class="nav-item">
+    <a class="nav-link" href="/codelabs/async-await">Futures、async 和 await</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/language/streams">Streams 介紹</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/json">使用 JSON</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/numbers">Dart 中的數字</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-5" href="#sidenav-6-5" role="button" aria-expanded="false" aria-controls="sidenav-6-5">與其他語言進行互動呼叫
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-5">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/c-interop">與 C 互調</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/objective-c-interop">與 Objective-C 和 Swift 互調</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/java-interop">與 Java 和 Kotlin 互調</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/web/js-interop">與 JavaScript 互調</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/guides/google-apis">Google APIs</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/multiplatform-apps">跨平臺應用</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-8" href="#sidenav-6-8" role="button" aria-expanded="false" aria-controls="sidenav-6-8">命令列和伺服器端應用
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-8">
+      <li class="nav-item">
+    <a class="nav-link" href="/server">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/get-started">起步課程</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/cmdline">命令列應用</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/fetch-data">從網路上獲取資料</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/httpserver">編寫 HTTP 伺服器端應用</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/server/libraries">庫和 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/server/google-cloud">Google Cloud</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-9" href="#sidenav-6-9" role="button" aria-expanded="false" aria-controls="sidenav-6-9">網頁端 (Web) 應用
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-9">
+      <li class="nav-item">
+    <a class="nav-link" href="/web">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/get-started">開始使用</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-9-3" href="#sidenav-6-9-3" role="button" aria-expanded="false" aria-controls="sidenav-6-9-3">底層 Web 程式設計
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-9-3">
+      <li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/low-level-html/connect-dart-html">Dart 與 HTML 關聯</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/low-level-html/add-elements">向 DOM 新增元素</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/low-level-html/remove-elements">移除 DOM 元素</a>
+  </li>
+  </ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/web/deployment">部署</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/web/libraries">常用 Web 函式庫和 package</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/guides/environment-declarations">環境變數宣告</a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-7" role="button" aria-expanded="false" aria-controls="sidenav-7">開發工具和使用技巧</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7">
+        <li class="nav-item">
+    <a class="nav-link" href="/tools">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-2" href="#sidenav-7-2" role="button" aria-expanded="false" aria-controls="sidenav-7-2">編輯器和除錯工具
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/jetbrains-plugin">使用 IntelliJ 和 Android Studio</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/vs-code">使用 VS Code</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/dart-devtools">Dart 開發者工具</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-2-4" href="#sidenav-7-2-4" role="button" aria-expanded="false" aria-controls="sidenav-7-2-4">線上執行 Dart 程式碼
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-2-4">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/dartpad">Overview</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dartpad/dartpad-best-practices">DartPad 課程</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dartpad/troubleshoot">DartPad 疑難解答</a>
+  </li>
+  </ul>
+  </li>
+</ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-3" href="#sidenav-7-3" role="button" aria-expanded="false" aria-controls="sidenav-7-3">命令列工具
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-3">
+      <li class="nav-item">
+    <a class="nav-link collapsable" data-toggle="collapse" data-target="#sidenav-7-3-1" href="#sidenav-7-3-1" role="button" aria-expanded="true" aria-controls="sidenav-7-3-1">Dart SDK
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-7-3-1">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/sdk">概覽</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-tool">dart 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-analyze">dart analyze 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-compile">dart compile 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-create">dart create 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-doc">dart doc 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-fix">dart fix 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-format">dart format 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-info">dart info 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/pub/cmd">dart pub 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-run">dart run 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-test">dart test 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dartaotruntime">dartaotruntime 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/experiment-flags">實驗性命令標記</a>
+  </li>
+  </ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable" data-toggle="collapse" data-target="#sidenav-7-3-2" href="#sidenav-7-3-2" role="button" aria-expanded="true" aria-controls="sidenav-7-3-2">其他的命令列工具
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-7-3-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/build_runner">build_runner 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/webdev">webdev 命令</a>
+  </li>
+  </ul>
+  </li>
+</ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-4" href="#sidenav-7-4" role="button" aria-expanded="false" aria-controls="sidenav-7-4">原始碼管理
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-4">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/language/formatting">程式碼格式化</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/private-files">不應提交的內容</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-5" href="#sidenav-7-5" role="button" aria-expanded="false" aria-controls="sidenav-7-5">靜態分析
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-5">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/analysis">自訂靜態分析</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/sound-problems">修復常見的型別問題</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/diagnostic-messages">診斷訊息</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/linter-rules">Linter 規則</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-6" href="#sidenav-7-6" role="button" aria-expanded="false" aria-controls="sidenav-7-6">測試和調優
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-6">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/testing">測試</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/web/debugging">除錯 Web 應用</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-8" role="button" aria-expanded="false" aria-controls="sidenav-8">資源</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-8">
+        <li class="nav-item">
+    <a class="nav-link" href="/resources/faq">常見問題</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/evolution">版本演變</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/spec">語言規範</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/resources/dart-3-migration">Dart 3 遷移指南</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-8-5" href="#sidenav-8-5" role="button" aria-expanded="false" aria-controls="sidenav-8-5">從其他平台轉向 Dart
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-8-5">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/language/coming-from/js-to-dart">從 JavaScript 到 Dart</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/coming-from/swift-to-dart">從 Swift 到 Dart</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/resources/glossary">詞彙表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/resources/books">書籍資源</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/resources/videos">影片資源</a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link " data-toggle="collapse" href="#sidenav-9" role="button" aria-expanded="true" aria-controls="sidenav-9">相關站點</a>
+
+      <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-9">
+        <li class="nav-item">
+    <a class="nav-link" href="https://api.dart.dev" target="_blank" rel="noopener">API 文件<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://medium.com/dartlang" target="_blank" rel="noopener">Dart 團隊官方部落格<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://dartpad.dev" target="_blank" rel="noopener">DartPad (線上編輯器)<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://flutter.tw" target="_blank" rel="noopener">Flutter<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://pub.dev" target="_blank" rel="noopener">Package 網站<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-10" role="button" aria-expanded="false" aria-controls="sidenav-10">關於 Dart 中文文件</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-10">
+        <li class="nav-item">
+    <a class="nav-link" href="https://flutter.tw/about/docs-cn" target="_blank" rel="noopener">關於本站<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://flutter.tw/disclaimer" target="_blank" rel="noopener">免責條款 (Disclaimer)<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li>
+</ul>
+    </li></ul>
+
+  </div>
+</div>
+
+    <main id="page-content">
+      
+
+
+
+
+
+
+
+<div id="site-toc--side" class="site-toc ">
+  <header class="site-toc__title">
+    目錄
+    
+  </header>
+  <ul id="toc" class="section-nav">
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#publishing-is-forever"><p>釋出是永久的</p></a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#preparing-to-publish"><p>準備釋出</p></a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#important-files"><p>重要的檔案</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#verified-publisher"><p>使用已驗證釋出者的優點</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#create-verified-publisher"><p>建立一個已驗證釋出者</p></a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#publishing-your-package"><p>釋出你的 package</p></a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#performing-a-dry-run"><p>示範一次試執行</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#publishing"><p>釋出</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#automated-publishing">Automated publishing</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#transferring-a-package-to-a-verified-publisher"><p>把 package 轉移至已驗證釋出者</p></a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#what-files-are-published"><p>哪些檔案會被髮布？</p></a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#platform-support"><p>平台支援</p></a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#uploaders"><p>上傳者</p></a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#locating-the-package-publisher"><p>釋出者展示</p></a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#publishing-prereleases"><p>以預發行的方式釋出</p></a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#publishing-previews"><p>釋出預覽版本</p></a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#retract"><p>撤回 package 的某個版本</p></a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#how-to-use-a-retracted-package-version"><p>如何使用已撤回的版本</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#how-to-retract-or-restore-a-package-version"><p>如何撤回或恢復 package 的某個版本</p></a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#discontinue"><p>把 package 標記為終止</p></a></li>
+</ul>
+  
+</div>
+
+
+      <article>
+        <div class="content">
+          
+
+          <div id="site-content-title">
+            <div id="page-github-links" class="btn-group" aria-label="Page GitHub links" role="group">
+  <a href="https://github.com/doggy8088/dart.tw/tree/master/src/tools/pub/publishing.md" class="btn no-automatic-external" title="View page source" target="_blank" rel="noopener">
+    <i class="material-icons">description</i>
+  </a>
+  <a href="https://github.com/doggy8088/dart.tw/issues/new?template=1_page_issue.yml&amp;title=[PAGE ISSUE]: '釋出 package'&amp;page-url=https://dart.tw.gh.miniasp.com/tools/pub/publishing.html&amp;page-source=https://github.com/doggy8088/dart.tw/tree/master/src/tools/pub/publishing.md" class="btn no-automatic-external" title="Report an issue with this page" target="_blank" rel="noopener">
+    <i class="material-icons">bug_report</i>
+  </a>
+</div>
+
+            
+            <h1 id="釋出-package">釋出 package</h1>
+            </div>
+          
+
+
+
+
+
+
+
+<div id="site-toc--inline" class="site-toc toc-collapsible toc-collapsed">
+  <header class="site-toc__title">
+    目錄
+    
+      <span class="site-toc--inline__toggle toc-toggle-down"><i class="material-icons">keyboard_arrow_down</i></span>
+      <span class="site-toc--inline__toggle toc-toggle-up"><i class="material-icons">keyboard_arrow_up</i></span>
+    
+  </header>
+  <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#publishing-is-forever"><p>釋出是永久的</p></a></li>
+<li class="toc-entry toc-h2"><a href="#preparing-to-publish"><p>準備釋出</p></a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#important-files"><p>重要的檔案</p></a></li>
+<li class="toc-entry toc-h3"><a href="#verified-publisher"><p>使用已驗證釋出者的優點</p></a></li>
+<li class="toc-entry toc-h3"><a href="#create-verified-publisher"><p>建立一個已驗證釋出者</p></a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#publishing-your-package"><p>釋出你的 package</p></a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#performing-a-dry-run"><p>示範一次試執行</p></a></li>
+<li class="toc-entry toc-h3"><a href="#publishing"><p>釋出</p></a></li>
+<li class="toc-entry toc-h3"><a href="#automated-publishing">Automated publishing</a></li>
+<li class="toc-entry toc-h3"><a href="#transferring-a-package-to-a-verified-publisher"><p>把 package 轉移至已驗證釋出者</p></a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#what-files-are-published"><p>哪些檔案會被髮布？</p></a></li>
+<li class="toc-entry toc-h2"><a href="#platform-support"><p>平台支援</p></a></li>
+<li class="toc-entry toc-h2"><a href="#uploaders"><p>上傳者</p></a></li>
+<li class="toc-entry toc-h2"><a href="#locating-the-package-publisher"><p>釋出者展示</p></a></li>
+<li class="toc-entry toc-h2"><a href="#publishing-prereleases"><p>以預發行的方式釋出</p></a></li>
+<li class="toc-entry toc-h2"><a href="#publishing-previews"><p>釋出預覽版本</p></a></li>
+<li class="toc-entry toc-h2"><a href="#retract"><p>撤回 package 的某個版本</p></a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#how-to-use-a-retracted-package-version"><p>如何使用已撤回的版本</p></a></li>
+<li class="toc-entry toc-h3"><a href="#how-to-retract-or-restore-a-package-version"><p>如何撤回或恢復 package 的某個版本</p></a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#discontinue"><p>把 package 標記為終止</p></a></li>
+</ul>
+  
+    <span class="site-toc--inline__toggle toc-toggle-more-items"><i class="material-icons">more_horiz</i></span>
+  
+</div>
+
+
+          <p><a href="/guides/packages">Pub package 管理工具</a> 不但可以讓你使用其他人開發的 package，而且能向全世界分享你自己製作的 package。如果你有一個有用的專案，且希望別人能夠用到它，請使用 <code class="language-plaintext highlighter-rouge">dart pub publish</code> 命令。</p>
+
+
+
+<aside class="alert alert-info" role="alert">
+  <p><i class="material-icons" aria-hidden="true">info</i> <strong>備註:</strong></p>
+
+  <p>釋出到除 pub.dev 以外的其他位置，或者不在任何地方釋出，使用 <code class="language-plaintext highlighter-rouge">publish_to</code> 引數，相當於在 <a href="/tools/pub/pubspec">pubspec</a> 中定義。</p>
+
+  
+
+</aside>
+
+<p>觀看下面的影片以瞭解建構和釋出 package 的基本流程。</p>
+
+
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/8V_TLiWszK0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen=""></iframe>
+
+<h2 id="publishing-is-forever">
+<a class="anchor" href="#publishing-is-forever" aria-hidden="true"><span class="octicon octicon-link"></span></a>釋出是永久的</h2>
+
+
+
+<p>切記，釋出過的 package 將會永久存在。只要你釋出了你的 package，使用者就能依賴它。而依賴關係一旦建立，移除 package 將破壞他們的專案。為了避免這種事發生，除了極少數情況，<a href="https://pub.dev/policy">pub.dev 政策</a> 不允許撤回已經發布的 package。</p>
+
+
+
+<p>你可以一直上傳自己 package 的新版本，但是舊版本對於那些尚未準備好升級的使用者仍然可用。</p>
+
+
+
+<p>對於那些已經發布，但不再相關或不再維護的 package，你可以 <a href="#discontinue">把他們標記為終止</a>。</p>
+
+
+
+<h2 id="preparing-to-publish">
+<a class="anchor" href="#preparing-to-publish" aria-hidden="true"><span class="octicon octicon-link"></span></a>準備釋出</h2>
+
+
+
+<p>釋出一個 package 時，遵守 <a href="/tools/pub/pubspec">pubspec 格式</a> 和
+<a href="/tools/pub/package-layout">package 佈局慣例</a> 很重要。為了其他人能使用你的 package，有些要求是必須的，其他則是一些有助於使用者更好理解和使用的建議。對於以上兩者，pub 都會指出具體的改變方法，幫助你的 package 在 Dart 生態系統中展現的更好。對於上傳 package 有一些額外的要求：</p>
+
+
+
+<ul>
+  <li>
+    <p>你的 package 必須包含一個 <code class="language-plaintext highlighter-rouge">LICENSE</code> 檔案。我們推薦 <a href="https://opensource.org/licenses/BSD-3-Clause">BSD 3-clause 許可證</a>，也就是 Dart 和 Flutter 團隊所使用的開源許可證。同時，對於你所上傳的 package 任意部分，你必須擁有重新發布的合法權利。</p>
+
+    
+  </li>
+  <li>
+    <p>透過 gzip 壓縮後，你的 package 必須小於 100 MB。如果它所佔空間過大，考慮將它分割為幾個小的 package、使用 <code class="language-plaintext highlighter-rouge">.pubignore</code> 移除不需要的檔案，或者減少包含資源或例項的數量。</p>
+
+    
+  </li>
+  <li>
+    <p>你的 package 應該僅依賴於已被託管的依賴項（來自預設的 pub 包服務）和屬於 SDK 的依賴項（<code class="language-plaintext highlighter-rouge">sdk: flutter</code>）。這些限制條件確保了你的 package 的依賴項在未來依然可用。</p>
+
+    
+  </li>
+  <li>
+    <p>你必須有一個 <a href="https://support.google.com/accounts/answer/27441">Google 賬戶</a>，pub 將使用它來管理 package 上傳許可權。你的 Google 賬戶可以與 Gmail 或其他任何郵箱地址關聯。</p>
+
+    
+  </li>
+</ul>
+
+<h3 id="important-files">
+<a class="anchor" href="#important-files" aria-hidden="true"><span class="octicon octicon-link"></span></a>重要的檔案</h3>
+
+
+
+<p>Pub 在 <code class="language-plaintext highlighter-rouge">pub.dev/packages/&lt;your_package&gt;</code> 裡，使用幾個檔案的內容來建立你的 package 頁面。以下就是會影響到頁面效果的幾個檔案：</p>
+
+
+
+<ul>
+  <li>
+    <p><strong>README.md:</strong> <code class="language-plaintext highlighter-rouge">README.md</code> 檔案是你 package 頁面的主要組成部分。它的內容將會按 <a href="https://pub.dev/packages/markdown">Markdown</a> 格式渲染。</p>
+
+    
+
+    <p>想按照規範編寫一個超棒的 README 嗎，請參閱 <a href="/guides/libraries/writing-package-pages">編寫 package 介紹頁</a>。</p>
+
+    
+  </li>
+  <li>
+    <p><strong>CHANGELOG.md:</strong> 如果你 package 的 <code class="language-plaintext highlighter-rouge">CHANGELOG.md</code> 檔案存在，同樣會作為頁面的一個選項卡展示。開發者可透過 pub.dev 閱讀它。它的內容將會按 <a href="https://pub.dev/packages/markdown">Markdown</a> 格式渲染。</p>
+
+    
+  </li>
+  <li>
+    <p><strong>The pubspec:</strong> 你 package 的 <code class="language-plaintext highlighter-rouge">pubspec.yaml</code> 檔案被用於填寫關於 package 本身的細節，例如它的描述，主頁等等。這些資訊將被展現在頁面的右側。</p>
+
+    
+  </li>
+</ul>
+
+<h3 id="verified-publisher">
+<a class="anchor" href="#verified-publisher" aria-hidden="true"><span class="octicon octicon-link"></span></a>使用已驗證釋出者的優點</h3>
+
+
+
+<p>你可以使用已驗證釋出者（推薦）或一個獨立的 Google 賬戶來發布 package。使用已驗證釋出者有以下幾個優點：</p>
+
+
+
+<ul>
+  <li>
+    <p>你 package 的使用者知道釋出者域名已經過驗證。</p>
+
+    
+  </li>
+  <li>
+    <p>你可以避免讓 pub.dev 展示你的個人郵箱，pub.dev 將展示釋出者域名和聯絡地址作為代替。</p>
+
+    
+  </li>
+  <li>
+    <p>一個已驗證釋出者徽章
+<img src="/assets/img/verified-publisher.svg" width="20" height="20" alt="pub.dev verified publisher logo">
+將在你的 package 名字旁邊展示，不論是在搜尋頁面還是單獨的 package 頁面。</p>
+
+    
+  </li>
+</ul>
+
+<h3 id="create-verified-publisher">
+<a class="anchor" href="#create-verified-publisher" aria-hidden="true"><span class="octicon octicon-link"></span></a>建立一個已驗證釋出者</h3>
+
+
+
+<p>想要建立一個已驗證釋出者，跟隨以下步驟：</p>
+
+
+
+<ol>
+  <li>
+    <p>存取 <a href="https://pub.dev">pub.dev</a>。</p>
+
+    
+  </li>
+  <li>
+    <p>用一個 Google 賬戶登入 pub.dev。</p>
+
+    
+  </li>
+  <li>
+    <p>在右上角的使用者選單中，選擇 <strong>建立釋出者</strong>。</p>
+
+    
+  </li>
+  <li>
+    <p>輸入你想要與釋出者關聯的域名（例如，<code class="language-plaintext highlighter-rouge">dart.dev</code>），然後點選 <strong>建立釋出者</strong>。</p>
+
+    
+  </li>
+  <li>
+    <p>在確認彈框中，選擇 <strong>好</strong>。</p>
+
+    
+  </li>
+  <li>
+    <p>如果收到提示，在開啟的 <a href="https://search.google.com/search-console/about">Google 搜尋控制檯</a> 中完成確認流程。</p>
+
+    
+
+    <ul>
+      <li>
+        <p>新增 NDS 記錄，可能需要幾個小時讓搜尋控制檯確認改動。</p>
+
+        
+      </li>
+      <li>
+        <p>確認流程完成後，返回第四步。</p>
+
+        
+      </li>
+    </ul>
+  </li>
+</ol>
+
+<h2 id="publishing-your-package">
+<a class="anchor" href="#publishing-your-package" aria-hidden="true"><span class="octicon octicon-link"></span></a>釋出你的 package</h2>
+
+
+
+<p>使用 <a href="/tools/pub/cmd/pub-lish"><code class="language-plaintext highlighter-rouge">dart pub publish</code></a> 命令來首次釋出你的 package，或者把它升級到一個新版本。</p>
+
+
+
+<h3 id="performing-a-dry-run">
+<a class="anchor" href="#performing-a-dry-run" aria-hidden="true"><span class="octicon octicon-link"></span></a>示範一次試執行</h3>
+
+
+
+<p>為了測試 <code class="language-plaintext highlighter-rouge">dart pub publish</code> 命令會如何工作，你可以示範一次試執行（不會真的釋出，只顯示效果）：</p>
+
+
+
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>dart pub publish <span class="nt">--dry-run</span>
+</code></pre></div></div>
+
+<p>Pub 會確認你的 package 符合 <a href="/tools/pub/pubspec">pubspec 格式</a>
+和 <a href="/tools/pub/package-layout">package 佈局慣例</a>，然後把它上傳至 <a href="https://pub.dev">pub.dev</a>。
+Pub 也會提前向你展示所有準備釋出的檔案。如下是一個範例，展示了將要釋出的名為 <code class="language-plaintext highlighter-rouge">transmogrify</code> 的 package：</p>
+
+
+
+<pre class="console-output"><code class="language-nocode">Publishing transmogrify 1.0.0
+    .gitignore
+    CHANGELOG.md
+    README.md
+    lib
+        transmogrify.dart
+        src
+            transmogrifier.dart
+            transmogrification.dart
+    pubspec.yaml
+    test
+        transmogrify_test.dart
+
+Package has 0 warnings.
+</code></pre>
+
+<h3 id="publishing">
+<a class="anchor" href="#publishing" aria-hidden="true"><span class="octicon octicon-link"></span></a>釋出</h3>
+
+
+
+<p>當你已經準備好釋出你的 package 後，移除 <code class="language-plaintext highlighter-rouge">--dry-run</code> 引數：</p>
+
+
+
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>dart pub publish
+</code></pre></div></div>
+
+<aside class="alert alert-info" role="alert">
+  <p><i class="material-icons" aria-hidden="true">info</i> <strong>備註:</strong></p>
+
+  <p>pub 命令目前不支援把一個新的 package 直接釋出至已驗證釋出者。可先把新 package 釋出至一個 Google 賬戶，作為一個臨時空間，然後再 <a href="#transferring-a-package-to-a-verified-publisher">把 package 轉移至已驗證釋出者</a>。</p>
+
+  
+
+  <p>一旦這個 package 被轉移到已驗證釋出者，你就可以透過 <code class="language-plaintext highlighter-rouge">dart pub publish</code> 命令來更新它。</p>
+
+  
+
+</aside>
+
+<p>在你的 package 成功上傳至 pub.dev 之後，任何使用者都能夠下載或在專案中依賴它。例如，如果你剛剛釋出了你的 <code class="language-plaintext highlighter-rouge">transmogrify</code> package 1.0.0 版本，那麼另一個 Dart 開發者將可以把它作為一項依賴新增到 <code class="language-plaintext highlighter-rouge">pubspec.yaml</code> 檔案中：</p>
+
+
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">dependencies</span><span class="pi">:</span>
+  <span class="na">transmogrify</span><span class="pi">:</span> <span class="s">^1.0.0</span>
+</code></pre></div></div>
+
+<h3 id="automated-publishing">
+<a class="anchor" href="#automated-publishing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Automated publishing</h3>
+
+<p>Once the first version of a package has been published, 
+it is possible to configure automated publishing 
+through GitHub Actions or Google Cloud service accounts. 
+To learn more about automated publishing, see
+<a href="/tools/pub/automated-publishing">Automated publishing of packages to pub.dev</a>.</p>
+
+<h3 id="transferring-a-package-to-a-verified-publisher">
+<a class="anchor" href="#transferring-a-package-to-a-verified-publisher" aria-hidden="true"><span class="octicon octicon-link"></span></a>把 package 轉移至已驗證釋出者</h3>
+
+
+
+<p>想要把 package 轉移至已驗證釋出者，你必須是 package 的一個<a href="#uploaders">上傳者</a>，以及已驗證釋出者的管理員。</p>
+
+
+
+<aside class="alert alert-info" role="alert">
+  <p><i class="material-icons" aria-hidden="true">info</i> <strong>備註:</strong></p>
+
+  <p>這個過程是不可撤回的。一旦你把 package 轉移至已驗證釋出者，你將無法再把它轉移回一個單獨的賬戶。</p>
+
+  
+
+</aside>
+
+<p>以下是如何把 package 轉移至已驗證釋出者：</p>
+
+
+
+<ol>
+  <li>
+    <p>用一個作為 package 上傳者之一的 Google 賬戶登入 <a href="https://pub.dev">pub.dev</a>。</p>
+
+    
+  </li>
+  <li>
+    <p>存取 package 詳情頁面（例如，<code class="language-plaintext highlighter-rouge">https://pub.dev/packages/http</code>）。</p>
+
+    
+  </li>
+  <li>
+    <p>選擇 <strong>管理員</strong> 選項卡。</p>
+
+    
+  </li>
+  <li>
+    <p>輸入已驗證釋出者的名稱，然後點選 <strong>轉移至已驗證釋出者</strong>。</p>
+
+    
+  </li>
+</ol>
+
+<h2 id="what-files-are-published">
+<a class="anchor" href="#what-files-are-published" aria-hidden="true"><span class="octicon octicon-link"></span></a>哪些檔案會被髮布？</h2>
+
+
+
+<p>在你 package 中的 <strong>所有檔案</strong> 都會被包含在釋出的 package 中，除了以下幾個例外：</p>
+
+
+
+<ul>
+  <li>
+    <p>所有 <strong>隱藏</strong> 檔案和資料夾——即檔名以 <code class="language-plaintext highlighter-rouge">.</code> 開頭的檔案</p>
+
+    
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">.pubignore</code> 和 <code class="language-plaintext highlighter-rouge">.gitignore</code> 檔案忽略的所有檔案</p>
+
+    
+  </li>
+</ul>
+
+<p>如果你需要 <code class="language-plaintext highlighter-rouge">git</code> 和 <code class="language-plaintext highlighter-rouge">dart pub publish</code> 有不同的規則，你可以建立 <code class="language-plaintext highlighter-rouge">.pubignore</code> 對 <code class="language-plaintext highlighter-rouge">.gitignore</code> 進行重載。（如果一個資料夾既有 <code class="language-plaintext highlighter-rouge">.pubignore</code> 又有 <code class="language-plaintext highlighter-rouge">.gitignore</code> 檔案，則 <code class="language-plaintext highlighter-rouge">dart pub publish</code> 不會採用 <code class="language-plaintext highlighter-rouge">.gitignore</code> 的規則）
+<code class="language-plaintext highlighter-rouge">.pubignore</code> 檔案的格式與 <a href="https://git-scm.com/docs/gitignore#_pattern_format"><code class="language-plaintext highlighter-rouge">.gitignore</code> 檔案格式</a> 相同。</p>
+
+
+
+<p>如果你不想釋出一些檔案，請參考以下步驟：</p>
+
+
+
+<ul>
+  <li>
+    <p>刪除它們，或者把它們加入 <code class="language-plaintext highlighter-rouge">.pubignore</code> 或 <code class="language-plaintext highlighter-rouge">.gitignore</code> 檔案。</p>
+
+    
+  </li>
+  <li>
+    <p>執行 <code class="language-plaintext highlighter-rouge">dart pub publish</code> 上傳前仔細檢查檔案列表。如果發現了不需要的檔案，則取消這次上傳。</p>
+
+    
+  </li>
+</ul>
+
+<aside class="alert alert-info" role="alert">
+  <p><i class="material-icons" aria-hidden="true">info</i> <strong>備註:</strong></p>
+
+  <p>大部分 package 不會需要一個 <code class="language-plaintext highlighter-rouge">.pubignore</code> 檔案，這個檔案的應用場景可以在 <a href="https://stackoverflow.com/a/69767697">這個回答</a> 裡找到。</p>
+
+  
+
+</aside>
+
+<h2 id="platform-support">
+<a class="anchor" href="#platform-support" aria-hidden="true"><span class="octicon octicon-link"></span></a>平台支援</h2>
+
+
+
+<p>pub.dev 會檢測 package 支援哪些平台，並呈現到 package 的頁面上。使用者可以過濾查詢特定平台的 package。</p>
+
+
+
+<p>若要改變自動檢測產生的支援平台列表，則需要在 pubspec 檔案中
+<a href="/tools/pub/pubspec#platforms">指定平台</a>。</p>
+
+
+
+<h2 id="uploaders">
+<a class="anchor" href="#uploaders" aria-hidden="true"><span class="octicon octicon-link"></span></a>上傳者</h2>
+
+
+
+<p>釋出 package 第一個版本的人，將自動成為唯一有權對其進行更新的人。</p>
+
+
+
+<p>要允許或取消其他人更新版本，可以從下列兩種方法中任選一種：</p>
+
+
+
+<ul>
+  <li>
+    <p>管理頁面管理授權的 package 上傳者：
+<code class="language-plaintext highlighter-rouge">https://pub.dev/packages/&lt;package&gt;/admin</code>。</p>
+
+    
+  </li>
+  <li>
+    <p>將 package 轉給一個 <a href="/tools/pub/verified-publishers">已驗證的釋出者</a>，這個釋出者的所有成員都有上傳的權利。</p>
+
+    
+  </li>
+</ul>
+
+<h2 id="locating-the-package-publisher">
+<a class="anchor" href="#locating-the-package-publisher" aria-hidden="true"><span class="octicon octicon-link"></span></a>釋出者展示</h2>
+
+
+
+<p>如果 package 有了已驗證釋出者，
+pub.dev 頁面將展示已驗證釋出者域名。</p>
+
+
+
+<p>如果 package 的釋出者沒有選擇認證，出於隱私原因，我們不會披露釋出者的資訊。
+(Publisher 會顯示 “unverified uploader”，即：未經驗證的上傳者)。</p>
+
+
+
+<h2 id="publishing-prereleases">
+<a class="anchor" href="#publishing-prereleases" aria-hidden="true"><span class="octicon octicon-link"></span></a>以預發行的方式釋出</h2>
+
+
+
+<p>如果你正專注於開發一個 package，考慮將它以預發行的方式釋出。預發行將在以下 <strong>任意情況下</strong> 下變得實用：</p>
+
+
+
+<ul>
+  <li>
+    <p>你正在活躍的開發該 package 的下一個主版本。</p>
+
+    
+  </li>
+  <li>
+    <p>你想要為該 package 下一個候選的釋出版做 beta 測試。</p>
+
+    
+  </li>
+  <li>
+    <p>該 package 依賴於 Dart 或 Flutter SDK 的一個不穩定版本。</p>
+
+    
+  </li>
+</ul>
+
+<p>正如在 <a href="https://semver.org/spec/v2.0.0-rc.1.html">版本號語義</a> 中描述的那樣，要製作一個版本的預釋出，你需要為其新增一個字尾。例如，要給 <code class="language-plaintext highlighter-rouge">2.0.0</code> 版本做一個預釋出，你可能會使用 <code class="language-plaintext highlighter-rouge">2.0.0-dev.1</code> 作為版本號。接下來，當你釋出 <code class="language-plaintext highlighter-rouge">2.0.0</code> 正式版後，它將優先於所有諸如 <code class="language-plaintext highlighter-rouge">2.0.0-XXX</code> 的預釋出。</p>
+
+
+
+<p>當穩定釋出版可用時，pub 會主動選擇它們，所以使用預釋出的使用者可能需要改變它們的依賴約束。例如，如果一個使用者想要測試 2.1 版本的預釋出，那麼他可能需要指明是 <code class="language-plaintext highlighter-rouge">^2.1.0-dev.1</code> 版本，而不是 <code class="language-plaintext highlighter-rouge">^2.0.0</code> 或者 <code class="language-plaintext highlighter-rouge">^2.1.0</code> 版本。</p>
+
+
+
+<aside class="alert alert-info" role="alert">
+  <p><i class="material-icons" aria-hidden="true">info</i> <strong>備註:</strong></p>
+
+  <p>如果一個穩定版的 package 在依賴關係中依賴於一個預釋出，那麼 pub 將選擇預釋出而非穩定釋出。</p>
+
+  
+
+</aside>
+
+<p>當一個預釋出被髮布在 pub.dev，package 主頁會同時展示預釋出和穩定釋出的連結。預釋出不會影響分析評分，不會出現在搜尋結果裡，也不會代替 package 的 <code class="language-plaintext highlighter-rouge">README.md</code> 檔案和說明文件。</p>
+
+
+
+<h2 id="publishing-previews">
+<a class="anchor" href="#publishing-previews" aria-hidden="true"><span class="octicon octicon-link"></span></a>釋出預覽版本</h2>
+
+
+
+<p>在以下條件都滿足時，預覽版是非常有用的版本：</p>
+
+
+
+<ul>
+  <li>
+    <p>下一個穩定版本是完整功能的版本。</p>
+
+    
+  </li>
+  <li>
+    <p>在最新的穩定版 Dart SDK 中，沒有釋出目前版本使用的 API。</p>
+
+    
+  </li>
+  <li>
+    <p>你的 package 所依賴的 API 或功能在釋出到穩定版 SDK 前不會再改變。</p>
+
+    
+  </li>
+</ul>
+
+<p>舉個例子，假設 <code class="language-plaintext highlighter-rouge">package:args</code> 的 <code class="language-plaintext highlighter-rouge">2.0.0</code> 版本是已經完成的版本，但它依賴了 Dart <code class="language-plaintext highlighter-rouge">3.0.0-417.1.beta</code> 的功能，這時 <code class="language-plaintext highlighter-rouge">3.0.0</code> 的 SDK 尚未釋出。它的 pubspec 如下：</p>
+
+
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>name: args
+version: 2.0.0
+
+environment:
+  sdk: '&gt;=3.0.0-417.1.beta &lt;4.0.0'
+</code></pre></div></div>
+
+<p>當這個 package 釋出到 pub.dev 上時，會被標記為預覽版，如下圖所示，
+<code class="language-plaintext highlighter-rouge">1.6.0</code> 是正式版而 <code class="language-plaintext highlighter-rouge">2.0.0</code> 是預覽版。</p>
+
+
+
+<p><img src="preview-version.png" alt="Illustration of a preview version" width="600px"><br></p>
+
+<p>當 <code class="language-plaintext highlighter-rouge">3.0.0</code> 的穩定版 SDK 釋出後，pub.dev 會更新 package 列表，此時 <code class="language-plaintext highlighter-rouge">2.0.0</code> 會顯示為穩定版本。</p>
+
+
+
+<p>如果上面的所有條件都滿足，那麼你可以在執行 <code class="language-plaintext highlighter-rouge">dart pub publish</code> 時忽略以下的警告：</p>
+
+
+
+<p><em>“Packages with an SDK constraint on a pre-release of the Dart SDK should
+   themselves be published as a pre-release version. If this package needs Dart
+   version 3.0.0-0, consider publishing the package as a pre-release
+   instead.”</em></p>
+
+<h2 id="retract">
+<a class="anchor" href="#retract" aria-hidden="true"><span class="octicon octicon-link"></span></a>撤回 package 的某個版本</h2>
+
+
+
+<p>出於某些特殊情況，若你需要一個新版本被使用者使用，你可以在釋出後 7 天內撤回該軟體包版本。撤回的版本可以在撤回後的 7 天內再次恢復。</p>
+
+
+
+<p>被撤回的版本不會被刪除，它會顯示在 pub.dev 上的 <strong>Retracted versions</strong> 區域。同時，對應版本的詳細資訊內會有一個 <strong>RETRACTED</strong> 標籤。</p>
+
+
+
+<p>在撤回版本之前，你可以考慮直接釋出一個新版本。撤回版本可能會對使用者造成混亂和負面的使用體驗。</p>
+
+
+
+<p>如果你不小心釋出了 <strong>未有效限制依賴版本</strong> 的新版本，那麼撤回可能是唯一的選擇。釋出新版本對於這樣的情況來說是無效的，因為 pub 依然能解析到新版。撤回未有效限制依賴版本的版本，可以讓使用者在嘗試依賴時報錯，或者升級到更新的版本。</p>
+
+
+
+<p>然而，如果你的新版本僅僅是包含了一個小 bug，便無需撤回版本。釋出一個修復了 bug 的新版，並且在 <code class="language-plaintext highlighter-rouge">CHANGELOG.md</code> 中標註內容，可以幫助使用者瞭解到問題所在。釋出新版也會讓使用者的使用體驗更好。</p>
+
+
+
+<aside class="alert alert-info" role="alert">
+  <p><i class="material-icons" aria-hidden="true">merge_type</i> <strong>版本提示:</strong></p>
+
+  <p>版本撤回在 Dart 2.15 中引入。在早於 2.15 的 SDK 中，pub 版本解析會忽略版本的撤回狀態。</p>
+
+  
+
+</aside>
+
+<h3 id="how-to-use-a-retracted-package-version">
+<a class="anchor" href="#how-to-use-a-retracted-package-version" aria-hidden="true"><span class="octicon octicon-link"></span></a>如何使用已撤回的版本</h3>
+
+
+
+<p>如果一個 package 的對應版本已被撤回，在 <code class="language-plaintext highlighter-rouge">pubspec.lock</code> 標明它被依賴時仍然能被使用。如果你想依賴某個撤回的版本，你可以在 <code class="language-plaintext highlighter-rouge">pubspec.yaml</code> 檔案中的
+<code class="language-plaintext highlighter-rouge">dependency_overrides</code> 部分固定對應版本的使用。</p>
+
+
+
+<h3 id="how-to-retract-or-restore-a-package-version">
+<a class="anchor" href="#how-to-retract-or-restore-a-package-version" aria-hidden="true"><span class="octicon octicon-link"></span></a>如何撤回或恢復 package 的某個版本</h3>
+
+
+
+<p>想要撤回或恢復 package 的某個版本，首先你需要使用 Google 帳號登入到
+pub.dev，該帳號需要是該 package 的上傳者或
+<a href="/tools/pub/verified-publishers">認證的釋出者</a> 管理。接著進入到 package 頁面上的 <strong>Admin</strong> 標籤欄，進行撤回和恢復版本操作。</p>
+
+
+
+<h2 id="discontinue">
+<a class="anchor" href="#discontinue" aria-hidden="true"><span class="octicon octicon-link"></span></a>把 package 標記為終止</h2>
+
+
+
+<p>儘管 package 的釋出總是會被保留，在需要時，把它標記為不再活躍的維護將會對開發者有幫助。為了達到這一點，你可以將一個 package 標記為 <strong>終止</strong>。終止的 package 曾經的釋出依然留存在 pub.dev 上，並可以被看到，但是它有一個清楚的 <strong>終止</strong> 徽章，而且不會出現在搜尋結果中。</p>
+
+
+
+<p>要把 package 標記為終止，首先你需要使用 Google 帳號登入到
+pub.dev，該帳號需要是該 package 的上傳者或
+<a href="/tools/pub/verified-publishers">認證的釋出者</a> 管理。接著進入到 package 頁面上的 <strong>Admin</strong> 標籤欄，在其中將其標記為終止。如果你回心轉意想繼續維護，可在任意時候移除終止標記。</p>
+
+
+
+
+          
+
+        </div>
+      </article>
+    </main>
+    <footer id="page-footer">
+    <div class="footer-section footer-main">
+      <a href="/" class="brand" title="Dart">
+        <img src="/assets/img/shared/dart/logo+text/horizontal/white.svg" alt="Dart" width="164px">
+      </a>
+      <div class="footer-social-links">
+        <a href="https://github.com/doggy8088/dart.tw" target="_blank" rel="noopener" title="GitHub" class="no-automatic-external">
+          <svg>
+            <use href="/assets/img/social/github.svg#github"></use>
+          </svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-section footer-tray">
+      <div class="footer-licenses">
+        參考中文內容需註明本站及連結作為出處，英文內容和範例程式碼均遵從源站授權協議。
+      </div>
+      <div class="footer-utility-links">
+        <ul>
+          <li><a href="/terms" title="使用條款">使用條款</a></li>
+          <li><a href="https://policies.google.com/privacy?hl=zh-TW" target="_blank" rel="noopener" title="隱私政策" class="no-automatic-external">隱私政策</a></li>
+          <li><a href="/security" title="Security philosophy and practices">Dart 程式碼安全說明</a></li>
+          <li><a href="https://flutter.tw/about" target="_blank">關於中文文件</a>
+          </li><li><a href="https://flutter.tw/disclaimer" target="_blank">免責條款</a>
+          </li><li><a href="https://dart.cn/" target="_blank">Dart 簡體中文文檔</a>
+        </li></ul>
+      </div>
+    </div>
+  </footer>
+
+  
+
+<script src="/assets/translator/js/translator.js"></script></body></html>

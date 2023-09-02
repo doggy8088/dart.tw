@@ -1,0 +1,1410 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Language" content="zh-cmn-Hans">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Google Tag Manager -->
+<!--  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':-->
+<!--  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],-->
+<!--  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=-->
+<!--  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);-->
+<!--  })(window,document,'script','dataLayer','GTM-5VSZM5J');</script>-->
+  <!-- End Google Tag Manager -->
+
+  <meta name="description" content="如何寫出優雅的 Dart 程式碼。">
+  <title>Dart 語言裡的型別體系 | Dart</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-28P0PYCRZ9"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-28P0PYCRZ9');
+  </script>
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?fa71f2474b82505e00203cf9956cf0bc";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+  <!-- Favicon / Touch Icons -->
+  <link rel="icon" sizes="64x64" href="/assets/shared/dart/icon/64.png">
+  <link href="/assets/img/touch-icon-iphone.png" rel="apple-touch-icon">
+  <link href="/assets/img/touch-icon-ipad.png" rel="apple-touch-icon" sizes="152x152">
+  <link href="/assets/img/touch-icon-iphone-retina.png" rel="apple-touch-icon" sizes="180x180">
+  <link href="/assets/img/touch-icon-ipad-retina.png" rel="apple-touch-icon" sizes="167x167">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@dart_lang">
+  <meta name="twitter:title" content="Dart 語言裡的型別體系">
+  <meta name="twitter:description" content="如何寫出優雅的 Dart 程式碼。">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Dart 語言裡的型別體系">
+  <meta property="og:description" content="如何寫出優雅的 Dart 程式碼。">
+  <meta property="og:url" content="https://dart.tw.gh.miniasp.com/language/type-system.html">
+
+  <meta property="og:image" content="https://dart.tw.gh.miniasp.com/assets/shared/dart-logo-for-shares.png?2">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Display:wght@400&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons&amp;display=swap" rel="stylesheet">
+  <script src="https://cdn.staticfile.org/font-awesome/5.15.4/js/all.js" data-auto-replace-svg="nest">
+  </script>
+
+  <link rel="stylesheet" href="/assets/css/main.css?v=1693674404">
+  <script src="https://cdn.staticfile.org/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.staticfile.org/popper.js/1.16.1/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.staticfile.org/bootstrap/4.6.2/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!-- <script src="https://cdn.staticfile.org/js-cookie/3.0.5/js.cookie.min.js"
+          integrity="sha512-nlp9/l96/EpjYBx7EP7pGASVXNe80hGhYAUrjeXnu/fyF5Py0/RXav4BBNs7n5Hx1WFhOEOWSAVjGeC3oKxDVQ=="
+          crossorigin="anonymous"
+          referrerpolicy="no-referrer"></script> -->
+
+  <script src="/assets/js/vendor/code-prettify/prettify.js"></script>
+  <script src="/assets/js/vendor/code-prettify/lang-dart.js"></script>
+  <script src="/assets/js/vendor/code-prettify/lang-yaml.js"></script>
+  <script src="/assets/js/os-tabs.js?v=1693674404"></script>
+  <script src="/assets/js/utilities.js?v=1693674404"></script>
+  <script src="/assets/js/main.js?v=1693674404"></script>
+
+  <script>
+
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-122680122-5', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+
+ <link href="/assets/translator/css/translator.css" rel="stylesheet"></head>
+
+  <body class="default show_banner">
+    <section id="cookie-notice">
+  <div class="container">
+    <p>Google uses cookies to deliver its services, to personalize ads, and to 
+      analyze traffic. You can adjust your privacy controls anytime in your 
+      <a href="https://myaccount.google.com/data-and-personalization" target="_blank" rel="noopener" class="no-automatic-external">Google settings</a>. 
+      <a href="https://policies.google.com/technologies/cookies" target="_blank" rel="noopener" class="no-automatic-external">Learn more</a>.
+    </p>
+    <button id="cookie-consent" class="btn btn-primary">Okay</button>
+  </div>
+</section>
+
+    <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=G-28P0PYCRZ9"
+ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+    <header id="page-header" class="site-header">
+  <nav id="mainnav" class="site-header">
+  <div id="menu-toggle"><i class="material-icons">menu</i></div>
+  <a href="/" class="brand" title="Dart">
+    <img src="/assets/img/shared/dart/logo+text/horizontal/white.svg" alt="Dart">
+  </a>
+  <ul class="navbar">
+    <li>
+      <a href="/overview" class="nav-link">概覽</a>
+    </li>
+    <li class="mainnav__get-started">
+      <a href="/guides" class="nav-link
+         active">
+        <span>文件</span>
+      </a>
+    </li>
+    <li>
+      <a href="/community" class="nav-link">社群</a>
+    </li>
+    <li>
+      <a href="/#try-dart" class="nav-link">嘗試 Dart</a>
+    </li>
+    <li>
+      <a href="/get-dart" class="nav-link">獲取 Dart SDK</a>
+    </li>
+    <li class="searchfield">
+      <form action="/search" class="site-header__search form-inline" id="cse-search-box">
+        <input type="hidden" name="cx" value="011220921317074318178:_yy-tmb5t_i">
+        <input type="hidden" name="ie" value="UTF-8">
+        <input type="hidden" name="hl" value="en">
+        <input class="site-header__searchfield form-control search-field" type="search" name="q" id="q" autocomplete="off" placeholder="Search" aria-label="Search">
+      </form>
+    </li>
+  </ul>
+</nav>
+
+  
+</header>
+ <div class="banner">
+  <p class="banner__text">
+    Dart 3 已釋出！帶來了全新的
+    <a href="https://dart.tw.gh.miniasp.com/language/records" class="no-automatic-external">記錄型別 (records)</a>、
+    <a href="https://dart.tw.gh.miniasp.com/language/patterns" class="no-automatic-external">模式匹配 (patterns)</a>
+    以及 <a href="https://dart.tw.gh.miniasp.com/language/class-modifiers" class="no-automatic-external">型別修飾符 (class modifiers)</a>。
+    <br>
+    <!--<a href="https://medium.com/p/53f065a10635" class="no-automatic-external">Check out the blog post</a>!-->
+  </p>
+</div>
+ 
+
+    <div id="sidenav" class="">
+  <form action="/search/" class="site-header__search form-inline">
+    <input class="site-header__searchfield form-control search-field" type="search" name="q" id="q" autocomplete="off" placeholder="Search" aria-label="Search">
+  </form>
+
+  <div class="site-sidebar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a href="/overview" class="nav-link">概覽</a>
+      </li>
+      <li class="nav-item">
+        <a href="/community" class="nav-link">社群</a>
+      </li>
+      <li class="nav-item">
+        <a href="https://dartpad.dev" class="nav-link">嘗試 Dart</a>
+      </li>
+      <li class="nav-item">
+        <a href="/get-dart" class="nav-link">獲取 Dart SDK</a>
+      </li>
+      <li class="nav-item">
+        <a href="/guides" class="nav-link active">文件</a>
+      </li>
+    </ul>
+
+    <ul class="nav flex-column"><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-1" role="button" aria-expanded="false" aria-controls="sidenav-1">範例和課程</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-1">
+        <li class="nav-item">
+    <a class="nav-link" href="/tutorials">語言概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable" data-toggle="collapse" data-target="#sidenav-1-2" href="#sidenav-1-2" role="button" aria-expanded="true" aria-controls="sidenav-1-2">Codelabs
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-1-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/codelabs">Codelabs 列表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/dart-cheatsheet">Dart 速查表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/iterables">可迭代集合</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/async-await">Dart 非同步程式設計</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/null-safety">空安全</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link active" data-toggle="collapse" href="#sidenav-2" role="button" aria-expanded="true" aria-controls="sidenav-2">Dart 開發語言</a>
+
+      <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-2">
+        <li class="nav-item">
+    <a class="nav-link" href="/language">介紹</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-2" href="#sidenav-2-2" role="button" aria-expanded="false" aria-controls="sidenav-2-2">基礎表示式
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/variables">變數</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/operators">運運算元</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/comments">註釋</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/metadata">註解</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/libraries">庫 &amp; 導庫</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/keywords">關鍵字</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link active collapsable" data-toggle="collapse" data-target="#sidenav-2-3" href="#sidenav-2-3" role="button" aria-expanded="true" aria-controls="sidenav-2-3">型別
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-2-3">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/built-in-types">基本型別</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/records">記錄 (Records)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/collections">集合 (Collections)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/generics">泛型 (Generics)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/typedefs">別名 (Typedefs)</a>
+  </li><li class="nav-item">
+    <a class="nav-link active" href="/language/type-system">型別系統</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-4" href="#sidenav-2-4" role="button" aria-expanded="false" aria-controls="sidenav-2-4">模式匹配
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-4">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/patterns">概覽 &amp; 用法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/pattern-types">模式匹配型別</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/language/functions">函式方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-6" href="#sidenav-2-6" role="button" aria-expanded="false" aria-controls="sidenav-2-6">控制流
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-6">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/loops">迴圈</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/branches">分支</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/language/error-handling">錯誤處理</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-8" href="#sidenav-2-8" role="button" aria-expanded="false" aria-controls="sidenav-2-8">類 &amp; 物件
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-8">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/classes">類</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/constructors">構造方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/methods">成員方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/extend">繼承</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/mixins">混入 (Mixin)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/enums">列舉</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/extension-methods">擴充方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/callable-objects">可呼叫的物件</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-9" href="#sidenav-2-9" role="button" aria-expanded="false" aria-controls="sidenav-2-9">型別修飾符
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-9">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/class-modifiers">概覽 &amp; 用法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/class-modifiers-for-apis">API 維護者應該用的型別修飾符</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/modifier-reference">速查表</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-10" href="#sidenav-2-10" role="button" aria-expanded="false" aria-controls="sidenav-2-10">併發
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-10">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/async">非同步支援</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/concurrency">Isolates</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-11" href="#sidenav-2-11" role="button" aria-expanded="false" aria-controls="sidenav-2-11">Null safety
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-11">
+      <li class="nav-item">
+    <a class="nav-link" href="/null-safety">健全的空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/migration-guide">遷移到空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/understanding-null-safety">深入理解空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/unsound-null-safety">非健全的空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/faq">空安全常見問題和解答</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-3" role="button" aria-expanded="false" aria-controls="sidenav-3">高效指南 (Effective Dart)</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-3">
+        <li class="nav-item">
+    <a class="nav-link" href="/effective-dart">概述</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/style">程式碼風格</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/documentation">文件</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/usage">用法範例</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/design">API 設計</a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-4" role="button" aria-expanded="false" aria-controls="sidenav-4">核心函式庫</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-4">
+        <li class="nav-item">
+    <a class="nav-link" href="/guides/libraries">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/library-tour">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-4-3" href="#sidenav-4-3" role="button" aria-expanded="false" aria-controls="sidenav-4-3">介紹文章
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-4-3">
+      <li class="nav-item">
+    <a class="nav-link" href="/articles/libraries/creating-streams">建立 stream</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-5" role="button" aria-expanded="false" aria-controls="sidenav-5">Packages</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-5">
+        <li class="nav-item">
+    <a class="nav-link" href="/guides/packages">如何使用 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/useful-libraries">常用 package 介紹</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/create-packages">建立 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/publishing">釋出 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/writing-package-pages">設定 package 介紹頁</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-5-6" href="#sidenav-5-6" role="button" aria-expanded="false" aria-controls="sidenav-5-6">Package 參考資料
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-5-6">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/pub/dependencies">依賴</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/glossary">術語表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/package-layout">Package 檔案結構</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/environment-variables">設定環境變數</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/pubspec">Pubspec 檔案</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/troubleshoot">問題排查</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/verified-publishers">釋出者認證</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/versioning">版本管理</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-6" role="button" aria-expanded="false" aria-controls="sidenav-6">開發文件</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6">
+        <li class="nav-item">
+    <a class="nav-link" href="/codelabs/async-await">Futures、async 和 await</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/language/streams">Streams 介紹</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/json">使用 JSON</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/numbers">Dart 中的數字</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-5" href="#sidenav-6-5" role="button" aria-expanded="false" aria-controls="sidenav-6-5">與其他語言進行互動呼叫
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-5">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/c-interop">與 C 互調</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/objective-c-interop">與 Objective-C 和 Swift 互調</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/java-interop">與 Java 和 Kotlin 互調</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/web/js-interop">與 JavaScript 互調</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/guides/google-apis">Google APIs</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/multiplatform-apps">跨平臺應用</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-8" href="#sidenav-6-8" role="button" aria-expanded="false" aria-controls="sidenav-6-8">命令列和伺服器端應用
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-8">
+      <li class="nav-item">
+    <a class="nav-link" href="/server">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/get-started">起步課程</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/cmdline">命令列應用</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/fetch-data">從網路上獲取資料</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/httpserver">編寫 HTTP 伺服器端應用</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/server/libraries">庫和 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/server/google-cloud">Google Cloud</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-9" href="#sidenav-6-9" role="button" aria-expanded="false" aria-controls="sidenav-6-9">網頁端 (Web) 應用
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-9">
+      <li class="nav-item">
+    <a class="nav-link" href="/web">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/get-started">開始使用</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-9-3" href="#sidenav-6-9-3" role="button" aria-expanded="false" aria-controls="sidenav-6-9-3">底層 Web 程式設計
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-9-3">
+      <li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/low-level-html/connect-dart-html">Dart 與 HTML 關聯</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/low-level-html/add-elements">向 DOM 新增元素</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/low-level-html/remove-elements">移除 DOM 元素</a>
+  </li>
+  </ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/web/deployment">部署</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/web/libraries">常用 Web 函式庫和 package</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/guides/environment-declarations">環境變數宣告</a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-7" role="button" aria-expanded="false" aria-controls="sidenav-7">開發工具和使用技巧</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7">
+        <li class="nav-item">
+    <a class="nav-link" href="/tools">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-2" href="#sidenav-7-2" role="button" aria-expanded="false" aria-controls="sidenav-7-2">編輯器和除錯工具
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/jetbrains-plugin">使用 IntelliJ 和 Android Studio</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/vs-code">使用 VS Code</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/dart-devtools">Dart 開發者工具</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-2-4" href="#sidenav-7-2-4" role="button" aria-expanded="false" aria-controls="sidenav-7-2-4">線上執行 Dart 程式碼
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-2-4">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/dartpad">Overview</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dartpad/dartpad-best-practices">DartPad 課程</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dartpad/troubleshoot">DartPad 疑難解答</a>
+  </li>
+  </ul>
+  </li>
+</ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-3" href="#sidenav-7-3" role="button" aria-expanded="false" aria-controls="sidenav-7-3">命令列工具
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-3">
+      <li class="nav-item">
+    <a class="nav-link collapsable" data-toggle="collapse" data-target="#sidenav-7-3-1" href="#sidenav-7-3-1" role="button" aria-expanded="true" aria-controls="sidenav-7-3-1">Dart SDK
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-7-3-1">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/sdk">概覽</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-tool">dart 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-analyze">dart analyze 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-compile">dart compile 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-create">dart create 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-doc">dart doc 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-fix">dart fix 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-format">dart format 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-info">dart info 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/pub/cmd">dart pub 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-run">dart run 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-test">dart test 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dartaotruntime">dartaotruntime 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/experiment-flags">實驗性命令標記</a>
+  </li>
+  </ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable" data-toggle="collapse" data-target="#sidenav-7-3-2" href="#sidenav-7-3-2" role="button" aria-expanded="true" aria-controls="sidenav-7-3-2">其他的命令列工具
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-7-3-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/build_runner">build_runner 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/webdev">webdev 命令</a>
+  </li>
+  </ul>
+  </li>
+</ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-4" href="#sidenav-7-4" role="button" aria-expanded="false" aria-controls="sidenav-7-4">原始碼管理
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-4">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/language/formatting">程式碼格式化</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/private-files">不應提交的內容</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-5" href="#sidenav-7-5" role="button" aria-expanded="false" aria-controls="sidenav-7-5">靜態分析
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-5">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/analysis">自訂靜態分析</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/sound-problems">修復常見的型別問題</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/diagnostic-messages">診斷訊息</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/linter-rules">Linter 規則</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-6" href="#sidenav-7-6" role="button" aria-expanded="false" aria-controls="sidenav-7-6">測試和調優
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-6">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/testing">測試</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/web/debugging">除錯 Web 應用</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-8" role="button" aria-expanded="false" aria-controls="sidenav-8">資源</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-8">
+        <li class="nav-item">
+    <a class="nav-link" href="/resources/faq">常見問題</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/evolution">版本演變</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/spec">語言規範</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/resources/dart-3-migration">Dart 3 遷移指南</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-8-5" href="#sidenav-8-5" role="button" aria-expanded="false" aria-controls="sidenav-8-5">從其他平台轉向 Dart
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-8-5">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/language/coming-from/js-to-dart">從 JavaScript 到 Dart</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/coming-from/swift-to-dart">從 Swift 到 Dart</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/resources/glossary">詞彙表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/resources/books">書籍資源</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/resources/videos">影片資源</a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link " data-toggle="collapse" href="#sidenav-9" role="button" aria-expanded="true" aria-controls="sidenav-9">相關站點</a>
+
+      <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-9">
+        <li class="nav-item">
+    <a class="nav-link" href="https://api.dart.dev" target="_blank" rel="noopener">API 文件<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://medium.com/dartlang" target="_blank" rel="noopener">Dart 團隊官方部落格<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://dartpad.dev" target="_blank" rel="noopener">DartPad (線上編輯器)<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://flutter.tw" target="_blank" rel="noopener">Flutter<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://pub.dev" target="_blank" rel="noopener">Package 網站<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-10" role="button" aria-expanded="false" aria-controls="sidenav-10">關於 Dart 中文文件</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-10">
+        <li class="nav-item">
+    <a class="nav-link" href="https://flutter.tw/about/docs-cn" target="_blank" rel="noopener">關於本站<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://flutter.tw/disclaimer" target="_blank" rel="noopener">免責條款 (Disclaimer)<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li>
+</ul>
+    </li></ul>
+
+  </div>
+</div>
+
+    <main id="page-content">
+      
+
+
+
+
+
+
+
+<div id="site-toc--side" class="site-toc ">
+  <header class="site-toc__title">
+    目錄
+    
+  </header>
+  <ul id="toc" class="section-nav">
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#what-is-soundness"><p>什麼是型別安全</p></a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#the-benefits-of-soundness"><p>型別安全的好處</p></a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#tips-for-passing-static-analysis"><p>靜態檢查中的一些技巧</p></a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#use-sound-return-types-when-overriding-methods"><p>重寫方法時，使用型別安全的返回值</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#use-sound-parameter-types-when-overriding-methods"><p>重寫方法時，使用型別安全的引數。</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#dont-use-a-dynamic-list-as-a-typed-list"><p>不要將動態型別的 List 看做是有型別的 List</p></a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#runtime-checks"><p>執行時期檢查</p></a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#type-inference"><p>型別推斷</p></a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#field-and-method-inference"><p>欄位和方法推斷</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#static-field-inference"><p>靜態欄位推斷</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#local-variable-inference"><p>區域變數推斷</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#type-argument-inference"><p>引數型別推斷</p></a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#substituting-types"><p>替換型別</p></a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#simple-type-assignment"><p>普通型別賦值</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#generic-type-assignment"><p>泛型賦值</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#methods"><p>方法</p></a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#other-resources"><p>其他資源</p></a></li>
+</ul>
+  
+</div>
+
+
+      <article>
+        <div class="content">
+          
+<nav id="subnav">
+  <ul>
+    <li class="previous">
+      
+        <a href="/language/typedefs">⟨&nbsp;&nbsp;類型別名</a>
+      
+    </li>
+    <li class="next">
+      
+        <a href="/language/patterns">模式匹配&nbsp;&nbsp;⟩</a>
+      
+    </li>
+  </ul>
+</nav>
+
+
+          <div id="site-content-title">
+            <div id="page-github-links" class="btn-group" aria-label="Page GitHub links" role="group">
+  <a href="https://github.com/doggy8088/dart.tw/tree/master/src/language/type-system.md" class="btn no-automatic-external" title="View page source" target="_blank" rel="noopener">
+    <i class="material-icons">description</i>
+  </a>
+  <a href="https://github.com/doggy8088/dart.tw/issues/new?template=1_page_issue.yml&amp;title=[PAGE ISSUE]: 'Dart 語言裡的型別體系'&amp;page-url=https://dart.tw.gh.miniasp.com/language/type-system.html&amp;page-source=https://github.com/doggy8088/dart.tw/tree/master/src/language/type-system.md" class="btn no-automatic-external" title="Report an issue with this page" target="_blank" rel="noopener">
+    <i class="material-icons">bug_report</i>
+  </a>
+</div>
+
+            
+            <h1 id="dart-語言裡的型別體系">Dart 語言裡的型別體系</h1>
+            </div>
+          
+
+
+
+
+
+
+
+<div id="site-toc--inline" class="site-toc toc-collapsible toc-collapsed">
+  <header class="site-toc__title">
+    目錄
+    
+      <span class="site-toc--inline__toggle toc-toggle-down"><i class="material-icons">keyboard_arrow_down</i></span>
+      <span class="site-toc--inline__toggle toc-toggle-up"><i class="material-icons">keyboard_arrow_up</i></span>
+    
+  </header>
+  <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#what-is-soundness"><p>什麼是型別安全</p></a></li>
+<li class="toc-entry toc-h2"><a href="#the-benefits-of-soundness"><p>型別安全的好處</p></a></li>
+<li class="toc-entry toc-h2"><a href="#tips-for-passing-static-analysis"><p>靜態檢查中的一些技巧</p></a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#use-sound-return-types-when-overriding-methods"><p>重寫方法時，使用型別安全的返回值</p></a></li>
+<li class="toc-entry toc-h3"><a href="#use-sound-parameter-types-when-overriding-methods"><p>重寫方法時，使用型別安全的引數。</p></a></li>
+<li class="toc-entry toc-h3"><a href="#dont-use-a-dynamic-list-as-a-typed-list"><p>不要將動態型別的 List 看做是有型別的 List</p></a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#runtime-checks"><p>執行時期檢查</p></a></li>
+<li class="toc-entry toc-h2"><a href="#type-inference"><p>型別推斷</p></a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#field-and-method-inference"><p>欄位和方法推斷</p></a></li>
+<li class="toc-entry toc-h3"><a href="#static-field-inference"><p>靜態欄位推斷</p></a></li>
+<li class="toc-entry toc-h3"><a href="#local-variable-inference"><p>區域變數推斷</p></a></li>
+<li class="toc-entry toc-h3"><a href="#type-argument-inference"><p>引數型別推斷</p></a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#substituting-types"><p>替換型別</p></a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#simple-type-assignment"><p>普通型別賦值</p></a></li>
+<li class="toc-entry toc-h3"><a href="#generic-type-assignment"><p>泛型賦值</p></a></li>
+<li class="toc-entry toc-h3"><a href="#methods"><p>方法</p></a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#other-resources"><p>其他資源</p></a></li>
+</ul>
+  
+    <span class="site-toc--inline__toggle toc-toggle-more-items"><i class="material-icons">more_horiz</i></span>
+  
+</div>
+
+
+          
+<p>Dart 是型別安全的程式語言：Dart 使用靜態型別檢查和
+<a href="#runtime-checks">執行時期檢查</a>
+的組合來確保變數的值始終與變數的靜態型別或其他安全型別相匹配。儘管型別是必需的，但由於
+<a href="#type-inference">型別推斷</a>，型別的註釋是可選的。</p>
+
+
+
+<p>靜態型別檢查的一個好處是能夠使用 Dart 的
+<a href="/tools/analysis">靜態分析器</a> 在編譯時找到錯誤。</p>
+
+
+
+<p>可以向泛型類新增型別註釋來修復大多數靜態分析錯誤。最常見的泛型類是集合型別 <code class="language-plaintext highlighter-rouge">List&lt;T&gt;</code> 和 <code class="language-plaintext highlighter-rouge">Map&lt;K,V&gt;</code> 。</p>
+
+
+
+<p>例如，在下面的程式碼中，<code class="language-plaintext highlighter-rouge">main()</code> 建立一個列表並將其傳遞給 <code class="language-plaintext highlighter-rouge">printInts()</code>，由 <code class="language-plaintext highlighter-rouge">printInts()</code> 函式列印這個整數列表。</p>
+
+
+
+<pre class="prettyprint lang-dart fails-sa"><code>void printInts(List&lt;int&gt; a) =&gt; print(a);
+
+void main() {
+  final list = [];
+  list.add(1);
+  list.add('2');
+  printInts(<span class="highlight">list</span>);
+}</code></pre>
+
+<p>上面的程式碼在呼叫 <code class="language-plaintext highlighter-rouge">printInts(list)</code> 時會在 <code class="language-plaintext highlighter-rouge">list</code> （高亮提示）上產生型別錯誤：</p>
+
+
+
+<div class="code-excerpt console-output">
+<div class="code-excerpt__code"><pre><code class="nocode prettyprint nocode">error - The argument type 'List&lt;dynamic&gt;' can't be assigned to the parameter type 'List&lt;int&gt;'. - argument_type_not_assignable</code></pre></div>
+</div>
+
+<p>高亮錯誤是因為產生了從 <code class="language-plaintext highlighter-rouge">List&lt;dynamic&gt;</code> 到 <code class="language-plaintext highlighter-rouge">List&lt;int&gt;</code> 的不正確的隱含轉換。
+<code class="language-plaintext highlighter-rouge">list</code> 變數是 <code class="language-plaintext highlighter-rouge">List&lt;dynamic&gt;</code> 靜態型別。這是因為 <code class="language-plaintext highlighter-rouge">list</code> 變數的初始化宣告 <code class="language-plaintext highlighter-rouge">var list = []</code>
+沒有為分析器提供足夠的資訊來推斷比 <code class="language-plaintext highlighter-rouge">dynamic</code> 更具體的型別引數。
+<code class="language-plaintext highlighter-rouge">printInts()</code> 函式需要 <code class="language-plaintext highlighter-rouge">List&lt;int&gt;</code> 型別的引數，因此導致型別不匹配。</p>
+
+
+
+<p>在建立 <code class="language-plaintext highlighter-rouge">list</code> 時新增型別註釋 <code class="language-plaintext highlighter-rouge">&lt;int&gt;</code>（程式碼中高亮顯示部分）後，分析器會提示無法將字串引數分配給 <code class="language-plaintext highlighter-rouge">int</code> 引數。刪除 <code class="language-plaintext highlighter-rouge">list.add("2")</code> 中的字串引號使程式碼透過靜態分析並能夠正常執行。</p>
+
+
+
+<pre class="prettyprint lang-dart passes-sa"><code>void printInts(List&lt;int&gt; a) =&gt; print(a);
+
+void main() {
+  final list = <span class="highlight">&lt;int&gt;</span>[];
+  list.add(1);
+  list.add(<span class="highlight">2</span>);
+  printInts(list);
+}</code></pre>
+
+<p><a href="https://dartpad.dev/f64e963cb5f894e2146c2b28d5efa4ed">嘗試在 DartPad 中練習</a>.</p>
+
+
+
+<h2 id="what-is-soundness">
+<a class="anchor" href="#what-is-soundness" aria-hidden="true"><span class="octicon octicon-link"></span></a>什麼是型別安全</h2>
+
+
+
+<p>型別安全是為了確保程式不會進入某些無效狀態。安全的型別系統意味著程式永遠不會進入表示式求值為與表示式的靜態型別不匹配的值的狀態。例如，如果表示式的靜態型別是 <code class="language-plaintext highlighter-rouge">String</code> ，則在執行時保證在評估它的時候只會獲取字串。</p>
+
+
+
+<p>Dart 的型別系統，同 Java 和 C＃中的型別系統類似，是安全的。它使用靜態檢查（編譯時錯誤）和執行時期檢查的組合來強制執行型別安全。例如，將 <code class="language-plaintext highlighter-rouge">String</code> 分配給 <code class="language-plaintext highlighter-rouge">int</code> 是一個編譯時錯誤。如果<code class="language-plaintext highlighter-rouge">物件</code>不是字串，使用 <code class="language-plaintext highlighter-rouge">as String</code> 將<code class="language-plaintext highlighter-rouge">物件</code>轉換為字串時，會由於執行時錯誤而導致轉換失敗。</p>
+
+
+
+<h2 id="the-benefits-of-soundness">
+<a class="anchor" href="#the-benefits-of-soundness" aria-hidden="true"><span class="octicon octicon-link"></span></a>型別安全的好處</h2>
+
+
+
+<p>安全的型別系統有以下幾個好處：</p>
+
+
+
+<ul>
+  <li>
+    <p>在編譯時就可以檢查並顯示型別相關的錯誤。<br>
+安全的型別系統強制要求程式碼明確型別，因此在編譯時會顯示與型別相關的錯誤，這些錯誤可能在執行時可能很難發現。</p>
+
+    
+  </li>
+  <li>
+    <p>程式碼更容易閱讀。<br>
+程式碼更容易閱讀，因為我們信賴一個擁有指定型別的值。在型別安全的 Dart 中，型別是不會騙人的。因為一個擁有指定型別的值是可以被信賴的。</p>
+
+    
+  </li>
+  <li>
+    <p>程式碼可維護性更高。<br>
+在安全的型別系統下，當更改一處程式碼後，型別系統會警告因此影響到的其他程式碼塊。</p>
+
+    
+  </li>
+  <li>
+    <p>更好的 AOT 編譯。<br>
+雖然在沒有型別的情況下可以進行 AOT 編譯，但產生的程式碼效率要低很多。</p>
+
+    
+  </li>
+</ul>
+
+<h2 id="tips-for-passing-static-analysis">
+<a class="anchor" href="#tips-for-passing-static-analysis" aria-hidden="true"><span class="octicon octicon-link"></span></a>靜態檢查中的一些技巧</h2>
+
+
+
+<p>大多數靜態型別的規則都很容易理解。下面是一些不太明顯的規則：</p>
+
+
+
+<ul>
+  <li>
+    <p>重寫方法時，使用型別安全返回值。</p>
+
+    
+  </li>
+  <li>
+    <p>重寫方法時，使用型別安全的引數。</p>
+
+    
+  </li>
+  <li>
+    <p>不要將動態型別的 List 看做是有型別的 List。</p>
+
+    
+  </li>
+</ul>
+
+<p>讓我們透過下面範例的型別結構，來更深入的瞭解這些規則：</p>
+
+
+
+<p><img src="images/type-hierarchy.png" alt="a hierarchy of animals where the supertype is Animal and the subtypes are Alligator, Cat, and HoneyBadger. Cat has the subtypes of Lion and MaineCoon"></p>
+
+<p><a name="use-proper-return-types"></a></p>
+<h3 id="use-sound-return-types-when-overriding-methods">
+<a class="anchor" href="#use-sound-return-types-when-overriding-methods" aria-hidden="true"><span class="octicon octicon-link"></span></a>重寫方法時，使用型別安全的返回值</h3>
+
+
+
+<p>子類別方法中返回值型別必須與父類方法中返回值型別的型別相同或其子類別型。考慮 Animal 類中的 Getter 方法：</p>
+
+
+<pre class="prettyprint lang-dart"><code>class Animal {
+  void chase(Animal a) { ... }
+  <span class="highlight">Animal get parent =&gt; ...</span>
+}</code></pre>
+
+<p><code class="language-plaintext highlighter-rouge">父類</code> Getter 方法返回一個 Animal 。在 HoneyBadger 子類別中，可以使用 HoneyBadger（或 Animal 的任何其他子類別型）替換 Getter 的返回值型別，但不允許使用其他的無關型別。</p>
+
+
+
+<pre class="prettyprint lang-dart passes-sa"><code>class HoneyBadger extends Animal {
+  @override
+  void chase(Animal a) { ... }
+
+  @override
+  <span class="highlight">HoneyBadger</span> get parent =&gt; ...
+}</code></pre>
+
+<pre class="prettyprint lang-dart fails-sa"><code>class HoneyBadger extends Animal {
+  @override
+  void chase(Animal a) { ... }
+  
+  @override
+  <span class="highlight">Root</span> get parent =&gt; ...
+}</code></pre>
+
+<p><a name="use-proper-param-types"></a></p>
+<h3 id="use-sound-parameter-types-when-overriding-methods">
+<a class="anchor" href="#use-sound-parameter-types-when-overriding-methods" aria-hidden="true"><span class="octicon octicon-link"></span></a>重寫方法時，使用型別安全的引數。</h3>
+
+
+
+<p>子類別方法的引數必須與父類方法中引數的型別相同或是其引數的父型別。不要使用原始引數的子類別型，替換原有型別，這樣會導致引數型別”收緊”。</p>
+
+
+
+<aside class="alert alert-info" role="alert">
+  <p><i class="material-icons" aria-hidden="true">info</i> <strong>備註:</strong></p>
+
+  <p><strong>提示：</strong> 如果有合理的理由使用子類別型，可以使用 <a href="/guides/language/sound-problems#the-covariant-keyword"><code class="language-plaintext highlighter-rouge">covariant</code> 關鍵字</a>。</p>
+
+  
+</aside>
+
+<p>考慮 Animal 的 <code class="language-plaintext highlighter-rouge">chase(Animal)</code> 方法：</p>
+
+
+<pre class="prettyprint lang-dart"><code>class Animal {
+  <span class="highlight">void chase(Animal a) { ... }</span>
+  Animal get parent =&gt; ...
+}</code></pre>
+
+<p><code class="language-plaintext highlighter-rouge">chase()</code> 方法的引數型別是 Animal 。一個 HoneyBadger 可以追逐任何東西。因此可以在重寫 <code class="language-plaintext highlighter-rouge">chase()</code> 方法時將引數型別指定為任意類別型  (Object)  。</p>
+
+
+
+<pre class="prettyprint lang-dart passes-sa"><code>class HoneyBadger extends Animal {
+  @override
+  void chase(<span class="highlight">Object</span> a) { ... }
+
+  @override
+  Animal get parent =&gt; ...
+}</code></pre>
+
+<p>Mouse 是 Animal 的子類別，下面的程式碼將 <code class="language-plaintext highlighter-rouge">chase()</code>
+方法中引數的範圍從 Animal 縮小到 Mouse 。</p>
+
+
+
+<pre class="prettyprint lang-dart fails-sa"><code>class Mouse extends Animal {...}
+
+class Cat extends Animal {
+  @override
+  void chase(<span class="highlight">Mouse</span> x) { ... }
+}</code></pre>
+
+<p>下面的程式碼不是型別安全的，因為 a 可以是一個 cat 物件，卻可以給它傳入一個 alligator 物件。</p>
+
+
+
+<pre class="prettyprint lang-dart"><code>Animal a = Cat();
+a.chase(<span class="highlight">Alligator</span>()); // Not type safe or feline safe.</code></pre>
+
+<h3 id="dont-use-a-dynamic-list-as-a-typed-list">
+<a class="anchor" href="#dont-use-a-dynamic-list-as-a-typed-list" aria-hidden="true"><span class="octicon octicon-link"></span></a>不要將動態型別的 List 看做是有型別的 List</h3>
+
+
+
+<p>當期望在一個 List 中可以包含不同型別的物件時，動態列表是很好的選擇。但是不能將動態型別的 List 看做是有型別的 List 。</p>
+
+
+
+<p>這個規則也適用於泛型型別的例項。</p>
+
+
+
+<p>下面程式碼建立一個 <code class="language-plaintext highlighter-rouge">Dog</code> 的動態 List ，並將其分配給 <code class="language-plaintext highlighter-rouge">Cat</code> 型別的 List ，表示式在靜態分析期間會產生錯誤。</p>
+
+
+
+<pre class="prettyprint lang-dart fails-sa"><code>class Cat extends Animal { ... }
+
+class Dog extends Animal { ... }
+
+void main() {
+  List&lt;Cat&gt; foo = <span class="highlight">&lt;dynamic&gt;</span>[Dog()]; // Error
+  List&lt;dynamic&gt; bar = &lt;dynamic&gt;[Dog(), Cat()]; // OK
+}</code></pre>
+
+<h2 id="runtime-checks">
+<a class="anchor" href="#runtime-checks" aria-hidden="true"><span class="octicon octicon-link"></span></a>執行時期檢查</h2>
+
+
+
+<p>執行時期檢查工具會處理分析器無法捕獲的型別安全問題。</p>
+
+
+
+<p>例如，以下程式碼在執行時會丟擲例外，因為將 Dog 型別的 List 賦值給 Cat 型別的 List 是錯誤的：</p>
+
+
+
+<pre class="prettyprint lang-dart runtime-fail"><code>void main() {
+  List&lt;Animal&gt; animals = [Dog()];
+  List&lt;Cat&gt; cats = <span class="highlight">animals as List&lt;Cat&gt;</span>;
+}</code></pre>
+
+<h2 id="type-inference">
+<a class="anchor" href="#type-inference" aria-hidden="true"><span class="octicon octicon-link"></span></a>型別推斷</h2>
+
+
+
+<p>分析器 (analyzer) 可以推斷欄位，方法，區域變數和大多數泛型型別引數的型別。當分析器沒有足夠的資訊來推斷出一個特定型別時，會使用 <code class="language-plaintext highlighter-rouge">dynamic</code> 作為型別。</p>
+
+
+
+<p>下面是在泛型中如何進行型別推斷的範例。在此範例中，名為 <code class="language-plaintext highlighter-rouge">arguments</code> 的變數包含一個 Map ，該 Map 將字串鍵與各種型別的值配對。</p>
+
+
+
+<p>如果顯式鍵入變數，則可以這樣寫：</p>
+
+
+<pre class="prettyprint lang-dart"><code><span class="highlight">Map&lt;String, dynamic&gt;</span> arguments = {'argA': 'hello', 'argB': 42};</code></pre>
+
+<p>或者，使用 <code class="language-plaintext highlighter-rouge">var</code> 讓 Dart 來推斷型別：</p>
+
+
+<pre class="prettyprint lang-dart"><code><span class="highlight">var</span> arguments = {'argA': 'hello', 'argB': 42}; // Map&lt;String, Object&gt;</code></pre>
+
+<p>Map 字面量從其條目中推斷出它的型別，然後變數從 Map 字面量的型別中推斷出它的型別。在此 Map 中，鍵都是字串，但值具有不同的型別（ String 和 int ，它們具有共同的上限型別 Object ）。因此，Map 字面量的型別為 <code class="language-plaintext highlighter-rouge">Map&lt;String, Object&gt;</code> ，也就是 <code class="language-plaintext highlighter-rouge">arguments</code> 的型別。</p>
+
+
+
+<h3 id="field-and-method-inference">
+<a class="anchor" href="#field-and-method-inference" aria-hidden="true"><span class="octicon octicon-link"></span></a>欄位和方法推斷</h3>
+
+
+
+<p>重寫父類別的且沒有指定型別的欄位或方法，繼承父類中欄位或方法的型別。</p>
+
+
+
+<p>沒有宣告型別且不存在繼承型別的欄位，如果在宣告時被初始化，那麼欄位的型別為初始化值的型別。</p>
+
+
+
+<h3 id="static-field-inference">
+<a class="anchor" href="#static-field-inference" aria-hidden="true"><span class="octicon octicon-link"></span></a>靜態欄位推斷</h3>
+
+
+
+<p>靜態欄位和變數的型別從其初始化程式中推斷獲得。需要注意的是，如果推斷是個迴圈，推斷會失敗（也就是說，推斷變數的型別取決於知道該變數的型別）。</p>
+
+
+
+<h3 id="local-variable-inference">
+<a class="anchor" href="#local-variable-inference" aria-hidden="true"><span class="octicon octicon-link"></span></a>區域變數推斷</h3>
+
+
+
+<p>在不考慮連續賦值的情況下，區域變數如果有初始化值的情況下，其型別是從初始化值推斷出來的。這可能意味著推斷出來的型別會非常嚴格。如果是這樣，可以為他們新增型別註釋。</p>
+
+
+
+<pre class="prettyprint lang-dart fails-sa"><code>var x = 3; // x is inferred as an int.
+x = 4.0;</code></pre>
+
+<pre class="prettyprint lang-dart passes-sa"><code>num y = 3; // A num can be double or int.
+y = 4.0;</code></pre>
+
+<h3 id="type-argument-inference">
+<a class="anchor" href="#type-argument-inference" aria-hidden="true"><span class="octicon octicon-link"></span></a>引數型別推斷</h3>
+
+
+
+<p>建構函式呼叫的型別引數和 <a href="/language/generics#using-generic-methods">泛型方法</a>
+呼叫是根據上下文的向下資訊和建構函式或泛型方法的引數的向上資訊組合推斷的。如果推斷沒有按照意願或期望進行，那麼你可以顯式的指定他們的引數型別。</p>
+
+
+
+<pre class="prettyprint lang-dart passes-sa"><code>// Inferred as if you wrote &lt;int&gt;[].
+List&lt;int&gt; listOfInt = [];
+
+// Inferred as if you wrote &lt;double&gt;[3.0].
+var listOfDouble = [3.0];
+
+// Inferred as Iterable&lt;int&gt;.
+var ints = listOfDouble.map((x) =&gt; x.toInt());</code></pre>
+
+<p>在最後一個範例中，根據向下資訊 <code class="language-plaintext highlighter-rouge">x</code> 被推斷為 <code class="language-plaintext highlighter-rouge">double</code> 。閉套件的返回型別根據向上資訊推斷為 <code class="language-plaintext highlighter-rouge">int</code> 。在推斷 <code class="language-plaintext highlighter-rouge">map()</code> 方法的型別引數：<code class="language-plaintext highlighter-rouge">&lt;int&gt;</code> 時，Dart 使用此返回值的型別作為向上資訊。</p>
+
+
+
+<h2 id="substituting-types">
+<a class="anchor" href="#substituting-types" aria-hidden="true"><span class="octicon octicon-link"></span></a>替換型別</h2>
+
+
+
+<p>當重寫方法時，可以使用一個新型別（在新方法中）替換舊型別（在舊方法中）。類似地，當引數傳遞給函式時，可以使用另一種型別（實際引數）的物件替換現有型別（具有宣告型別的引數）要求的物件。什麼時候可以用具有子類別型或父型別的物件替換具有一種型別的物件那？</p>
+
+
+
+<p>從_消費者_和_生產者_的角度有助於我們思考替換型別的情況。消費者接受型別，生產者產生型別。</p>
+
+
+
+<p><strong>可以使用父型別替換消費者型別，使用子類別型替換生產者型別。</strong></p>
+
+
+
+<p>下面讓我們看一下普通型別賦值和泛型型別賦值的範例。</p>
+
+
+
+<h3 id="simple-type-assignment">
+<a class="anchor" href="#simple-type-assignment" aria-hidden="true"><span class="octicon octicon-link"></span></a>普通型別賦值</h3>
+
+
+
+<p>將物件賦值給物件時，什麼時候可以用其他型別替換當前型別？答案取決於物件是消費者還是生產者。</p>
+
+
+
+<p>分析以下型別層次結構：</p>
+
+
+
+<p><img src="images/type-hierarchy.png" alt="a hierarchy of animals where the supertype is Animal and the subtypes are Alligator, Cat, and HoneyBadger. Cat has the subtypes of Lion and MaineCoon"></p>
+
+<p>思考下面範例中的普通賦值，其中 <code class="language-plaintext highlighter-rouge">Cat c</code> 是 <strong>消費者</strong> 而 <code class="language-plaintext highlighter-rouge">Cat()</code> 是 <strong>生產者</strong>：</p>
+
+
+<pre class="prettyprint lang-dart"><code>Cat c = Cat();</code></pre>
+
+<p>在消費者的位置，任意類別型（<code class="language-plaintext highlighter-rouge">Animal</code>）的物件替換特定型別（<code class="language-plaintext highlighter-rouge">Cat</code>）的物件是安全的。因此使用 <code class="language-plaintext highlighter-rouge">Animal c</code> 替換 <code class="language-plaintext highlighter-rouge">Cat c</code> 是允許的，因為 Animal 是 Cat 的父類別。</p>
+
+
+
+<pre class="prettyprint lang-dart passes-sa"><code>Animal c = Cat();</code></pre>
+
+<p>但是使用 <code class="language-plaintext highlighter-rouge">MaineCoon c</code> 替換 <code class="language-plaintext highlighter-rouge">Cat c</code> 會打破型別的安全性，因為父類可能會提供一種具有不同行為的 Cat ，例如 Lion ：</p>
+
+
+
+<pre class="prettyprint lang-dart fails-sa"><code>MaineCoon c = Cat();</code></pre>
+
+<p>在生產者的位置，可以安全地將生產型別 (Cat) 替換成一個更具體的型別
+ (MaineCoon) 的物件。因此，下面的操作是允許的：</p>
+
+
+
+<pre class="prettyprint lang-dart passes-sa"><code>Cat c = MaineCoon();</code></pre>
+
+<h3 id="generic-type-assignment">
+<a class="anchor" href="#generic-type-assignment" aria-hidden="true"><span class="octicon octicon-link"></span></a>泛型賦值</h3>
+
+
+
+<p>上面的規則同樣適用於泛型型別嗎？是的。考慮動物列表的層次結構— Cat 型別的 List 是 Animal 型別 List 的子類別型，是 MaineCoon 型別 List 的父型別。</p>
+
+
+
+<p><img src="images/type-hierarchy-generics.png" alt="List<Animal> -> List<Cat> -> List<MaineCoon>"></p>
+
+<p>在下面的範例中，可以將 <code class="language-plaintext highlighter-rouge">MaineCoon</code> 型別的 List 賦值給 <code class="language-plaintext highlighter-rouge">myCats</code> ，因為 <code class="language-plaintext highlighter-rouge">List&lt;MaineCoon&gt;</code> 是 <code class="language-plaintext highlighter-rouge">List&lt;Cat&gt;</code> 的子類別型：</p>
+
+
+
+<pre class="prettyprint lang-dart passes-sa"><code>List&lt;<span class="highlight">MaineCoon</span>&gt; myMaineCoons = ...
+List&lt;Cat&gt; myCats = myMaineCoons;</code></pre>
+
+<p>從另一個角度看，可以將 <code class="language-plaintext highlighter-rouge">Animal</code> 型別的 List 賦值給 <code class="language-plaintext highlighter-rouge">List&lt;Cat&gt;</code> 嗎？</p>
+
+
+
+<pre class="prettyprint lang-dart fails-sa"><code>List&lt;<span class="highlight">Animal</span>&gt; myAnimals = ...
+List&lt;Cat&gt; myCats = myAnimals;</code></pre>
+
+<p>這個賦值不能透過靜態分析，因為它建立了一個隱含的向下轉型 (downcast)，這在非 <code class="language-plaintext highlighter-rouge">dynamic</code> 型別中是不允許的，比如 <code class="language-plaintext highlighter-rouge">Animal</code>。</p>
+
+
+
+<p>若要這段程式碼能夠透過靜態分析，需要使用一個顯式轉換，這可能會在執行時導致失敗。</p>
+
+
+<pre class="prettyprint lang-dart"><code>List&lt;Animal&gt; myAnimals = ...
+List&lt;Cat&gt; myCats = myAnimals <span class="highlight">as List&lt;Cat&gt;</span>;</code></pre>
+
+<p>不過，顯式轉換在執行時仍然可能會失敗，這取決於轉換被轉換內容的實際型別 (此處是 <code class="language-plaintext highlighter-rouge">myAnimals</code>)。</p>
+
+
+
+<h3 id="methods">
+<a class="anchor" href="#methods" aria-hidden="true"><span class="octicon octicon-link"></span></a>方法</h3>
+
+
+
+<p>在重寫方法中，生產者和消費者規則仍然適用。例如：</p>
+
+
+
+<p><img src="images/consumer-producer-methods.png" alt="Animal class showing the chase method as the consumer and the parent getter as the producer"></p>
+
+<p>對於使用者（例如 <code class="language-plaintext highlighter-rouge">chase(Animal)</code> 方法），可以使用父型別替換引數型別。對於生產者（例如 <code class="language-plaintext highlighter-rouge">父類</code> 的 Getter 方法），可以使用子類別型替換返回值型別。</p>
+
+
+
+<p>有關更多資訊，請參閱
+<a href="#use-proper-return-types">重寫方法時，使用型別安全的返回值</a>
+以及
+<a href="#use-proper-param-types">重寫方法時，使用型別安全的引數</a>。</p>
+
+
+
+<h2 id="other-resources">
+<a class="anchor" href="#other-resources" aria-hidden="true"><span class="octicon octicon-link"></span></a>其他資源</h2>
+
+
+
+<p>以下是更多關於 Dart 型別安全的相關資源：</p>
+
+
+
+<ul>
+  <li>
+    <p><a href="/guides/language/sound-problems">修復常見型別問題</a> -
+編寫型別安全的 Dart 程式碼時可能遇到的錯誤，以及解決錯誤的方法。</p>
+
+    
+  </li>
+  <li>
+    <p><a href="/tools/non-promotion-reasons">修復型別轉換錯誤</a> -
+瞭解和學習如何修復型別轉換錯誤</p>
+
+    
+  </li>
+  <li>
+    <p><a href="/null-safety">健全的空安全</a> -
+學習關於如何撰寫健全的空安全程式碼。</p>
+
+    
+  </li>
+  <li>
+    <p><a href="/tools/analysis">Customizing static analysis</a> -
+如何使用分析配置檔案設定及自訂分析器和 linter。</p>
+
+    
+  </li>
+</ul>
+
+
+          
+<nav id="subnav">
+  <ul>
+    <li class="previous">
+      
+        <a href="/language/typedefs">⟨&nbsp;&nbsp;類型別名</a>
+      
+    </li>
+    <li class="next">
+      
+        <a href="/language/patterns">模式匹配&nbsp;&nbsp;⟩</a>
+      
+    </li>
+  </ul>
+</nav>
+
+
+        </div>
+      </article>
+    </main>
+    <footer id="page-footer">
+    <div class="footer-section footer-main">
+      <a href="/" class="brand" title="Dart">
+        <img src="/assets/img/shared/dart/logo+text/horizontal/white.svg" alt="Dart" width="164px">
+      </a>
+      <div class="footer-social-links">
+        <a href="https://github.com/doggy8088/dart.tw" target="_blank" rel="noopener" title="GitHub" class="no-automatic-external">
+          <svg>
+            <use href="/assets/img/social/github.svg#github"></use>
+          </svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-section footer-tray">
+      <div class="footer-licenses">
+        參考中文內容需註明本站及連結作為出處，英文內容和範例程式碼均遵從源站授權協議。
+      </div>
+      <div class="footer-utility-links">
+        <ul>
+          <li><a href="/terms" title="使用條款">使用條款</a></li>
+          <li><a href="https://policies.google.com/privacy?hl=zh-TW" target="_blank" rel="noopener" title="隱私政策" class="no-automatic-external">隱私政策</a></li>
+          <li><a href="/security" title="Security philosophy and practices">Dart 程式碼安全說明</a></li>
+          <li><a href="https://flutter.tw/about" target="_blank">關於中文文件</a>
+          </li><li><a href="https://flutter.tw/disclaimer" target="_blank">免責條款</a>
+          </li><li><a href="https://dart.cn/" target="_blank">Dart 簡體中文文檔</a>
+        </li></ul>
+      </div>
+    </div>
+  </footer>
+
+  
+
+<script src="/assets/translator/js/translator.js"></script></body></html>

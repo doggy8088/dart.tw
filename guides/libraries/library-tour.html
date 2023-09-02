@@ -1,0 +1,3560 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Language" content="zh-cmn-Hans">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Google Tag Manager -->
+<!--  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':-->
+<!--  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],-->
+<!--  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=-->
+<!--  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);-->
+<!--  })(window,document,'script','dataLayer','GTM-5VSZM5J');</script>-->
+  <!-- End Google Tag Manager -->
+
+  <meta name="description" content="學習更多關於 Dart 語言核心函式庫的特性。">
+  <title>Library tour | Dart</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-28P0PYCRZ9"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-28P0PYCRZ9');
+  </script>
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?fa71f2474b82505e00203cf9956cf0bc";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+  <!-- Favicon / Touch Icons -->
+  <link rel="icon" sizes="64x64" href="/assets/shared/dart/icon/64.png">
+  <link href="/assets/img/touch-icon-iphone.png" rel="apple-touch-icon">
+  <link href="/assets/img/touch-icon-ipad.png" rel="apple-touch-icon" sizes="152x152">
+  <link href="/assets/img/touch-icon-iphone-retina.png" rel="apple-touch-icon" sizes="180x180">
+  <link href="/assets/img/touch-icon-ipad-retina.png" rel="apple-touch-icon" sizes="167x167">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@dart_lang">
+  <meta name="twitter:title" content="Dart 語言核心函式庫一覽">
+  <meta name="twitter:description" content="學習更多關於 Dart 語言核心函式庫的特性。">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Dart 語言核心函式庫一覽">
+  <meta property="og:description" content="學習更多關於 Dart 語言核心函式庫的特性。">
+  <meta property="og:url" content="https://dart.tw.gh.miniasp.com/guides/libraries/library-tour">
+
+  <meta property="og:image" content="https://dart.tw.gh.miniasp.com/assets/shared/dart-logo-for-shares.png?2">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Display:wght@400&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons&amp;display=swap" rel="stylesheet">
+  <script src="https://cdn.staticfile.org/font-awesome/5.15.4/js/all.js" data-auto-replace-svg="nest">
+  </script>
+
+  <link rel="stylesheet" href="/assets/css/main.css?v=1693674404">
+  <script src="https://cdn.staticfile.org/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.staticfile.org/popper.js/1.16.1/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.staticfile.org/bootstrap/4.6.2/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!-- <script src="https://cdn.staticfile.org/js-cookie/3.0.5/js.cookie.min.js"
+          integrity="sha512-nlp9/l96/EpjYBx7EP7pGASVXNe80hGhYAUrjeXnu/fyF5Py0/RXav4BBNs7n5Hx1WFhOEOWSAVjGeC3oKxDVQ=="
+          crossorigin="anonymous"
+          referrerpolicy="no-referrer"></script> -->
+
+  <script src="/assets/js/vendor/code-prettify/prettify.js"></script>
+  <script src="/assets/js/vendor/code-prettify/lang-dart.js"></script>
+  <script src="/assets/js/vendor/code-prettify/lang-yaml.js"></script>
+  <script src="/assets/js/os-tabs.js?v=1693674404"></script>
+  <script src="/assets/js/utilities.js?v=1693674404"></script>
+  <script src="/assets/js/main.js?v=1693674404"></script>
+
+  <script>
+
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-122680122-5', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+
+ <link href="/assets/translator/css/translator.css" rel="stylesheet"></head>
+
+  <body class="default show_banner">
+    <section id="cookie-notice">
+  <div class="container">
+    <p>Google uses cookies to deliver its services, to personalize ads, and to 
+      analyze traffic. You can adjust your privacy controls anytime in your 
+      <a href="https://myaccount.google.com/data-and-personalization" target="_blank" rel="noopener" class="no-automatic-external">Google settings</a>. 
+      <a href="https://policies.google.com/technologies/cookies" target="_blank" rel="noopener" class="no-automatic-external">Learn more</a>.
+    </p>
+    <button id="cookie-consent" class="btn btn-primary">Okay</button>
+  </div>
+</section>
+
+    <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=G-28P0PYCRZ9"
+ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+    <header id="page-header" class="site-header">
+  <nav id="mainnav" class="site-header">
+  <div id="menu-toggle"><i class="material-icons">menu</i></div>
+  <a href="/" class="brand" title="Dart">
+    <img src="/assets/img/shared/dart/logo+text/horizontal/white.svg" alt="Dart">
+  </a>
+  <ul class="navbar">
+    <li>
+      <a href="/overview" class="nav-link">概覽</a>
+    </li>
+    <li class="mainnav__get-started">
+      <a href="/guides" class="nav-link
+         active">
+        <span>文件</span>
+      </a>
+    </li>
+    <li>
+      <a href="/community" class="nav-link">社群</a>
+    </li>
+    <li>
+      <a href="/#try-dart" class="nav-link">嘗試 Dart</a>
+    </li>
+    <li>
+      <a href="/get-dart" class="nav-link">獲取 Dart SDK</a>
+    </li>
+    <li class="searchfield">
+      <form action="/search" class="site-header__search form-inline" id="cse-search-box">
+        <input type="hidden" name="cx" value="011220921317074318178:_yy-tmb5t_i">
+        <input type="hidden" name="ie" value="UTF-8">
+        <input type="hidden" name="hl" value="en">
+        <input class="site-header__searchfield form-control search-field" type="search" name="q" id="q" autocomplete="off" placeholder="Search" aria-label="Search">
+      </form>
+    </li>
+  </ul>
+</nav>
+
+  
+</header>
+ <div class="banner">
+  <p class="banner__text">
+    Dart 3 已釋出！帶來了全新的
+    <a href="https://dart.tw.gh.miniasp.com/language/records" class="no-automatic-external">記錄型別 (records)</a>、
+    <a href="https://dart.tw.gh.miniasp.com/language/patterns" class="no-automatic-external">模式匹配 (patterns)</a>
+    以及 <a href="https://dart.tw.gh.miniasp.com/language/class-modifiers" class="no-automatic-external">型別修飾符 (class modifiers)</a>。
+    <br>
+    <!--<a href="https://medium.com/p/53f065a10635" class="no-automatic-external">Check out the blog post</a>!-->
+  </p>
+</div>
+ 
+
+    <div id="sidenav" class="">
+  <form action="/search/" class="site-header__search form-inline">
+    <input class="site-header__searchfield form-control search-field" type="search" name="q" id="q" autocomplete="off" placeholder="Search" aria-label="Search">
+  </form>
+
+  <div class="site-sidebar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a href="/overview" class="nav-link">概覽</a>
+      </li>
+      <li class="nav-item">
+        <a href="/community" class="nav-link">社群</a>
+      </li>
+      <li class="nav-item">
+        <a href="https://dartpad.dev" class="nav-link">嘗試 Dart</a>
+      </li>
+      <li class="nav-item">
+        <a href="/get-dart" class="nav-link">獲取 Dart SDK</a>
+      </li>
+      <li class="nav-item">
+        <a href="/guides" class="nav-link active">文件</a>
+      </li>
+    </ul>
+
+    <ul class="nav flex-column"><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-1" role="button" aria-expanded="false" aria-controls="sidenav-1">範例和課程</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-1">
+        <li class="nav-item">
+    <a class="nav-link" href="/tutorials">語言概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable" data-toggle="collapse" data-target="#sidenav-1-2" href="#sidenav-1-2" role="button" aria-expanded="true" aria-controls="sidenav-1-2">Codelabs
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-1-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/codelabs">Codelabs 列表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/dart-cheatsheet">Dart 速查表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/iterables">可迭代集合</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/async-await">Dart 非同步程式設計</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/null-safety">空安全</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-2" role="button" aria-expanded="false" aria-controls="sidenav-2">Dart 開發語言</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2">
+        <li class="nav-item">
+    <a class="nav-link" href="/language">介紹</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-2" href="#sidenav-2-2" role="button" aria-expanded="false" aria-controls="sidenav-2-2">基礎表示式
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/variables">變數</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/operators">運運算元</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/comments">註釋</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/metadata">註解</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/libraries">庫 &amp; 導庫</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/keywords">關鍵字</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-3" href="#sidenav-2-3" role="button" aria-expanded="false" aria-controls="sidenav-2-3">型別
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-3">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/built-in-types">基本型別</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/records">記錄 (Records)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/collections">集合 (Collections)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/generics">泛型 (Generics)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/typedefs">別名 (Typedefs)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/type-system">型別系統</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-4" href="#sidenav-2-4" role="button" aria-expanded="false" aria-controls="sidenav-2-4">模式匹配
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-4">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/patterns">概覽 &amp; 用法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/pattern-types">模式匹配型別</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/language/functions">函式方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-6" href="#sidenav-2-6" role="button" aria-expanded="false" aria-controls="sidenav-2-6">控制流
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-6">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/loops">迴圈</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/branches">分支</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/language/error-handling">錯誤處理</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-8" href="#sidenav-2-8" role="button" aria-expanded="false" aria-controls="sidenav-2-8">類 &amp; 物件
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-8">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/classes">類</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/constructors">構造方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/methods">成員方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/extend">繼承</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/mixins">混入 (Mixin)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/enums">列舉</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/extension-methods">擴充方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/callable-objects">可呼叫的物件</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-9" href="#sidenav-2-9" role="button" aria-expanded="false" aria-controls="sidenav-2-9">型別修飾符
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-9">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/class-modifiers">概覽 &amp; 用法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/class-modifiers-for-apis">API 維護者應該用的型別修飾符</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/modifier-reference">速查表</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-10" href="#sidenav-2-10" role="button" aria-expanded="false" aria-controls="sidenav-2-10">併發
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-10">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/async">非同步支援</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/concurrency">Isolates</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-11" href="#sidenav-2-11" role="button" aria-expanded="false" aria-controls="sidenav-2-11">Null safety
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-11">
+      <li class="nav-item">
+    <a class="nav-link" href="/null-safety">健全的空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/migration-guide">遷移到空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/understanding-null-safety">深入理解空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/unsound-null-safety">非健全的空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/faq">空安全常見問題和解答</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-3" role="button" aria-expanded="false" aria-controls="sidenav-3">高效指南 (Effective Dart)</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-3">
+        <li class="nav-item">
+    <a class="nav-link" href="/effective-dart">概述</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/style">程式碼風格</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/documentation">文件</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/usage">用法範例</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/design">API 設計</a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link active" data-toggle="collapse" href="#sidenav-4" role="button" aria-expanded="true" aria-controls="sidenav-4">核心函式庫</a>
+
+      <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-4">
+        <li class="nav-item">
+    <a class="nav-link" href="/guides/libraries">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link active" href="/guides/libraries/library-tour">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-4-3" href="#sidenav-4-3" role="button" aria-expanded="false" aria-controls="sidenav-4-3">介紹文章
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-4-3">
+      <li class="nav-item">
+    <a class="nav-link" href="/articles/libraries/creating-streams">建立 stream</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-5" role="button" aria-expanded="false" aria-controls="sidenav-5">Packages</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-5">
+        <li class="nav-item">
+    <a class="nav-link" href="/guides/packages">如何使用 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/useful-libraries">常用 package 介紹</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/create-packages">建立 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/publishing">釋出 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/writing-package-pages">設定 package 介紹頁</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-5-6" href="#sidenav-5-6" role="button" aria-expanded="false" aria-controls="sidenav-5-6">Package 參考資料
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-5-6">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/pub/dependencies">依賴</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/glossary">術語表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/package-layout">Package 檔案結構</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/environment-variables">設定環境變數</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/pubspec">Pubspec 檔案</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/troubleshoot">問題排查</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/verified-publishers">釋出者認證</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/versioning">版本管理</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-6" role="button" aria-expanded="false" aria-controls="sidenav-6">開發文件</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6">
+        <li class="nav-item">
+    <a class="nav-link" href="/codelabs/async-await">Futures、async 和 await</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/language/streams">Streams 介紹</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/json">使用 JSON</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/numbers">Dart 中的數字</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-5" href="#sidenav-6-5" role="button" aria-expanded="false" aria-controls="sidenav-6-5">與其他語言進行互動呼叫
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-5">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/c-interop">與 C 互調</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/objective-c-interop">與 Objective-C 和 Swift 互調</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/java-interop">與 Java 和 Kotlin 互調</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/web/js-interop">與 JavaScript 互調</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/guides/google-apis">Google APIs</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/multiplatform-apps">跨平臺應用</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-8" href="#sidenav-6-8" role="button" aria-expanded="false" aria-controls="sidenav-6-8">命令列和伺服器端應用
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-8">
+      <li class="nav-item">
+    <a class="nav-link" href="/server">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/get-started">起步課程</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/cmdline">命令列應用</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/fetch-data">從網路上獲取資料</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/httpserver">編寫 HTTP 伺服器端應用</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/server/libraries">庫和 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/server/google-cloud">Google Cloud</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-9" href="#sidenav-6-9" role="button" aria-expanded="false" aria-controls="sidenav-6-9">網頁端 (Web) 應用
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-9">
+      <li class="nav-item">
+    <a class="nav-link" href="/web">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/get-started">開始使用</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-9-3" href="#sidenav-6-9-3" role="button" aria-expanded="false" aria-controls="sidenav-6-9-3">底層 Web 程式設計
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-9-3">
+      <li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/low-level-html/connect-dart-html">Dart 與 HTML 關聯</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/low-level-html/add-elements">向 DOM 新增元素</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/low-level-html/remove-elements">移除 DOM 元素</a>
+  </li>
+  </ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/web/deployment">部署</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/web/libraries">常用 Web 函式庫和 package</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/guides/environment-declarations">環境變數宣告</a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-7" role="button" aria-expanded="false" aria-controls="sidenav-7">開發工具和使用技巧</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7">
+        <li class="nav-item">
+    <a class="nav-link" href="/tools">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-2" href="#sidenav-7-2" role="button" aria-expanded="false" aria-controls="sidenav-7-2">編輯器和除錯工具
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/jetbrains-plugin">使用 IntelliJ 和 Android Studio</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/vs-code">使用 VS Code</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/dart-devtools">Dart 開發者工具</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-2-4" href="#sidenav-7-2-4" role="button" aria-expanded="false" aria-controls="sidenav-7-2-4">線上執行 Dart 程式碼
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-2-4">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/dartpad">Overview</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dartpad/dartpad-best-practices">DartPad 課程</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dartpad/troubleshoot">DartPad 疑難解答</a>
+  </li>
+  </ul>
+  </li>
+</ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-3" href="#sidenav-7-3" role="button" aria-expanded="false" aria-controls="sidenav-7-3">命令列工具
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-3">
+      <li class="nav-item">
+    <a class="nav-link collapsable" data-toggle="collapse" data-target="#sidenav-7-3-1" href="#sidenav-7-3-1" role="button" aria-expanded="true" aria-controls="sidenav-7-3-1">Dart SDK
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-7-3-1">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/sdk">概覽</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-tool">dart 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-analyze">dart analyze 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-compile">dart compile 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-create">dart create 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-doc">dart doc 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-fix">dart fix 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-format">dart format 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-info">dart info 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/pub/cmd">dart pub 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-run">dart run 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-test">dart test 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dartaotruntime">dartaotruntime 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/experiment-flags">實驗性命令標記</a>
+  </li>
+  </ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable" data-toggle="collapse" data-target="#sidenav-7-3-2" href="#sidenav-7-3-2" role="button" aria-expanded="true" aria-controls="sidenav-7-3-2">其他的命令列工具
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-7-3-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/build_runner">build_runner 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/webdev">webdev 命令</a>
+  </li>
+  </ul>
+  </li>
+</ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-4" href="#sidenav-7-4" role="button" aria-expanded="false" aria-controls="sidenav-7-4">原始碼管理
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-4">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/language/formatting">程式碼格式化</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/private-files">不應提交的內容</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-5" href="#sidenav-7-5" role="button" aria-expanded="false" aria-controls="sidenav-7-5">靜態分析
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-5">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/analysis">自訂靜態分析</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/sound-problems">修復常見的型別問題</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/diagnostic-messages">診斷訊息</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/linter-rules">Linter 規則</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-6" href="#sidenav-7-6" role="button" aria-expanded="false" aria-controls="sidenav-7-6">測試和調優
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-6">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/testing">測試</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/web/debugging">除錯 Web 應用</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-8" role="button" aria-expanded="false" aria-controls="sidenav-8">資源</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-8">
+        <li class="nav-item">
+    <a class="nav-link" href="/resources/faq">常見問題</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/evolution">版本演變</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/spec">語言規範</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/resources/dart-3-migration">Dart 3 遷移指南</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-8-5" href="#sidenav-8-5" role="button" aria-expanded="false" aria-controls="sidenav-8-5">從其他平台轉向 Dart
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-8-5">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/language/coming-from/js-to-dart">從 JavaScript 到 Dart</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/coming-from/swift-to-dart">從 Swift 到 Dart</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/resources/glossary">詞彙表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/resources/books">書籍資源</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/resources/videos">影片資源</a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link " data-toggle="collapse" href="#sidenav-9" role="button" aria-expanded="true" aria-controls="sidenav-9">相關站點</a>
+
+      <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-9">
+        <li class="nav-item">
+    <a class="nav-link" href="https://api.dart.dev" target="_blank" rel="noopener">API 文件<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://medium.com/dartlang" target="_blank" rel="noopener">Dart 團隊官方部落格<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://dartpad.dev" target="_blank" rel="noopener">DartPad (線上編輯器)<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://flutter.tw" target="_blank" rel="noopener">Flutter<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://pub.dev" target="_blank" rel="noopener">Package 網站<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-10" role="button" aria-expanded="false" aria-controls="sidenav-10">關於 Dart 中文文件</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-10">
+        <li class="nav-item">
+    <a class="nav-link" href="https://flutter.tw/about/docs-cn" target="_blank" rel="noopener">關於本站<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://flutter.tw/disclaimer" target="_blank" rel="noopener">免責條款 (Disclaimer)<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li>
+</ul>
+    </li></ul>
+
+  </div>
+</div>
+
+    <main id="page-content">
+      
+
+
+
+
+
+
+
+<div id="site-toc--side" class="site-toc ">
+  <header class="site-toc__title">
+    目錄
+    
+  </header>
+  <ul id="toc" class="section-nav">
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#dartcore---numbers-collections-strings-and-more"><p>dart:core - 數字，集合，字串等</p></a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#printing-to-the-console"><p>控制檯列印</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#numbers"><p>數字</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#strings-and-regular-expressions"><p>字元和正則表示式</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#collections"><p>集合</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#uris">URIs</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#dates-and-times"><p>日期和時間</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#utility-classes"><p>工具類</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#exceptions"><p>例外</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#weak-references-and-finalizers"><p>弱參考和終結器 (finalizers)</p></a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#dartasync---asynchronous-programming"><p>dart:async - 非同步程式設計</p></a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#future">Future</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#stream">Stream</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#more-information-1"><p>更多內容</p></a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#dartmath---math-and-random"><p>dart:math - 數學和隨機數</p></a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#trigonometry"><p>三角函式</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#maximum-and-minimum"><p>最大值和最小值</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#math-constants"><p>數學常數</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#random-numbers"><p>隨機數</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#more-information-2"><p>更多內容</p></a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#dartconvert---decoding-and-encoding-json-utf-8-and-more"><p>dart:convert - 編解碼JSON，UTF-8等</p></a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#decoding-and-encoding-json"><p>編解碼JSON</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#decoding-and-encoding-utf-8-characters"><p>編解碼 UTF-8 字元</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#other-functionality"><p>其他功能</p></a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#darthtml"><p>dart:html - 基於瀏覽器應用</p></a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#manipulating-the-dom">Manipulating the DOM</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#using-http-resources-with-httprequest">Using HTTP resources with HttpRequest</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#sending-and-receiving-real-time-data-with-websockets">Sending and receiving real-time data with WebSockets</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#more-information-3">More information</a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#dartio"><p>dart:io - 伺服器和命令列應用程式的 I/O 。</p></a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#files-and-directories">Files and directories</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#http-clients-and-servers">HTTP clients and servers</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#more-information-4">More information</a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#summary"><p>總結</p></a></li>
+</ul>
+  
+</div>
+
+
+      <article>
+        <div class="content">
+          
+
+          <div id="site-content-title">
+            <div id="page-github-links" class="btn-group" aria-label="Page GitHub links" role="group">
+  <a href="https://github.com/doggy8088/dart.tw/tree/master/src/_guides/libraries/library-tour.md" class="btn no-automatic-external" title="View page source" target="_blank" rel="noopener">
+    <i class="material-icons">description</i>
+  </a>
+  <a href="https://github.com/doggy8088/dart.tw/issues/new?template=1_page_issue.yml&amp;title=[PAGE ISSUE]: 'Dart 語言核心函式庫一覽'&amp;page-url=https://dart.tw.gh.miniasp.com/guides/libraries/library-tour&amp;page-source=https://github.com/doggy8088/dart.tw/tree/master/src/_guides/libraries/library-tour.md" class="btn no-automatic-external" title="Report an issue with this page" target="_blank" rel="noopener">
+    <i class="material-icons">bug_report</i>
+  </a>
+</div>
+
+            
+            <h1 id="dart-語言核心函式庫一覽">Dart 語言核心函式庫一覽</h1>
+            </div>
+          
+
+
+
+
+
+
+
+<div id="site-toc--inline" class="site-toc toc-collapsible toc-collapsed">
+  <header class="site-toc__title">
+    目錄
+    
+      <span class="site-toc--inline__toggle toc-toggle-down"><i class="material-icons">keyboard_arrow_down</i></span>
+      <span class="site-toc--inline__toggle toc-toggle-up"><i class="material-icons">keyboard_arrow_up</i></span>
+    
+  </header>
+  <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#dartcore---numbers-collections-strings-and-more"><p>dart:core - 數字，集合，字串等</p></a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#printing-to-the-console"><p>控制檯列印</p></a></li>
+<li class="toc-entry toc-h3"><a href="#numbers"><p>數字</p></a></li>
+<li class="toc-entry toc-h3"><a href="#strings-and-regular-expressions"><p>字元和正則表示式</p></a></li>
+<li class="toc-entry toc-h3"><a href="#collections"><p>集合</p></a></li>
+<li class="toc-entry toc-h3"><a href="#uris">URIs</a></li>
+<li class="toc-entry toc-h3"><a href="#dates-and-times"><p>日期和時間</p></a></li>
+<li class="toc-entry toc-h3"><a href="#utility-classes"><p>工具類</p></a></li>
+<li class="toc-entry toc-h3"><a href="#exceptions"><p>例外</p></a></li>
+<li class="toc-entry toc-h3"><a href="#weak-references-and-finalizers"><p>弱參考和終結器 (finalizers)</p></a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#dartasync---asynchronous-programming"><p>dart:async - 非同步程式設計</p></a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#future">Future</a></li>
+<li class="toc-entry toc-h3"><a href="#stream">Stream</a></li>
+<li class="toc-entry toc-h3"><a href="#more-information-1"><p>更多內容</p></a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#dartmath---math-and-random"><p>dart:math - 數學和隨機數</p></a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#trigonometry"><p>三角函式</p></a></li>
+<li class="toc-entry toc-h3"><a href="#maximum-and-minimum"><p>最大值和最小值</p></a></li>
+<li class="toc-entry toc-h3"><a href="#math-constants"><p>數學常數</p></a></li>
+<li class="toc-entry toc-h3"><a href="#random-numbers"><p>隨機數</p></a></li>
+<li class="toc-entry toc-h3"><a href="#more-information-2"><p>更多內容</p></a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#dartconvert---decoding-and-encoding-json-utf-8-and-more"><p>dart:convert - 編解碼JSON，UTF-8等</p></a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#decoding-and-encoding-json"><p>編解碼JSON</p></a></li>
+<li class="toc-entry toc-h3"><a href="#decoding-and-encoding-utf-8-characters"><p>編解碼 UTF-8 字元</p></a></li>
+<li class="toc-entry toc-h3"><a href="#other-functionality"><p>其他功能</p></a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#darthtml"><p>dart:html - 基於瀏覽器應用</p></a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#manipulating-the-dom">Manipulating the DOM</a></li>
+<li class="toc-entry toc-h3"><a href="#using-http-resources-with-httprequest">Using HTTP resources with HttpRequest</a></li>
+<li class="toc-entry toc-h3"><a href="#sending-and-receiving-real-time-data-with-websockets">Sending and receiving real-time data with WebSockets</a></li>
+<li class="toc-entry toc-h3"><a href="#more-information-3">More information</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#dartio"><p>dart:io - 伺服器和命令列應用程式的 I/O 。</p></a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#files-and-directories">Files and directories</a></li>
+<li class="toc-entry toc-h3"><a href="#http-clients-and-servers">HTTP clients and servers</a></li>
+<li class="toc-entry toc-h3"><a href="#more-information-4">More information</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#summary"><p>總結</p></a></li>
+</ul>
+  
+    <span class="site-toc--inline__toggle toc-toggle-more-items"><i class="material-icons">more_horiz</i></span>
+  
+</div>
+
+
+          
+<p>本頁介紹如何使用 Dart 核心函式庫中的主要功能。這只是一個概覽，並不全面。當你需要有關類別的更多詳細資訊時，請參閱<a href="https://api.dart.dev/stable">Dart API 參考</a>。</p>
+
+
+
+<p><a href="#dartcore---numbers-collections-strings-and-more">dart:core</a>
+<br> 內建型別，集合和其他核心功能。該庫會被自動匯入到所有的 Dart 程式。</p>
+
+
+
+<p><a href="#dartasync---asynchronous-programming">dart:async</a>
+<br> 支援非同步程式設計，包括Future和Stream等類別。</p>
+
+
+
+<p><a href="#dartmath---math-and-random">dart:math</a>
+<br> 數學常數和函式，以及隨機數產生器。</p>
+
+
+
+<p><a href="#dartconvert---decoding-and-encoding-json-utf-8-and-more">dart:convert</a>
+<br> 用於在不同資料表示之間進行轉換的編碼器和解碼器，包括 JSON 和 UTF-8。</p>
+
+
+
+<p><a href="#darthtml">dart:html</a>
+<br> 用於基於瀏覽器應用的 DOM 和其他 API。</p>
+
+
+
+<p><a href="#dartio">dart:io</a>
+<br> 伺服器和命令列應用程式的 I/O 操作，包括 Flutter 應用，伺服器端應用，以及命令列指令碼。</p>
+
+
+
+<p>本章只是一個概述；只涵蓋了幾個 dart:* 庫，不包括第三方庫。</p>
+
+
+
+<p>更多庫資訊可以在
+<a href="https://pub.dev">Pub site</a> 和
+<a href="/web/libraries">Dart web developer library guide.</a> 查詢。所有 dart:* 庫的 API 文件可以在
+<a href="https://api.dart.dev/stable">Dart API reference</a> 查詢，如果使用的是 Flutter
+可以在 <a href="https://api.flutter.dev">Flutter API reference.</a> 查詢。</p>
+
+
+
+<aside class="alert alert-info" role="alert">
+  <p><i class="material-icons" aria-hidden="true">info</i></p>
+
+  <p><strong>DartPad 提示：</strong>
+  可以透過將該頁中的程式碼複製到 <a href="https://dartpad.dev">DartPad</a> 中進行示範。</p>
+
+  
+
+</aside>
+
+<h2 id="dartcore---numbers-collections-strings-and-more">
+<a class="anchor" href="#dartcore---numbers-collections-strings-and-more" aria-hidden="true"><span class="octicon octicon-link"></span></a>dart:core - 數字，集合，字串等</h2>
+
+
+
+<p>dart:core 庫 (<a href="https://api.dart.dev/stable/dart-core/dart-core-library.html">API reference</a>)
+提供了一個少量但是重要的內建功能集合。該庫會被自動匯入每個 Dart 程式。</p>
+
+
+
+<h3 id="printing-to-the-console">
+<a class="anchor" href="#printing-to-the-console" aria-hidden="true"><span class="octicon octicon-link"></span></a>控制檯列印</h3>
+
+
+
+<p>最上層 <code class="language-plaintext highlighter-rouge">print()</code> 方法接受一個引數任意物件）並輸出顯示這個物件的字串值(由 <code class="language-plaintext highlighter-rouge">toString()</code> 返回)
+到控制檯。</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">print(anObject);
+print('I drink $tea.');</code></pre></div>
+</div>
+
+<p>有關基本字串和 <code class="language-plaintext highlighter-rouge">toString()</code> 的更多資訊，參考
+<a href="/guides/language/language-tour#strings">Strings</a> in the language tour.</p>
+
+
+
+<h3 id="numbers">
+<a class="anchor" href="#numbers" aria-hidden="true"><span class="octicon octicon-link"></span></a>數字</h3>
+
+
+
+<p>dart:core 函式庫定義了 num ，int 以及 double 類，這些類別擁有一定的工具方法來處理數字。</p>
+
+
+
+<p>使用 int 和 double 的 <code class="language-plaintext highlighter-rouge">parse()</code> 方法將字串轉換為整型或雙浮點型物件：</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">assert(int.parse('42') == 42);
+assert(int.parse('0x42') == 66);
+assert(double.parse('0.50') == 0.5);</code></pre></div>
+</div>
+
+<p>或者使用 num 的 parse() 方法，該方法可能會建立一個整數型別，否則為浮點型物件：</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">assert(num.parse('42') is int);
+assert(num.parse('0x42') is int);
+assert(num.parse('0.50') is double);</code></pre></div>
+</div>
+
+<p>透過新增 <code class="language-plaintext highlighter-rouge">radix</code> 引數，指定整數的進位制基數：</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">assert(int.parse('42', radix: 16) == 66);</code></pre></div>
+</div>
+
+<p>使用 <code class="language-plaintext highlighter-rouge">toString()</code> 方法將整型或雙精度浮點型別轉換為字串型別。使用 <a href="https://api.dart.dev/stable/dart-core/num/toStringAsFixed.html">toStringAsFixed().</a> 指定小數點右邊的位數，使用 <a href="https://api.dart.dev/stable/dart-core/num/toStringAsPrecision.html">toStringAsPrecision():</a> 指定字串中的有效數字的位數。</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">// Convert an int to a string.
+assert(42.toString() == '42');
+
+// Convert a double to a string.
+assert(123.456.toString() == '123.456');
+
+// Specify the number of digits after the decimal.
+assert(123.456.toStringAsFixed(2) == '123.46');
+
+// Specify the number of significant figures.
+assert(123.456.toStringAsPrecision(2) == '1.2e+2');
+assert(double.parse('1.2e+2') == 120.0);</code></pre></div>
+</div>
+
+<p>For more information, see the API documentation for
+<a href="https://api.dart.dev/stable/dart-core/int-class.html">int,</a> <a href="https://api.dart.dev/stable/dart-core/double-class.html">double,</a> and <a href="https://api.dart.dev/stable/dart-core/num-class.html">num.</a> Also see
+the <a href="#dartmath---math-and-random">dart:math section</a>.</p>
+
+<h3 id="strings-and-regular-expressions">
+<a class="anchor" href="#strings-and-regular-expressions" aria-hidden="true"><span class="octicon octicon-link"></span></a>字元和正則表示式</h3>
+
+
+
+<p>在 Dart 中一個字串是一個固定不變的 UTF-16 編碼單元序列。語言概覽中有更多關於 <a href="/guides/language/language-tour#strings">strings</a> 的內容。使用正則表示式 (RegExp 物件) 可以在字串內搜尋和替換部分字串。</p>
+
+
+
+<p>String 定義了例如 <code class="language-plaintext highlighter-rouge">split()</code>， <code class="language-plaintext highlighter-rouge">contains()</code>，
+<code class="language-plaintext highlighter-rouge">startsWith()</code>， <code class="language-plaintext highlighter-rouge">endsWith()</code> 等方法。</p>
+
+
+
+<h4 id="searching-inside-a-string">在字串中搜索</h4>
+
+
+
+<p>可以在字串內查詢特定字串的位置，以及檢查字串是否以特定字串作為開頭或結尾。例如：</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">// Check whether a string contains another string.
+assert('Never odd or even'.contains('odd'));
+
+// Does a string start with another string?
+assert('Never odd or even'.startsWith('Never'));
+
+// Does a string end with another string?
+assert('Never odd or even'.endsWith('even'));
+
+// Find the location of a string inside a string.
+assert('Never odd or even'.indexOf('odd') == 6);</code></pre></div>
+</div>
+
+<h4 id="extracting-data-from-a-string">從字串中提取資料</h4>
+
+
+
+<p>可以獲取字串中的單個字元，將其作為字串或者整數。確切地說，實際上獲取的是單獨的UTF-16編碼單元;
+諸如高音譜號符號 (‘\u{1D11E}’) 之類別的高編號字元分別為兩個編碼單元。</p>
+
+
+
+<p>你也可以獲取字串中的子字串或者將一個字串分割為子字串列表：</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">// Grab a substring.
+assert('Never odd or even'.substring(6, 9) == 'odd');
+
+// Split a string using a string pattern.
+var parts = 'progressive web apps'.split(' ');
+assert(parts.length == 3);
+assert(parts[0] == 'progressive');
+
+// Get a UTF-16 code unit (as a string) by index.
+assert('Never odd or even'[0] == 'N');
+
+// Use split() with an empty string parameter to get
+// a list of all characters (as Strings); good for
+// iterating.
+for (final char in 'hello'.split('')) {
+  print(char);
+}
+
+// Get all the UTF-16 code units in the string.
+var codeUnitList = 'Never odd or even'.codeUnits.toList();
+assert(codeUnitList[0] == 78);</code></pre></div>
+</div>
+
+<aside class="alert alert-info" role="alert">
+  <p><i class="material-icons" aria-hidden="true">info</i> <strong>備註:</strong></p>
+
+  <p>在一些情況下，你可能會希望使用「顯性」 Unicode 字元，而不是用純程式碼表示。這種字元是使用者可感知的，比如 “🇨🇳”，就是一個使用者可感知的字元 (emoji)，而它其實也是一個 UTF-16 的字元 (<code class="language-plaintext highlighter-rouge">U+1F1E8 U+1F1F3</code>)。為此，Dart 團隊提供了 <a href="https://pub.dev/packages/characters"><code class="language-plaintext highlighter-rouge">characters</code> 這個 package.</a> 供開發者使用。</p>
+
+  
+
+</aside>
+
+<h4 id="converting-to-uppercase-or-lowercase">首字母大小寫轉換</h4>
+
+
+
+<p>可以輕鬆的對字串的首字母大小寫進行轉換：</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">// Convert to uppercase.
+assert('web apps'.toUpperCase() == 'WEB APPS');
+
+// Convert to lowercase.
+assert('WEB APPS'.toLowerCase() == 'web apps');</code></pre></div>
+</div>
+
+<aside class="alert alert-info" role="alert">
+  <p><i class="material-icons" aria-hidden="true">info</i> <strong>備註:</strong></p>
+
+  <p>這些方法不是在所有語言上都有效的。例如，土耳其字母表的無點 <em>I</em> 轉換是不正確的。</p>
+
+  
+
+</aside>
+
+<h4 id="trimming-and-empty-strings">Trimming 和空字串</h4>
+
+
+
+<p>使用 <code class="language-plaintext highlighter-rouge">trim()</code> 移除首尾空格。使用 <code class="language-plaintext highlighter-rouge">isEmpty</code> 檢查一個字串是否為空（長度為 0）。</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">// Trim a string.
+assert('  hello  '.trim() == 'hello');
+
+// Check whether a string is empty.
+assert(''.isEmpty);
+
+// Strings with only white space are not empty.
+assert('  '.isNotEmpty);</code></pre></div>
+</div>
+
+<h4 id="replacing-part-of-a-string">替換部分字串</h4>
+
+
+
+<p>字串是不可變的物件，也就是說字串可以建立但是不能被修改。如果仔細閱讀了 <a href="https://api.dart.dev/stable/dart-core/String-class.html">String API docs,</a>
+你會注意到，沒有一個方法實際的改變了字串的狀態。例如，方法 <code class="language-plaintext highlighter-rouge">replaceAll()</code> 返回一個新字串，並沒有改變原始字串：</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">var greetingTemplate = 'Hello, NAME!';
+var greeting = greetingTemplate.replaceAll(RegExp('NAME'), 'Bob');
+
+// greetingTemplate didn't change.
+assert(greeting != greetingTemplate);</code></pre></div>
+</div>
+
+<h4 id="building-a-string">建構一個字串</h4>
+
+
+
+<p>要以程式碼方式產生字串，可以使用 StringBuffer 。在呼叫 <code class="language-plaintext highlighter-rouge">toString()</code> 之前， StringBuffer 不會產生新字串物件。
+<code class="language-plaintext highlighter-rouge">writeAll()</code> 的第二個引數為可選引數，用來指定分隔符，本例中使用空格作為分隔符。</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">var sb = StringBuffer();
+sb
+  ..write('Use a StringBuffer for ')
+  ..writeAll(['efficient', 'string', 'creation'], ' ')
+  ..write('.');
+
+var fullString = sb.toString();
+
+assert(fullString == 'Use a StringBuffer for efficient string creation.');</code></pre></div>
+</div>
+
+<h4 id="regular-expressions">正則表示式</h4>
+
+
+
+<p>RegExp 類提供與 JavaScript 正則表示式相同的功能。使用正則表示式可以對字串進行高效搜尋和模式匹配。</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">// Here's a regular expression for one or more digits.
+var numbers = RegExp(r'\d+');
+
+var allCharacters = 'llamas live fifteen to twenty years';
+var someDigits = 'llamas live 15 to 20 years';
+
+// contains() can use a regular expression.
+assert(!allCharacters.contains(numbers));
+assert(someDigits.contains(numbers));
+
+// Replace every match with another string.
+var exedOut = someDigits.replaceAll(numbers, 'XX');
+assert(exedOut == 'llamas live XX to XX years');</code></pre></div>
+</div>
+
+<p>You can work directly with the RegExp class, too. The Match class
+provides access to a regular expression match.</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">var numbers = RegExp(r'\d+');
+var someDigits = 'llamas live 15 to 20 years';
+
+// Check whether the reg exp has a match in a string.
+assert(numbers.hasMatch(someDigits));
+
+// Loop through all matches.
+for (final match in numbers.allMatches(someDigits)) {
+  print(match.group(0)); // 15, then 20
+}</code></pre></div>
+</div>
+
+<h4 id="more-information">更多資訊</h4>
+
+
+
+<p>有關完整的方法列表，請參考 <a href="https://api.dart.dev/stable/dart-core/String-class.html">String API docs</a>。另請參考 <a href="https://api.dart.dev/stable/dart-core/StringBuffer-class.html">StringBuffer，</a>
+<a href="https://api.dart.dev/stable/dart-core/Pattern-class.html">Pattern，</a> <a href="https://api.dart.dev/stable/dart-core/RegExp-class.html">RegExp，</a> 和 <a href="https://api.dart.dev/stable/dart-core/Match-class.html">Match</a>
+的 API 文件。</p>
+
+
+
+<h3 id="collections">
+<a class="anchor" href="#collections" aria-hidden="true"><span class="octicon octicon-link"></span></a>集合</h3>
+
+
+
+<p>Dart 附帶了核心集合 API ，其中包括 list、set 和 map 類別。</p>
+
+
+
+<aside class="alert alert-success" role="alert">
+  <p><i class="material-icons" aria-hidden="true">tips_and_updates</i> <strong>小提示:</strong></p>
+
+  <p>如果你需要嘗試一下對列表 (list) 和集合 (set) 都可用的 API，請試試看 <a href="/codelabs/iterables">遍歷集合</a> 這個 codelab 課程。</p>
+
+  
+
+</aside>
+
+<h4 id="lists">Lists</h4>
+
+<p>如語言概覽中介紹，<a href="#lists">lists</a> 可以透過字面量來建立和初始化。另外，也可以使用 List 的建構函式。
+List 類還定義了若干方法，用於向列表新增或刪除專案。</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">// Create an empty list of strings.
+var grains = &lt;String&gt;[];
+assert(grains.isEmpty);
+
+// Create a list using a list literal.
+var fruits = ['apples', 'oranges'];
+
+// Add to a list.
+fruits.add('kiwis');
+
+// Add multiple items to a list.
+fruits.addAll(['grapes', 'bananas']);
+
+// Get the list length.
+assert(fruits.length == 5);
+
+// Remove a single item.
+var appleIndex = fruits.indexOf('apples');
+fruits.removeAt(appleIndex);
+assert(fruits.length == 4);
+
+// Remove all elements from a list.
+fruits.clear();
+assert(fruits.isEmpty);
+
+// You can also create a List using one of the constructors.
+var vegetables = List.filled(99, 'broccoli');
+assert(vegetables.every((v) =&gt; v == 'broccoli'));</code></pre></div>
+</div>
+
+<p>使用 <code class="language-plaintext highlighter-rouge">indexOf()</code> 方法查詢一個物件在 list 中的下標值。</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">var fruits = ['apples', 'oranges'];
+
+// Access a list item by index.
+assert(fruits[0] == 'apples');
+
+// Find an item in a list.
+assert(fruits.indexOf('apples') == 0);</code></pre></div>
+</div>
+
+<p>使用 <code class="language-plaintext highlighter-rouge">sort()</code> 方法排序一個 list 。你可以提供一個排序函式用於比較兩個物件。比較函式在 <em>小於</em> 時返回 \ &lt;0，<em>相等</em> 時返回 0，<em>bigger</em> 時返回 &gt; 0 。下面範例中使用 <code class="language-plaintext highlighter-rouge">compareTo()</code> 函式，該函式在 <a href="https://api.dart.dev/stable/dart-core/Comparable-class.html">Comparable</a> 中定義，並被 String 類實現。</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">var fruits = ['bananas', 'apples', 'oranges'];
+
+// Sort a list.
+fruits.sort((a, b) =&gt; a.compareTo(b));
+assert(fruits[0] == 'apples');</code></pre></div>
+</div>
+
+<p>列表是引數化型別（<a href="/guides/language/language-tour#generics">泛型</a>），因此可以指定 list 應該包含的元素型別：</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">// This list should contain only strings.
+var fruits = &lt;String&gt;[];
+
+fruits.add('apples');
+var fruit = fruits[0];
+assert(fruit is String);</code></pre></div>
+</div>
+
+<div class="code-excerpt fails-sa">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">fruits.add(5); // Error: 'int' can't be assigned to 'String'</code></pre></div>
+</div>
+
+<aside class="alert alert-info" role="alert">
+  <p><i class="material-icons" aria-hidden="true">info</i> <strong>備註:</strong></p>
+
+  <p>在大多數情況下，你不需要顯式指定泛型，因為 Dart 幫你會
+  <a href="/guides/language/type-system#type-inference">推斷</a>
+  它們的型別。類似於 <code class="language-plaintext highlighter-rouge">['Dash', 'Dart']</code> 這樣的 list 很容易可以推斷為 <code class="language-plaintext highlighter-rouge">List&lt;String&gt;</code>。</p>
+
+  
+
+  <p>但有些時候你 <strong>需要</strong> 指定泛型。比如：Dart 無法從 <code class="language-plaintext highlighter-rouge">[]</code> 中推斷出任何型別，它可以是任何型別元素的組合。這時推斷的型別基本不會是你想要的，所以你需要寫下
+  <code class="language-plaintext highlighter-rouge">&lt;String&gt;[]</code> 或者 <code class="language-plaintext highlighter-rouge">&lt;Person&gt;[]</code> 這樣的型別宣告。</p>
+
+  
+
+</aside>
+
+<p>全部的方法介紹，請參考 <a href="https://api.dart.dev/stable/dart-core/List-class.html">List API docs</a>。</p>
+
+
+
+<h4 id="sets">Sets</h4>
+
+<p>在 Dart 中，set 是一個無序的，元素唯一的集合。因為一個 set 是無序的，所以無法透過下標（位置）獲取 set 中的元素。</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">// Create an empty set of strings.
+var ingredients = &lt;String&gt;{};
+
+// Add new items to it.
+ingredients.addAll(['gold', 'titanium', 'xenon']);
+assert(ingredients.length == 3);
+
+// Adding a duplicate item has no effect.
+ingredients.add('gold');
+assert(ingredients.length == 3);
+
+// Remove an item from a set.
+ingredients.remove('gold');
+assert(ingredients.length == 2);
+
+// You can also create sets using
+// one of the constructors.
+var atomicNumbers = Set.from([79, 22, 54]);</code></pre></div>
+</div>
+
+<p>使用 <code class="language-plaintext highlighter-rouge">contains()</code> 和 <code class="language-plaintext highlighter-rouge">containsAll()</code> 來檢查一個或多個元素是否在 set 中：</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">var ingredients = Set&lt;String&gt;();
+ingredients.addAll(['gold', 'titanium', 'xenon']);
+
+// Check whether an item is in the set.
+assert(ingredients.contains('titanium'));
+
+// Check whether all the items are in the set.
+assert(ingredients.containsAll(['titanium', 'xenon']));</code></pre></div>
+</div>
+
+<p>交集是另外兩個 set 中的公共元素組成的 set。</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">var ingredients = Set&lt;String&gt;();
+ingredients.addAll(['gold', 'titanium', 'xenon']);
+
+// Create the intersection of two sets.
+var nobleGases = Set.from(['xenon', 'argon']);
+var intersection = ingredients.intersection(nobleGases);
+assert(intersection.length == 1);
+assert(intersection.contains('xenon'));</code></pre></div>
+</div>
+
+<p>全部的方法介紹，請參考 <a href="https://api.dart.dev/stable/dart-core/Set-class.html">Set API docs</a>。</p>
+
+
+
+<h4 id="maps">Maps</h4>
+
+<p>map 是一個無序的 key-value （鍵值對）集合，就是大家熟知的 <em>dictionary</em> 或者 <em>hash</em>。
+map 將 kay 與 value 關聯，以便於檢索。和 JavaScript 不同，Dart 物件不是 map。</p>
+
+
+
+<p>宣告 map 可以使用簡潔的字面量語法，也可以使用傳統建構函式：</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">// Maps often use strings as keys.
+var hawaiianBeaches = {
+  'Oahu': ['Waikiki', 'Kailua', 'Waimanalo'],
+  'Big Island': ['Wailea Bay', 'Pololu Beach'],
+  'Kauai': ['Hanalei', 'Poipu']
+};
+
+// Maps can be built from a constructor.
+var searchTerms = Map();
+
+// Maps are parameterized types; you can specify what
+// types the key and value should be.
+var nobleGases = Map&lt;int, String&gt;();</code></pre></div>
+</div>
+
+<p>透過大括號語法可以為 map 新增，獲取，設定元素。使用 <code class="language-plaintext highlighter-rouge">remove()</code> 方法從 map 中移除鍵值對。</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">var nobleGases = {54: 'xenon'};
+
+// Retrieve a value with a key.
+assert(nobleGases[54] == 'xenon');
+
+// Check whether a map contains a key.
+assert(nobleGases.containsKey(54));
+
+// Remove a key and its value.
+nobleGases.remove(54);
+assert(!nobleGases.containsKey(54));</code></pre></div>
+</div>
+
+<p>可以從一個 map 中檢索出所有的 key 或所有的 value：</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">var hawaiianBeaches = {
+  'Oahu': ['Waikiki', 'Kailua', 'Waimanalo'],
+  'Big Island': ['Wailea Bay', 'Pololu Beach'],
+  'Kauai': ['Hanalei', 'Poipu']
+};
+
+// Get all the keys as an unordered collection
+// (an Iterable).
+var keys = hawaiianBeaches.keys;
+
+assert(keys.length == 3);
+assert(Set.from(keys).contains('Oahu'));
+
+// Get all the values as an unordered collection
+// (an Iterable of Lists).
+var values = hawaiianBeaches.values;
+assert(values.length == 3);
+assert(values.any((v) =&gt; v.contains('Waikiki')));</code></pre></div>
+</div>
+
+<p>使用 <code class="language-plaintext highlighter-rouge">containsKey()</code> 方法檢查一個 map 中是否包含某個key 。因為 map 中的 value 可能會是 null ，所有透過 key 獲取 value，並透過判斷 value 是否為 null 來判斷 key 是否存在是不可靠的。</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">var hawaiianBeaches = {
+  'Oahu': ['Waikiki', 'Kailua', 'Waimanalo'],
+  'Big Island': ['Wailea Bay', 'Pololu Beach'],
+  'Kauai': ['Hanalei', 'Poipu']
+};
+
+assert(hawaiianBeaches.containsKey('Oahu'));
+assert(!hawaiianBeaches.containsKey('Florida'));</code></pre></div>
+</div>
+
+<p>如果當且僅當該 key 不存在於 map 中，且要為這個 key 賦值，可使用 <code class="language-plaintext highlighter-rouge">putIfAbsent()</code> 方法。該方法需要一個方法返回這個 value。</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">var teamAssignments = &lt;String, String&gt;{};
+teamAssignments.putIfAbsent('Catcher', () =&gt; pickToughestKid());
+assert(teamAssignments['Catcher'] != null);</code></pre></div>
+</div>
+
+<p>全部的方法介紹，請參考 <a href="https://api.dart.dev/stable/dart-core/Map-class.html">Map API docs</a>。</p>
+
+
+
+<h4 id="common-collection-methods">公共集合方法</h4>
+
+
+
+<p>List, Set, 和 Map 共享許多集合中的常用功能。其中一些常見功能由 Iterable 類定義，這些函式由 List 和 Set 實現。</p>
+
+
+
+<aside class="alert alert-info" role="alert">
+  <p><i class="material-icons" aria-hidden="true">info</i> <strong>備註:</strong></p>
+
+  <p>雖然Map沒有實現 Iterable，但可以使用 Map <code class="language-plaintext highlighter-rouge">keys</code> 和 <code class="language-plaintext highlighter-rouge">values</code> 屬性從中獲取 Iterable 物件。</p>
+
+  
+
+</aside>
+
+<p>使用 <code class="language-plaintext highlighter-rouge">isEmpty</code> 和 <code class="language-plaintext highlighter-rouge">isNotEmpty</code> 方法可以檢查 list， set 或 map 物件中是否包含元素：</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">var coffees = &lt;String&gt;[];
+var teas = ['green', 'black', 'chamomile', 'earl grey'];
+assert(coffees.isEmpty);
+assert(teas.isNotEmpty);</code></pre></div>
+</div>
+
+<p>使用 <code class="language-plaintext highlighter-rouge">forEach()</code> 可以讓 list， set 或 map 物件中的每個元素都使用一個方法。</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">var teas = ['green', 'black', 'chamomile', 'earl grey'];
+
+teas.forEach((tea) =&gt; print('I drink $tea'));</code></pre></div>
+</div>
+
+<p>當在 map 物件上呼叫 `forEach() 方法時，函式必須帶兩個引數（key 和 value）：</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">hawaiianBeaches.forEach((k, v) {
+  print('I want to visit $k and swim at $v');
+  // I want to visit Oahu and swim at
+  // [Waikiki, Kailua, Waimanalo], etc.
+});</code></pre></div>
+</div>
+
+<p>Iterable 提供 <code class="language-plaintext highlighter-rouge">map()</code> 方法，這個方法將所有結果返回到一個物件中。</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">var teas = ['green', 'black', 'chamomile', 'earl grey'];
+
+var loudTeas = teas.map((tea) =&gt; tea.toUpperCase());
+loudTeas.forEach(print);</code></pre></div>
+</div>
+
+<aside class="alert alert-info" role="alert">
+  <p><i class="material-icons" aria-hidden="true">info</i> <strong>備註:</strong></p>
+
+  <p><code class="language-plaintext highlighter-rouge">map()</code> 方法返回的物件是一個 *懶求值 (lazily evaluated) *物件：只有當存取物件裡面的元素時，函式才會被呼叫。</p>
+
+  
+
+</aside>
+
+<p>使用 <code class="language-plaintext highlighter-rouge">map().toList()</code> 或 <code class="language-plaintext highlighter-rouge">map().toSet()</code> ，可以強制在每個專案上立即呼叫函式。</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">var loudTeas = teas.map((tea) =&gt; tea.toUpperCase()).toList();</code></pre></div>
+</div>
+
+<p>使用 Iterable 的 <code class="language-plaintext highlighter-rouge">where()</code> 方法可以獲取所有匹配條件的元素。使用 Iterable 的 <code class="language-plaintext highlighter-rouge">any()</code> 和 <code class="language-plaintext highlighter-rouge">every()</code>
+方法可以檢查部分或者所有元素是否匹配某個條件。</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">var teas = ['green', 'black', 'chamomile', 'earl grey'];
+
+// Chamomile is not caffeinated.
+bool isDecaffeinated(String teaName) =&gt; teaName == 'chamomile';
+
+// Use where() to find only the items that return true
+// from the provided function.
+var decaffeinatedTeas = teas.where((tea) =&gt; isDecaffeinated(tea));
+// or teas.where(isDecaffeinated)
+
+// Use any() to check whether at least one item in the
+// collection satisfies a condition.
+assert(teas.any(isDecaffeinated));
+
+// Use every() to check whether all the items in a
+// collection satisfy a condition.
+assert(!teas.every(isDecaffeinated));</code></pre></div>
+</div>
+
+<p>有關方法的完整列表，請參考 <a href="https://api.dart.dev/stable/dart-core/Iterable-class.html">Iterable API docs,</a> 以及
+<a href="https://api.dart.dev/stable/dart-core/List-class.html">List,</a> <a href="https://api.dart.dev/stable/dart-core/Set-class.html">Set,</a> and <a href="https://api.dart.dev/stable/dart-core/Map-class.html">Map.</a></p>
+
+
+
+<h3 id="uris">
+<a class="anchor" href="#uris" aria-hidden="true"><span class="octicon octicon-link"></span></a>URIs</h3>
+
+<p>在使用 URI（可能你會稱它為 <em>URLs</em>）時，<a href="https://api.dart.dev/stable/dart-core/Uri-class.html">Uri 類</a> 提供對字串的編解碼操作。這些函式用來處理 URI 特有的字元，例如 <code class="language-plaintext highlighter-rouge">＆</code> 和 <code class="language-plaintext highlighter-rouge">=</code> 。
+Uri 類還可以解析和處理 URI—host，port，scheme等元件。</p>
+
+
+
+<h4 id="encoding-and-decoding-fully-qualified-uris">編碼和解碼完整合法的URI</h4>
+
+
+
+<p>使用 <code class="language-plaintext highlighter-rouge">encodeFull()</code> 和 <code class="language-plaintext highlighter-rouge">decodeFull()</code> 方法，對 URI 中除了特殊字元（例如 <code class="language-plaintext highlighter-rouge">/</code>， <code class="language-plaintext highlighter-rouge">:</code>， <code class="language-plaintext highlighter-rouge">&amp;</code>， <code class="language-plaintext highlighter-rouge">#</code>）以外的字元進行編解碼，這些方法非常適合編解碼完整合法的 URI，並保留 URI 中的特殊字元。</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">var uri = 'https://example.org/api?foo=some message';
+
+var encoded = Uri.encodeFull(uri);
+assert(encoded == 'https://example.org/api?foo=some%20message');
+
+var decoded = Uri.decodeFull(encoded);
+assert(uri == decoded);</code></pre></div>
+</div>
+
+<p>注意上面程式碼只編碼了 <code class="language-plaintext highlighter-rouge">some</code> 和 <code class="language-plaintext highlighter-rouge">message</code> 之間的空格。</p>
+
+
+
+<h4 id="encoding-and-decoding-uri-components">編碼和解碼 URI 元件</h4>
+
+
+
+<p>使用 <code class="language-plaintext highlighter-rouge">encodeComponent()</code> 和 <code class="language-plaintext highlighter-rouge">decodeComponent()</code> 方法，對 URI 中具有特殊含義的所有字串字元，特殊字元包括（但不限於）<code class="language-plaintext highlighter-rouge">/</code>， <code class="language-plaintext highlighter-rouge">&amp;</code>，和  <code class="language-plaintext highlighter-rouge">:</code>。</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">var uri = 'https://example.org/api?foo=some message';
+
+var encoded = Uri.encodeComponent(uri);
+assert(
+    encoded == 'https%3A%2F%2Fexample.org%2Fapi%3Ffoo%3Dsome%20message');
+
+var decoded = Uri.decodeComponent(encoded);
+assert(uri == decoded);</code></pre></div>
+</div>
+
+<p>注意上面程式碼編碼了所有的字元。例如 <code class="language-plaintext highlighter-rouge">/</code> 被編碼為 <code class="language-plaintext highlighter-rouge">%2F</code>。</p>
+
+
+
+<h4 id="parsing-uris">解析 URI</h4>
+
+
+
+<p>使用 Uri 物件的欄位（例如 <code class="language-plaintext highlighter-rouge">path</code>），來獲取一個 Uri 物件或者 URI 字串的一部分。使用 <code class="language-plaintext highlighter-rouge">parse()</code> 靜態方法，可以使用字串建立 Uri 物件。</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">var uri = Uri.parse('https://example.org:8080/foo/bar#frag');
+
+assert(uri.scheme == 'https');
+assert(uri.host == 'example.org');
+assert(uri.path == '/foo/bar');
+assert(uri.fragment == 'frag');
+assert(uri.origin == 'https://example.org:8080');</code></pre></div>
+</div>
+
+<p>有關 URI 元件的更多內容，參考 <a href="https://api.dart.dev/stable/dart-core/Uri-class.html">Uri API docs</a>。</p>
+
+
+
+<h4 id="building-uris">建構 URI</h4>
+
+
+
+<p>使用 <code class="language-plaintext highlighter-rouge">Uri()</code> 建構函式，可以將各元件部分建構成 URI 。</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">var uri = Uri(
+    scheme: 'https',
+    host: 'example.org',
+    path: '/foo/bar',
+    fragment: 'frag',
+    queryParameters: {'lang': 'dart'});
+assert(uri.toString() == 'https://example.org/foo/bar?lang=dart#frag');</code></pre></div>
+</div>
+
+<p>If you don’t need to specify a fragment,
+to create a URI with a http or https scheme,
+you can instead use the <a href="https://api.dart.dev/stable/dart-core/Uri/Uri.http.html"><code class="language-plaintext highlighter-rouge">Uri.http</code></a> or <a href="https://api.dart.dev/stable/dart-core/Uri/Uri.https.html"><code class="language-plaintext highlighter-rouge">Uri.https</code></a> factory constructors:</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">var httpUri = Uri.http('example.org', '/foo/bar', {'lang': 'dart'});
+var httpsUri = Uri.https('example.org', '/foo/bar', {'lang': 'dart'});
+
+assert(httpUri.toString() == 'http://example.org/foo/bar?lang=dart');
+assert(httpsUri.toString() == 'https://example.org/foo/bar?lang=dart');</code></pre></div>
+</div>
+
+<h3 id="dates-and-times">
+<a class="anchor" href="#dates-and-times" aria-hidden="true"><span class="octicon octicon-link"></span></a>日期和時間</h3>
+
+
+
+<p>DateTime 物件代表某個時刻，時區可以是 UTC 或者本地時區。</p>
+
+
+
+<p>DateTime 物件可以透過若干建構函式和方法建立：</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">// Get the current date and time.
+var now = DateTime.now();
+
+// Create a new DateTime with the local time zone.
+var y2k = DateTime(2000); // January 1, 2000
+
+// Specify the month and day.
+y2k = DateTime(2000, 1, 2); // January 2, 2000
+
+// Specify the date as a UTC time.
+y2k = DateTime.utc(2000); // 1/1/2000, UTC
+
+// Specify a date and time in ms since the Unix epoch.
+y2k = DateTime.fromMillisecondsSinceEpoch(946684800000, isUtc: true);
+
+// Parse an ISO 8601 date in the UTC time zone.
+y2k = DateTime.parse('2000-01-01T00:00:00Z');
+
+// Create a new DateTime from an existing one, adjusting just some properties:
+var sameTimeLastYear = now.copyWith(year: now.year - 1);</code></pre></div>
+</div>
+
+<aside class="alert alert-warning" role="alert">
+  <p><i class="material-icons" aria-hidden="true">report_problem</i> <strong>請注意:</strong>
+  <code class="language-plaintext highlighter-rouge">DateTime</code> operations might give unexpected results related to Daylight Savings Time and other non-standard time adjustments.</p>
+</aside>
+<p>日期中 <code class="language-plaintext highlighter-rouge">millisecondsSinceEpoch</code> 屬性返回自
+“Unix 紀元（January 1, 1970, UTC）”以來的毫秒數：</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">// 1/1/2000, UTC
+var y2k = DateTime.utc(2000);
+assert(y2k.millisecondsSinceEpoch == 946684800000);
+
+// 1/1/1970, UTC
+var unixEpoch = DateTime.utc(1970);
+assert(unixEpoch.millisecondsSinceEpoch == 0);</code></pre></div>
+</div>
+
+<p>Use the Duration class to calculate the difference between two dates and
+to shift a date forward or backward:</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">var y2k = DateTime.utc(2000);
+
+// Add one year.
+var y2001 = y2k.add(const Duration(days: 366));
+assert(y2001.year == 2001);
+
+// Subtract 30 days.
+var december2000 = y2001.subtract(const Duration(days: 30));
+assert(december2000.year == 2000);
+assert(december2000.month == 12);
+
+// Calculate the difference between two dates.
+// Returns a Duration object.
+var duration = y2001.difference(y2k);
+assert(duration.inDays == 366); // y2k was a leap year.</code></pre></div>
+</div>
+
+<aside class="alert alert-warning" role="alert">
+  <p><i class="material-icons" aria-hidden="true">report_problem</i> <strong>請注意:</strong></p>
+
+  <p>由於時鐘轉換（例如，夏令時）的原因，使用 Duration 對 DateTime 按天移動可能會有問題。如果要按照天數來位移時間，請使用 UTC 日期。</p>
+
+  
+
+</aside>
+
+<p>參考 <a href="https://api.dart.dev/stable/dart-core/DateTime-class.html">DateTime</a> 和 <a href="https://api.dart.dev/stable/dart-core/Duration-class.html">Duration</a> API 文件瞭解全部方法列表。</p>
+
+
+
+<h3 id="utility-classes">
+<a class="anchor" href="#utility-classes" aria-hidden="true"><span class="octicon octicon-link"></span></a>工具類</h3>
+
+
+
+<p>核心函式庫包含各種工具類，可用於排序，對映值以及迭代。</p>
+
+
+
+<h4 id="comparing-objects">比較物件</h4>
+
+
+
+<p>如果實現了 <a href="https://api.dart.dev/stable/dart-core/Comparable-class.html">Comparable</a> 介面，也就是說可以將該物件與另一個物件進行比較，通常用於排序。
+<code class="language-plaintext highlighter-rouge">compareTo()</code> 方法在 <em>小於</em> 時返回 &lt; 0，在 <em>相等</em> 時返回 0，在 <em>大於</em> 時返回  &gt; 0。</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">class Line implements Comparable&lt;Line&gt; {
+  final int length;
+  const Line(this.length);
+
+  @override
+  int compareTo(Line other) =&gt; length - other.length;
+}
+
+void main() {
+  var short = const Line(1);
+  var long = const Line(100);
+  assert(short.compareTo(long) &lt; 0);
+}</code></pre></div>
+</div>
+
+<h4 id="implementing-map-keys">Implementing map keys</h4>
+
+<p>在 Dart 中每個物件會預設提供一個整數的雜湊值，因此在 map 中可以作為 key 來使用，重寫 <code class="language-plaintext highlighter-rouge">hashCode</code> 的 getter 方法來產生自訂雜湊值。如果重寫 <code class="language-plaintext highlighter-rouge">hashCode</code> 的 getter 方法，那麼可能還需要重寫 <code class="language-plaintext highlighter-rouge">==</code> 運算子。相等的（透過 <code class="language-plaintext highlighter-rouge">==</code> ）物件必須擁有相同的雜湊值。雜湊值並不要求是唯一的，但是應該具有良好的分佈形態。</p>
+
+
+
+<aside class="alert alert-success" role="alert">
+  <p><i class="material-icons" aria-hidden="true">tips_and_updates</i> <strong>小提示:</strong></p>
+
+  <p>想要以一致且簡便的方式實現 <code class="language-plaintext highlighter-rouge">hashCode</code> getter，你可以嘗試 <code class="language-plaintext highlighter-rouge">Object</code> 類提供的靜態方法。</p>
+
+  
+
+  <p>想為物件內的多個屬性產生單一的雜湊值，你可以使用 <a href="https://api.dart.dev/stable/dart-core/Object/hash.html"><code class="language-plaintext highlighter-rouge">Object.hash()</code></a>。想為一組內容產生雜湊值，你可以使用 <a href="https://api.dart.dev/stable/dart-core/Object/hashAll.html"><code class="language-plaintext highlighter-rouge">Object.hashAll()</code></a>
+  （如果其中的元素需要保持順序），或者 <a href="https://api.dart.dev/stable/dart-core/Object/hashAllUnordered.html"><code class="language-plaintext highlighter-rouge">Object.hashAllUnordered()</code></a>。</p>
+
+  
+
+</aside>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">class Person {
+  final String firstName, lastName;
+
+  Person(this.firstName, this.lastName);
+
+  // Override hashCode using the static hashing methods
+  // provided by the `Object` class.
+  @override
+  int get hashCode =&gt; Object.hash(firstName, lastName);
+
+  // You should generally implement operator `==` if you
+  // override `hashCode`.
+  @override
+  bool operator ==(Object other) {
+    return other is Person &amp;&amp;
+        other.firstName == firstName &amp;&amp;
+        other.lastName == lastName;
+  }
+}
+
+void main() {
+  var p1 = Person('Bob', 'Smith');
+  var p2 = Person('Bob', 'Smith');
+  var p3 = 'not a person';
+  assert(p1.hashCode == p2.hashCode);
+  assert(p1 == p2);
+  assert(p1 != p3);
+}</code></pre></div>
+</div>
+
+<h4 id="iteration">迭代</h4>
+
+
+
+<p><a href="https://api.dart.dev/stable/dart-core/Iterable-class.html">Iterable</a> 和 <a href="https://api.dart.dev/stable/dart-core/Iterator-class.html">Iterator</a> 類支援 for-in 迴圈。當建立一個類別的時候，繼承或者實現 Iterable，可以為該類提供用於 for-in 迴圈的 Iterators。實現 Iterator 來定義實際的遍歷操作。</p>
+
+
+
+<p>如果你在 for-in 迴圈裡要建立一個可以提供 Iterator 的類，如果可以，請選擇 extend 或者 implement Iterable 的方式。
+Implement Iterator 來定義一個實際的迭代能力。</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">class Process {
+  // Represents a process...
+}
+
+class ProcessIterator implements Iterator&lt;Process&gt; {
+  @override
+  Process get current =&gt; ...
+  @override
+  bool moveNext() =&gt; ...
+}
+
+// A mythical class that lets you iterate through all
+// processes. Extends a subclass of [Iterable].
+class Processes extends IterableBase&lt;Process&gt; {
+  @override
+  final Iterator&lt;Process&gt; iterator = ProcessIterator();
+}
+
+void main() {
+  // Iterable objects can be used with for-in.
+  for (final process in Processes()) {
+    // Do something with the process.
+  }
+}</code></pre></div>
+</div>
+
+<h3 id="exceptions">
+<a class="anchor" href="#exceptions" aria-hidden="true"><span class="octicon octicon-link"></span></a>例外</h3>
+
+
+
+<p>Dart 核心函式庫定義了很多公共的例外和錯誤類別。例外通常是一些可以預見和預知的情況。錯誤是無法預見或者預防的情況。</p>
+
+
+
+<p>兩個最常見的錯誤：</p>
+
+
+
+<dl>
+  <dt><a href="https://api.dart.dev/stable/dart-core/NoSuchMethodError-class.html">NoSuchMethodError</a></dt>
+  <dd>
+    <p>當方法的接受物件（可能為null）沒有實現該方法時丟擲。</p>
+
+    
+  </dd>
+  <dt><a href="https://api.dart.dev/stable/dart-core/ArgumentError-class.html">ArgumentError</a></dt>
+  <dd>
+    <p>當方法在接受到一個不合法引數時丟擲。</p>
+
+    
+  </dd>
+</dl>
+
+<p>通常透過丟擲一個應用特定的例外，來表示應用發生了錯誤。透過實現 Exception 介面來自訂例外：</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">class FooException implements Exception {
+  final String? msg;
+
+  const FooException([this.msg]);
+
+  @override
+  String toString() =&gt; msg ?? 'FooException';
+}</code></pre></div>
+</div>
+
+<p>更多內容，參考 <a href="#exceptions">Exceptions</a> 以及
+<a href="https://api.dart.dev/stable/dart-core/Exception-class.html">Exception API 文件。</a></p>
+
+
+
+<h3 id="weak-references-and-finalizers">
+<a class="anchor" href="#weak-references-and-finalizers" aria-hidden="true"><span class="octicon octicon-link"></span></a>弱參考和終結器 (finalizers)</h3>
+
+
+
+<p>Dart 語言支援 <a href="https://medium.com/flutter/flutter-dont-fear-the-garbage-collector-d69b3ff1ca30">垃圾回收 (GC)</a>，即所有未被參考的 Dart 物件最終都會被垃圾回收並銷燬。某些涉及到原生資源和目標物件無法修改的場景，
+GC 的行為可能不會符合預期。</p>
+
+
+
+<p><a href="https://api.dart.dev/stable/dart-core/WeakReference-class.html">WeakReference</a> 會儲存目標物件的參考，並且不會影響目標物件被 GC。另一種方案是使用 <a href="https://api.dart.dev/stable/dart-core/Expando-class.html">Expando</a> 對物件新增一些屬性。</p>
+
+
+
+<p><a href="https://api.dart.dev/stable/dart-core/Finalizer-class.html">終結器 (Finalizer)</a>
+可以在物件已不再被參考時執行一個回呼(Callback)函式。然而，終結器的回呼(Callback)並不保證一定會執行。</p>
+
+
+
+<p><a href="https://api.dart.dev/stable/dart-ffi/NativeFinalizer-class.html">NativeFinalizer</a> 為使用 <a href="/guides/libraries/c-interop">dart:ffi</a>
+與原生互動的程式碼提供了更加強力的回呼(Callback)保證。它的回呼(Callback)會在物件不再參考後至少呼叫一次。同時，它也可以用來關閉原生資源，例如資料庫連結和開啟的檔案。</p>
+
+
+
+<p>想要確保一個物件不會過早地被回收，其對應的類可以實現 <a href="https://api.dart.dev/stable/dart-ffi/Finalizable-class.html">Finalizable</a> 介面。當一個方法內的變數是 Finalizable，直到程式碼執行完畢後它才會被回收。</p>
+
+
+
+<aside class="alert alert-info" role="alert">
+  <p><i class="material-icons" aria-hidden="true">merge_type</i> <strong>版本提示:</strong></p>
+
+  <p>弱參考和終結器的支援在 Dart 2.17 後開始支援。</p>
+
+  
+
+</aside>
+
+<h2 id="dartasync---asynchronous-programming">
+<a class="anchor" href="#dartasync---asynchronous-programming" aria-hidden="true"><span class="octicon octicon-link"></span></a>dart:async - 非同步程式設計</h2>
+
+
+
+<p>非同步程式設計通常使用回呼(Callback)方法來實現，但是 Dart
+提供了其他方案：<a href="https://api.dart.dev/stable/dart-async/Future-class.html">Future</a> 和 <a href="https://api.dart.dev/stable/dart-async/Stream-class.html">Stream</a> 物件。
+Future 類似與 JavaScript 中的 Promise ，代表在將來某個時刻會返回一個結果。
+Stream 類可以用來獲取一系列的值，比如，一系列事件。
+Future， Stream，以及更多內容，參考
+dart:async library (<a href="https://api.dart.dev/stable/dart-async/dart-async-library.html">API reference</a>)。</p>
+
+
+
+<aside class="alert alert-info" role="alert">
+  <p><i class="material-icons" aria-hidden="true">info</i> <strong>備註:</strong></p>
+
+  <p>你並不總是需要直接使用 Future 或 Stream 的 API。
+  Dart 語言支援使用關鍵字（例如，<code class="language-plaintext highlighter-rouge">async</code> 和 <code class="language-plaintext highlighter-rouge">await</code> ）來實現非同步程式設計。更多詳情，參考這個 codelab 瞭解更多：<a href="/codelabs/async-await">asynchronous programming codelab</a>。</p>
+
+  
+
+</aside>
+
+<p>dart:async 庫可以工作在 web 應用及 command-line 應用。透過 import dart:async 來使用。</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">import 'dart:async';</code></pre></div>
+</div>
+
+<aside class="alert alert-success" role="alert">
+  <p><i class="material-icons" aria-hidden="true">tips_and_updates</i> <strong>小提示:</strong></p>
+
+  <p>使用 Future 和 Stream 不需要匯入 dart:async ，因為 dart:core 已經匯出了這些類別。</p>
+
+  
+
+</aside>
+
+<h3 id="future">
+<a class="anchor" href="#future" aria-hidden="true"><span class="octicon octicon-link"></span></a>Future</h3>
+
+<p>在 Dart 庫中隨處可見 Future 物件，通常非同步函式返回的物件就是一個 Future。當一個 future <em>完成執行後</em>，future 中的值就已經可以使用了。</p>
+
+
+
+<h4 id="using-await">使用 await</h4>
+
+
+
+<p>在直接使用 Future API 前，首先應該考慮 <code class="language-plaintext highlighter-rouge">await</code> 來替代。程式碼中使用 <code class="language-plaintext highlighter-rouge">await</code> 表示式會比直接使用 Future API 更容易理解。</p>
+
+
+
+<p>閱讀思考下面程式碼。程式碼使用 Future 的 <code class="language-plaintext highlighter-rouge">then()</code> 方法在同一行執行了三個非同步函式，要等待上一個執行完成，再執行下一個任務。</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">void runUsingFuture() {
+  // ...
+  findEntryPoint().then((entryPoint) {
+    return runExecutable(entryPoint, args);
+  }).then(flushThenExit);
+}</code></pre></div>
+</div>
+
+<p>透過 await 表示式實現等價的程式碼，看起來非常像同步程式碼：</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">Future&lt;void&gt; runUsingAsyncAwait() async {
+  // ...
+  var entryPoint = await findEntryPoint();
+  var exitCode = await runExecutable(entryPoint, args);
+  await flushThenExit(exitCode);
+}</code></pre></div>
+</div>
+
+<p><code class="language-plaintext highlighter-rouge">async</code> 函式能夠捕獲來自 Future 的例外。例如：</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">var entryPoint = await findEntryPoint();
+try {
+  var exitCode = await runExecutable(entryPoint, args);
+  await flushThenExit(exitCode);
+} catch (e) {
+  // Handle the error...
+}</code></pre></div>
+</div>
+
+<aside class="alert alert-warning" role="alert">
+  <p><i class="material-icons" aria-hidden="true">error</i> <strong>重要說明:</strong></p>
+
+  <p><code class="language-plaintext highlighter-rouge">async</code> 函式返回 Future 物件。如果你不希望你的函式返回一個 future 物件，可以使用其他方案。例如，你可以在你的方法中呼叫一個 async 方法。</p>
+
+  
+
+</aside>
+
+<p>更多關於 <code class="language-plaintext highlighter-rouge">await</code> 的使用及相關的 Dart 語言特徵，參考
+<a href="/guides/language/language-tour#asynchrony-support">Asynchrony support</a>。</p>
+
+
+
+<h4 id="basic-usage">基本用法</h4>
+
+
+
+<p>當 future 執行完成後，<code class="language-plaintext highlighter-rouge">then()</code> 中的程式碼會被執行。
+<code class="language-plaintext highlighter-rouge">then()</code> 中的程式碼會在 future 完成後被執行。例如，<code class="language-plaintext highlighter-rouge">HttpRequest.getString()</code> 返回一個 future 物件，因為 HTTP 請求可能需要一段時間。當 Future 完成並且保證字串值有效後，使用 <code class="language-plaintext highlighter-rouge">then()</code> 來執行你需要的程式碼：</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">HttpRequest.getString(url).then((String result) {
+  print(result);
+});</code></pre></div>
+</div>
+
+<p>使用 <code class="language-plaintext highlighter-rouge">catchError()</code> 來處理一些 Future 物件可能丟擲的錯誤或者例外。</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">HttpRequest.getString(url).then((String result) {
+  print(result);
+}).catchError((e) {
+  // Handle or ignore the error.
+});</code></pre></div>
+</div>
+
+<p><code class="language-plaintext highlighter-rouge">then().catchError()</code> 組合是 <code class="language-plaintext highlighter-rouge">try</code>-<code class="language-plaintext highlighter-rouge">catch</code> 的非同步版本。</p>
+
+
+
+<aside class="alert alert-warning" role="alert">
+  <p><i class="material-icons" aria-hidden="true">error</i> <strong>重要說明:</strong></p>
+
+  <p>確保呼叫 <code class="language-plaintext highlighter-rouge">catchError()</code> 方式在 <code class="language-plaintext highlighter-rouge">then()</code> 的結果上，而不是在原來的 Future 物件上呼叫。否則的話，<code class="language-plaintext highlighter-rouge">catchError()</code> 就只能處理原來 Future 物件丟擲的例外，而無法處理 <code class="language-plaintext highlighter-rouge">then()</code> 程式碼裡面的例外。</p>
+
+  
+
+</aside>
+
+<h4 id="chaining-multiple-asynchronous-methods">鏈式非同步程式設計</h4>
+
+
+
+<p><code class="language-plaintext highlighter-rouge">then()</code> 方法返回一個 Future 物件，這樣就提供了一個非常好的方式讓多個非同步方法按順序依次執行。如果用 <code class="language-plaintext highlighter-rouge">then()</code> 註冊的回呼(Callback)返回一個 Future ，那麼 <code class="language-plaintext highlighter-rouge">then()</code> 返回一個等價的 Future 。如果回呼(Callback)返回任何其他型別的值，那麼 <code class="language-plaintext highlighter-rouge">then()</code> 會建立一個以該值完成的新 Future 。</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">Future result = costlyQuery(url);
+result
+    .then((value) =&gt; expensiveWork(value))
+    .then((_) =&gt; lengthyComputation())
+    .then((_) =&gt; print('Done!'))
+    .catchError((exception) {
+  /* Handle exception... */
+});</code></pre></div>
+</div>
+
+<p>在上面的範例中，方法按下面順序執行：</p>
+
+
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">costlyQuery()</code></li>
+  <li><code class="language-plaintext highlighter-rouge">expensiveWork()</code></li>
+  <li><code class="language-plaintext highlighter-rouge">lengthyComputation()</code></li>
+</ol>
+
+<p>這是使用 await 編寫的等效程式碼：</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">try {
+  final value = await costlyQuery(url);
+  await expensiveWork(value);
+  await lengthyComputation();
+  print('Done!');
+} catch (e) {
+  /* Handle exception... */
+}</code></pre></div>
+</div>
+
+<h4 id="waiting-for-multiple-futures">等待多個 Future</h4>
+
+
+
+<p>有時程式碼邏輯需要呼叫多個非同步函式，並等待它們全部完成後再繼續執行。使用 <a href="https://api.dart.dev/stable/dart-async/Future/wait.html">Future.wait()</a> 靜態方法管理多個 Future 以及等待它們完成：</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">Future&lt;void&gt; deleteLotsOfFiles() async =&gt;  ...
+Future&lt;void&gt; copyLotsOfFiles() async =&gt;  ...
+Future&lt;void&gt; checksumLotsOfOtherFiles() async =&gt;  ...
+
+await Future.wait([
+  deleteLotsOfFiles(),
+  copyLotsOfFiles(),
+  checksumLotsOfOtherFiles(),
+]);
+print('Done with all the long steps!');</code></pre></div>
+</div>
+
+<p><code class="language-plaintext highlighter-rouge">Future.wait()</code> returns a future which completes once all the provided
+futures have completed. It completes either with their results,
+or with an error if any of the provided futures fail.</p>
+
+<h4 id="handling-errors-for-multiple-futures">Handling errors for multiple futures</h4>
+
+<p>You can also wait for parallel operations on an <a href="https://api.dart.dev/stable/dart-async/FutureIterable/wait.html">iterable</a>
+or <a href="https://api.dart.dev/stable/dart-async/FutureRecord2/wait.html">record</a>
+of futures.</p>
+
+<p>These extensions return a future with the resulting values of all provided
+futures. Unlike <code class="language-plaintext highlighter-rouge">Future.wait</code>, they also let you handle errors.</p>
+
+<p>If any future in the collection completes with an error, <code class="language-plaintext highlighter-rouge">wait</code> completes with a
+<a href="https://api.dart.dev/stable/dart-async/ParallelWaitError-class.html"><code class="language-plaintext highlighter-rouge">ParallelWaitError</code></a>. This allows the caller to handle individual errors and
+dispose successful results if necessary.</p>
+
+<p>When you <em>don’t</em> need the result values from each individual future,
+use <code class="language-plaintext highlighter-rouge">wait</code> on an <em>iterable</em> of futures:</p>
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">main</span><span class="p">()</span> <span class="kd">async</span> <span class="p">{</span>
+  <span class="n">Future</span><span class="p">&lt;</span><span class="kt">void</span><span class="p">&gt;</span> <span class="n">delete</span><span class="p">()</span> <span class="kd">async</span> <span class="o">=</span><span class="p">&gt;</span>  <span class="p">...</span>
+  <span class="n">Future</span><span class="p">&lt;</span><span class="kt">void</span><span class="p">&gt;</span> <span class="n">copy</span><span class="p">()</span> <span class="kd">async</span> <span class="o">=</span><span class="p">&gt;</span>  <span class="p">...</span>
+  <span class="n">Future</span><span class="p">&lt;</span><span class="kt">void</span><span class="p">&gt;</span> <span class="n">errorResult</span><span class="p">()</span> <span class="kd">async</span> <span class="o">=</span><span class="p">&gt;</span>  <span class="p">...</span>
+  
+  <span class="k">try</span> <span class="p">{</span>
+    <span class="c1">// Wait for each future in a list, returns a list of futures:</span>
+    <span class="kd">var</span> <span class="n">results</span> <span class="o">=</span> <span class="k">await</span> <span class="p">[</span><span class="n">delete</span><span class="p">(),</span> <span class="n">copy</span><span class="p">(),</span> <span class="n">errorResult</span><span class="p">()]</span><span class="o">.</span><span class="na">wait</span><span class="p">;</span>
+
+    <span class="p">}</span> <span class="kd">on</span> <span class="n">ParallelWaitError</span><span class="p">&lt;</span><span class="kt">List</span><span class="p">&lt;</span><span class="kt">bool</span><span class="o">?</span><span class="p">&gt;,</span> <span class="kt">List</span><span class="p">&lt;</span><span class="n">AsyncError</span><span class="o">?</span><span class="p">&gt;&gt;</span> <span class="k">catch</span> <span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="n">print</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="na">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>    <span class="c1">// Prints successful future</span>
+    <span class="n">print</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="na">values</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>    <span class="c1">// Prints successful future</span>
+    <span class="n">print</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="na">values</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>    <span class="c1">// Prints null when the result is an error</span>
+
+    <span class="n">print</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="na">errors</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>    <span class="c1">// Prints null when the result is successful</span>
+    <span class="n">print</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="na">errors</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>    <span class="c1">// Prints null when the result is successful</span>
+    <span class="n">print</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="na">errors</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>    <span class="c1">// Prints error</span>
+  <span class="p">}</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>When you <em>do</em> need the individual result values from each future,
+use <code class="language-plaintext highlighter-rouge">wait</code> on a <em>record</em> of futures.
+This provides the additional benefit that the futures can be of different types:</p>
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">main</span><span class="p">()</span> <span class="kd">async</span> <span class="p">{</span>
+  <span class="n">Future</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;</span> <span class="n">delete</span><span class="p">()</span> <span class="kd">async</span> <span class="o">=</span><span class="p">&gt;</span>  <span class="p">...</span>
+  <span class="n">Future</span><span class="p">&lt;</span><span class="kt">String</span><span class="p">&gt;</span> <span class="n">copy</span><span class="p">()</span> <span class="kd">async</span> <span class="o">=</span><span class="p">&gt;</span>  <span class="p">...</span>
+  <span class="n">Future</span><span class="p">&lt;</span><span class="kt">bool</span><span class="p">&gt;</span> <span class="n">errorResult</span><span class="p">()</span> <span class="kd">async</span> <span class="o">=</span><span class="p">&gt;</span>  <span class="p">...</span>
+
+  <span class="k">try</span> <span class="p">{</span>    
+    <span class="c1">// Wait for each future in a record, returns a record of futures:</span>
+    <span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">String</span><span class="p">,</span> <span class="kt">bool</span><span class="p">)</span> <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="p">(</span><span class="n">delete</span><span class="p">(),</span> <span class="n">copy</span><span class="p">(),</span> <span class="n">errorResult</span><span class="p">())</span><span class="o">.</span><span class="na">wait</span><span class="p">;</span>
+  
+  <span class="p">}</span> <span class="kd">on</span> <span class="n">ParallelWaitError</span><span class="p">&lt;(</span><span class="kt">int</span><span class="o">?</span><span class="p">,</span> <span class="kt">String</span><span class="o">?</span><span class="p">,</span> <span class="kt">bool</span><span class="o">?</span><span class="p">),</span>
+      <span class="p">(</span><span class="n">AsyncError</span><span class="o">?</span><span class="p">,</span> <span class="n">AsyncError</span><span class="o">?</span><span class="p">,</span> <span class="n">AsyncError</span><span class="o">?</span><span class="p">)&gt;</span> <span class="k">catch</span> <span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+    <span class="p">}</span>
+
+  <span class="c1">// Do something with the results:</span>
+  <span class="kd">var</span> <span class="n">deleteInt</span>  <span class="o">=</span> <span class="n">result</span><span class="p">.</span><span class="err">$</span><span class="mi">1</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="n">copyString</span> <span class="o">=</span> <span class="n">result</span><span class="p">.</span><span class="err">$</span><span class="mi">2</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="n">errorBool</span>  <span class="o">=</span> <span class="n">result</span><span class="p">.</span><span class="err">$</span><span class="mi">3</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="stream">
+<a class="anchor" href="#stream" aria-hidden="true"><span class="octicon octicon-link"></span></a>Stream</h3>
+
+<p>在 Dart API 中 Stream 物件隨處可見，Stream 用來表示一系列資料。例如，HTML 中的按鈕點選就是透過 stream 傳遞的。同樣也可以將檔案作為資料流來讀取。</p>
+
+
+
+<h4 id="using-an-asynchronous-for-loop">非同步迴圈</h4>
+
+
+
+<p>有時，可以使用非同步 for迴圈 <code class="language-plaintext highlighter-rouge">await for</code> ，來替代 Stream API 。</p>
+
+
+
+<p>思考下面範例函式。它使用 Stream 的 <code class="language-plaintext highlighter-rouge">listen()</code> 方法來訂閱檔案列表，傳入一個搜尋檔案或目錄的函式</p>
+
+
+<pre class="prettyprint lang-dart"><code>void main(List&lt;String&gt; arguments) {
+  // ...
+  FileSystemEntity.isDirectory(searchPath).then((isDir) {
+    if (isDir) {
+      final startingDir = Directory(searchPath);
+      startingDir.list().<span class="highlight">listen</span>((entity) {
+        if (entity is File) {
+          searchFile(entity, searchTerms);
+        }
+      });
+    } else {
+      searchFile(File(searchPath), searchTerms);
+    }
+  });
+}</code></pre>
+
+<p>下面是使用 await 表示式和非同步 for迴圈 (<code class="language-plaintext highlighter-rouge">await for</code>) 實現的等價的程式碼，看起來更像是同步程式碼：</p>
+
+
+<pre class="prettyprint lang-dart"><code>void main(List&lt;String&gt; arguments) async {
+  // ...
+  if (await FileSystemEntity.isDirectory(searchPath)) {
+    final startingDir = Directory(searchPath);
+    <span class="highlight">await for</span> (final entity in startingDir.list()) {
+      if (entity is File) {
+        searchFile(entity, searchTerms);
+      }
+    }
+  } else {
+    searchFile(File(searchPath), searchTerms);
+  }
+}</code></pre>
+
+<aside class="alert alert-warning" role="alert">
+  <p><i class="material-icons" aria-hidden="true">error</i> <strong>重要說明:</strong></p>
+
+  <p>在使用 <code class="language-plaintext highlighter-rouge">await for</code> 前，確認這樣能保持程式碼清晰，並希望獲取所有 stream 的結果。例如，你通常並 <strong>不</strong> 會使用 <code class="language-plaintext highlighter-rouge">await for</code> 來監聽 DOM 事件，因為 DOM 會發送無盡的流事件。如果在同一行使用 <code class="language-plaintext highlighter-rouge">await for</code> 註冊兩個 DOM 事件，那麼第二個事件永遠不會被處理。</p>
+
+  
+
+</aside>
+
+<p>有關 <code class="language-plaintext highlighter-rouge">await</code> 的使用及 Dart 語言的相關資訊，參考
+<a href="/guides/language/language-tour#asynchrony-support">Asynchrony support</a>。</p>
+
+
+
+<h4 id="listening-for-stream-data">監聽流資料 (stream data)</h4>
+
+
+
+<p>使用 <code class="language-plaintext highlighter-rouge">await for</code> 或者使用 <code class="language-plaintext highlighter-rouge">listen()</code> 方法監聽 stream，來獲取每個到達的資料流值：</p>
+
+
+<pre class="prettyprint lang-dart"><code>// Add an event handler to a button.
+submitButton.onClick.<span class="highlight">listen</span>((e) {
+  // When the button is clicked, it runs this code.
+  submitData();
+});</code></pre>
+
+<p>下面範例中，ID 為 “submitInfo” button 提供的 <code class="language-plaintext highlighter-rouge">onClick</code> 屬性是一個 Stream 物件。</p>
+
+
+
+<p>如果只關心其中一個事件，可以使用，例如，<code class="language-plaintext highlighter-rouge">first</code>， <code class="language-plaintext highlighter-rouge">last</code>，或 <code class="language-plaintext highlighter-rouge">single</code> 屬性來獲取。要在處理時間前對事件進行測試，可以使用，例如 <code class="language-plaintext highlighter-rouge">firstWhere()</code>， <code class="language-plaintext highlighter-rouge">lastWhere()</code>，或 <code class="language-plaintext highlighter-rouge">singleWhere()</code> 方法。</p>
+
+
+
+<p>如果只關心事件中的一個子集，可以使用，例如，<code class="language-plaintext highlighter-rouge">skip()</code>， <code class="language-plaintext highlighter-rouge">skipWhile()</code>，<code class="language-plaintext highlighter-rouge">take()</code>，<code class="language-plaintext highlighter-rouge">takeWhile()</code>，和 <code class="language-plaintext highlighter-rouge">where()</code>。</p>
+
+
+
+<h4 id="transforming-stream-data">傳遞流資料 (stream data)</h4>
+
+
+
+<p>常常，在使用流資料前需要改變資料的格式。使用 <code class="language-plaintext highlighter-rouge">transform()</code> 方法產生具有不同型別資料的流：</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">var lines =
+    inputStream.transform(utf8.decoder).transform(const LineSplitter());</code></pre></div>
+</div>
+
+<p>上面例子中使用了兩個 transformer 。第一個使用 utf8.decoder 將整型流轉換為字串流。接著，使用了 LineSplitter 將字串流轉換為多行字串流。這些 transformer 來自 dart:convert 庫（參考<a href="#dartconvert---decoding-and-encoding-json-utf-8-and-more">dart:convert section</a>）。</p>
+
+
+
+<h4 id="handling-errors-and-completion">處理錯誤和完成</h4>
+
+
+
+<p>處理錯誤和完成程式碼方式，取決於使用的是非同步 for迴圈（<code class="language-plaintext highlighter-rouge">await for</code>）還是 Stream API 。</p>
+
+
+
+<p>如果使用的是非同步 for迴圈，那麼透過  try-catch 來處理錯誤。程式碼位於非同步 for迴圈之後，會在 stream 被關閉後執行。</p>
+
+
+<pre class="prettyprint lang-dart"><code>Future&lt;void&gt; readFileAwaitFor() async {
+  var config = File('config.txt');
+  Stream&lt;List&lt;int&gt;&gt; inputStream = config.openRead();
+
+  var lines =
+      inputStream.transform(utf8.decoder).transform(const LineSplitter());
+  <span class="highlight">try</span> {
+    await for (final line in lines) {
+      print('Got ${line.length} characters from stream');
+    }
+    print('file is now closed');
+  } <span class="highlight">catch</span> (e) {
+    print(e);
+  }
+}</code></pre>
+
+<p>如果使用的是 Stream API，那麼透過註冊 <code class="language-plaintext highlighter-rouge">onError</code> 監聽來處理錯誤。程式碼位於註冊的 <code class="language-plaintext highlighter-rouge">onDone</code> 中，會在 stream 被關閉後執行。</p>
+
+
+<pre class="prettyprint lang-dart"><code>var config = File('config.txt');
+Stream&lt;List&lt;int&gt;&gt; inputStream = config.openRead();
+
+inputStream.transform(utf8.decoder).transform(const LineSplitter()).listen(
+    (String line) {
+  print('Got ${line.length} characters from stream');
+}, <span class="highlight">onDone</span>: () {
+  print('file is now closed');
+}, <span class="highlight">onError</span>: (e) {
+  print(e);
+});</code></pre>
+
+<h3 id="more-information-1">
+<a class="anchor" href="#more-information-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>更多內容</h3>
+
+
+
+<p>更多在 command-line 應用中使用 Future 和 Stream 的例項，參考
+<a href="#dartio">dart:io 概覽</a>
+也可以參考下列文章和課程：</p>
+
+
+
+<ul>
+  <li><a href="/codelabs/async-await">Asynchronous programming: futures, async, await</a></li>
+  <li><a href="/guides/libraries/futures-error-handling">Futures and error handling</a></li>
+  <li><a href="/tutorials/language/streams">Asynchronous programming: streams</a></li>
+  <li><a href="/articles/libraries/creating-streams">Creating streams in Dart</a></li>
+  <li><a href="https://medium.com/dartlang/dart-asynchronous-programming-isolates-and-event-loops-bffc3e296a6a">Dart asynchronous programming: Isolates and event loops</a></li>
+</ul>
+
+<h2 id="dartmath---math-and-random">
+<a class="anchor" href="#dartmath---math-and-random" aria-hidden="true"><span class="octicon octicon-link"></span></a>dart:math - 數學和隨機數</h2>
+
+
+
+<p>dart:math 庫（<a href="https://api.dart.dev/stable/dart-math/dart-math-library.html">API reference</a>）提供通用的功能，例如，正弦和餘弦，最大值和最小值，以及數學常數，例如 <em>pi</em> 和 <em>e</em>。大多數在 Math 庫中的功能是作為最上層函式實現的。</p>
+
+
+
+<p>透過匯入 <code class="language-plaintext highlighter-rouge">dart:math</code> 來引入使用該函式庫。</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">import 'dart:math';</code></pre></div>
+</div>
+
+<h3 id="trigonometry">
+<a class="anchor" href="#trigonometry" aria-hidden="true"><span class="octicon octicon-link"></span></a>三角函式</h3>
+
+
+
+<p>Math 庫提供基本的三角函式：</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">// Cosine
+assert(cos(pi) == -1.0);
+
+// Sine
+var degrees = 30;
+var radians = degrees * (pi / 180);
+// radians is now 0.52359.
+var sinOf30degrees = sin(radians);
+// sin 30° = 0.5
+assert((sinOf30degrees - 0.5).abs() &lt; 0.01);</code></pre></div>
+</div>
+
+<aside class="alert alert-info" role="alert">
+  <p><i class="material-icons" aria-hidden="true">info</i> <strong>備註:</strong></p>
+
+  <p>這些函式引數單位是弧度，不是角度！</p>
+
+  
+
+</aside>
+
+<h3 id="maximum-and-minimum">
+<a class="anchor" href="#maximum-and-minimum" aria-hidden="true"><span class="octicon octicon-link"></span></a>最大值和最小值</h3>
+
+
+
+<p>Math 庫提供 <code class="language-plaintext highlighter-rouge">max()</code> 和 <code class="language-plaintext highlighter-rouge">min()</code> 方法：</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">assert(max(1, 1000) == 1000);
+assert(min(1, -1000) == -1000);</code></pre></div>
+</div>
+
+<h3 id="math-constants">
+<a class="anchor" href="#math-constants" aria-hidden="true"><span class="octicon octicon-link"></span></a>數學常數</h3>
+
+
+
+<p>在 Math 庫中可以找到你需要的數學常數，例如，<em>pi</em>， <em>e</em> 等等：</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">// See the Math library for additional constants.
+print(e); // 2.718281828459045
+print(pi); // 3.141592653589793
+print(sqrt2); // 1.4142135623730951</code></pre></div>
+</div>
+
+<h3 id="random-numbers">
+<a class="anchor" href="#random-numbers" aria-hidden="true"><span class="octicon octicon-link"></span></a>隨機數</h3>
+
+
+
+<p>使用 <a href="https://api.dart.dev/stable/dart-math/Random-class.html">Random</a> 類產生隨機數。可以為 Random 建構函式提供一個可選的種子引數。</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">var random = Random();
+random.nextDouble(); // Between 0.0 and 1.0: [0, 1)
+random.nextInt(10); // Between 0 and 9.</code></pre></div>
+</div>
+
+<p>也可以產生隨機布林值序列：</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">var random = Random();
+random.nextBool(); // true or false</code></pre></div>
+</div>
+
+<aside class="alert alert-warning" role="alert">
+  <p><i class="material-icons" aria-hidden="true">report_problem</i> <strong>請注意:</strong></p>
+
+  <p><code class="language-plaintext highlighter-rouge">Random</code> 的預設實現提供的是不適合於加密用途的偽隨機位流。若你需要建立安全的隨機數產生器，請使用 <a href="https://api.dart.dev/stable/dart-math/Random/Random.secure.html"><code class="language-plaintext highlighter-rouge">Random.secure()</code></a> 構造。</p>
+
+  
+
+</aside>
+
+<h3 id="more-information-2">
+<a class="anchor" href="#more-information-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>更多內容</h3>
+
+
+
+<p>完整方法列表參考 <a href="https://api.dart.dev/stable/dart-math/dart-math-library.html">Math API docs</a>。在 API 文件中參考 <a href="https://api.dart.dev/stable/dart-core/num-class.html">num,</a> <a href="https://api.dart.dev/stable/dart-core/int-class.html">int,</a> 和 <a href="https://api.dart.dev/stable/dart-core/double-class.html">double</a>。</p>
+
+
+
+<h2 id="dartconvert---decoding-and-encoding-json-utf-8-and-more">
+<a class="anchor" href="#dartconvert---decoding-and-encoding-json-utf-8-and-more" aria-hidden="true"><span class="octicon octicon-link"></span></a>dart:convert - 編解碼JSON，UTF-8等</h2>
+
+
+
+<p>dart:convert 庫（<a href="https://api.dart.dev/stable/dart-convert/dart-convert-library.html">API reference</a>）提供 JSON 和 UTF-8 轉換器，以及建立其他轉換器。
+<a href="https://www.json.org/">JSON</a> 是一種用於表示結構化物件和集合的簡單文字格式。
+<a href="https://en.wikipedia.org/wiki/UTF-8">UTF-8</a> 是一種常見的可變寬度編碼，可以表示Unicode字集中的每個字元。</p>
+
+
+
+<p>使用時，透過 import dart:convert 引入。</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">import 'dart:convert';</code></pre></div>
+</div>
+
+<h3 id="decoding-and-encoding-json">
+<a class="anchor" href="#decoding-and-encoding-json" aria-hidden="true"><span class="octicon octicon-link"></span></a>編解碼JSON</h3>
+
+
+
+<p>使用 <code class="language-plaintext highlighter-rouge">jsonDecode()</code> 解碼 JSON 編碼的字串為 Dart 物件：</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">// NOTE: Be sure to use double quotes ("),
+// not single quotes ('), inside the JSON string.
+// This string is JSON, not Dart.
+var jsonString = '''
+  [
+    {"score": 40},
+    {"score": 80}
+  ]
+''';
+
+var scores = jsonDecode(jsonString);
+assert(scores is List);
+
+var firstScore = scores[0];
+assert(firstScore is Map);
+assert(firstScore['score'] == 40);</code></pre></div>
+</div>
+
+<p>使用 <code class="language-plaintext highlighter-rouge">jsonEncode()</code> 編碼 Dart 物件為 JSON 格式的字串：</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">var scores = [
+  {'score': 40},
+  {'score': 80},
+  {'score': 100, 'overtime': true, 'special_guest': null}
+];
+
+var jsonText = jsonEncode(scores);
+assert(jsonText ==
+    '[{"score":40},{"score":80},'
+        '{"score":100,"overtime":true,'
+        '"special_guest":null}]');</code></pre></div>
+</div>
+
+<p>只有 int， double， String， bool, null, List, 或者 Map 型別物件可以直接編碼成 JSON。
+List 和 Map 物件進行遞迴編碼。</p>
+
+
+
+<p>不能直接編碼的物件有兩種方式對其編碼。第一種方式是呼叫 <code class="language-plaintext highlighter-rouge">jsonEncode()</code> 時賦值第二個引數，這個引數是一個函式，該函式返回一個能夠直接編碼的物件第二種方式是省略第二個引數，著這種情況下編碼器呼叫物件的 <code class="language-plaintext highlighter-rouge">toJson()</code> 方法。</p>
+
+
+
+<p>更多範例及 JSON 包相關連結，參考 <a href="/guides/json">JSON Support</a> 。</p>
+
+
+
+<h3 id="decoding-and-encoding-utf-8-characters">
+<a class="anchor" href="#decoding-and-encoding-utf-8-characters" aria-hidden="true"><span class="octicon octicon-link"></span></a>編解碼 UTF-8 字元</h3>
+
+
+
+<p>使用 <code class="language-plaintext highlighter-rouge">utf8.decode()</code> 解碼 UTF8 編碼的字元創為 Dart 字串：</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">List&lt;int&gt; utf8Bytes = [
+  0xc3, 0x8e, 0xc3, 0xb1, 0xc5, 0xa3, 0xc3, 0xa9,
+  0x72, 0xc3, 0xb1, 0xc3, 0xa5, 0xc5, 0xa3, 0xc3,
+  0xae, 0xc3, 0xb6, 0xc3, 0xb1, 0xc3, 0xa5, 0xc4,
+  0xbc, 0xc3, 0xae, 0xc5, 0xbe, 0xc3, 0xa5, 0xc5,
+  0xa3, 0xc3, 0xae, 0xe1, 0xbb, 0x9d, 0xc3, 0xb1
+];
+
+var funnyWord = utf8.decode(utf8Bytes);
+
+assert(funnyWord == 'Îñţérñåţîöñåļîžåţîờñ');</code></pre></div>
+</div>
+
+<p>將 UTF-8 字串流轉換為 Dart 字串，為 Stream 的 <code class="language-plaintext highlighter-rouge">transform()</code> 方法上指定 <code class="language-plaintext highlighter-rouge">utf8.decoder</code>：</p>
+
+
+<pre class="prettyprint lang-dart"><code>var lines = <span class="highlight">utf8.decoder</span>.bind(inputStream).transform(const LineSplitter());
+try {
+  await for (final line in lines) {
+    print('Got ${line.length} characters from stream');
+  }
+  print('file is now closed');
+} catch (e) {
+  print(e);
+}</code></pre>
+
+<p>使用 <code class="language-plaintext highlighter-rouge">utf8.encode()</code> 將 Dart 字串編碼為一個 UTF8 編碼的位元組流：</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">List&lt;int&gt; encoded = utf8.encode('Îñţérñåţîöñåļîžåţîờñ');
+
+assert(encoded.length == utf8Bytes.length);
+for (int i = 0; i &lt; encoded.length; i++) {
+  assert(encoded[i] == utf8Bytes[i]);
+}</code></pre></div>
+</div>
+
+<h3 id="other-functionality">
+<a class="anchor" href="#other-functionality" aria-hidden="true"><span class="octicon octicon-link"></span></a>其他功能</h3>
+
+
+
+<p>dart:convert 庫同樣包含 ASCII 和 ISO-8859-1 (Latin1) 轉換器。更多詳情，參考 <a href="https://api.dart.dev/stable/dart-convert/dart-convert-library.html">API docs for the dart:convert library。</a></p>
+
+
+
+<h2 id="darthtml">
+<a class="anchor" href="#darthtml" aria-hidden="true"><span class="octicon octicon-link"></span></a>dart:html - 基於瀏覽器應用</h2>
+
+
+
+<p>Use the <a href="https://api.dart.dev/stable/dart-html/dart-html-library.html">dart:html</a> library to program the browser, manipulate objects and
+elements in the DOM, and access HTML5 APIs. DOM stands for <em>Document Object
+Model</em>, which describes the hierarchy of an HTML page.</p>
+
+<p>Other common uses of dart:html are manipulating styles (<em>CSS</em>), getting
+data using HTTP requests, and exchanging data using
+<a href="#sending-and-receiving-real-time-data-with-websockets">WebSockets</a>.
+HTML5 (and dart:html) has many
+additional APIs that this section doesn’t cover. Only web apps can use
+dart:html, not command-line apps.</p>
+
+<aside class="alert alert-info" role="alert">
+  <p><i class="material-icons" aria-hidden="true">info</i> <strong>備註:</strong>
+  For larger applications or if you already have a Flutter application,
+  consider using <a href="https://flutter.tw/web">Flutter for web.</a></p>
+</aside>
+
+<p>To use the HTML library in your web app, import dart:html:</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">import 'dart:html';</code></pre></div>
+</div>
+
+<h3 id="manipulating-the-dom">
+<a class="anchor" href="#manipulating-the-dom" aria-hidden="true"><span class="octicon octicon-link"></span></a>Manipulating the DOM</h3>
+
+<p>To use the DOM, you need to know about <em>windows</em>, <em>documents</em>,
+<em>elements</em>, and <em>nodes</em>.</p>
+
+<p>A <a href="https://api.dart.dev/stable/dart-html/Window-class.html">Window</a> object represents
+the actual window of the web browser. Each Window has a Document object,
+which points to the document that’s currently loaded. The Window object
+also has accessors to various APIs such as IndexedDB (for storing data),
+requestAnimationFrame (for animations), and more. In tabbed browsers,
+each tab has its own Window object.</p>
+
+<p>With the <a href="https://api.dart.dev/stable/dart-html/Document-class.html">Document</a> object, you can create and manipulate <a href="https://api.dart.dev/stable/dart-html/Element-class.html">Element</a> objects
+within the document. Note that the document itself is an element and can be
+manipulated.</p>
+
+<p>The DOM models a tree of
+<a href="https://api.dart.dev/stable/dart-html/Node-class.html">Nodes.</a> These nodes are often
+elements, but they can also be attributes, text, comments, and other DOM
+types. Except for the root node, which has no parent, each node in the
+DOM has one parent and might have many children.</p>
+
+<h4 id="finding-elements">Finding elements</h4>
+
+<p>To manipulate an element, you first need an object that represents it.
+You can get this object using a query.</p>
+
+<p>Find one or more elements using the top-level functions
+<code class="language-plaintext highlighter-rouge">querySelector()</code> and <code class="language-plaintext highlighter-rouge">querySelectorAll()</code>. 
+You can query by ID, class, tag, name, or any combination of these. 
+The <a href="https://www.w3.org/TR/css3-selectors/">CSS Selector Specification guide</a> 
+defines the formats of the selectors such as using a # prefix to specify IDs 
+and a period (.) for classes.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">querySelector()</code> function returns the first element that matches
+the selector, while <code class="language-plaintext highlighter-rouge">querySelectorAll()</code>returns a collection of elements
+that match the selector.</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">// Find an element by id (an-id).
+Element idElement = querySelector('#an-id')!;
+
+// Find an element by class (a-class).
+Element classElement = querySelector('.a-class')!;
+
+// Find all elements by tag (&lt;div&gt;).
+List&lt;Element&gt; divElements = querySelectorAll('div');
+
+// Find all text inputs.
+List&lt;Element&gt; textInputElements = querySelectorAll(
+  'input[type="text"]',
+);
+
+// Find all elements with the CSS class 'class'
+// inside of a &lt;p&gt; that is inside an element with
+// the ID 'id'.
+List&lt;Element&gt; specialParagraphElements = querySelectorAll('#id p.class');</code></pre></div>
+</div>
+
+<h4 id="manipulating-elements">Manipulating elements</h4>
+
+<p>You can use properties to change the state of an element. Node and its
+subtype Element define the properties that all elements have. For
+example, all elements have <code class="language-plaintext highlighter-rouge">classes</code>, <code class="language-plaintext highlighter-rouge">hidden</code>, <code class="language-plaintext highlighter-rouge">id</code>, <code class="language-plaintext highlighter-rouge">style</code>, and
+<code class="language-plaintext highlighter-rouge">title</code> properties that you can use to set state. Subclasses of Element
+define additional properties, such as the <code class="language-plaintext highlighter-rouge">href</code> property of
+<a href="https://api.dart.dev/stable/dart-html/AnchorElement-class.html">AnchorElement.</a></p>
+
+<p>Consider this example of specifying an anchor element in HTML:</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="html prettyprint lang-html">&lt;a id="example" href="/another/example"&gt;link text&lt;/a&gt;</code></pre></div>
+</div>
+
+<p>This <code class="language-plaintext highlighter-rouge">&lt;a&gt;</code> tag specifies an element with an <code class="language-plaintext highlighter-rouge">href</code> attribute and a text
+node (accessible via a <code class="language-plaintext highlighter-rouge">text</code> property) that contains the string
+“link text”. To change the URL that the link goes to, you can use
+AnchorElement’s <code class="language-plaintext highlighter-rouge">href</code> property:</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">var anchor = querySelector('#example') as AnchorElement;
+anchor.href = 'https://dart.dev';</code></pre></div>
+</div>
+
+<p>Often you need to set properties on multiple elements. For example, the
+following code sets the <code class="language-plaintext highlighter-rouge">hidden</code> property of all elements that have a
+class of “mac”, “win”, or “linux”. Setting the <code class="language-plaintext highlighter-rouge">hidden</code> property to true
+has the same effect as adding <code class="language-plaintext highlighter-rouge">display: none</code> to the CSS.</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="html prettyprint lang-html">&lt;!-- In HTML: --&gt;
+&lt;p&gt;
+  &lt;span class="linux"&gt;Words for Linux&lt;/span&gt;
+  &lt;span class="macos"&gt;Words for Mac&lt;/span&gt;
+  &lt;span class="windows"&gt;Words for Windows&lt;/span&gt;
+&lt;/p&gt;</code></pre></div>
+</div>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">// In Dart:
+const osList = ['macos', 'windows', 'linux'];
+final userOs = determineUserOs();
+
+// For each possible OS...
+for (final os in osList) {
+  // Matches user OS?
+  bool shouldShow = (os == userOs);
+
+  // Find all elements with class=os. For example, if
+  // os == 'windows', call querySelectorAll('.windows')
+  // to find all elements with the class "windows".
+  // Note that '.$os' uses string interpolation.
+  for (final elem in querySelectorAll('.$os')) {
+    elem.hidden = !shouldShow; // Show or hide.
+  }
+}</code></pre></div>
+</div>
+
+<p>When the right property isn’t available or convenient, you can use
+Element’s <code class="language-plaintext highlighter-rouge">attributes</code> property. This property is a
+<code class="language-plaintext highlighter-rouge">Map&lt;String, String&gt;</code>, where the keys are attribute names. For a list of
+attribute names and their meanings, see the <a href="https://developer.mozilla.org/docs/Web/HTML/Attributes">MDN Attributes
+page.</a> Here’s an
+example of setting an attribute’s value:</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">elem.attributes['someAttribute'] = 'someValue';</code></pre></div>
+</div>
+
+<h4 id="creating-elements">Creating elements</h4>
+
+<p>You can add to existing HTML pages by creating new elements and
+attaching them to the DOM. Here’s an example of creating a paragraph
+(&lt;p&gt;) element:</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">var elem = ParagraphElement();
+elem.text = 'Creating is easy!';</code></pre></div>
+</div>
+
+<p>You can also create an element by parsing HTML text. Any child elements
+are also parsed and created.</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">var elem2 = Element.html(
+  '&lt;p&gt;Creating &lt;em&gt;is&lt;/em&gt; easy!&lt;/p&gt;',
+);</code></pre></div>
+</div>
+
+<p>Note that <code class="language-plaintext highlighter-rouge">elem2</code> is a <code class="language-plaintext highlighter-rouge">ParagraphElement</code> in the preceding example.</p>
+
+<p>Attach the newly created element to the document by assigning a parent
+to the element. You can add an element to any existing element’s
+children. In the following example, <code class="language-plaintext highlighter-rouge">body</code> is an element, and its child
+elements are accessible (as a <code class="language-plaintext highlighter-rouge">List&lt;Element&gt;</code>) from the <code class="language-plaintext highlighter-rouge">children</code> property.</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">document.body!.children.add(elem2);</code></pre></div>
+</div>
+
+<h4 id="adding-replacing-and-removing-nodes">Adding, replacing, and removing nodes</h4>
+
+<p>Recall that elements are just a kind of node. You can find all the
+children of a node using the <code class="language-plaintext highlighter-rouge">nodes</code> property of Node, which returns a
+<code class="language-plaintext highlighter-rouge">List&lt;Node&gt;</code> (as opposed to <code class="language-plaintext highlighter-rouge">children</code>, which omits non-Element nodes).
+Once you have this list, you can use the usual List methods and
+operators to manipulate the children of the node.</p>
+
+<p>To add a node as the last child of its parent, use the List <code class="language-plaintext highlighter-rouge">add()</code>
+method:</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">querySelector('#inputs')!.nodes.add(elem);</code></pre></div>
+</div>
+
+<p>To replace a node, use the Node <code class="language-plaintext highlighter-rouge">replaceWith()</code> method:</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">querySelector('#status')!.replaceWith(elem);</code></pre></div>
+</div>
+
+<p>To remove a node, use the Node <code class="language-plaintext highlighter-rouge">remove()</code> method:</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">// Find a node by ID, and remove it from the DOM if it is found.
+querySelector('#expendable')?.remove();</code></pre></div>
+</div>
+
+<h4 id="manipulating-css-styles">Manipulating CSS styles</h4>
+
+<p>CSS, or <em>cascading style sheets</em>, defines the presentation styles of DOM
+elements. You can change the appearance of an element by attaching ID
+and class attributes to it.</p>
+
+<p>Each element has a <code class="language-plaintext highlighter-rouge">classes</code> field, which is a list. Add and remove CSS
+classes simply by adding and removing strings from this collection. For
+example, the following sample adds the <code class="language-plaintext highlighter-rouge">warning</code> class to an element:</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">var elem = querySelector('#message')!;
+elem.classes.add('warning');</code></pre></div>
+</div>
+
+<p>It’s often very efficient to find an element by ID. You can dynamically
+set an element ID with the <code class="language-plaintext highlighter-rouge">id</code> property:</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">var message = DivElement();
+message.id = 'message2';
+message.text = 'Please subscribe to the Dart mailing list.';</code></pre></div>
+</div>
+
+<p>You can reduce the redundant text in this example by using method
+cascades:</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">var message = DivElement()
+  ..id = 'message2'
+  ..text = 'Please subscribe to the Dart mailing list.';</code></pre></div>
+</div>
+
+<p>While using IDs and classes to associate an element with a set of styles
+is best practice, sometimes you want to attach a specific style directly
+to the element:</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">message.style
+  ..fontWeight = 'bold'
+  ..fontSize = '3em';</code></pre></div>
+</div>
+
+<h4 id="handling-events">Handling events</h4>
+
+<p>To respond to external events such as clicks, changes of focus, and
+selections, add an event listener. You can add an event listener to any
+element on the page. Event dispatch and propagation is a complicated
+subject; <a href="https://www.w3.org/TR/DOM-Level-3-Events/#dom-event-architecture">research the
+details</a>
+if you’re new to web programming.</p>
+
+<p>Add an event handler using
+<code><em>element</em>.on<em>Event</em>.listen(<em>function</em>)</code>,
+where <code><em>Event</em></code> is the event
+name and <code><em>function</em></code> is the event handler.</p>
+
+<p>For example, here’s how you can handle clicks on a button:</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">// Find a button by ID and add an event handler.
+querySelector('#submitInfo')!.onClick.listen((e) {
+  // When the button is clicked, it runs this code.
+  submitData();
+});</code></pre></div>
+</div>
+
+<p>Events can propagate up and down through the DOM tree. To discover which
+element originally fired the event, use <code class="language-plaintext highlighter-rouge">e.target</code>:</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">document.body!.onClick.listen((e) {
+  final clickedElem = e.target;
+  // ...
+});</code></pre></div>
+</div>
+
+<p>To see all the events for which you can register an event listener, look
+for “onEventType” properties in the API docs for <a href="https://api.dart.dev/stable/dart-html/Element-class.html">Element</a> and its
+subclasses. Some common events include:</p>
+
+<ul>
+  <li>change</li>
+  <li>blur</li>
+  <li>keyDown</li>
+  <li>keyUp</li>
+  <li>mouseDown</li>
+  <li>mouseUp</li>
+</ul>
+
+<h3 id="using-http-resources-with-httprequest">
+<a class="anchor" href="#using-http-resources-with-httprequest" aria-hidden="true"><span class="octicon octicon-link"></span></a>Using HTTP resources with HttpRequest</h3>
+
+<p>Formerly known as XMLHttpRequest, the <a href="https://api.dart.dev/stable/dart-html/HttpRequest-class.html">HttpRequest</a> class
+gives you access to HTTP resources from within your browser-based app.
+Traditionally, AJAX-style apps make heavy use of HttpRequest. Use
+HttpRequest to dynamically load JSON data or any other resource from a
+web server. You can also dynamically send data to a web server.</p>
+
+<h4 id="getting-data-from-the-server">Getting data from the server</h4>
+
+<p>The HttpRequest static method <code class="language-plaintext highlighter-rouge">getString()</code> is an easy way to get data
+from a web server. Use <code class="language-plaintext highlighter-rouge">await</code> with the <code class="language-plaintext highlighter-rouge">getString()</code> call
+to ensure that you have the data before continuing execution.</p>
+<pre class="prettyprint lang-dart"><code>void main() async {
+  String pageHtml = <span class="highlight">await HttpRequest.getString(url);</span>
+  // Do something with pageHtml...
+}</code></pre>
+
+<p>Use try-catch to specify an error handler:</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">try {
+  var data = await HttpRequest.getString(jsonUri);
+  // Process data...
+} catch (e) {
+  // Handle exception...
+}</code></pre></div>
+</div>
+
+<p>If you need access to the HttpRequest, not just the text data it
+retrieves, you can use the <code class="language-plaintext highlighter-rouge">request()</code> static method instead of
+<code class="language-plaintext highlighter-rouge">getString()</code>. Here’s an example of reading XML data:</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">void main() async {
+  HttpRequest req = await HttpRequest.request(
+    url,
+    method: 'HEAD',
+  );
+  if (req.status == 200) {
+    // Successful URL access...
+  }
+  // ···
+}</code></pre></div>
+</div>
+
+<p>You can also use the full API to handle more interesting cases. For
+example, you can set arbitrary headers.</p>
+
+<p>The general flow for using the full API of HttpRequest is as follows:</p>
+
+<ol>
+  <li>Create the HttpRequest object.</li>
+  <li>Open the URL with either <code class="language-plaintext highlighter-rouge">GET</code> or <code class="language-plaintext highlighter-rouge">POST</code>.</li>
+  <li>Attach event handlers.</li>
+  <li>Send the request.</li>
+</ol>
+
+<p>For example:</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">var request = HttpRequest();
+request
+  ..open('POST', url)
+  ..onLoadEnd.listen((e) =&gt; requestComplete(request))
+  ..send(encodedData);</code></pre></div>
+</div>
+
+<h4 id="sending-data-to-the-server">Sending data to the server</h4>
+
+<p>HttpRequest can send data to the server using the HTTP method POST. For
+example, you might want to dynamically submit data to a form handler.
+Sending JSON data to a RESTful web service is another common example.</p>
+
+<p>Submitting data to a form handler requires you to provide name-value
+pairs as URI-encoded strings. (Information about the URI class is in
+the <a href="/guides/libraries/library-tour#uris">URIs section</a> of the <a href="/guides/libraries/library-tour">Dart Library Tour.</a>)
+You must also set the <code class="language-plaintext highlighter-rouge">Content-type</code> header to
+<code class="language-plaintext highlighter-rouge">application/x-www-form-urlencoded</code> if you wish to send data to a form
+handler.</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">String encodeMap(Map&lt;String, String&gt; data) =&gt; data.entries
+    .map((e) =&gt;
+        '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
+    .join('&amp;');
+
+void main() async {
+  const data = {'dart': 'fun', 'angular': 'productive'};
+
+  var request = HttpRequest();
+  request
+    ..open('POST', url)
+    ..setRequestHeader(
+      'Content-type',
+      'application/x-www-form-urlencoded',
+    )
+    ..send(encodeMap(data));
+
+  await request.onLoadEnd.first;
+
+  if (request.status == 200) {
+    // Successful URL access...
+  }
+  // ···
+}</code></pre></div>
+</div>
+
+<h3 id="sending-and-receiving-real-time-data-with-websockets">
+<a class="anchor" href="#sending-and-receiving-real-time-data-with-websockets" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sending and receiving real-time data with WebSockets</h3>
+
+<p>A WebSocket allows your web app to exchange data with a server
+interactively—no polling necessary. A server creates the WebSocket and
+listens for requests on a URL that starts with <strong>ws://</strong>—for example,
+ws://127.0.0.1:1337/ws. The data transmitted over a WebSocket can be a
+string or a blob.  Often, the data is a JSON-formatted string.</p>
+
+<p>To use a WebSocket in your web app, first create a <a href="https://api.dart.dev/stable/dart-io/WebSocket-class.html">WebSocket</a> object, passing
+the WebSocket URL as an argument:</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">var ws = WebSocket('ws://echo.websocket.org');</code></pre></div>
+</div>
+
+<h4 id="sending-data">Sending data</h4>
+
+<p>To send string data on the WebSocket, use the <code class="language-plaintext highlighter-rouge">send()</code> method:</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">ws.send('Hello from Dart!');</code></pre></div>
+</div>
+
+<h4 id="receiving-data">Receiving data</h4>
+
+<p>To receive data on the WebSocket, register a listener for message
+events:</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">ws.onMessage.listen((MessageEvent e) {
+  print('Received message: ${e.data}');
+});</code></pre></div>
+</div>
+
+<p>The message event handler receives a <a href="https://api.dart.dev/stable/dart-html/MessageEvent-class.html">MessageEvent</a> object.
+This object’s <code class="language-plaintext highlighter-rouge">data</code> field has the data from the server.</p>
+
+<h4 id="handling-websocket-events">Handling WebSocket events</h4>
+
+<p>Your app can handle the following WebSocket events: open, close, error,
+and (as shown earlier) message. Here’s an example of a method that
+creates a WebSocket object and registers handlers for open, close,
+error, and message events:</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">void initWebSocket([int retrySeconds = 1]) {
+  var reconnectScheduled = false;
+
+  print('Connecting to websocket');
+
+  void scheduleReconnect() {
+    if (!reconnectScheduled) {
+      Timer(Duration(seconds: retrySeconds),
+          () =&gt; initWebSocket(retrySeconds * 2));
+    }
+    reconnectScheduled = true;
+  }
+
+  ws.onOpen.listen((e) {
+    print('Connected');
+    ws.send('Hello from Dart!');
+  });
+
+  ws.onClose.listen((e) {
+    print('Websocket closed, retrying in $retrySeconds seconds');
+    scheduleReconnect();
+  });
+
+  ws.onError.listen((e) {
+    print('Error connecting to ws');
+    scheduleReconnect();
+  });
+
+  ws.onMessage.listen((MessageEvent e) {
+    print('Received message: ${e.data}');
+  });
+}</code></pre></div>
+</div>
+
+<h3 id="more-information-3">
+<a class="anchor" href="#more-information-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>More information</h3>
+
+<p>This section barely scratched the surface of using the dart:html
+library. For more information, see the documentation for
+<a href="https://api.dart.dev/stable/dart-html/dart-html-library.html">dart:html.</a>
+Dart has additional libraries for more specialized web APIs, such as
+<a href="https://api.dart.dev/stable/dart-web_audio/dart-web_audio-library.html">web audio,</a> <a href="https://api.dart.dev/stable/dart-indexed_db/dart-indexed_db-library.html">IndexedDB,</a> and <a href="https://api.dart.dev/stable/dart-web_gl/dart-web_gl-library.html">WebGL.</a></p>
+
+<p>For more information about Dart web libraries, see the
+<a href="/web/libraries">web library overview.</a></p>
+
+<h2 id="dartio">
+<a class="anchor" href="#dartio" aria-hidden="true"><span class="octicon octicon-link"></span></a>dart:io - 伺服器和命令列應用程式的 I/O 。</h2>
+
+
+
+<p>The <a href="https://api.dart.dev/stable/dart-io/dart-io-library.html">dart:io</a> library provides APIs to deal with
+files, directories, processes, sockets, WebSockets, and HTTP
+clients and servers.</p>
+
+<aside class="alert alert-warning" role="alert">
+  <p><i class="material-icons" aria-hidden="true">error</i> <strong>重要說明:</strong>
+  Only non-web <a href="https://flutter.tw">Flutter apps,</a> command-line scripts, 
+  and servers can import and use <code class="language-plaintext highlighter-rouge">dart:io</code>, not web apps.</p>
+</aside>
+
+<p>In general, the dart:io library implements and promotes an asynchronous
+API. Synchronous methods can easily block an application, making it
+difficult to scale. Therefore, most operations return results via Future
+or Stream objects, a pattern common with modern server platforms such as
+Node.js.</p>
+
+<p>The few synchronous methods in the dart:io library are clearly marked
+with a Sync suffix on the method name. Synchronous methods aren’t covered here.</p>
+
+<p>To use the dart:io library you must import it:</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">import 'dart:io';</code></pre></div>
+</div>
+
+<h3 id="files-and-directories">
+<a class="anchor" href="#files-and-directories" aria-hidden="true"><span class="octicon octicon-link"></span></a>Files and directories</h3>
+
+<p>The I/O library enables command-line apps to read and write files and
+browse directories. You have two choices for reading the contents of a
+file: all at once, or streaming. Reading a file all at once requires
+enough memory to store all the contents of the file. If the file is very
+large or you want to process it while reading it, you should use a
+Stream, as described in
+<a href="#streaming-file-contents">Streaming file contents</a>.</p>
+
+<h4 id="reading-a-file-as-text">Reading a file as text</h4>
+
+<p>When reading a text file encoded using UTF-8, you can read the entire
+file contents with <code class="language-plaintext highlighter-rouge">readAsString()</code>. When the individual lines are
+important, you can use <code class="language-plaintext highlighter-rouge">readAsLines()</code>. In both cases, a Future object
+is returned that provides the contents of the file as one or more
+strings.</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">void main() async {
+  var config = File('config.txt');
+
+  // Put the whole file in a single string.
+  var stringContents = await config.readAsString();
+  print('The file is ${stringContents.length} characters long.');
+
+  // Put each line of the file into its own string.
+  var lines = await config.readAsLines();
+  print('The file is ${lines.length} lines long.');
+}</code></pre></div>
+</div>
+
+<h4 id="reading-a-file-as-binary">Reading a file as binary</h4>
+
+<p>The following code reads an entire file as bytes into a list of ints.
+The call to <code class="language-plaintext highlighter-rouge">readAsBytes()</code> returns a Future, which provides the result
+when it’s available.</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">void main() async {
+  var config = File('config.txt');
+
+  var contents = await config.readAsBytes();
+  print('The file is ${contents.length} bytes long.');
+}</code></pre></div>
+</div>
+
+<h4 id="handling-errors">Handling errors</h4>
+
+<p>To capture errors so they don’t result in uncaught exceptions, you can
+register a <code class="language-plaintext highlighter-rouge">catchError</code> handler on the Future,
+or (in an <code class="language-plaintext highlighter-rouge">async</code> function) use try-catch:</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">void main() async {
+  var config = File('config.txt');
+  try {
+    var contents = await config.readAsString();
+    print(contents);
+  } catch (e) {
+    print(e);
+  }
+}</code></pre></div>
+</div>
+
+<h4 id="streaming-file-contents">Streaming file contents</h4>
+
+<p>Use a Stream to read a file, a little at a time.
+You can use either the <a href="/guides/libraries/library-tour#stream">Stream API</a>
+or <code class="language-plaintext highlighter-rouge">await for</code>, part of Dart’s
+<a href="/language/async">asynchrony support.</a></p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">import 'dart:io';
+import 'dart:convert';
+
+void main() async {
+  var config = File('config.txt');
+  Stream&lt;List&lt;int&gt;&gt; inputStream = config.openRead();
+
+  var lines = utf8.decoder.bind(inputStream).transform(const LineSplitter());
+  try {
+    await for (final line in lines) {
+      print('Got ${line.length} characters from stream');
+    }
+    print('file is now closed');
+  } catch (e) {
+    print(e);
+  }
+}</code></pre></div>
+</div>
+
+<h4 id="writing-file-contents">Writing file contents</h4>
+
+<p>You can use an <a href="https://api.dart.dev/stable/dart-io/IOSink-class.html">IOSink</a> to
+write data to a file. Use the File <code class="language-plaintext highlighter-rouge">openWrite()</code> method to get an IOSink
+that you can write to. The default mode, <code class="language-plaintext highlighter-rouge">FileMode.write</code>, completely
+overwrites existing data in the file.</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">var logFile = File('log.txt');
+var sink = logFile.openWrite();
+sink.write('FILE ACCESSED ${DateTime.now()}\n');
+await sink.flush();
+await sink.close();</code></pre></div>
+</div>
+
+<p>To add to the end of the file, use the optional <code class="language-plaintext highlighter-rouge">mode</code> parameter to
+specify <code class="language-plaintext highlighter-rouge">FileMode.append</code>:</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">var sink = logFile.openWrite(mode: FileMode.append);</code></pre></div>
+</div>
+
+<p>To write binary data, use <code class="language-plaintext highlighter-rouge">add(List&lt;int&gt; data)</code>.</p>
+
+<h4 id="listing-files-in-a-directory">Listing files in a directory</h4>
+
+<p>Finding all files and subdirectories for a directory is an asynchronous
+operation. The <code class="language-plaintext highlighter-rouge">list()</code> method returns a Stream that emits an object
+when a file or directory is encountered.</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">void main() async {
+  var dir = Directory('tmp');
+
+  try {
+    var dirList = dir.list();
+    await for (final FileSystemEntity f in dirList) {
+      if (f is File) {
+        print('Found file ${f.path}');
+      } else if (f is Directory) {
+        print('Found dir ${f.path}');
+      }
+    }
+  } catch (e) {
+    print(e.toString());
+  }
+}</code></pre></div>
+</div>
+
+<h4 id="other-common-functionality">Other common functionality</h4>
+
+<p>The File and Directory classes contain other functionality, including
+but not limited to:</p>
+
+<ul>
+  <li>Creating a file or directory: <code class="language-plaintext highlighter-rouge">create()</code> in File and Directory</li>
+  <li>Deleting a file or directory: <code class="language-plaintext highlighter-rouge">delete()</code> in File and Directory</li>
+  <li>Getting the length of a file: <code class="language-plaintext highlighter-rouge">length()</code> in File</li>
+  <li>Getting random access to a file: <code class="language-plaintext highlighter-rouge">open()</code> in File</li>
+</ul>
+
+<p>Refer to the API docs for <a href="https://api.dart.dev/stable/dart-io/File-class.html">File</a> and <a href="https://api.dart.dev/stable/dart-io/Directory-class.html">Directory</a> for a full
+list of methods.</p>
+
+<h3 id="http-clients-and-servers">
+<a class="anchor" href="#http-clients-and-servers" aria-hidden="true"><span class="octicon octicon-link"></span></a>HTTP clients and servers</h3>
+
+<p>The dart:io library provides classes that command-line apps can use for
+accessing HTTP resources, as well as running HTTP servers.</p>
+
+<h4 id="http-server">HTTP server</h4>
+
+<p>The <a href="https://api.dart.dev/stable/dart-io/HttpServer-class.html">HttpServer</a> class
+provides the low-level functionality for building web servers. You can
+match request handlers, set headers, stream data, and more.</p>
+
+<p>The following sample web server returns simple text information.
+This server listens on port 8888 and address 127.0.0.1 (localhost),
+responding to requests for the path <code class="language-plaintext highlighter-rouge">/dart</code>. For any other path,
+the response is status code 404 (page not found).</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">void main() async {
+  final requests = await HttpServer.bind('localhost', 8888);
+  await for (final request in requests) {
+    processRequest(request);
+  }
+}
+
+void processRequest(HttpRequest request) {
+  print('Got request for ${request.uri.path}');
+  final response = request.response;
+  if (request.uri.path == '/dart') {
+    response
+      ..headers.contentType = ContentType(
+        'text',
+        'plain',
+      )
+      ..write('Hello from the server');
+  } else {
+    response.statusCode = HttpStatus.notFound;
+  }
+  response.close();
+}</code></pre></div>
+</div>
+
+<h4 id="http-client">HTTP client</h4>
+
+<p>The <a href="https://api.dart.dev/stable/dart-io/HttpClient-class.html">HttpClient</a> class
+helps you connect to HTTP resources from your Dart command-line or
+server-side application. You can set headers, use HTTP methods, and read
+and write data. The HttpClient class does not work in browser-based
+apps. When programming in the browser, use the
+<a href="https://api.dart.dev/stable/dart-html/HttpRequest-class.html">dart:html HttpRequest class.</a>
+Here’s an example of using HttpClient:</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">void main() async {
+  var url = Uri.parse('http://localhost:8888/dart');
+  var httpClient = HttpClient();
+  var request = await httpClient.getUrl(url);
+  var response = await request.close();
+  var data = await utf8.decoder.bind(response).toList();
+  print('Response ${response.statusCode}: $data');
+  httpClient.close();
+}</code></pre></div>
+</div>
+
+<h3 id="more-information-4">
+<a class="anchor" href="#more-information-4" aria-hidden="true"><span class="octicon octicon-link"></span></a>More information</h3>
+
+<p>This page showed how to use the major features of the <a href="https://api.dart.dev/stable/dart-io/dart-io-library.html">dart:io</a> library.
+Besides the APIs discussed in this section, the dart:io library also
+provides APIs for <a href="https://api.dart.dev/stable/dart-io/Process-class.html">processes,</a> <a href="https://api.dart.dev/stable/dart-io/Socket-class.html">sockets,</a> and
+<a href="https://api.dart.dev/stable/dart-io/WebSocket-class.html">web sockets.</a>
+For more information about server-side and command-line app development, see the
+<a href="/server">server-side Dart overview.</a></p>
+
+<h2 id="summary">
+<a class="anchor" href="#summary" aria-hidden="true"><span class="octicon octicon-link"></span></a>總結</h2>
+
+
+
+<p>本頁向您介紹了 Dart 內建庫中最常用的功能。但是，並沒有涵蓋所有內建庫。您可能想要檢視的其他內容包括 <a href="https://api.dart.dev/stable/dart-collection/dart-collection-library.html">dart:collection</a> 和 <a href="https://api.dart.dev/stable/dart-typed_data/dart-typed_data-library.html">dart:typed_data,</a> ，以及特定於平台的函式庫，如 <a href="/web/libraries">Dart web development libraries</a> 和 <a href="https://api.flutter.dev">Flutter libraries.</a> 。</p>
+
+
+
+<p>您可以使用 <a href="/guides/packages">pub 包管理</a> 工具獲得更多庫。
+<a href="https://pub.dev/packages/collection">collection,</a>
+<a href="https://pub.dev/packages/crypto">crypto,</a>
+<a href="https://pub.dev/packages/http">http,</a>
+<a href="https://pub.dev/packages/intl">intl,</a> 以及
+<a href="https://pub.dev/packages/test">test</a>
+以上只是簡單的列舉了一些可以透過 pub 安裝的函式庫。</p>
+
+
+
+<p>要了解有關 Dart 語言的更多資訊，請參考 <a href="/language">語言概覽</a>。</p>
+
+
+
+
+          
+
+        </div>
+      </article>
+    </main>
+    <footer id="page-footer">
+    <div class="footer-section footer-main">
+      <a href="/" class="brand" title="Dart">
+        <img src="/assets/img/shared/dart/logo+text/horizontal/white.svg" alt="Dart" width="164px">
+      </a>
+      <div class="footer-social-links">
+        <a href="https://github.com/doggy8088/dart.tw" target="_blank" rel="noopener" title="GitHub" class="no-automatic-external">
+          <svg>
+            <use href="/assets/img/social/github.svg#github"></use>
+          </svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-section footer-tray">
+      <div class="footer-licenses">
+        參考中文內容需註明本站及連結作為出處，英文內容和範例程式碼均遵從源站授權協議。
+      </div>
+      <div class="footer-utility-links">
+        <ul>
+          <li><a href="/terms" title="使用條款">使用條款</a></li>
+          <li><a href="https://policies.google.com/privacy?hl=zh-TW" target="_blank" rel="noopener" title="隱私政策" class="no-automatic-external">隱私政策</a></li>
+          <li><a href="/security" title="Security philosophy and practices">Dart 程式碼安全說明</a></li>
+          <li><a href="https://flutter.tw/about" target="_blank">關於中文文件</a>
+          </li><li><a href="https://flutter.tw/disclaimer" target="_blank">免責條款</a>
+          </li><li><a href="https://dart.cn/" target="_blank">Dart 簡體中文文檔</a>
+        </li></ul>
+      </div>
+    </div>
+  </footer>
+
+  
+
+<script src="/assets/translator/js/translator.js"></script></body></html>

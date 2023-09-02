@@ -1,0 +1,1401 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Language" content="zh-cmn-Hans">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Google Tag Manager -->
+<!--  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':-->
+<!--  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],-->
+<!--  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=-->
+<!--  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);-->
+<!--  })(window,document,'script','dataLayer','GTM-5VSZM5J');</script>-->
+  <!-- End Google Tag Manager -->
+
+  <meta name="description" content="A list of what’s new on dart.dev and related sites.">
+  <title>What’s new | Dart</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-28P0PYCRZ9"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-28P0PYCRZ9');
+  </script>
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?fa71f2474b82505e00203cf9956cf0bc";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+  <!-- Favicon / Touch Icons -->
+  <link rel="icon" sizes="64x64" href="/assets/shared/dart/icon/64.png">
+  <link href="/assets/img/touch-icon-iphone.png" rel="apple-touch-icon">
+  <link href="/assets/img/touch-icon-ipad.png" rel="apple-touch-icon" sizes="152x152">
+  <link href="/assets/img/touch-icon-iphone-retina.png" rel="apple-touch-icon" sizes="180x180">
+  <link href="/assets/img/touch-icon-ipad-retina.png" rel="apple-touch-icon" sizes="167x167">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@dart_lang">
+  <meta name="twitter:title" content="What’s new">
+  <meta name="twitter:description" content="A list of what’s new on dart.dev and related sites.">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="What’s new">
+  <meta property="og:description" content="A list of what’s new on dart.dev and related sites.">
+  <meta property="og:url" content="https://dart.tw.gh.miniasp.com/guides/whats-new">
+
+  <meta property="og:image" content="https://dart.tw.gh.miniasp.com/assets/shared/dart-logo-for-shares.png?2">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Display:wght@400&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons&amp;display=swap" rel="stylesheet">
+  <script src="https://cdn.staticfile.org/font-awesome/5.15.4/js/all.js" data-auto-replace-svg="nest">
+  </script>
+
+  <link rel="stylesheet" href="/assets/css/main.css?v=1693674404">
+  <script src="https://cdn.staticfile.org/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.staticfile.org/popper.js/1.16.1/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.staticfile.org/bootstrap/4.6.2/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!-- <script src="https://cdn.staticfile.org/js-cookie/3.0.5/js.cookie.min.js"
+          integrity="sha512-nlp9/l96/EpjYBx7EP7pGASVXNe80hGhYAUrjeXnu/fyF5Py0/RXav4BBNs7n5Hx1WFhOEOWSAVjGeC3oKxDVQ=="
+          crossorigin="anonymous"
+          referrerpolicy="no-referrer"></script> -->
+
+  <script src="/assets/js/vendor/code-prettify/prettify.js"></script>
+  <script src="/assets/js/vendor/code-prettify/lang-dart.js"></script>
+  <script src="/assets/js/vendor/code-prettify/lang-yaml.js"></script>
+  <script src="/assets/js/os-tabs.js?v=1693674404"></script>
+  <script src="/assets/js/utilities.js?v=1693674404"></script>
+  <script src="/assets/js/main.js?v=1693674404"></script>
+
+  <script>
+
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-122680122-5', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+
+ <link href="/assets/translator/css/translator.css" rel="stylesheet"></head>
+
+  <body class="default show_banner">
+    <section id="cookie-notice">
+  <div class="container">
+    <p>Google uses cookies to deliver its services, to personalize ads, and to 
+      analyze traffic. You can adjust your privacy controls anytime in your 
+      <a href="https://myaccount.google.com/data-and-personalization" target="_blank" rel="noopener" class="no-automatic-external">Google settings</a>. 
+      <a href="https://policies.google.com/technologies/cookies" target="_blank" rel="noopener" class="no-automatic-external">Learn more</a>.
+    </p>
+    <button id="cookie-consent" class="btn btn-primary">Okay</button>
+  </div>
+</section>
+
+    <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=G-28P0PYCRZ9"
+ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+    <header id="page-header" class="site-header">
+  <nav id="mainnav" class="site-header">
+  <div id="menu-toggle"><i class="material-icons">menu</i></div>
+  <a href="/" class="brand" title="Dart">
+    <img src="/assets/img/shared/dart/logo+text/horizontal/white.svg" alt="Dart">
+  </a>
+  <ul class="navbar">
+    <li>
+      <a href="/overview" class="nav-link">概覽</a>
+    </li>
+    <li class="mainnav__get-started">
+      <a href="/guides" class="nav-link
+         active">
+        <span>文件</span>
+      </a>
+    </li>
+    <li>
+      <a href="/community" class="nav-link">社群</a>
+    </li>
+    <li>
+      <a href="/#try-dart" class="nav-link">嘗試 Dart</a>
+    </li>
+    <li>
+      <a href="/get-dart" class="nav-link">獲取 Dart SDK</a>
+    </li>
+    <li class="searchfield">
+      <form action="/search" class="site-header__search form-inline" id="cse-search-box">
+        <input type="hidden" name="cx" value="011220921317074318178:_yy-tmb5t_i">
+        <input type="hidden" name="ie" value="UTF-8">
+        <input type="hidden" name="hl" value="en">
+        <input class="site-header__searchfield form-control search-field" type="search" name="q" id="q" autocomplete="off" placeholder="Search" aria-label="Search">
+      </form>
+    </li>
+  </ul>
+</nav>
+
+  
+</header>
+ <div class="banner">
+  <p class="banner__text">
+    Dart 3 已釋出！帶來了全新的
+    <a href="https://dart.tw.gh.miniasp.com/language/records" class="no-automatic-external">記錄型別 (records)</a>、
+    <a href="https://dart.tw.gh.miniasp.com/language/patterns" class="no-automatic-external">模式匹配 (patterns)</a>
+    以及 <a href="https://dart.tw.gh.miniasp.com/language/class-modifiers" class="no-automatic-external">型別修飾符 (class modifiers)</a>。
+    <br>
+    <!--<a href="https://medium.com/p/53f065a10635" class="no-automatic-external">Check out the blog post</a>!-->
+  </p>
+</div>
+ 
+
+    <div id="sidenav" class="">
+  <form action="/search/" class="site-header__search form-inline">
+    <input class="site-header__searchfield form-control search-field" type="search" name="q" id="q" autocomplete="off" placeholder="Search" aria-label="Search">
+  </form>
+
+  <div class="site-sidebar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a href="/overview" class="nav-link">概覽</a>
+      </li>
+      <li class="nav-item">
+        <a href="/community" class="nav-link">社群</a>
+      </li>
+      <li class="nav-item">
+        <a href="https://dartpad.dev" class="nav-link">嘗試 Dart</a>
+      </li>
+      <li class="nav-item">
+        <a href="/get-dart" class="nav-link">獲取 Dart SDK</a>
+      </li>
+      <li class="nav-item">
+        <a href="/guides" class="nav-link active">文件</a>
+      </li>
+    </ul>
+
+    <ul class="nav flex-column"><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-1" role="button" aria-expanded="false" aria-controls="sidenav-1">範例和課程</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-1">
+        <li class="nav-item">
+    <a class="nav-link" href="/tutorials">語言概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable" data-toggle="collapse" data-target="#sidenav-1-2" href="#sidenav-1-2" role="button" aria-expanded="true" aria-controls="sidenav-1-2">Codelabs
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-1-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/codelabs">Codelabs 列表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/dart-cheatsheet">Dart 速查表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/iterables">可迭代集合</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/async-await">Dart 非同步程式設計</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/null-safety">空安全</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-2" role="button" aria-expanded="false" aria-controls="sidenav-2">Dart 開發語言</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2">
+        <li class="nav-item">
+    <a class="nav-link" href="/language">介紹</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-2" href="#sidenav-2-2" role="button" aria-expanded="false" aria-controls="sidenav-2-2">基礎表示式
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/variables">變數</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/operators">運運算元</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/comments">註釋</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/metadata">註解</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/libraries">庫 &amp; 導庫</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/keywords">關鍵字</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-3" href="#sidenav-2-3" role="button" aria-expanded="false" aria-controls="sidenav-2-3">型別
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-3">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/built-in-types">基本型別</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/records">記錄 (Records)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/collections">集合 (Collections)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/generics">泛型 (Generics)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/typedefs">別名 (Typedefs)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/type-system">型別系統</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-4" href="#sidenav-2-4" role="button" aria-expanded="false" aria-controls="sidenav-2-4">模式匹配
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-4">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/patterns">概覽 &amp; 用法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/pattern-types">模式匹配型別</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/language/functions">函式方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-6" href="#sidenav-2-6" role="button" aria-expanded="false" aria-controls="sidenav-2-6">控制流
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-6">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/loops">迴圈</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/branches">分支</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/language/error-handling">錯誤處理</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-8" href="#sidenav-2-8" role="button" aria-expanded="false" aria-controls="sidenav-2-8">類 &amp; 物件
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-8">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/classes">類</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/constructors">構造方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/methods">成員方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/extend">繼承</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/mixins">混入 (Mixin)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/enums">列舉</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/extension-methods">擴充方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/callable-objects">可呼叫的物件</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-9" href="#sidenav-2-9" role="button" aria-expanded="false" aria-controls="sidenav-2-9">型別修飾符
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-9">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/class-modifiers">概覽 &amp; 用法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/class-modifiers-for-apis">API 維護者應該用的型別修飾符</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/modifier-reference">速查表</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-10" href="#sidenav-2-10" role="button" aria-expanded="false" aria-controls="sidenav-2-10">併發
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-10">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/async">非同步支援</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/concurrency">Isolates</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-11" href="#sidenav-2-11" role="button" aria-expanded="false" aria-controls="sidenav-2-11">Null safety
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-11">
+      <li class="nav-item">
+    <a class="nav-link" href="/null-safety">健全的空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/migration-guide">遷移到空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/understanding-null-safety">深入理解空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/unsound-null-safety">非健全的空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/faq">空安全常見問題和解答</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-3" role="button" aria-expanded="false" aria-controls="sidenav-3">高效指南 (Effective Dart)</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-3">
+        <li class="nav-item">
+    <a class="nav-link" href="/effective-dart">概述</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/style">程式碼風格</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/documentation">文件</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/usage">用法範例</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/design">API 設計</a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-4" role="button" aria-expanded="false" aria-controls="sidenav-4">核心函式庫</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-4">
+        <li class="nav-item">
+    <a class="nav-link" href="/guides/libraries">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/library-tour">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-4-3" href="#sidenav-4-3" role="button" aria-expanded="false" aria-controls="sidenav-4-3">介紹文章
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-4-3">
+      <li class="nav-item">
+    <a class="nav-link" href="/articles/libraries/creating-streams">建立 stream</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-5" role="button" aria-expanded="false" aria-controls="sidenav-5">Packages</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-5">
+        <li class="nav-item">
+    <a class="nav-link" href="/guides/packages">如何使用 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/useful-libraries">常用 package 介紹</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/create-packages">建立 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/publishing">釋出 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/writing-package-pages">設定 package 介紹頁</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-5-6" href="#sidenav-5-6" role="button" aria-expanded="false" aria-controls="sidenav-5-6">Package 參考資料
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-5-6">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/pub/dependencies">依賴</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/glossary">術語表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/package-layout">Package 檔案結構</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/environment-variables">設定環境變數</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/pubspec">Pubspec 檔案</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/troubleshoot">問題排查</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/verified-publishers">釋出者認證</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/versioning">版本管理</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-6" role="button" aria-expanded="false" aria-controls="sidenav-6">開發文件</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6">
+        <li class="nav-item">
+    <a class="nav-link" href="/codelabs/async-await">Futures、async 和 await</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/language/streams">Streams 介紹</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/json">使用 JSON</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/numbers">Dart 中的數字</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-5" href="#sidenav-6-5" role="button" aria-expanded="false" aria-controls="sidenav-6-5">與其他語言進行互動呼叫
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-5">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/c-interop">與 C 互調</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/objective-c-interop">與 Objective-C 和 Swift 互調</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/java-interop">與 Java 和 Kotlin 互調</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/web/js-interop">與 JavaScript 互調</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/guides/google-apis">Google APIs</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/multiplatform-apps">跨平臺應用</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-8" href="#sidenav-6-8" role="button" aria-expanded="false" aria-controls="sidenav-6-8">命令列和伺服器端應用
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-8">
+      <li class="nav-item">
+    <a class="nav-link" href="/server">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/get-started">起步課程</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/cmdline">命令列應用</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/fetch-data">從網路上獲取資料</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/httpserver">編寫 HTTP 伺服器端應用</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/server/libraries">庫和 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/server/google-cloud">Google Cloud</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-9" href="#sidenav-6-9" role="button" aria-expanded="false" aria-controls="sidenav-6-9">網頁端 (Web) 應用
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-9">
+      <li class="nav-item">
+    <a class="nav-link" href="/web">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/get-started">開始使用</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-9-3" href="#sidenav-6-9-3" role="button" aria-expanded="false" aria-controls="sidenav-6-9-3">底層 Web 程式設計
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-9-3">
+      <li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/low-level-html/connect-dart-html">Dart 與 HTML 關聯</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/low-level-html/add-elements">向 DOM 新增元素</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/low-level-html/remove-elements">移除 DOM 元素</a>
+  </li>
+  </ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/web/deployment">部署</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/web/libraries">常用 Web 函式庫和 package</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/guides/environment-declarations">環境變數宣告</a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-7" role="button" aria-expanded="false" aria-controls="sidenav-7">開發工具和使用技巧</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7">
+        <li class="nav-item">
+    <a class="nav-link" href="/tools">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-2" href="#sidenav-7-2" role="button" aria-expanded="false" aria-controls="sidenav-7-2">編輯器和除錯工具
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/jetbrains-plugin">使用 IntelliJ 和 Android Studio</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/vs-code">使用 VS Code</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/dart-devtools">Dart 開發者工具</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-2-4" href="#sidenav-7-2-4" role="button" aria-expanded="false" aria-controls="sidenav-7-2-4">線上執行 Dart 程式碼
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-2-4">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/dartpad">Overview</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dartpad/dartpad-best-practices">DartPad 課程</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dartpad/troubleshoot">DartPad 疑難解答</a>
+  </li>
+  </ul>
+  </li>
+</ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-3" href="#sidenav-7-3" role="button" aria-expanded="false" aria-controls="sidenav-7-3">命令列工具
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-3">
+      <li class="nav-item">
+    <a class="nav-link collapsable" data-toggle="collapse" data-target="#sidenav-7-3-1" href="#sidenav-7-3-1" role="button" aria-expanded="true" aria-controls="sidenav-7-3-1">Dart SDK
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-7-3-1">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/sdk">概覽</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-tool">dart 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-analyze">dart analyze 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-compile">dart compile 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-create">dart create 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-doc">dart doc 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-fix">dart fix 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-format">dart format 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-info">dart info 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/pub/cmd">dart pub 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-run">dart run 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-test">dart test 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dartaotruntime">dartaotruntime 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/experiment-flags">實驗性命令標記</a>
+  </li>
+  </ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable" data-toggle="collapse" data-target="#sidenav-7-3-2" href="#sidenav-7-3-2" role="button" aria-expanded="true" aria-controls="sidenav-7-3-2">其他的命令列工具
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-7-3-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/build_runner">build_runner 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/webdev">webdev 命令</a>
+  </li>
+  </ul>
+  </li>
+</ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-4" href="#sidenav-7-4" role="button" aria-expanded="false" aria-controls="sidenav-7-4">原始碼管理
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-4">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/language/formatting">程式碼格式化</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/private-files">不應提交的內容</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-5" href="#sidenav-7-5" role="button" aria-expanded="false" aria-controls="sidenav-7-5">靜態分析
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-5">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/analysis">自訂靜態分析</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/sound-problems">修復常見的型別問題</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/diagnostic-messages">診斷訊息</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/linter-rules">Linter 規則</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-6" href="#sidenav-7-6" role="button" aria-expanded="false" aria-controls="sidenav-7-6">測試和調優
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-6">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/testing">測試</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/web/debugging">除錯 Web 應用</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-8" role="button" aria-expanded="false" aria-controls="sidenav-8">資源</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-8">
+        <li class="nav-item">
+    <a class="nav-link" href="/resources/faq">常見問題</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/evolution">版本演變</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/spec">語言規範</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/resources/dart-3-migration">Dart 3 遷移指南</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-8-5" href="#sidenav-8-5" role="button" aria-expanded="false" aria-controls="sidenav-8-5">從其他平台轉向 Dart
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-8-5">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/language/coming-from/js-to-dart">從 JavaScript 到 Dart</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/coming-from/swift-to-dart">從 Swift 到 Dart</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/resources/glossary">詞彙表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/resources/books">書籍資源</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/resources/videos">影片資源</a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link " data-toggle="collapse" href="#sidenav-9" role="button" aria-expanded="true" aria-controls="sidenav-9">相關站點</a>
+
+      <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-9">
+        <li class="nav-item">
+    <a class="nav-link" href="https://api.dart.dev" target="_blank" rel="noopener">API 文件<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://medium.com/dartlang" target="_blank" rel="noopener">Dart 團隊官方部落格<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://dartpad.dev" target="_blank" rel="noopener">DartPad (線上編輯器)<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://flutter.tw" target="_blank" rel="noopener">Flutter<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://pub.dev" target="_blank" rel="noopener">Package 網站<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-10" role="button" aria-expanded="false" aria-controls="sidenav-10">關於 Dart 中文文件</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-10">
+        <li class="nav-item">
+    <a class="nav-link" href="https://flutter.tw/about/docs-cn" target="_blank" rel="noopener">關於本站<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://flutter.tw/disclaimer" target="_blank" rel="noopener">免責條款 (Disclaimer)<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li>
+</ul>
+    </li></ul>
+
+  </div>
+</div>
+
+    <main id="page-content">
+      
+
+
+
+
+
+
+
+<div id="site-toc--side" class="site-toc ">
+  <header class="site-toc__title">
+    目錄
+    
+  </header>
+  <ul id="toc" class="section-nav">
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#january-25-2023-219--30-alpha-releases">January 25, 2023: 2.19 + 3.0 alpha releases</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#august-30-2022-218-release">August 30, 2022: 2.18 release</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#may-11-2022-217-release">May 11, 2022: 2.17 release</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#february-3-2022-216-release">February 3, 2022: 2.16 release</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#december-8-2021-215-release">December 8, 2021: 2.15 release</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#september-8-2021-214-release">September 8, 2021: 2.14 release</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#may-19-2021-213-release">May 19, 2021: 2.13 release</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#march-3-2021-212-release">March 3, 2021: 2.12 release</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#october-1-2020-210-release">October 1, 2020: 2.10 release</a></li>
+</ul>
+  
+</div>
+
+
+      <article>
+        <div class="content">
+          
+
+          <div id="site-content-title">
+            <div id="page-github-links" class="btn-group" aria-label="Page GitHub links" role="group">
+  <a href="https://github.com/doggy8088/dart.tw/tree/master/src/_guides/whats-new.md" class="btn no-automatic-external" title="View page source" target="_blank" rel="noopener">
+    <i class="material-icons">description</i>
+  </a>
+  <a href="https://github.com/doggy8088/dart.tw/issues/new?template=1_page_issue.yml&amp;title=[PAGE ISSUE]: 'What’s new'&amp;page-url=https://dart.tw.gh.miniasp.com/guides/whats-new&amp;page-source=https://github.com/doggy8088/dart.tw/tree/master/src/_guides/whats-new.md" class="btn no-automatic-external" title="Report an issue with this page" target="_blank" rel="noopener">
+    <i class="material-icons">bug_report</i>
+  </a>
+</div>
+
+            
+            <h1 id="whats-new">What’s new</h1>
+            </div>
+          
+
+
+
+
+
+
+
+<div id="site-toc--inline" class="site-toc ">
+  <header class="site-toc__title">
+    目錄
+    
+  </header>
+  <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#january-25-2023-219--30-alpha-releases">January 25, 2023: 2.19 + 3.0 alpha releases</a></li>
+<li class="toc-entry toc-h2"><a href="#august-30-2022-218-release">August 30, 2022: 2.18 release</a></li>
+<li class="toc-entry toc-h2"><a href="#may-11-2022-217-release">May 11, 2022: 2.17 release</a></li>
+<li class="toc-entry toc-h2"><a href="#february-3-2022-216-release">February 3, 2022: 2.16 release</a></li>
+<li class="toc-entry toc-h2"><a href="#december-8-2021-215-release">December 8, 2021: 2.15 release</a></li>
+<li class="toc-entry toc-h2"><a href="#september-8-2021-214-release">September 8, 2021: 2.14 release</a></li>
+<li class="toc-entry toc-h2"><a href="#may-19-2021-213-release">May 19, 2021: 2.13 release</a></li>
+<li class="toc-entry toc-h2"><a href="#march-3-2021-212-release">March 3, 2021: 2.12 release</a></li>
+<li class="toc-entry toc-h2"><a href="#october-1-2020-210-release">October 1, 2020: 2.10 release</a></li>
+</ul>
+  
+</div>
+
+
+          <p>This page describes what’s new on the Dart website and blog.
+To see what’s new in Flutter, visit the
+<a href="https://flutter.tw/whats-new">Flutter what’s new page.</a></p>
+
+<p>For a list of Dart language changes in each Dart SDK, see the 
+<a href="/guides/language/evolution">language evolution page</a>.
+To stay on top of announcements, including breaking changes,
+join the <a href="https://groups.google.com/a/dartlang.org/d/forum/announce">Dart announcements Google group</a>
+and follow the <a href="https://medium.com/dartlang">Dart blog</a>.</p>
+
+<h2 id="january-25-2023-219--30-alpha-releases">
+<a class="anchor" href="#january-25-2023-219--30-alpha-releases" aria-hidden="true"><span class="octicon octicon-link"></span></a>January 25, 2023: 2.19 + 3.0 alpha releases</h2>
+
+<p>This section lists notable changes made from August 31, 2022,
+through January 25, 2023.
+For details about the 2.19 + 3.0 alpha releases,
+see <a href="https://medium.com/dartlang/dart-3-alpha-f1458fb9d232">Introducing Dart 3 alpha</a>,
+and the <a href="https://github.com/dart-lang/sdk/blob/main/CHANGELOG.md#2180">SDK changelog</a>.</p>
+
+<h3 class="no_toc" id="docs-updated-or-added-to-dartdev">Docs updated or added to dart.dev</h3>
+
+<p>In addition to bug fixes and incremental improvements,
+we made the following changes to this site:</p>
+
+<ul>
+  <li>Introduced the <a href="/tutorials/server/fetch-data">Fetch data from the internet</a> tutorial about using <code class="language-plaintext highlighter-rouge">package:http</code>.</li>
+  <li>Added a page on <a href="/tools/pub/automated-publishing">Automated publishing of packages to pub.dev</a>.</li>
+  <li>Included links to two new site translations in our <a href="/community#additional-community-resources">community resources section</a>:
+    <ul>
+      <li><a href="https://dart-ko.dev/">Korean version of this site (한국어)</a></li>
+      <li><a href="https://dart.tw.gh.miniasp.com/">Traditional Chinese version of this site (正體中文版)</a></li>
+    </ul>
+  </li>
+  <li>Updated null safety content in preparation of Dart 3:
+    <ul>
+      <li>Changed the version constraints in the <a href="/null-safety/migration-guide">migration guide</a> for Dart 3 compatibility.</li>
+      <li>Added Dart 3 full sound null safety overview to the <a href="/null-safety">Sound null safety</a> page.</li>
+      <li>Emphasized Dart 3’s incompatibility with <a href="/null-safety/unsound-null-safety">unsound null safety</a> in a note.</li>
+    </ul>
+  </li>
+  <li>Introduced the new <a href="/guides/language/coming-from/swift-to-dart">Learning Dart as a Swift developer</a> guide.</li>
+  <li>Replaced an Effective Dart section with more general guidance on <a href="/effective-dart/usage#dont-use-true-or-false-in-equality-operations">booleans and equality operators</a>.</li>
+  <li>Documented <a href="/tools/pub/glossary#content-hashes">content-hashing</a> across the pub docs.</li>
+  <li>Began effort to overhaul the <a href="/articles/archive/zones">Zones</a> page by
+changing examples to use <code class="language-plaintext highlighter-rouge">runZonedGuarded</code> instead of <code class="language-plaintext highlighter-rouge">onError</code>.</li>
+  <li>Updated content on libraries to cover new no-name declarations development:
+    <ul>
+      <li>Effective Dart: <a href="/effective-dart/documentation#consider-writing-a-library-level-doc-comment">Documentation</a>, <a href="/effective-dart/style#dont-explicitly-name-libraries">Style</a>, and <a href="/effective-dart/usage#do-use-strings-in-part-of-directives">Usage</a>
+</li>
+      <li>New library directive section in <a href="/language/libraries#library-directive">The language tour</a>
+</li>
+    </ul>
+  </li>
+  <li>Improved clarity surrounding Dart’s single-threaded or multi-threaded status:
+    <ul>
+      <li>Removed the outdated <code class="language-plaintext highlighter-rouge">dart:io</code> page.</li>
+      <li>Added two sections to the FAQ:
+        <ul>
+          <li><a href="/resources/faq#q-is-dart-single-threaded">Is Dart single-threaded?</a></li>
+          <li><a href="/resources/faq#q-is-dart-single-threaded-on-the-web">Is Dart single-threaded on the web?</a></li>
+        </ul>
+      </li>
+      <li>Expanded on <a href="/language/concurrency#concurrency-on-the-web">Dart’s web concurrency capabilities</a>.</li>
+    </ul>
+  </li>
+  <li>Rearranged and clarified <a href="/language/functions#parameters">discussion</a> of default values for optional and positional parameters.</li>
+  <li>Updated <a href="/language/concurrency">Concurrency in Dart</a> to default to new <code class="language-plaintext highlighter-rouge">Isolate.run()</code> function.</li>
+  <li>Documented specifying a file path when activating a package on the <a href="/tools/pub/cmd/pub-global"><code class="language-plaintext highlighter-rouge">pub global</code> page</a>.</li>
+  <li>Rewrote <a href="/guides/language/coming-from/js-to-dart">Learning Dart as a JavaScript developer</a>.</li>
+  <li>Added a brief overview of Dart DevTools to <a href="/tools/dart-run"><code class="language-plaintext highlighter-rouge">dart run</code> page</a>.</li>
+  <li>Provided more clarity around <a href="/language/operators">operator precedence and associativity</a> in the Language tour.</li>
+  <li>Expanded Library tour section on <a href="/guides/libraries/library-tour#building-uris">Building URIs</a> with URI http and factory constructor info.</li>
+  <li>Accounted for <a href="/tools/pub/troubleshoot#pub-get-socket-error">pub’s transition to pub.dev</a> from pub.dartlang.org.</li>
+  <li>Added documentation on <a href="/tools/pub/pubspec#screenshots">package screenshots</a>.</li>
+  <li>Improved the <a href="/language/type-system#generic-type-assignment">explicit downcast section</a> of The Dart type system page.</li>
+  <li>Increased <a href="/tools/diagnostic-messages">analyzer</a> and <a href="/tools/linter-rules">lint</a> coverage:
+    <ul>
+      <li>Included SDK version support info for linter rules.</li>
+      <li>Added diagnostic and lint messages for 2.19 changes.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 class="no_toc" id="articles-added-to-the-dart-blog">Articles added to the Dart blog</h3>
+
+<p>We published the following articles on the Dart blog:</p>
+
+<ul>
+  <li><a href="https://medium.com/dartlang/better-isolate-management-with-isolate-run-547ef3d6459b">Better isolate management with Isolate.run()</a></li>
+  <li><a href="https://medium.com/dartlang/screenshots-and-automated-publishing-for-pub-dev-9bceb19edf79">Screenshots and automated publishing for pub.dev</a></li>
+  <li><a href="https://medium.com/dartlang/the-road-to-dart-3-afdd580fbefa">The road to Dart 3: A fully sound, null safe language</a></li>
+  <li><a href="https://medium.com/dartlang/google-summer-of-code-2022-results-a3ce1c13c06c">Google Summer of Code 2022 Results</a></li>
+  <li><a href="https://medium.com/dartlang/partnering-with-github-on-an-supply-chain-security-485eed1fc388">Partnering with GitHub on supply chain security for Dart packages</a></li>
+</ul>
+
+<h2 id="august-30-2022-218-release">
+<a class="anchor" href="#august-30-2022-218-release" aria-hidden="true"><span class="octicon octicon-link"></span></a>August 30, 2022: 2.18 release</h2>
+
+<p>This section lists notable changes made from May 12, 2022,
+through August 30, 2022.
+For details about the 2.18 release,
+see <a href="https://medium.com/dartlang/dart-2-18-f4b3101f146c">Dart 2.18: Objective-C &amp; Swift interop</a>,
+and the <a href="https://github.com/dart-lang/sdk/blob/main/CHANGELOG.md#2180">SDK changelog</a>.</p>
+
+<p>In addition to bug fixes and incremental improvements,
+we made the following changes to this site:</p>
+
+<ul>
+  <li>Introduced the <a href="/guides/libraries/objective-c-interop">Objective-C and Swift interop</a> page,
+which explains how to use Dart packages to call APIs from those languages.</li>
+  <li>Added a workaround to <a href="/guides/language/sound-problems">Fixing common type problems</a>, 
+for the rare case where type inference might incorrectly infer an argument type is null.</li>
+  <li>Removed all mention of discontinued <code class="language-plaintext highlighter-rouge">.packages</code> files from <a href="/guides/libraries/private-files">What not to commit</a>.
+If you still need to generate a <code class="language-plaintext highlighter-rouge">.packages</code> file due to third-party legacy dependencies,
+see <a href="/tools/pub/cmd/pub-get#options"><code class="language-plaintext highlighter-rouge">dart pub get</code> Options</a>.</li>
+  <li>Removed dedicated pages and any other mention of discontinued <code class="language-plaintext highlighter-rouge">dart2js</code>
+and <code class="language-plaintext highlighter-rouge">dartdevc</code> command line tools.
+    <ul>
+      <li>Added command line options and known issues previously associated with
+<code class="language-plaintext highlighter-rouge">dart2js</code> to the <a href="/tools/dart-compile"><code class="language-plaintext highlighter-rouge">dart compile</code></a> page.</li>
+      <li>Added information on debugging production code to <a href="/web/debugging">Debugging Dart web apps</a>.</li>
+    </ul>
+  </li>
+  <li>Added support for downloading experimental Windows ARM builds
+to the <a href="/get-dart/archive">Dart SDK archive</a>.</li>
+  <li>Updated the <a href="/guides/libraries/library-tour">Library tour</a> to include information on weak references and finalizers.</li>
+  <li>Added a section on customizing <a href="/tools/dart-fix"><code class="language-plaintext highlighter-rouge">dart fix</code></a>.</li>
+</ul>
+
+<h2 id="may-11-2022-217-release">
+<a class="anchor" href="#may-11-2022-217-release" aria-hidden="true"><span class="octicon octicon-link"></span></a>May 11, 2022: 2.17 release</h2>
+
+<p>This section lists notable changes made from February 4, 2022,
+through May 11, 2022.
+For details about the 2.17 release,
+see <a href="https://medium.com/dartlang/dart-2-17-b216bfc80c5d">Dart 2.17: Productivity and integration</a>.</p>
+
+<h3 class="no_toc" id="docs-updated-or-added-to-dartdev-1">Docs updated or added to dart.dev</h3>
+
+<p>In addition to bug fixes and incremental improvements,
+we made the following changes to this site:</p>
+
+<ul>
+  <li>Introduced the <a href="/guides/language/coming-from/js-to-dart">Learning Dart as a JavaScript developer</a> guide,
+which aims to leverage your JavaScript programming knowledge
+when learning Dart.</li>
+  <li>Documented the features and changes introduced in Dart 2.17:
+    <ul>
+      <li>Updated the <a href="/language/functions#named-parameters">Named parameters</a> section of the language tour
+to reflect support for specifying named arguments anywhere.</li>
+      <li>Added documentation for <a href="/language/constructors#super-parameters">super-initializer parameters</a>.</li>
+      <li>Expanded the <a href="/language/enums">Enumerated types</a> section of the language tour
+and documented <a href="/language/enums#declaring-enhanced-enums">enhanced enums</a>.</li>
+      <li>Documented support for <a href="/tools/dart-compile#signing">signing</a> macOS and Windows executables
+compiled with <code class="language-plaintext highlighter-rouge">dart compile exe</code>.</li>
+      <li>Updated the templates supported by <a href="/tools/dart-create"><code class="language-plaintext highlighter-rouge">dart create</code></a>
+to their new, standardized names.</li>
+    </ul>
+  </li>
+  <li>Accounted for changes to the <a href="https://pub.dev">pub.dev site</a> and the <a href="/tools/pub/cmd">pub tool</a>.
+    <ul>
+      <li>Listed vendors offering <a href="/tools/pub/custom-package-repositories#dart-package-repositories-as-a-service">Dart package repositories as a service</a>.</li>
+      <li>Removed documentation for the now discontinued <code class="language-plaintext highlighter-rouge">dart pub uploader</code> command.</li>
+      <li>Expanded the documentation for managing pub project <a href="/tools/pub/publishing#uploaders">uploaders</a>.</li>
+      <li>Removed most mentions to the deprecated <code class="language-plaintext highlighter-rouge">.packages</code> file,
+pointing instead to its <code class="language-plaintext highlighter-rouge">.dart_tool/package_config.json</code> replacement.</li>
+    </ul>
+  </li>
+  <li>Updated the documentation for updating and installing Dart:
+    <ul>
+      <li>Documented how to switch between Dart versions
+with Homebrew within the macOS <a href="/get-dart#install">install instructions</a>.</li>
+      <li>Updated the linux <a href="/get-dart#install">installation instructions</a>
+to use <a href="https://wiki.debian.org/SecureApt">SecureApt</a> and follow the latest best practices.</li>
+      <li>Added support for downloading experimental, Linux RISC-V (RV64GC) builds
+from the <a href="/get-dart/archive">Dart SDK archive</a>.</li>
+    </ul>
+  </li>
+  <li>Continued work to improve and update documentation
+of the <a href="/tools/dart-tool">unified <code class="language-plaintext highlighter-rouge">dart</code> tool</a>:
+    <ul>
+      <li>Expanded documentation about the functionality of the <a href="/tools/dart-fix"><code class="language-plaintext highlighter-rouge">dart fix</code></a> tool.</li>
+      <li>Adjusted the guidelines and documentation for the <a href="/tools/dart-doc"><code class="language-plaintext highlighter-rouge">dart doc</code></a> tool
+to match its functionality and underlying behavior.</li>
+      <li>Added further documentation and samples of <a href="/tools/dart-compile#js"><code class="language-plaintext highlighter-rouge">dart compile js</code></a>.</li>
+      <li>Removed mentions of removed standalone tools.</li>
+    </ul>
+  </li>
+  <li>Updated the documentation and usage of the analyzer and linter:
+    <ul>
+      <li>Documented the analyzer’s new <a href="/tools/analysis#enabling-additional-type-checks">strict language modes</a>.</li>
+      <li>Incorporated changes to the 
+<a href="/tools/diagnostic-messages">diagnostic messages</a> and <a href="/tools/linter-rules">linter rules</a> pages.</li>
+      <li>Updated documentation and samples
+to use the <code class="language-plaintext highlighter-rouge">2.0.0</code> release of the <code class="language-plaintext highlighter-rouge">lints</code> package.</li>
+    </ul>
+  </li>
+  <li>Began an overhaul of the documentation for web compilation:
+    <ul>
+      <li>Documented for the deprecation and planned removal
+of the <code class="language-plaintext highlighter-rouge">dart2js</code> and <code class="language-plaintext highlighter-rouge">dartdevc</code> standalone tools.</li>
+      <li>Consolidated and clarified the documentation
+of <a href="/tools/dart2js">dart2js</a> and <a href="/tools/dartdevc">dartdevc</a>
+as the underlying compilers of tools like
+<a href="/tools/dart-compile#js"><code class="language-plaintext highlighter-rouge">dart compile js</code></a> and <a href="/tools/webdev"><code class="language-plaintext highlighter-rouge">webdev</code></a>.</li>
+    </ul>
+  </li>
+  <li>Increased documentation coverage of null safety:
+    <ul>
+      <li>Documented the null assertion operator (<code class="language-plaintext highlighter-rouge">!</code>) as part of
+the <a href="/language/operators#other-operators">Other operators</a> section of the language tour.</li>
+      <li>Migrated the <a href="/tutorials/web/low-level-html">Low-level HTML tutorials</a> to support null safety
+and discuss how to interact with web APIs while using it.</li>
+    </ul>
+  </li>
+  <li>Made miscellaneous other updates:
+    <ul>
+      <li>Documented the <a href="/guides/libraries/c-interop#interfacing-with-native-types">native types</a> provided by <code class="language-plaintext highlighter-rouge">dart:ffi</code>
+for use in C interop.</li>
+      <li>Introduced a new section to the language tour documenting
+<a href="/language/constructors#initializing-formal-parameters">initializing formal parameters</a>.</li>
+      <li>Documented DartPad’s <a href="/tools/dartpad#library-support">support for packages</a>.</li>
+      <li>Fixed formatting in the <a href="/codelabs/async-await">asynchronous programming codelab</a>
+and elaborated on <a href="/codelabs/async-await#why-asynchronous-code-matters">why asynchronous code matters</a>.</li>
+      <li>Updated the <a href="/security">security</a> page to match our current security practices.</li>
+      <li>Added a key binding (<code class="language-plaintext highlighter-rouge">/</code>) to automatically focus the search bar.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 class="no_toc" id="articles-added-to-the-dart-blog-1">Articles added to the Dart blog</h3>
+
+<p>We published the following articles on the Dart blog:</p>
+
+<ul>
+  <li><a href="https://medium.com/dartlang/bulk-application-of-fixes-e6add333c3c1">Bulk application of fixes</a></li>
+  <li><a href="https://medium.com/dartlang/dart-asynchronous-programming-streams-dab952023ed7">Dart asynchronous programming: Streams</a></li>
+  <li><a href="https://medium.com/dartlang/contributors-for-google-summer-of-code-2022-17e777f043f0">Contributors for Google Summer of Code 2022</a></li>
+  <li><a href="https://medium.com/dartlang/gradual-null-safety-migration-for-large-dart-projects-85acb10b64a9">Gradual null safety migration for large Dart projects</a></li>
+  <li><a href="https://medium.com/dartlang/hosting-a-private-dart-package-repository-774c3c51dff9">Hosting a private Dart package repository</a></li>
+  <li><a href="https://medium.com/dartlang/quick-fixes-for-analysis-issues-c10df084971a">Quick fixes for analysis issues</a></li>
+</ul>
+
+<h2 id="february-3-2022-216-release">
+<a class="anchor" href="#february-3-2022-216-release" aria-hidden="true"><span class="octicon octicon-link"></span></a>February 3, 2022: 2.16 release</h2>
+
+<p>This section lists notable changes made from December 8, 2021,
+through February 3, 2022.
+For details about the 2.16 release, 
+see <a href="https://medium.com/dartlang/dart-2-16-improved-tooling-and-platform-handling-dd87abd6bad1">Dart 2.16: Improved tooling and platform handling</a>.</p>
+
+<h3 class="no_toc" id="docs-updated-or-added-to-dartdev-2">Docs updated or added to dart.dev</h3>
+
+<p>We <a href="https://github.com/dart-lang/site-www/pull/3765">updated the website infrastructure</a> to a Docker-based setup
+to enable <a href="https://github.com/doggy8088/dart.tw#getting-started">easier contributions</a> and more closely align with
+the setup for <a href="https://flutter.tw">docs.flutter.dev</a>.</p>
+
+<p>In addition to other bug fixes and incremental improvements,
+we made the following changes to this site:</p>
+
+<ul>
+  <li>Switched to documenting the new <a href="/tools/dart-doc"><code class="language-plaintext highlighter-rouge">dart doc</code></a> tool 
+which replaces <code class="language-plaintext highlighter-rouge">dartdoc</code>.</li>
+  <li>Documented the new <a href="/tools/pub/pubspec#platforms"><code class="language-plaintext highlighter-rouge">platform</code> entry</a> to specify supported platforms
+within a package’s <code class="language-plaintext highlighter-rouge">pubspec.yaml</code>.</li>
+  <li>Updated the <a href="/tools/diagnostic-messages">diagnostic messages</a> and <a href="/tools/linter-rules">linter rules</a> pages.</li>
+  <li>Documented how to <a href="/tools/analysis#suppressing-rules-for-a-file">ignore all linter rules</a> in a file.</li>
+  <li>Removed mentions of the old standalone tools from the <a href="/tools/sdk">Dart SDK overview</a>.</li>
+  <li>Update remaining mentions of the old standalone tools
+to their <a href="/tools/dart-tool"><code class="language-plaintext highlighter-rouge">dart</code></a> tool equivalents.</li>
+  <li>Added clarifications to the
+<a href="/effective-dart/usage#prefer-using-interpolation-to-compose-strings-and-values">PREFER using interpolation to compose strings and values</a>
+Effective Dart guideline.</li>
+</ul>
+
+<h2 id="december-8-2021-215-release">
+<a class="anchor" href="#december-8-2021-215-release" aria-hidden="true"><span class="octicon octicon-link"></span></a>December 8, 2021: 2.15 release</h2>
+
+<p>This section lists notable changes made from September 9, 2021,
+through December 8, 2021.
+For details about the 2.15 release, see <a href="https://medium.com/dartlang/dart-2-15-7e7a598e508a">Announcing Dart 2.15</a>.</p>
+
+<h3 class="no_toc" id="docs-updated-or-added-to-dartdev-3">Docs updated or added to dart.dev</h3>
+
+<p>In addition to bug fixes and incremental improvements,
+we made the following changes to this site:</p>
+
+<ul>
+  <li>Added <a href="/language/concurrency">Concurrency in Dart</a>, which discusses features such as
+isolates that enable parallel execution of Dart code.</li>
+  <li>Documented pub features added or improved in 2.15:
+    <ul>
+      <li>Added a page for a new pub subcommand, <a href="/tools/pub/cmd/pub-token">dart pub token</a>,
+and a page about <a href="/tools/pub/custom-package-repositories">custom package repositories</a>
+</li>
+      <li>Added information about <a href="/tools/pub/publishing#retract">package retraction</a>
+</li>
+      <li>Added the <a href="/tools/pub/pubspec#false_secrets">false_secrets</a> field to the pubspec page</li>
+      <li>Updated the syntax for <a href="/tools/pub/dependencies#hosted-packages">hosted dependencies</a>
+</li>
+    </ul>
+  </li>
+  <li>Removed all entries for Dart 1 <a href="/resources/books">books</a>
+</li>
+  <li>Expanded on <a href="/tools/dartpad/troubleshoot">DartPad troubleshooting tips</a>
+</li>
+  <li>Updated the <a href="/tools/diagnostic-messages">diagnostic messages</a> page</li>
+  <li>Updated the <a href="/tools/linter-rules">linter rules</a> page;
+removed references to deprecated rule sets such as
+<code class="language-plaintext highlighter-rouge">effective_dart</code>
+</li>
+  <li>Updated the instructions for installing and using
+<a href="/tools/dart-devtools">Dart DevTools</a>
+</li>
+  <li>Added information about what the <a href="/overview#runtime">Dart runtime</a> provides,
+and clarified <a href="/tools/dart-compile">compilation formats</a>
+</li>
+</ul>
+
+<h2 id="september-8-2021-214-release">
+<a class="anchor" href="#september-8-2021-214-release" aria-hidden="true"><span class="octicon octicon-link"></span></a>September 8, 2021: 2.14 release</h2>
+
+<p>This section lists notable changes made from May 20, 2021,
+through September 8, 2021.
+For details about the 2.14 release, see <a href="https://medium.com/dartlang/announcing-dart-2-14-b48b9bb2fb67">Announcing Dart 2.14</a>.</p>
+
+<h3 class="no_toc" id="docs-updated-or-added-to-dartdev-4">Docs updated or added to dart.dev</h3>
+
+<p>In addition to bug fixes and incremental improvements,
+we made the following changes to this site:</p>
+
+<ul>
+  <li>Fleshed out the page on <a href="/tools/non-promotion-reasons">fixing type promotion failures</a>.</li>
+  <li>Documented how to use the <a href="/tools/pub/publishing#what-files-are-published"><code class="language-plaintext highlighter-rouge">.pubignore</code> file</a>,
+a feature that was introduced in Dart 2.14.</li>
+  <li>Added coverage of the <a href="/language/operators#bitwise-and-shift-operators">unsigned shift operator</a> (<code class="language-plaintext highlighter-rouge">&gt;&gt;&gt;</code>),
+which was introduced in Dart 2.14.</li>
+  <li>Built out the <a href="/tools/linter-rules">linter rule page</a>;
+updated Effective Dart to link to it.</li>
+  <li>Added pages for the
+<a href="/tools/dart-create"><code class="language-plaintext highlighter-rouge">dart create</code></a> and <a href="/tools/dart-test"><code class="language-plaintext highlighter-rouge">dart test</code></a> commands.</li>
+  <li>Finished converting examples from using old command-line tools
+(for example, <code class="language-plaintext highlighter-rouge">dartfmt</code>) to using the <a href="/tools/dart-tool">unified <code class="language-plaintext highlighter-rouge">dart</code> tool</a>
+(for example, <code class="language-plaintext highlighter-rouge">dart format</code>).</li>
+  <li>Updated site code to use the <a href="/tools/analysis#lints">recommended linter rules</a>,
+instead of pedantic.</li>
+  <li>Updated the lists of <a href="/guides/libraries">core libraries</a> and <a href="/guides/libraries/useful-libraries">commonly used packages</a>.</li>
+  <li>Added a redirect from <a href="/jobs">dart.dev/jobs</a> to flutter.dev/jobs,
+to make it easier to find open positions on
+the Dart and Flutter teams.</li>
+  <li>Finished migrating all analyzed or tested code to null safety,
+updating text to match.
+Found more site code that hadn’t been analyzed; fixed that.</li>
+</ul>
+
+<h3 class="no_toc" id="articles-added-to-the-dart-blog-2">Articles added to the Dart blog</h3>
+
+<p>We published the following articles on the Dart blog:</p>
+
+<ul>
+  <li><a href="https://medium.com/dartlang/experimenting-with-dart-and-wasm-ef7f1c065577">Experimenting with Dart and Wasm</a></li>
+  <li><a href="https://medium.com/dartlang/how-darts-null-safety-helped-me-augment-my-projects-af58f8129cf">How Dart’s null safety helped me augment my projects</a></li>
+  <li><a href="https://medium.com/dartlang/implementing-structs-by-value-in-dart-ffi-1cb1829d11a9">Implementing structs by value in Dart FFI</a></li>
+</ul>
+
+<h2 id="may-19-2021-213-release">
+<a class="anchor" href="#may-19-2021-213-release" aria-hidden="true"><span class="octicon octicon-link"></span></a>May 19, 2021: 2.13 release</h2>
+
+<p>This section lists notable changes made from March 4, 2021,
+through May 19, 2021.
+For details about the 2.13 release, see <a href="https://medium.com/dartlang/announcing-dart-2-13-c6d547b57067">Announcing Dart 2.13</a>.</p>
+
+<h3 class="no_toc" id="docs-updated-or-added-to-dartdev-5">Docs updated or added to dart.dev</h3>
+
+<p>In addition to bug fixes and incremental improvements,
+we made the following changes to this site:</p>
+
+<ul>
+  <li>Updated the <a href="/language/typedefs">typedef section</a> of the language tour to reflect
+non-function type aliases,
+which were introduced in Dart 2.13.</li>
+  <li>Published or updated documentation related to the command line and servers:
+    <ul>
+      <li>
+<a href="/server/google-cloud">Using Google Cloud</a> describes Google Cloud products that
+Dart servers can use,
+often with the help of pre-packaged Docker images.</li>
+      <li>The <a href="/tutorials/server/httpserver">HTTP server tutorial</a>,
+which featured the discontinued <code class="language-plaintext highlighter-rouge">http_server</code> package,
+has been temporarily replaced by
+an “under construction” page that
+links to helpful documentation and samples.</li>
+      <li>The <a href="/tutorials/server/cmdline">command-line tutorial</a> has been completely updated.</li>
+    </ul>
+  </li>
+  <li>Published some other new pages:
+    <ul>
+      <li>
+<a href="/codelabs/null-safety">Null safety codelab</a> teaches you about Dart’s null-safe type system,
+which was introduced in Dart 2.12.</li>
+      <li>
+<a href="/guides/language/numbers">Numbers in Dart</a> has
+details about differences between native and web number implementations.</li>
+      <li>
+<a href="/guides/google-apis">Using Google APIs</a> points to resources to
+help you use Firebase and Google client APIs from a Dart app.</li>
+      <li>
+<a href="/guides/libraries/writing-package-pages">Writing package pages</a> gives tips for
+writing a package README that works well on pub.dev.</li>
+      <li>
+<a href="/tools/non-promotion-reasons">Fixing type promotion failures</a>
+has information to help you understand
+why type promotion failures occur, and gives tips on how to fix them.</li>
+      <li>The new <a href="/tools/dart-run"><code class="language-plaintext highlighter-rouge">dart run</code> page</a>
+describes how to run a Dart program from the command line.</li>
+    </ul>
+  </li>
+  <li>Continued work on migrating code to null safety, in particular the
+<a href="/tutorials/language/streams">streams tutorial</a>.</li>
+  <li>Made miscellaneous other updates:
+    <ul>
+      <li>Removed references to Stagehand, in favor of <a href="/tools/dart-create"><code class="language-plaintext highlighter-rouge">dart create</code></a>.</li>
+      <li>Changed analytics options for dart.dev example code from
+using <code class="language-plaintext highlighter-rouge">pedantic</code> to using the recommended rules in <a href="https://pub.dev/packages/lints"><code class="language-plaintext highlighter-rouge">lints</code></a>.</li>
+      <li>Added Docker as a way to <a href="/get-dart">get Dart</a>.</li>
+      <li>Updated the <a href="/guides/language/evolution">language evolution page</a> to reflect Dart 2.13.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 class="no_toc" id="articles-added-to-the-dart-blog-3">Articles added to the Dart blog</h3>
+
+<p>We published the following articles on the Dart blog:</p>
+
+<ul>
+  <li><a href="https://medium.com/dartlang/angulardart-flutter-and-the-web-spring-update-f7f5b8b10001">AngularDart, Flutter, and the web: Spring update</a></li>
+  <li><a href="https://medium.com/dartlang/announcing-dart-support-for-github-actions-3d892642104">Announcing Dart support for GitHub Actions</a></li>
+  <li><a href="https://medium.com/dartlang/dart-in-google-summer-of-code-2021-e89eaf1d177a">Dart in Google Summer of Code 2021</a></li>
+</ul>
+
+<h2 id="march-3-2021-212-release">
+<a class="anchor" href="#march-3-2021-212-release" aria-hidden="true"><span class="octicon octicon-link"></span></a>March 3, 2021: 2.12 release</h2>
+
+<p>This section lists notable changes made from October 2, 2020,
+through March 3, 2021.
+For details about the 2.12 release, see <a href="https://medium.com/dartlang/announcing-dart-2-12-499a6e689c87">Announcing Dart 2.12</a>.</p>
+
+<h3 class="no_toc" id="docs-updated-or-added-to-dartdev-6">Docs updated or added to dart.dev</h3>
+
+<p>In addition to bug fixes and incremental improvements, we made the following changes to this site:</p>
+
+<ul>
+  <li>Updated and fleshed out null safety docs. Notably:
+    <ul>
+      <li>Provided a <a href="/null-safety/migration-guide">migration guide</a>.</li>
+      <li>Added a <a href="/null-safety/faq">FAQ</a>.</li>
+      <li>Created <a href="/null-safety/unsound-null-safety">Unsound null safety</a>.</li>
+      <li>Simplified the <a href="/null-safety">null safety homepage</a>.</li>
+    </ul>
+  </li>
+  <li>Refreshed <a href="/effective-dart">Effective Dart</a>, updating code to be null safe and
+changing rules to reflect new guidance.</li>
+  <li>Refreshed the <a href="/language">language tour</a>, updating code to be null safe and
+adding information about new features such as
+<a href="/language/variables#late-variables"><code class="language-plaintext highlighter-rouge">late</code> variables</a>.</li>
+  <li>Updated the <a href="/guides/language/evolution">language evolution page</a>
+to add information about language versioning
+and to reflect Dart 2.12.</li>
+  <li>Updated the <a href="/guides/libraries/library-tour">library tour</a> and <a href="/codelabs">codelabs</a>
+to reflect sound null safety.</li>
+  <li>Updated pages across the site to use <a href="/tools/dart-tool">the <code class="language-plaintext highlighter-rouge">dart</code> tool</a>
+instead of deprecated commands.
+Started adding pages for various <code class="language-plaintext highlighter-rouge">dart</code> commands, including
+<a href="/tools/dart-analyze"><code class="language-plaintext highlighter-rouge">dart analyze</code></a>, <a href="/tools/dart-compile"><code class="language-plaintext highlighter-rouge">dart compile</code></a>, <a href="/tools/dart-fix"><code class="language-plaintext highlighter-rouge">dart fix</code></a>,
+and <a href="/tools/dart-format"><code class="language-plaintext highlighter-rouge">dart format</code></a>.</li>
+  <li>Created a page documenting the quality and support of <a href="/resources/dart-team-packages">Dart team packages</a>.</li>
+  <li>Replaced the Platforms page with a new <a href="/overview">Overview page</a>.</li>
+  <li>Created this page (“What’s new”).</li>
+</ul>
+
+<p>We also switched from Travis CI to GitHub Actions, and we made multiple CSS changes to improve site legibility.</p>
+
+<h3 class="no_toc" id="articles-added-to-the-dart-blog-4">Articles added to the Dart blog</h3>
+
+<p>We published the following articles on the Dart blog:</p>
+
+<ul>
+  <li>
+<a href="https://medium.com/dartlang/preparing-the-dart-and-flutter-ecosystem-for-null-safety-e550ce72c010">Preparing the Dart and Flutter ecosystem for null safety</a>
+announced null safety API stability and
+invited developers to publish stable, null-safe versions of their packages.</li>
+  <li>
+<a href="https://medium.com/dartlang/dart-and-the-performance-benefits-of-sound-types-6ceedd5b6cdc">Dart and the performance benefits of sound types</a>
+demonstrated how soundness and null safety enable Dart compilers to
+generate faster, smaller code.</li>
+  <li>
+<a href="https://medium.com/dartlang/why-nullable-types-7dd93c28c87a">Why nullable types?</a>
+expanded on a discussion on the /r/dart_lang subreddit,
+answering the question “Why not get rid of null completely?”</li>
+  <li>
+<a href="https://medium.com/dartlang/announcing-dart-null-safety-beta-87610fee6730">Announcing Dart null safety beta</a>
+invited developers to start planning their migration to null safety.</li>
+</ul>
+
+<h2 id="october-1-2020-210-release">
+<a class="anchor" href="#october-1-2020-210-release" aria-hidden="true"><span class="octicon octicon-link"></span></a>October 1, 2020: 2.10 release</h2>
+
+<p>This section lists notable changes made from
+July 1 through October 1, 2020.
+For details about the 2.10 release, see <a href="https://medium.com/dartlang/announcing-dart-2-10-350823952bd5">Announcing Dart 2.10.</a></p>
+
+<div class="no_toc_section">
+
+  <h3 class="no_toc" id="docs-updated-or-added-to-dartdev">Docs updated or added to dart.dev</h3>
+
+  <p>In addition to bug fixes and small improvements,
+we made the following changes to this site:</p>
+
+  <ul>
+    <li>Added a <a href="/tools/dart-tool"><code class="language-plaintext highlighter-rouge">dart</code> tool page</a>
+to document the new command-line interface to the Dart SDK.
+The new <code class="language-plaintext highlighter-rouge">dart</code> tool is analogous to the <code class="language-plaintext highlighter-rouge">flutter</code> tool in the Flutter SDK.
+Previously, the <code class="language-plaintext highlighter-rouge">dart</code> command only ran command-line apps.
+We updated the previous <code class="language-plaintext highlighter-rouge">dart</code> page accordingly
+and plan to update references to other tools over time.</li>
+    <li>Updated the <a href="/tools/pub/package-layout#changelogmd">package changelog documentation</a>
+to recommend a standard format for <code class="language-plaintext highlighter-rouge">CHANGELOG.md</code> files.
+This new format lets tools
+(such as the relaunched pub.dev)
+parse changelogs.</li>
+    <li>Changed an <a href="/effective-dart">Effective Dart</a> guideline to favor
+using <code class="language-plaintext highlighter-rouge">Object</code> instead of <code class="language-plaintext highlighter-rouge">dynamic</code>.
+For details, see the revised guideline
+<a href="/effective-dart/design#avoid-using-dynamic-unless-you-want-to-disable-static-checking">AVOID using <code class="language-plaintext highlighter-rouge">dynamic</code> unless you want to disable static checking.</a>
+</li>
+    <li>Updated the <a href="/tools/diagnostic-messages">diagnostic messages page</a> to
+include more messages produced by the Dart analyzer.</li>
+    <li>Updated the <a href="/guides/language/evolution">evolution page</a>
+to include 2.9 and 2.10.</li>
+    <li>Reorganized the <a href="/guides/language/spec">language specification page</a>
+to make it easier to find the PDF version of
+the latest, in-progress specification.</li>
+    <li>Added or updated docs related to <a href="/null-safety">sound null safety</a>,
+a feature that’s coming to the Dart language:
+      <ul>
+        <li>Clarified how to use <a href="/tools/experiment-flags#using-experiment-flags-with-ides">experiment flags with IDEs</a>.</li>
+        <li>Updated the null safety page, adding information about
+<a href="/null-safety#enable-null-safety">how to enable null safety</a>.</li>
+        <li>Added a deep dive into null safety,
+<a href="/null-safety/understanding-null-safety">Understanding null safety</a>,
+written by Dart engineer Bob Nystrom.</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h3 class="no_toc" id="articles-added-to-the-dart-blog">Articles added to the Dart blog</h3>
+
+  <p>We published the following articles on the <a href="https://medium.com/dartlang">Dart blog:</a></p>
+
+  <ul>
+    <li>
+<a href="https://medium.com/dartlang/exploring-collections-in-dart-f66b6a02d0b1">Exploring collections in Dart</a> helps you use collections
+(lists, maps, sets, and more), with special attention to
+2.3 language features like collection if, collection for, and spreads.</li>
+    <li>
+<a href="https://medium.com/dartlang/google-summer-of-code-2020-results-a38cd072c9fe">Google Summer of Code 2020 results</a> describes the results of
+five projects that the Dart team mentored.</li>
+    <li>
+<a href="https://medium.com/dartlang/pub-dev-redesign-747406dcb486">Introducing a brand new pub.dev</a> announces the relaunch of
+the <a href="https://pub.dev">pub.dev site,</a> with new package scoring metrics, improved search,
+and a redesigned UI.</li>
+  </ul>
+
+  <p>We also improved the blog navigation,
+adding <strong>announcement</strong> and <strong>archive</strong> tabs, plus a link to dart.dev.</p>
+
+  <aside class="alert alert-success" role="alert">
+    <p><i class="material-icons" aria-hidden="true">tips_and_updates</i> <strong>小提示:</strong>
+  All articles in the Dart blog are free to read.</p>
+  </aside>
+
+</div>
+
+
+          
+
+        </div>
+      </article>
+    </main>
+    <footer id="page-footer">
+    <div class="footer-section footer-main">
+      <a href="/" class="brand" title="Dart">
+        <img src="/assets/img/shared/dart/logo+text/horizontal/white.svg" alt="Dart" width="164px">
+      </a>
+      <div class="footer-social-links">
+        <a href="https://github.com/doggy8088/dart.tw" target="_blank" rel="noopener" title="GitHub" class="no-automatic-external">
+          <svg>
+            <use href="/assets/img/social/github.svg#github"></use>
+          </svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-section footer-tray">
+      <div class="footer-licenses">
+        參考中文內容需註明本站及連結作為出處，英文內容和範例程式碼均遵從源站授權協議。
+      </div>
+      <div class="footer-utility-links">
+        <ul>
+          <li><a href="/terms" title="使用條款">使用條款</a></li>
+          <li><a href="https://policies.google.com/privacy?hl=zh-TW" target="_blank" rel="noopener" title="隱私政策" class="no-automatic-external">隱私政策</a></li>
+          <li><a href="/security" title="Security philosophy and practices">Dart 程式碼安全說明</a></li>
+          <li><a href="https://flutter.tw/about" target="_blank">關於中文文件</a>
+          </li><li><a href="https://flutter.tw/disclaimer" target="_blank">免責條款</a>
+          </li><li><a href="https://dart.cn/" target="_blank">Dart 簡體中文文檔</a>
+        </li></ul>
+      </div>
+    </div>
+  </footer>
+
+  
+
+<script src="/assets/translator/js/translator.js"></script></body></html>

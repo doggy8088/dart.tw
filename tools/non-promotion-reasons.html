@@ -1,0 +1,1332 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Language" content="zh-cmn-Hans">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Google Tag Manager -->
+<!--  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':-->
+<!--  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],-->
+<!--  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=-->
+<!--  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);-->
+<!--  })(window,document,'script','dataLayer','GTM-5VSZM5J');</script>-->
+  <!-- End Google Tag Manager -->
+
+  <meta name="description" content="Solutions for cases where you know more about a field's type than Dart can determine.">
+  <title>Fixing type promotion failures | Dart</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-28P0PYCRZ9"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-28P0PYCRZ9');
+  </script>
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?fa71f2474b82505e00203cf9956cf0bc";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+  <!-- Favicon / Touch Icons -->
+  <link rel="icon" sizes="64x64" href="/assets/shared/dart/icon/64.png">
+  <link href="/assets/img/touch-icon-iphone.png" rel="apple-touch-icon">
+  <link href="/assets/img/touch-icon-ipad.png" rel="apple-touch-icon" sizes="152x152">
+  <link href="/assets/img/touch-icon-iphone-retina.png" rel="apple-touch-icon" sizes="180x180">
+  <link href="/assets/img/touch-icon-ipad-retina.png" rel="apple-touch-icon" sizes="167x167">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@dart_lang">
+  <meta name="twitter:title" content="Fixing type promotion failures">
+  <meta name="twitter:description" content="Solutions for cases where you know more about a field's type than Dart can determine.">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Fixing type promotion failures">
+  <meta property="og:description" content="Solutions for cases where you know more about a field's type than Dart can determine.">
+  <meta property="og:url" content="https://dart.tw.gh.miniasp.com/tools/non-promotion-reasons.html">
+
+  <meta property="og:image" content="https://dart.tw.gh.miniasp.com/assets/shared/dart-logo-for-shares.png?2">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Display:wght@400&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons&amp;display=swap" rel="stylesheet">
+  <script src="https://cdn.staticfile.org/font-awesome/5.15.4/js/all.js" data-auto-replace-svg="nest">
+  </script>
+
+  <link rel="stylesheet" href="/assets/css/main.css?v=1693674404">
+  <script src="https://cdn.staticfile.org/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.staticfile.org/popper.js/1.16.1/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.staticfile.org/bootstrap/4.6.2/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!-- <script src="https://cdn.staticfile.org/js-cookie/3.0.5/js.cookie.min.js"
+          integrity="sha512-nlp9/l96/EpjYBx7EP7pGASVXNe80hGhYAUrjeXnu/fyF5Py0/RXav4BBNs7n5Hx1WFhOEOWSAVjGeC3oKxDVQ=="
+          crossorigin="anonymous"
+          referrerpolicy="no-referrer"></script> -->
+
+  <script src="/assets/js/vendor/code-prettify/prettify.js"></script>
+  <script src="/assets/js/vendor/code-prettify/lang-dart.js"></script>
+  <script src="/assets/js/vendor/code-prettify/lang-yaml.js"></script>
+  <script src="/assets/js/os-tabs.js?v=1693674404"></script>
+  <script src="/assets/js/utilities.js?v=1693674404"></script>
+  <script src="/assets/js/main.js?v=1693674404"></script>
+
+  <script>
+
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-122680122-5', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+
+ <link href="/assets/translator/css/translator.css" rel="stylesheet"></head>
+
+  <body class="default show_banner">
+    <section id="cookie-notice">
+  <div class="container">
+    <p>Google uses cookies to deliver its services, to personalize ads, and to 
+      analyze traffic. You can adjust your privacy controls anytime in your 
+      <a href="https://myaccount.google.com/data-and-personalization" target="_blank" rel="noopener" class="no-automatic-external">Google settings</a>. 
+      <a href="https://policies.google.com/technologies/cookies" target="_blank" rel="noopener" class="no-automatic-external">Learn more</a>.
+    </p>
+    <button id="cookie-consent" class="btn btn-primary">Okay</button>
+  </div>
+</section>
+
+    <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=G-28P0PYCRZ9"
+ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+    <header id="page-header" class="site-header">
+  <nav id="mainnav" class="site-header">
+  <div id="menu-toggle"><i class="material-icons">menu</i></div>
+  <a href="/" class="brand" title="Dart">
+    <img src="/assets/img/shared/dart/logo+text/horizontal/white.svg" alt="Dart">
+  </a>
+  <ul class="navbar">
+    <li>
+      <a href="/overview" class="nav-link">概覽</a>
+    </li>
+    <li class="mainnav__get-started">
+      <a href="/guides" class="nav-link
+         active">
+        <span>文件</span>
+      </a>
+    </li>
+    <li>
+      <a href="/community" class="nav-link">社群</a>
+    </li>
+    <li>
+      <a href="/#try-dart" class="nav-link">嘗試 Dart</a>
+    </li>
+    <li>
+      <a href="/get-dart" class="nav-link">獲取 Dart SDK</a>
+    </li>
+    <li class="searchfield">
+      <form action="/search" class="site-header__search form-inline" id="cse-search-box">
+        <input type="hidden" name="cx" value="011220921317074318178:_yy-tmb5t_i">
+        <input type="hidden" name="ie" value="UTF-8">
+        <input type="hidden" name="hl" value="en">
+        <input class="site-header__searchfield form-control search-field" type="search" name="q" id="q" autocomplete="off" placeholder="Search" aria-label="Search">
+      </form>
+    </li>
+  </ul>
+</nav>
+
+  
+</header>
+ <div class="banner">
+  <p class="banner__text">
+    Dart 3 已釋出！帶來了全新的
+    <a href="https://dart.tw.gh.miniasp.com/language/records" class="no-automatic-external">記錄型別 (records)</a>、
+    <a href="https://dart.tw.gh.miniasp.com/language/patterns" class="no-automatic-external">模式匹配 (patterns)</a>
+    以及 <a href="https://dart.tw.gh.miniasp.com/language/class-modifiers" class="no-automatic-external">型別修飾符 (class modifiers)</a>。
+    <br>
+    <!--<a href="https://medium.com/p/53f065a10635" class="no-automatic-external">Check out the blog post</a>!-->
+  </p>
+</div>
+ 
+
+    <div id="sidenav" class="">
+  <form action="/search/" class="site-header__search form-inline">
+    <input class="site-header__searchfield form-control search-field" type="search" name="q" id="q" autocomplete="off" placeholder="Search" aria-label="Search">
+  </form>
+
+  <div class="site-sidebar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a href="/overview" class="nav-link">概覽</a>
+      </li>
+      <li class="nav-item">
+        <a href="/community" class="nav-link">社群</a>
+      </li>
+      <li class="nav-item">
+        <a href="https://dartpad.dev" class="nav-link">嘗試 Dart</a>
+      </li>
+      <li class="nav-item">
+        <a href="/get-dart" class="nav-link">獲取 Dart SDK</a>
+      </li>
+      <li class="nav-item">
+        <a href="/guides" class="nav-link active">文件</a>
+      </li>
+    </ul>
+
+    <ul class="nav flex-column"><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-1" role="button" aria-expanded="false" aria-controls="sidenav-1">範例和課程</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-1">
+        <li class="nav-item">
+    <a class="nav-link" href="/tutorials">語言概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable" data-toggle="collapse" data-target="#sidenav-1-2" href="#sidenav-1-2" role="button" aria-expanded="true" aria-controls="sidenav-1-2">Codelabs
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-1-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/codelabs">Codelabs 列表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/dart-cheatsheet">Dart 速查表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/iterables">可迭代集合</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/async-await">Dart 非同步程式設計</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/null-safety">空安全</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-2" role="button" aria-expanded="false" aria-controls="sidenav-2">Dart 開發語言</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2">
+        <li class="nav-item">
+    <a class="nav-link" href="/language">介紹</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-2" href="#sidenav-2-2" role="button" aria-expanded="false" aria-controls="sidenav-2-2">基礎表示式
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/variables">變數</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/operators">運運算元</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/comments">註釋</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/metadata">註解</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/libraries">庫 &amp; 導庫</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/keywords">關鍵字</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-3" href="#sidenav-2-3" role="button" aria-expanded="false" aria-controls="sidenav-2-3">型別
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-3">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/built-in-types">基本型別</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/records">記錄 (Records)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/collections">集合 (Collections)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/generics">泛型 (Generics)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/typedefs">別名 (Typedefs)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/type-system">型別系統</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-4" href="#sidenav-2-4" role="button" aria-expanded="false" aria-controls="sidenav-2-4">模式匹配
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-4">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/patterns">概覽 &amp; 用法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/pattern-types">模式匹配型別</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/language/functions">函式方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-6" href="#sidenav-2-6" role="button" aria-expanded="false" aria-controls="sidenav-2-6">控制流
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-6">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/loops">迴圈</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/branches">分支</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/language/error-handling">錯誤處理</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-8" href="#sidenav-2-8" role="button" aria-expanded="false" aria-controls="sidenav-2-8">類 &amp; 物件
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-8">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/classes">類</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/constructors">構造方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/methods">成員方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/extend">繼承</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/mixins">混入 (Mixin)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/enums">列舉</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/extension-methods">擴充方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/callable-objects">可呼叫的物件</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-9" href="#sidenav-2-9" role="button" aria-expanded="false" aria-controls="sidenav-2-9">型別修飾符
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-9">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/class-modifiers">概覽 &amp; 用法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/class-modifiers-for-apis">API 維護者應該用的型別修飾符</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/modifier-reference">速查表</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-10" href="#sidenav-2-10" role="button" aria-expanded="false" aria-controls="sidenav-2-10">併發
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-10">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/async">非同步支援</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/concurrency">Isolates</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-11" href="#sidenav-2-11" role="button" aria-expanded="false" aria-controls="sidenav-2-11">Null safety
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-11">
+      <li class="nav-item">
+    <a class="nav-link" href="/null-safety">健全的空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/migration-guide">遷移到空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/understanding-null-safety">深入理解空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/unsound-null-safety">非健全的空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/faq">空安全常見問題和解答</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-3" role="button" aria-expanded="false" aria-controls="sidenav-3">高效指南 (Effective Dart)</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-3">
+        <li class="nav-item">
+    <a class="nav-link" href="/effective-dart">概述</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/style">程式碼風格</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/documentation">文件</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/usage">用法範例</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/design">API 設計</a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-4" role="button" aria-expanded="false" aria-controls="sidenav-4">核心函式庫</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-4">
+        <li class="nav-item">
+    <a class="nav-link" href="/guides/libraries">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/library-tour">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-4-3" href="#sidenav-4-3" role="button" aria-expanded="false" aria-controls="sidenav-4-3">介紹文章
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-4-3">
+      <li class="nav-item">
+    <a class="nav-link" href="/articles/libraries/creating-streams">建立 stream</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-5" role="button" aria-expanded="false" aria-controls="sidenav-5">Packages</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-5">
+        <li class="nav-item">
+    <a class="nav-link" href="/guides/packages">如何使用 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/useful-libraries">常用 package 介紹</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/create-packages">建立 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/publishing">釋出 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/writing-package-pages">設定 package 介紹頁</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-5-6" href="#sidenav-5-6" role="button" aria-expanded="false" aria-controls="sidenav-5-6">Package 參考資料
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-5-6">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/pub/dependencies">依賴</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/glossary">術語表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/package-layout">Package 檔案結構</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/environment-variables">設定環境變數</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/pubspec">Pubspec 檔案</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/troubleshoot">問題排查</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/verified-publishers">釋出者認證</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/versioning">版本管理</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-6" role="button" aria-expanded="false" aria-controls="sidenav-6">開發文件</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6">
+        <li class="nav-item">
+    <a class="nav-link" href="/codelabs/async-await">Futures、async 和 await</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/language/streams">Streams 介紹</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/json">使用 JSON</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/numbers">Dart 中的數字</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-5" href="#sidenav-6-5" role="button" aria-expanded="false" aria-controls="sidenav-6-5">與其他語言進行互動呼叫
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-5">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/c-interop">與 C 互調</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/objective-c-interop">與 Objective-C 和 Swift 互調</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/java-interop">與 Java 和 Kotlin 互調</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/web/js-interop">與 JavaScript 互調</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/guides/google-apis">Google APIs</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/multiplatform-apps">跨平臺應用</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-8" href="#sidenav-6-8" role="button" aria-expanded="false" aria-controls="sidenav-6-8">命令列和伺服器端應用
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-8">
+      <li class="nav-item">
+    <a class="nav-link" href="/server">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/get-started">起步課程</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/cmdline">命令列應用</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/fetch-data">從網路上獲取資料</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/httpserver">編寫 HTTP 伺服器端應用</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/server/libraries">庫和 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/server/google-cloud">Google Cloud</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-9" href="#sidenav-6-9" role="button" aria-expanded="false" aria-controls="sidenav-6-9">網頁端 (Web) 應用
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-9">
+      <li class="nav-item">
+    <a class="nav-link" href="/web">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/get-started">開始使用</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-9-3" href="#sidenav-6-9-3" role="button" aria-expanded="false" aria-controls="sidenav-6-9-3">底層 Web 程式設計
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-9-3">
+      <li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/low-level-html/connect-dart-html">Dart 與 HTML 關聯</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/low-level-html/add-elements">向 DOM 新增元素</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/low-level-html/remove-elements">移除 DOM 元素</a>
+  </li>
+  </ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/web/deployment">部署</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/web/libraries">常用 Web 函式庫和 package</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/guides/environment-declarations">環境變數宣告</a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-7" role="button" aria-expanded="false" aria-controls="sidenav-7">開發工具和使用技巧</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7">
+        <li class="nav-item">
+    <a class="nav-link" href="/tools">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-2" href="#sidenav-7-2" role="button" aria-expanded="false" aria-controls="sidenav-7-2">編輯器和除錯工具
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/jetbrains-plugin">使用 IntelliJ 和 Android Studio</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/vs-code">使用 VS Code</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/dart-devtools">Dart 開發者工具</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-2-4" href="#sidenav-7-2-4" role="button" aria-expanded="false" aria-controls="sidenav-7-2-4">線上執行 Dart 程式碼
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-2-4">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/dartpad">Overview</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dartpad/dartpad-best-practices">DartPad 課程</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dartpad/troubleshoot">DartPad 疑難解答</a>
+  </li>
+  </ul>
+  </li>
+</ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-3" href="#sidenav-7-3" role="button" aria-expanded="false" aria-controls="sidenav-7-3">命令列工具
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-3">
+      <li class="nav-item">
+    <a class="nav-link collapsable" data-toggle="collapse" data-target="#sidenav-7-3-1" href="#sidenav-7-3-1" role="button" aria-expanded="true" aria-controls="sidenav-7-3-1">Dart SDK
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-7-3-1">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/sdk">概覽</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-tool">dart 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-analyze">dart analyze 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-compile">dart compile 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-create">dart create 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-doc">dart doc 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-fix">dart fix 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-format">dart format 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-info">dart info 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/pub/cmd">dart pub 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-run">dart run 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-test">dart test 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dartaotruntime">dartaotruntime 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/experiment-flags">實驗性命令標記</a>
+  </li>
+  </ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable" data-toggle="collapse" data-target="#sidenav-7-3-2" href="#sidenav-7-3-2" role="button" aria-expanded="true" aria-controls="sidenav-7-3-2">其他的命令列工具
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-7-3-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/build_runner">build_runner 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/webdev">webdev 命令</a>
+  </li>
+  </ul>
+  </li>
+</ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-4" href="#sidenav-7-4" role="button" aria-expanded="false" aria-controls="sidenav-7-4">原始碼管理
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-4">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/language/formatting">程式碼格式化</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/private-files">不應提交的內容</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-5" href="#sidenav-7-5" role="button" aria-expanded="false" aria-controls="sidenav-7-5">靜態分析
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-5">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/analysis">自訂靜態分析</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/sound-problems">修復常見的型別問題</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/diagnostic-messages">診斷訊息</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/linter-rules">Linter 規則</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-6" href="#sidenav-7-6" role="button" aria-expanded="false" aria-controls="sidenav-7-6">測試和調優
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-6">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/testing">測試</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/web/debugging">除錯 Web 應用</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-8" role="button" aria-expanded="false" aria-controls="sidenav-8">資源</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-8">
+        <li class="nav-item">
+    <a class="nav-link" href="/resources/faq">常見問題</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/evolution">版本演變</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/spec">語言規範</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/resources/dart-3-migration">Dart 3 遷移指南</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-8-5" href="#sidenav-8-5" role="button" aria-expanded="false" aria-controls="sidenav-8-5">從其他平台轉向 Dart
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-8-5">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/language/coming-from/js-to-dart">從 JavaScript 到 Dart</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/coming-from/swift-to-dart">從 Swift 到 Dart</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/resources/glossary">詞彙表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/resources/books">書籍資源</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/resources/videos">影片資源</a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link " data-toggle="collapse" href="#sidenav-9" role="button" aria-expanded="true" aria-controls="sidenav-9">相關站點</a>
+
+      <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-9">
+        <li class="nav-item">
+    <a class="nav-link" href="https://api.dart.dev" target="_blank" rel="noopener">API 文件<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://medium.com/dartlang" target="_blank" rel="noopener">Dart 團隊官方部落格<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://dartpad.dev" target="_blank" rel="noopener">DartPad (線上編輯器)<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://flutter.tw" target="_blank" rel="noopener">Flutter<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://pub.dev" target="_blank" rel="noopener">Package 網站<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-10" role="button" aria-expanded="false" aria-controls="sidenav-10">關於 Dart 中文文件</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-10">
+        <li class="nav-item">
+    <a class="nav-link" href="https://flutter.tw/about/docs-cn" target="_blank" rel="noopener">關於本站<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://flutter.tw/disclaimer" target="_blank" rel="noopener">免責條款 (Disclaimer)<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li>
+</ul>
+    </li></ul>
+
+  </div>
+</div>
+
+    <main id="page-content">
+      
+
+
+
+
+
+
+
+<div id="site-toc--side" class="site-toc ">
+  <header class="site-toc__title">
+    目錄
+    
+  </header>
+  <ul id="toc" class="section-nav">
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#property-or-this">Only local variables can be promoted</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#other-causes-and-workarounds">Other causes and workarounds</a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#write">Possibly written after promotion</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#loop-or-switch">Possibly written in a previous loop iteration</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#catch">In catch after possible write in try</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#subtype-mismatch">Subtype mismatch</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#captured-local">Write captured by a local function</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#write-outer">Written outside of the current closure or function expression</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#captured-outer">Write captured outside of the current closure or function expression</a></li>
+</ul>
+</li>
+</ul>
+  
+</div>
+
+
+      <article>
+        <div class="content">
+          
+
+          <div id="site-content-title">
+            <div id="page-github-links" class="btn-group" aria-label="Page GitHub links" role="group">
+  <a href="https://github.com/doggy8088/dart.tw/tree/master/src/tools/non-promotion-reasons.md" class="btn no-automatic-external" title="View page source" target="_blank" rel="noopener">
+    <i class="material-icons">description</i>
+  </a>
+  <a href="https://github.com/doggy8088/dart.tw/issues/new?template=1_page_issue.yml&amp;title=[PAGE ISSUE]: 'Fixing type promotion failures'&amp;page-url=https://dart.tw.gh.miniasp.com/tools/non-promotion-reasons.html&amp;page-source=https://github.com/doggy8088/dart.tw/tree/master/src/tools/non-promotion-reasons.md" class="btn no-automatic-external" title="Report an issue with this page" target="_blank" rel="noopener">
+    <i class="material-icons">bug_report</i>
+  </a>
+</div>
+
+            
+            <h1 id="fixing-type-promotion-failures">Fixing type promotion failures</h1>
+            </div>
+          
+
+
+
+
+
+
+
+<div id="site-toc--inline" class="site-toc ">
+  <header class="site-toc__title">
+    目錄
+    
+  </header>
+  <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#property-or-this">Only local variables can be promoted</a></li>
+<li class="toc-entry toc-h2"><a href="#other-causes-and-workarounds">Other causes and workarounds</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#write">Possibly written after promotion</a></li>
+<li class="toc-entry toc-h3"><a href="#loop-or-switch">Possibly written in a previous loop iteration</a></li>
+<li class="toc-entry toc-h3"><a href="#catch">In catch after possible write in try</a></li>
+<li class="toc-entry toc-h3"><a href="#subtype-mismatch">Subtype mismatch</a></li>
+<li class="toc-entry toc-h3"><a href="#captured-local">Write captured by a local function</a></li>
+<li class="toc-entry toc-h3"><a href="#write-outer">Written outside of the current closure or function expression</a></li>
+<li class="toc-entry toc-h3"><a href="#captured-outer">Write captured outside of the current closure or function expression</a></li>
+</ul>
+</li>
+</ul>
+  
+</div>
+
+
+          <p>This page has information to help you understand
+why type promotion failures occur,
+with tips on how to fix them.
+To learn more, check out <a href="/null-safety/understanding-null-safety#working-with-nullable-fields">Working with nullable fields</a>,
+a section in <a href="/null-safety/understanding-null-safety">Understanding null safety</a>.</p>
+
+<h2 id="property-or-this">
+<a class="anchor" href="#property-or-this" aria-hidden="true"><span class="octicon octicon-link"></span></a>Only local variables can be promoted</h2>
+
+<p><strong>The cause:</strong>
+You’re trying to promote a property or <code class="language-plaintext highlighter-rouge">this</code>,
+but only local variables can be promoted.</p>
+
+<p>Example:</p>
+
+<pre class="prettyprint lang-dart bad"><code>class C {
+  int? i;                  // (1)
+  void f() {
+    if (i == null) return;
+    print(i.isEven);       // (2) ERROR
+  }
+}</code></pre>
+
+<p>The Dart compiler produces an error message for (2)
+that points to (1) and explains that
+<code class="language-plaintext highlighter-rouge">i</code> can’t be promoted to a non-nullable type
+because it’s a field.</p>
+
+<p>The usual fix is either to use <code class="language-plaintext highlighter-rouge">i!</code>
+or to create a local variable
+of type <code class="language-plaintext highlighter-rouge">int</code> that holds the value of <code class="language-plaintext highlighter-rouge">i</code>.</p>
+
+<p>Here’s an example of using <code class="language-plaintext highlighter-rouge">i!</code>:</p>
+
+<pre class="prettyprint lang-dart good"><code>print(i<span class="highlight">!</span>.isEven);</code></pre>
+
+<p>And here’s an example of creating a local variable
+(which can be named <code class="language-plaintext highlighter-rouge">i</code>)
+that holds the value of <code class="language-plaintext highlighter-rouge">i</code>:</p>
+
+<pre class="prettyprint lang-dart good"><code>class C {
+  int? i;
+  void f() {
+    <span class="highlight">final i = this.i;</span>
+    if (i == null) return;
+    print(i.isEven);
+  }
+}</code></pre>
+
+<p>This example features an instance field,
+but it could instead use an instance getter, a static field or getter,
+a top-level variable or getter, or <code class="language-plaintext highlighter-rouge">this</code>.
+(Although promoting <code class="language-plaintext highlighter-rouge">this</code> would be sound,
+implementing it would be difficult and not very useful.)</p>
+
+<aside class="alert alert-success" role="alert">
+  <p><i class="material-icons" aria-hidden="true">tips_and_updates</i> <strong>小提示:</strong>
+  When creating a local variable to hold a field’s value,
+  <strong>make the variable <code class="language-plaintext highlighter-rouge">final</code></strong>.
+  That way, you can’t accidentally update the local variable
+  when you intend to update the field.</p>
+</aside>
+
+<h2 id="other-causes-and-workarounds">
+<a class="anchor" href="#other-causes-and-workarounds" aria-hidden="true"><span class="octicon octicon-link"></span></a>Other causes and workarounds</h2>
+
+<p>This section covers other common causes
+of type promotion failure.
+The workarounds for many of these are
+one or more of the following:</p>
+
+<ul>
+  <li>Create a local variable that has the type you need.</li>
+  <li>Add an explicit null check.</li>
+  <li>Use <code class="language-plaintext highlighter-rouge">!</code> or <code class="language-plaintext highlighter-rouge">as</code> if you’re sure an expression can’t be null.</li>
+</ul>
+
+<aside class="alert alert-info" role="alert">
+  <p><i class="material-icons" aria-hidden="true">info</i> <strong>備註:</strong>
+  You can work around all of these non-promotion examples by adding
+  a <em>redundant check</em>—code that confirms a
+  condition that’s already been checked.
+  If the promotion that’s failing is a null check, use <code class="language-plaintext highlighter-rouge">!</code>;
+  if it’s a type check, you can use <code class="language-plaintext highlighter-rouge">as</code>.</p>
+
+  <p>Redundant checks are an easy but error-prone solution
+  to type promotion failures.
+  Because they overrule the compiler,
+  they can lead to mistakes in a way that other solutions don’t.</p>
+
+  <p>It’s up to you whether to do the extra work to get types to promote 
+  (giving you confidence that the code is correct)
+  or to do a redundant check
+  (which might introduce a bug if your reasoning is wrong).</p>
+</aside>
+
+<h3 id="write">
+<a class="anchor" href="#write" aria-hidden="true"><span class="octicon octicon-link"></span></a>Possibly written after promotion</h3>
+
+<p><strong>The cause:</strong>
+Trying to promote a variable that might have been
+written to since it was promoted.</p>
+
+<p>Example:</p>
+
+<pre class="prettyprint lang-dart bad"><code>void f(bool b, int? i, int? j) {
+  if (i == null) return;
+  if (b) {
+    i = j;           // (1)
+  }
+  if (!b) {
+    print(i.isEven); // (2) ERROR
+  }
+}</code></pre>
+
+<p>In this example, when flow analysis hits (1),
+it demotes <code class="language-plaintext highlighter-rouge">i</code> from non-nullable <code class="language-plaintext highlighter-rouge">int</code> back to nullable <code class="language-plaintext highlighter-rouge">int?</code>.
+A human can tell that the access at (2) is safe
+because there’s no code path that includes both (1) and (2), but
+flow analysis isn’t smart enough to see that,
+because it doesn’t track correlations between
+conditions in separate <code class="language-plaintext highlighter-rouge">if</code> statements.</p>
+
+<p>You might fix the problem by combining the two <code class="language-plaintext highlighter-rouge">if</code> statements:</p>
+
+<pre class="prettyprint lang-dart good"><code>void f(bool b, int? i, int? j) {
+  if (i == null) return;
+  if (b) {
+    i = j;
+  } <span class="highlight">else</span> {
+    print(i.isEven);
+  }
+}</code></pre>
+
+<p>In straight-line control flow cases like these (no loops),
+flow analysis takes into account the right hand side of the assignment
+when deciding whether to demote.
+As a result, another way to fix this code is
+to change the type of <code class="language-plaintext highlighter-rouge">j</code> to <code class="language-plaintext highlighter-rouge">int</code>.</p>
+
+<pre class="prettyprint lang-dart good"><code>void f(bool b, int? i, <span class="highlight">int j</span>) {
+  if (i == null) return;
+  if (b) {
+    i = j;
+  }
+  if (!b) {
+    print(i.isEven);
+  }
+}</code></pre>
+
+<h3 id="loop-or-switch">
+<a class="anchor" href="#loop-or-switch" aria-hidden="true"><span class="octicon octicon-link"></span></a>Possibly written in a previous loop iteration</h3>
+
+<p><strong>The cause:</strong>
+You’re trying to promote something that
+might have been written to in a previous iteration of a loop,
+and so the promotion was invalidated.</p>
+
+<p>Example:</p>
+
+<pre class="prettyprint lang-dart bad"><code>void f(Link? p) {
+  if (p != null) return;
+  while (true) {    // (1)
+    print(p.value); // (2) ERROR
+    var next = p.next;
+    if (next == null) break;
+    p = next;       // (3)
+  }
+}</code></pre>
+
+<p>When flow analysis reaches (1),
+it looks ahead and sees the write to <code class="language-plaintext highlighter-rouge">p</code> at (3).
+But because it’s looking ahead,
+it hasn’t yet figured out the type of the right-hand side of the assignment,
+so it doesn’t know whether it’s safe to retain the promotion.
+To be safe, it invalidates the promotion.</p>
+
+<p>You might fix this problem by moving the null check to the top of the loop:</p>
+
+<pre class="prettyprint lang-dart good"><code>void f(Link? p) {
+  while (<span class="highlight">p != null</span>) {
+    print(p.value);
+    p = p.next;
+  }
+}</code></pre>
+
+<p>This situation can also arise in <code class="language-plaintext highlighter-rouge">switch</code> statements if
+a <code class="language-plaintext highlighter-rouge">case</code> block has a label,
+because you can use labeled <code class="language-plaintext highlighter-rouge">switch</code> statements to construct loops:</p>
+
+<pre class="prettyprint lang-dart bad"><code>void f(int i, int? j, int? k) {
+  if (j == null) return;
+  switch (i) {
+    label:
+    case 0:
+      print(j.isEven); // ERROR
+      j = k;
+      continue label;
+  }
+}</code></pre>
+
+<p>Again, you can fix the problem by moving the null check to the top of the loop:</p>
+
+<pre class="prettyprint lang-dart good"><code>void f(int i, int? j, int? k) {
+  switch (i) {
+    label:
+    case 0:
+      <span class="highlight">if (j == null) return;</span>
+      print(j.isEven);
+      j = k;
+      continue label;
+  }
+}</code></pre>
+
+<h3 id="catch">
+<a class="anchor" href="#catch" aria-hidden="true"><span class="octicon octicon-link"></span></a>In catch after possible write in try</h3>
+
+<p><strong>The cause:</strong>
+The variable might have been written to in a <code class="language-plaintext highlighter-rouge">try</code> block,
+and execution is now in a <code class="language-plaintext highlighter-rouge">catch</code> block.</p>
+
+<p>Example:</p>
+
+<pre class="prettyprint lang-dart bad"><code>void f(int? i, int? j) {
+  if (i == null) return;
+  try {
+    i = j;                 // (1)
+    // ... Additional code ...
+    if (i == null) return; // (2)
+    // ... Additional code ...
+  } catch (e) {
+    print(i.isEven);       // (3) ERROR
+  }
+}</code></pre>
+
+<p>In this case, flow analysis doesn’t consider <code class="language-plaintext highlighter-rouge">i.isEven</code> (3) safe,
+because it has no way of knowing when in the <code class="language-plaintext highlighter-rouge">try</code> block
+the exception might have occurred,
+so it conservatively assumes that it might have happened between (1) and (2),
+when <code class="language-plaintext highlighter-rouge">i</code> was potentially <code class="language-plaintext highlighter-rouge">null</code>.</p>
+
+<p>Similar situations can occur between <code class="language-plaintext highlighter-rouge">try</code> and <code class="language-plaintext highlighter-rouge">finally</code> blocks, and
+between <code class="language-plaintext highlighter-rouge">catch</code> and <code class="language-plaintext highlighter-rouge">finally</code> blocks.
+Because of a historical artifact of how the implementation was done,
+these <code class="language-plaintext highlighter-rouge">try</code>/<code class="language-plaintext highlighter-rouge">catch</code>/<code class="language-plaintext highlighter-rouge">finally</code> situations don’t take into account
+the right-hand side of the assignment,
+similar to what happens in loops.</p>
+
+<p>To fix the problem, make sure that the <code class="language-plaintext highlighter-rouge">catch</code> block doesn’t rely on assumptions
+about the state of variables that get changed inside the <code class="language-plaintext highlighter-rouge">try</code> block.
+Remember, the exception might occur at any time during the <code class="language-plaintext highlighter-rouge">try</code> block,
+possibly when <code class="language-plaintext highlighter-rouge">i</code> is null.</p>
+
+<p>The safest solution is to add a null check inside the <code class="language-plaintext highlighter-rouge">catch</code> block:</p>
+
+<pre class="prettyprint lang-dart good"><code>// ···
+} catch (e) {
+  <span class="highlight">if (i != null) {</span>
+    print(i.isEven); // (3) OK due to the null check in the line above.
+  <span class="highlight">} else {</span>
+  <span class="highlight">  // Handle the case where i is null.</span>
+  <span class="highlight">}</span>
+}</code></pre>
+
+<p>Or, if you’re sure that an exception can’t occur while <code class="language-plaintext highlighter-rouge">i</code> is null,
+just use the <code class="language-plaintext highlighter-rouge">!</code> operator:</p>
+<pre class="prettyprint lang-dart"><code>// ···
+} catch (e) {
+  print(i<span class="highlight">!</span>.isEven); // (3) OK because of the `!`.
+}</code></pre>
+
+<h3 id="subtype-mismatch">
+<a class="anchor" href="#subtype-mismatch" aria-hidden="true"><span class="octicon octicon-link"></span></a>Subtype mismatch</h3>
+
+<p><strong>The cause:</strong>
+The type you’re trying to promote to isn’t a subtype of
+the variable’s current promoted type
+(or wasn’t a subtype at the time of the promotion attempt).</p>
+
+<p>Example:</p>
+
+<pre class="prettyprint lang-dart bad"><code>void f(Object o) {
+  if (o is Comparable /* (1) */) {
+    if (o is Pattern /* (2) */) {
+      print(o.matchAsPrefix('foo')); // (3) ERROR
+    }
+  }
+}</code></pre>
+
+<p>In this example, <code class="language-plaintext highlighter-rouge">o</code> is promoted to <code class="language-plaintext highlighter-rouge">Comparable</code> at (1), but
+it isn’t promoted to <code class="language-plaintext highlighter-rouge">Pattern</code> at (2),
+because <code class="language-plaintext highlighter-rouge">Pattern</code> isn’t a subtype of <code class="language-plaintext highlighter-rouge">Comparable</code>.
+(The rationale is that if it did promote,
+then you wouldn’t be able to use methods on <code class="language-plaintext highlighter-rouge">Comparable</code>.)
+Note that just because <code class="language-plaintext highlighter-rouge">Pattern</code> isn’t a subtype of <code class="language-plaintext highlighter-rouge">Comparable</code>
+doesn’t mean the code at (3) is dead;
+<code class="language-plaintext highlighter-rouge">o</code> might have a type—like <code class="language-plaintext highlighter-rouge">String</code>—that 
+implements both <code class="language-plaintext highlighter-rouge">Comparable</code> and <code class="language-plaintext highlighter-rouge">Pattern</code>.</p>
+
+<p>One possible solution is to create a new local variable so that
+the original variable is promoted to <code class="language-plaintext highlighter-rouge">Comparable</code>, and
+the new variable is promoted to <code class="language-plaintext highlighter-rouge">Pattern</code>:</p>
+
+<!-- code-excerpt "non_promotion/lib/non_promotion.dart (closure-new-var)" replace="/var o2.*/[!$&!]/g;/o2\./[!o2!]./g"?>-->
+<pre class="prettyprint lang-dart"><code>void f(Object o) {
+  if (o is Comparable /* (1) */) {
+    <span class="highlight">Object o2 = o;</span>
+    if (<span class="highlight">o2</span> is Pattern /* (2) */) {
+      print(
+          <span class="highlight">o2</span>.matchAsPrefix('foo')); // (3) OK; o2 was promoted to `Pattern`.
+    }
+  }
+}</code></pre>
+
+<p>However, someone who edits the code later might be tempted to change
+<code class="language-plaintext highlighter-rouge">Object o2</code> to <code class="language-plaintext highlighter-rouge">var o2</code>.
+That change gives <code class="language-plaintext highlighter-rouge">o2</code> a type of <code class="language-plaintext highlighter-rouge">Comparable</code>,
+which brings back the problem of the object not being promotable to <code class="language-plaintext highlighter-rouge">Pattern</code>.</p>
+
+<p>A redundant type check might be a better solution:</p>
+
+<pre class="prettyprint lang-dart good"><code>void f(Object o) {
+  if (o is Comparable /* (1) */) {
+    if (o is Pattern /* (2) */) {
+      print(<span class="highlight">(o as Pattern)</span>.matchAsPrefix('foo')); // (3) OK
+    }
+  }
+}</code></pre>
+
+<p>Another solution that sometimes works is when you can use a more precise type.
+If line 3 cares only about strings,
+then you can use <code class="language-plaintext highlighter-rouge">String</code> in your type check.
+Because <code class="language-plaintext highlighter-rouge">String</code> is a subtype of <code class="language-plaintext highlighter-rouge">Comparable</code>, the promotion works:</p>
+
+<pre class="prettyprint lang-dart good"><code>void f(Object o) {
+  if (o is Comparable /* (1) */) {
+    if (o is <span class="highlight">String</span> /* (2) */) {
+      print(o.matchAsPrefix('foo')); // (3) OK
+    }
+  }
+}</code></pre>
+
+<h3 id="captured-local">
+<a class="anchor" href="#captured-local" aria-hidden="true"><span class="octicon octicon-link"></span></a>Write captured by a local function</h3>
+
+<p><strong>The cause:</strong>
+The variable has been write captured by
+a local function or function expression.</p>
+
+<p>Example:</p>
+
+<pre class="prettyprint lang-dart bad"><code>void f(int? i, int? j) {
+  var foo = () {
+    i = j;
+  };
+  // ... Use foo ... 
+  if (i == null) return; // (1)
+  // ... Additional code ...
+  print(i.isEven);       // (2) ERROR
+}</code></pre>
+
+<p>Flow analysis reasons that as soon as the definition of <code class="language-plaintext highlighter-rouge">foo</code> is reached,
+it might get called at any time,
+therefore it’s no longer safe to promote <code class="language-plaintext highlighter-rouge">i</code> at all.
+As with loops, this demotion happens regardless of
+the type of the right hand side of the assignment.</p>
+
+<p>Sometimes it’s possible to restructure the logic so that
+the promotion is before the write capture:</p>
+
+<pre class="prettyprint lang-dart good"><code>void f(int? i, int? j) {
+  if (i == null) return; // (1)
+  // ... Additional code ...
+  print(i.isEven); // (2) OK
+  <span class="highlight">var foo = () {</span>
+  <span class="highlight">  i = j;</span>
+  <span class="highlight">};</span>
+  <span class="highlight">// ... Use foo ...</span>
+}</code></pre>
+
+<p>Another option is to create a local variable, so it isn’t write captured:</p>
+
+<pre class="prettyprint lang-dart good"><code>void f(int? i, int? j) {
+  var foo = () {
+    i = j;
+  };
+  // ... Use foo ...
+  <span class="highlight">var i2 = i;</span>
+  if (<span class="highlight">i2</span> == null) return; // (1)
+  // ... Additional code ...
+  print(<span class="highlight">i2</span>.isEven); // (2) OK because `i2` isn't write captured.
+}</code></pre>
+
+<p>Or you can do a redundant check:</p>
+<pre class="prettyprint lang-dart"><code>void f(int? i, int? j) {
+  var foo = () {
+    i = j;
+  };
+  // ... Use foo ...
+  if (i == null) return; // (1)
+  // ... Additional code ...
+  print(i<span class="highlight">!</span>.isEven); // (2) OK due to `!` check.
+}</code></pre>
+
+<h3 id="write-outer">
+<a class="anchor" href="#write-outer" aria-hidden="true"><span class="octicon octicon-link"></span></a>Written outside of the current closure or function expression</h3>
+
+<p><strong>The cause:</strong>
+The variable is written to outside of a closure or function expression,
+and the type promotion location is
+inside the closure or function expression.</p>
+
+<p>Example:</p>
+
+<pre class="prettyprint lang-dart bad"><code>void f(int? i, int? j) {
+  if (i == null) return;
+  var foo = () {
+    print(i.isEven); // (1) ERROR
+  };
+  i = j;             // (2)
+}</code></pre>
+
+<p>Flow analysis reasons that there’s no way to determine
+when <code class="language-plaintext highlighter-rouge">foo</code> might get called,
+so it might get called after the assignment at (2),
+and thus the promotion might no longer be valid.
+As with loops, this demotion happens regardless of the type of
+the right hand side of the assignment.</p>
+
+<p>A solution is to create a local variable:</p>
+
+<pre class="prettyprint lang-dart good"><code>void f(int? i, int? j) {
+  if (i == null) return;
+  <span class="highlight">var i2 = i;</span>
+  var foo = () {
+    print(<span class="highlight">i2</span>.isEven); // (1) OK because `i2` isn't changed later.
+  };
+  i = j; // (2)
+}</code></pre>
+
+<p>A particularly nasty case looks like this:</p>
+
+<pre class="prettyprint lang-dart bad"><code>void f(int? i) {
+  i ??= 0;
+  var foo = () {
+    print(i.isEven); // ERROR
+  };
+}</code></pre>
+
+<p>In this case, a human can see that the promotion is safe because
+the only write to <code class="language-plaintext highlighter-rouge">i</code> uses a non-null value and
+happens before <code class="language-plaintext highlighter-rouge">foo</code> is ever created.
+But <a href="https://github.com/dart-lang/language/issues/1536">flow analysis isn’t that smart</a>.</p>
+
+<p>Again, a solution is to create a local variable:</p>
+
+<pre class="prettyprint lang-dart good"><code>void f(int? i) {
+  <span class="highlight">var j = i ?? 0;</span>
+  var foo = () {
+    print(<span class="highlight">j</span>.isEven); // OK
+  };
+}</code></pre>
+
+<p>This solution works because <code class="language-plaintext highlighter-rouge">j</code> is inferred to have a non-nullable type (<code class="language-plaintext highlighter-rouge">int</code>)
+due to its initial value (<code class="language-plaintext highlighter-rouge">i ?? 0</code>).
+Because <code class="language-plaintext highlighter-rouge">j</code> has a non-nullable type,
+whether or not it’s assigned later,
+<code class="language-plaintext highlighter-rouge">j</code> can never have a non-null value.</p>
+
+<h3 id="captured-outer">
+<a class="anchor" href="#captured-outer" aria-hidden="true"><span class="octicon octicon-link"></span></a>Write captured outside of the current closure or function expression</h3>
+
+<p><strong>The cause:</strong>
+The variable you’re trying to promote is write captured
+outside of a closure or function expression,
+but this use of the variable is inside of the closure or function expression
+that’s trying to promote it.</p>
+
+<p>Example:</p>
+
+<pre class="prettyprint lang-dart bad"><code>void f(int? i, int? j) {
+  var foo = () {
+    if (i == null) return;
+    print(i.isEven); // ERROR
+  };
+  var bar = () {
+    i = j;
+  };
+}</code></pre>
+
+<p>Flow analysis reasons that there’s no way of telling
+what order <code class="language-plaintext highlighter-rouge">foo</code> and <code class="language-plaintext highlighter-rouge">bar</code> might be executed in;
+in fact, <code class="language-plaintext highlighter-rouge">bar</code> might even get executed halfway through executing <code class="language-plaintext highlighter-rouge">foo</code>
+(due to <code class="language-plaintext highlighter-rouge">foo</code> calling something that calls <code class="language-plaintext highlighter-rouge">bar</code>).
+So it isn’t safe to promote <code class="language-plaintext highlighter-rouge">i</code> at all inside <code class="language-plaintext highlighter-rouge">foo</code>.</p>
+
+<p>The best solution is probably to create a local variable:</p>
+
+<pre class="prettyprint lang-dart good"><code>void f(int? i, int? j) {
+  var foo = () {
+    <span class="highlight">var i2 = i;</span>
+    if (<span class="highlight">i2</span> == null) return;
+    print(<span class="highlight">i2</span>.isEven); // OK because i2 is local to this closure.
+  };
+  var bar = () {
+    i = j;
+  };
+}</code></pre>
+
+          
+
+        </div>
+      </article>
+    </main>
+    <footer id="page-footer">
+    <div class="footer-section footer-main">
+      <a href="/" class="brand" title="Dart">
+        <img src="/assets/img/shared/dart/logo+text/horizontal/white.svg" alt="Dart" width="164px">
+      </a>
+      <div class="footer-social-links">
+        <a href="https://github.com/doggy8088/dart.tw" target="_blank" rel="noopener" title="GitHub" class="no-automatic-external">
+          <svg>
+            <use href="/assets/img/social/github.svg#github"></use>
+          </svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-section footer-tray">
+      <div class="footer-licenses">
+        參考中文內容需註明本站及連結作為出處，英文內容和範例程式碼均遵從源站授權協議。
+      </div>
+      <div class="footer-utility-links">
+        <ul>
+          <li><a href="/terms" title="使用條款">使用條款</a></li>
+          <li><a href="https://policies.google.com/privacy?hl=zh-TW" target="_blank" rel="noopener" title="隱私政策" class="no-automatic-external">隱私政策</a></li>
+          <li><a href="/security" title="Security philosophy and practices">Dart 程式碼安全說明</a></li>
+          <li><a href="https://flutter.tw/about" target="_blank">關於中文文件</a>
+          </li><li><a href="https://flutter.tw/disclaimer" target="_blank">免責條款</a>
+          </li><li><a href="https://dart.cn/" target="_blank">Dart 簡體中文文檔</a>
+        </li></ul>
+      </div>
+    </div>
+  </footer>
+
+  
+
+<script src="/assets/translator/js/translator.js"></script></body></html>

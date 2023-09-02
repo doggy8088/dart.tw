@@ -1,0 +1,2135 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Language" content="zh-cmn-Hans">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Google Tag Manager -->
+<!--  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':-->
+<!--  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],-->
+<!--  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=-->
+<!--  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);-->
+<!--  })(window,document,'script','dataLayer','GTM-5VSZM5J');</script>-->
+  <!-- End Google Tag Manager -->
+
+  <meta name="description" content="可迭代物件（例如列表和集合）的互動式指南">
+  <title>可迭代集合 | Dart</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-28P0PYCRZ9"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-28P0PYCRZ9');
+  </script>
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?fa71f2474b82505e00203cf9956cf0bc";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+  <!-- Favicon / Touch Icons -->
+  <link rel="icon" sizes="64x64" href="/assets/shared/dart/icon/64.png">
+  <link href="/assets/img/touch-icon-iphone.png" rel="apple-touch-icon">
+  <link href="/assets/img/touch-icon-ipad.png" rel="apple-touch-icon" sizes="152x152">
+  <link href="/assets/img/touch-icon-iphone-retina.png" rel="apple-touch-icon" sizes="180x180">
+  <link href="/assets/img/touch-icon-ipad-retina.png" rel="apple-touch-icon" sizes="167x167">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@dart_lang">
+  <meta name="twitter:title" content="可迭代集合">
+  <meta name="twitter:description" content="可迭代物件（例如列表和集合）的互動式指南">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="可迭代集合">
+  <meta property="og:description" content="可迭代物件（例如列表和集合）的互動式指南">
+  <meta property="og:url" content="https://dart.tw.gh.miniasp.com/codelabs/iterables.html">
+
+  <meta property="og:image" content="https://dart.tw.gh.miniasp.com/assets/shared/dart-logo-for-shares.png?2">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Display:wght@400&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons&amp;display=swap" rel="stylesheet">
+  <script src="https://cdn.staticfile.org/font-awesome/5.15.4/js/all.js" data-auto-replace-svg="nest">
+  </script>
+
+  <link rel="stylesheet" href="/assets/css/main.css?v=1693674404">
+  <script src="https://cdn.staticfile.org/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.staticfile.org/popper.js/1.16.1/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.staticfile.org/bootstrap/4.6.2/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!-- <script src="https://cdn.staticfile.org/js-cookie/3.0.5/js.cookie.min.js"
+          integrity="sha512-nlp9/l96/EpjYBx7EP7pGASVXNe80hGhYAUrjeXnu/fyF5Py0/RXav4BBNs7n5Hx1WFhOEOWSAVjGeC3oKxDVQ=="
+          crossorigin="anonymous"
+          referrerpolicy="no-referrer"></script> -->
+
+  <script src="/assets/js/vendor/code-prettify/prettify.js"></script>
+  <script src="/assets/js/vendor/code-prettify/lang-dart.js"></script>
+  <script src="/assets/js/vendor/code-prettify/lang-yaml.js"></script>
+  <script src="/assets/js/os-tabs.js?v=1693674404"></script>
+  <script src="/assets/js/utilities.js?v=1693674404"></script>
+  <script src="/assets/js/main.js?v=1693674404"></script>
+
+  <script defer="" src="https://dartpad.dev/inject_embed.dart.js"></script>
+  <script>
+
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-122680122-5', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+
+ <link href="/assets/translator/css/translator.css" rel="stylesheet"></head>
+
+  <body class="default show_banner">
+    <section id="cookie-notice">
+  <div class="container">
+    <p>Google uses cookies to deliver its services, to personalize ads, and to 
+      analyze traffic. You can adjust your privacy controls anytime in your 
+      <a href="https://myaccount.google.com/data-and-personalization" target="_blank" rel="noopener" class="no-automatic-external">Google settings</a>. 
+      <a href="https://policies.google.com/technologies/cookies" target="_blank" rel="noopener" class="no-automatic-external">Learn more</a>.
+    </p>
+    <button id="cookie-consent" class="btn btn-primary">Okay</button>
+  </div>
+</section>
+
+    <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=G-28P0PYCRZ9"
+ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+    <header id="page-header" class="site-header">
+  <nav id="mainnav" class="site-header">
+  <div id="menu-toggle"><i class="material-icons">menu</i></div>
+  <a href="/" class="brand" title="Dart">
+    <img src="/assets/img/shared/dart/logo+text/horizontal/white.svg" alt="Dart">
+  </a>
+  <ul class="navbar">
+    <li>
+      <a href="/overview" class="nav-link">概覽</a>
+    </li>
+    <li class="mainnav__get-started">
+      <a href="/guides" class="nav-link
+         active">
+        <span>文件</span>
+      </a>
+    </li>
+    <li>
+      <a href="/community" class="nav-link">社群</a>
+    </li>
+    <li>
+      <a href="/#try-dart" class="nav-link">嘗試 Dart</a>
+    </li>
+    <li>
+      <a href="/get-dart" class="nav-link">獲取 Dart SDK</a>
+    </li>
+    <li class="searchfield">
+      <form action="/search" class="site-header__search form-inline" id="cse-search-box">
+        <input type="hidden" name="cx" value="011220921317074318178:_yy-tmb5t_i">
+        <input type="hidden" name="ie" value="UTF-8">
+        <input type="hidden" name="hl" value="en">
+        <input class="site-header__searchfield form-control search-field" type="search" name="q" id="q" autocomplete="off" placeholder="Search" aria-label="Search">
+      </form>
+    </li>
+  </ul>
+</nav>
+
+  
+</header>
+ <div class="banner">
+  <p class="banner__text">
+    Dart 3 已釋出！帶來了全新的
+    <a href="https://dart.tw.gh.miniasp.com/language/records" class="no-automatic-external">記錄型別 (records)</a>、
+    <a href="https://dart.tw.gh.miniasp.com/language/patterns" class="no-automatic-external">模式匹配 (patterns)</a>
+    以及 <a href="https://dart.tw.gh.miniasp.com/language/class-modifiers" class="no-automatic-external">型別修飾符 (class modifiers)</a>。
+    <br>
+    <!--<a href="https://medium.com/p/53f065a10635" class="no-automatic-external">Check out the blog post</a>!-->
+  </p>
+</div>
+ 
+
+    <div id="sidenav" class="">
+  <form action="/search/" class="site-header__search form-inline">
+    <input class="site-header__searchfield form-control search-field" type="search" name="q" id="q" autocomplete="off" placeholder="Search" aria-label="Search">
+  </form>
+
+  <div class="site-sidebar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a href="/overview" class="nav-link">概覽</a>
+      </li>
+      <li class="nav-item">
+        <a href="/community" class="nav-link">社群</a>
+      </li>
+      <li class="nav-item">
+        <a href="https://dartpad.dev" class="nav-link">嘗試 Dart</a>
+      </li>
+      <li class="nav-item">
+        <a href="/get-dart" class="nav-link">獲取 Dart SDK</a>
+      </li>
+      <li class="nav-item">
+        <a href="/guides" class="nav-link active">文件</a>
+      </li>
+    </ul>
+
+    <ul class="nav flex-column"><li class="nav-item">
+      <a class="nav-link active" data-toggle="collapse" href="#sidenav-1" role="button" aria-expanded="true" aria-controls="sidenav-1">範例和課程</a>
+
+      <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-1">
+        <li class="nav-item">
+    <a class="nav-link" href="/tutorials">語言概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link active collapsable" data-toggle="collapse" data-target="#sidenav-1-2" href="#sidenav-1-2" role="button" aria-expanded="true" aria-controls="sidenav-1-2">Codelabs
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-1-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/codelabs">Codelabs 列表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/dart-cheatsheet">Dart 速查表</a>
+  </li><li class="nav-item">
+    <a class="nav-link active" href="/codelabs/iterables">可迭代集合</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/async-await">Dart 非同步程式設計</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/null-safety">空安全</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-2" role="button" aria-expanded="false" aria-controls="sidenav-2">Dart 開發語言</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2">
+        <li class="nav-item">
+    <a class="nav-link" href="/language">介紹</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-2" href="#sidenav-2-2" role="button" aria-expanded="false" aria-controls="sidenav-2-2">基礎表示式
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/variables">變數</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/operators">運運算元</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/comments">註釋</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/metadata">註解</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/libraries">庫 &amp; 導庫</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/keywords">關鍵字</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-3" href="#sidenav-2-3" role="button" aria-expanded="false" aria-controls="sidenav-2-3">型別
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-3">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/built-in-types">基本型別</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/records">記錄 (Records)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/collections">集合 (Collections)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/generics">泛型 (Generics)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/typedefs">別名 (Typedefs)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/type-system">型別系統</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-4" href="#sidenav-2-4" role="button" aria-expanded="false" aria-controls="sidenav-2-4">模式匹配
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-4">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/patterns">概覽 &amp; 用法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/pattern-types">模式匹配型別</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/language/functions">函式方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-6" href="#sidenav-2-6" role="button" aria-expanded="false" aria-controls="sidenav-2-6">控制流
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-6">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/loops">迴圈</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/branches">分支</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/language/error-handling">錯誤處理</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-8" href="#sidenav-2-8" role="button" aria-expanded="false" aria-controls="sidenav-2-8">類 &amp; 物件
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-8">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/classes">類</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/constructors">構造方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/methods">成員方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/extend">繼承</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/mixins">混入 (Mixin)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/enums">列舉</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/extension-methods">擴充方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/callable-objects">可呼叫的物件</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-9" href="#sidenav-2-9" role="button" aria-expanded="false" aria-controls="sidenav-2-9">型別修飾符
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-9">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/class-modifiers">概覽 &amp; 用法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/class-modifiers-for-apis">API 維護者應該用的型別修飾符</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/modifier-reference">速查表</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-10" href="#sidenav-2-10" role="button" aria-expanded="false" aria-controls="sidenav-2-10">併發
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-10">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/async">非同步支援</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/concurrency">Isolates</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-11" href="#sidenav-2-11" role="button" aria-expanded="false" aria-controls="sidenav-2-11">Null safety
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-11">
+      <li class="nav-item">
+    <a class="nav-link" href="/null-safety">健全的空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/migration-guide">遷移到空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/understanding-null-safety">深入理解空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/unsound-null-safety">非健全的空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/faq">空安全常見問題和解答</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-3" role="button" aria-expanded="false" aria-controls="sidenav-3">高效指南 (Effective Dart)</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-3">
+        <li class="nav-item">
+    <a class="nav-link" href="/effective-dart">概述</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/style">程式碼風格</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/documentation">文件</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/usage">用法範例</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/design">API 設計</a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-4" role="button" aria-expanded="false" aria-controls="sidenav-4">核心函式庫</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-4">
+        <li class="nav-item">
+    <a class="nav-link" href="/guides/libraries">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/library-tour">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-4-3" href="#sidenav-4-3" role="button" aria-expanded="false" aria-controls="sidenav-4-3">介紹文章
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-4-3">
+      <li class="nav-item">
+    <a class="nav-link" href="/articles/libraries/creating-streams">建立 stream</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-5" role="button" aria-expanded="false" aria-controls="sidenav-5">Packages</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-5">
+        <li class="nav-item">
+    <a class="nav-link" href="/guides/packages">如何使用 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/useful-libraries">常用 package 介紹</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/create-packages">建立 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/publishing">釋出 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/writing-package-pages">設定 package 介紹頁</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-5-6" href="#sidenav-5-6" role="button" aria-expanded="false" aria-controls="sidenav-5-6">Package 參考資料
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-5-6">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/pub/dependencies">依賴</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/glossary">術語表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/package-layout">Package 檔案結構</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/environment-variables">設定環境變數</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/pubspec">Pubspec 檔案</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/troubleshoot">問題排查</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/verified-publishers">釋出者認證</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/versioning">版本管理</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-6" role="button" aria-expanded="false" aria-controls="sidenav-6">開發文件</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6">
+        <li class="nav-item">
+    <a class="nav-link" href="/codelabs/async-await">Futures、async 和 await</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/language/streams">Streams 介紹</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/json">使用 JSON</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/numbers">Dart 中的數字</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-5" href="#sidenav-6-5" role="button" aria-expanded="false" aria-controls="sidenav-6-5">與其他語言進行互動呼叫
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-5">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/c-interop">與 C 互調</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/objective-c-interop">與 Objective-C 和 Swift 互調</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/java-interop">與 Java 和 Kotlin 互調</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/web/js-interop">與 JavaScript 互調</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/guides/google-apis">Google APIs</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/multiplatform-apps">跨平臺應用</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-8" href="#sidenav-6-8" role="button" aria-expanded="false" aria-controls="sidenav-6-8">命令列和伺服器端應用
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-8">
+      <li class="nav-item">
+    <a class="nav-link" href="/server">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/get-started">起步課程</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/cmdline">命令列應用</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/fetch-data">從網路上獲取資料</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/httpserver">編寫 HTTP 伺服器端應用</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/server/libraries">庫和 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/server/google-cloud">Google Cloud</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-9" href="#sidenav-6-9" role="button" aria-expanded="false" aria-controls="sidenav-6-9">網頁端 (Web) 應用
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-9">
+      <li class="nav-item">
+    <a class="nav-link" href="/web">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/get-started">開始使用</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-9-3" href="#sidenav-6-9-3" role="button" aria-expanded="false" aria-controls="sidenav-6-9-3">底層 Web 程式設計
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-9-3">
+      <li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/low-level-html/connect-dart-html">Dart 與 HTML 關聯</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/low-level-html/add-elements">向 DOM 新增元素</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/low-level-html/remove-elements">移除 DOM 元素</a>
+  </li>
+  </ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/web/deployment">部署</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/web/libraries">常用 Web 函式庫和 package</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/guides/environment-declarations">環境變數宣告</a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-7" role="button" aria-expanded="false" aria-controls="sidenav-7">開發工具和使用技巧</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7">
+        <li class="nav-item">
+    <a class="nav-link" href="/tools">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-2" href="#sidenav-7-2" role="button" aria-expanded="false" aria-controls="sidenav-7-2">編輯器和除錯工具
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/jetbrains-plugin">使用 IntelliJ 和 Android Studio</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/vs-code">使用 VS Code</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/dart-devtools">Dart 開發者工具</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-2-4" href="#sidenav-7-2-4" role="button" aria-expanded="false" aria-controls="sidenav-7-2-4">線上執行 Dart 程式碼
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-2-4">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/dartpad">Overview</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dartpad/dartpad-best-practices">DartPad 課程</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dartpad/troubleshoot">DartPad 疑難解答</a>
+  </li>
+  </ul>
+  </li>
+</ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-3" href="#sidenav-7-3" role="button" aria-expanded="false" aria-controls="sidenav-7-3">命令列工具
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-3">
+      <li class="nav-item">
+    <a class="nav-link collapsable" data-toggle="collapse" data-target="#sidenav-7-3-1" href="#sidenav-7-3-1" role="button" aria-expanded="true" aria-controls="sidenav-7-3-1">Dart SDK
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-7-3-1">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/sdk">概覽</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-tool">dart 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-analyze">dart analyze 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-compile">dart compile 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-create">dart create 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-doc">dart doc 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-fix">dart fix 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-format">dart format 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-info">dart info 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/pub/cmd">dart pub 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-run">dart run 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-test">dart test 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dartaotruntime">dartaotruntime 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/experiment-flags">實驗性命令標記</a>
+  </li>
+  </ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable" data-toggle="collapse" data-target="#sidenav-7-3-2" href="#sidenav-7-3-2" role="button" aria-expanded="true" aria-controls="sidenav-7-3-2">其他的命令列工具
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-7-3-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/build_runner">build_runner 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/webdev">webdev 命令</a>
+  </li>
+  </ul>
+  </li>
+</ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-4" href="#sidenav-7-4" role="button" aria-expanded="false" aria-controls="sidenav-7-4">原始碼管理
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-4">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/language/formatting">程式碼格式化</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/private-files">不應提交的內容</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-5" href="#sidenav-7-5" role="button" aria-expanded="false" aria-controls="sidenav-7-5">靜態分析
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-5">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/analysis">自訂靜態分析</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/sound-problems">修復常見的型別問題</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/diagnostic-messages">診斷訊息</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/linter-rules">Linter 規則</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-6" href="#sidenav-7-6" role="button" aria-expanded="false" aria-controls="sidenav-7-6">測試和調優
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-6">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/testing">測試</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/web/debugging">除錯 Web 應用</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-8" role="button" aria-expanded="false" aria-controls="sidenav-8">資源</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-8">
+        <li class="nav-item">
+    <a class="nav-link" href="/resources/faq">常見問題</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/evolution">版本演變</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/spec">語言規範</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/resources/dart-3-migration">Dart 3 遷移指南</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-8-5" href="#sidenav-8-5" role="button" aria-expanded="false" aria-controls="sidenav-8-5">從其他平台轉向 Dart
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-8-5">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/language/coming-from/js-to-dart">從 JavaScript 到 Dart</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/coming-from/swift-to-dart">從 Swift 到 Dart</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/resources/glossary">詞彙表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/resources/books">書籍資源</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/resources/videos">影片資源</a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link " data-toggle="collapse" href="#sidenav-9" role="button" aria-expanded="true" aria-controls="sidenav-9">相關站點</a>
+
+      <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-9">
+        <li class="nav-item">
+    <a class="nav-link" href="https://api.dart.dev" target="_blank" rel="noopener">API 文件<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://medium.com/dartlang" target="_blank" rel="noopener">Dart 團隊官方部落格<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://dartpad.dev" target="_blank" rel="noopener">DartPad (線上編輯器)<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://flutter.tw" target="_blank" rel="noopener">Flutter<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://pub.dev" target="_blank" rel="noopener">Package 網站<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-10" role="button" aria-expanded="false" aria-controls="sidenav-10">關於 Dart 中文文件</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-10">
+        <li class="nav-item">
+    <a class="nav-link" href="https://flutter.tw/about/docs-cn" target="_blank" rel="noopener">關於本站<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://flutter.tw/disclaimer" target="_blank" rel="noopener">免責條款 (Disclaimer)<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li>
+</ul>
+    </li></ul>
+
+  </div>
+</div>
+
+    <main id="page-content">
+      
+
+
+
+
+
+
+
+<div id="site-toc--side" class="site-toc ">
+  <header class="site-toc__title">
+    目錄
+    
+  </header>
+  <ul id="toc" class="section-nav">
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#what-are-collections">What are collections?</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#what-is-an-iterable">What is an Iterable?</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#reading-elements">Reading elements</a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#example-using-a-for-in-loop">Example: Using a for-in loop</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#example-using-first-and-last">Example: Using first and last</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#example-using-firstwhere">Example: Using firstWhere()</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#exercise-practice-writing-a-test-predicate">Exercise: Practice writing a test predicate</a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#checking-conditions">Checking conditions</a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#example-using-any-and-every">Example: Using any() and every()</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#exercise-verify-that-an-iterable-satisfies-a-condition">Exercise: Verify that an Iterable satisfies a condition</a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#filtering">Filtering</a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#example-using-where">Example: Using where()</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#example-using-takewhile">Example: Using takeWhile</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#exercise-filtering-elements-from-a-list">Exercise: Filtering elements from a list</a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#mapping">Mapping</a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#example-using-map-to-change-elements">Example: Using map to change elements</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#exercise-mapping-to-a-different-type">Exercise: Mapping to a different type</a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#exercise-putting-it-all-together">Exercise: Putting it all together</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#whats-next">What’s next</a></li>
+</ul>
+  
+</div>
+
+
+      <article>
+        <div class="content">
+          
+
+          <div id="site-content-title">
+            <div id="page-github-links" class="btn-group" aria-label="Page GitHub links" role="group">
+  <a href="https://github.com/doggy8088/dart.tw/tree/master/src/codelabs/iterables.md" class="btn no-automatic-external" title="View page source" target="_blank" rel="noopener">
+    <i class="material-icons">description</i>
+  </a>
+  <a href="https://github.com/doggy8088/dart.tw/issues/new?template=1_page_issue.yml&amp;title=[PAGE ISSUE]: '可迭代集合'&amp;page-url=https://dart.tw.gh.miniasp.com/codelabs/iterables.html&amp;page-source=https://github.com/doggy8088/dart.tw/tree/master/src/codelabs/iterables.md" class="btn no-automatic-external" title="Report an issue with this page" target="_blank" rel="noopener">
+    <i class="material-icons">bug_report</i>
+  </a>
+</div>
+
+            
+            <h1 id="可迭代集合">可迭代集合</h1>
+            </div>
+          
+
+
+
+
+
+
+
+<div id="site-toc--inline" class="site-toc toc-collapsible toc-collapsed">
+  <header class="site-toc__title">
+    目錄
+    
+      <span class="site-toc--inline__toggle toc-toggle-down"><i class="material-icons">keyboard_arrow_down</i></span>
+      <span class="site-toc--inline__toggle toc-toggle-up"><i class="material-icons">keyboard_arrow_up</i></span>
+    
+  </header>
+  <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#what-are-collections">What are collections?</a></li>
+<li class="toc-entry toc-h2"><a href="#what-is-an-iterable">What is an Iterable?</a></li>
+<li class="toc-entry toc-h2"><a href="#reading-elements">Reading elements</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#example-using-a-for-in-loop">Example: Using a for-in loop</a></li>
+<li class="toc-entry toc-h3"><a href="#example-using-first-and-last">Example: Using first and last</a></li>
+<li class="toc-entry toc-h3"><a href="#example-using-firstwhere">Example: Using firstWhere()</a></li>
+<li class="toc-entry toc-h3"><a href="#exercise-practice-writing-a-test-predicate">Exercise: Practice writing a test predicate</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#checking-conditions">Checking conditions</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#example-using-any-and-every">Example: Using any() and every()</a></li>
+<li class="toc-entry toc-h3"><a href="#exercise-verify-that-an-iterable-satisfies-a-condition">Exercise: Verify that an Iterable satisfies a condition</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#filtering">Filtering</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#example-using-where">Example: Using where()</a></li>
+<li class="toc-entry toc-h3"><a href="#example-using-takewhile">Example: Using takeWhile</a></li>
+<li class="toc-entry toc-h3"><a href="#exercise-filtering-elements-from-a-list">Exercise: Filtering elements from a list</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#mapping">Mapping</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#example-using-map-to-change-elements">Example: Using map to change elements</a></li>
+<li class="toc-entry toc-h3"><a href="#exercise-mapping-to-a-different-type">Exercise: Mapping to a different type</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#exercise-putting-it-all-together">Exercise: Putting it all together</a></li>
+<li class="toc-entry toc-h2"><a href="#whats-next">What’s next</a></li>
+</ul>
+  
+    <span class="site-toc--inline__toggle toc-toggle-more-items"><i class="material-icons">more_horiz</i></span>
+  
+</div>
+
+
+          
+<p>This codelab teaches you how to use collections that
+implement the <a href="https://api.dart.dev/stable/dart-core/Iterable-class.html">Iterable</a> class—for example
+<a href="https://api.dart.dev/stable/dart-core/List-class.html">List</a> and <a href="https://api.dart.dev/stable/dart-core/Set-class.html">Set.</a>
+Iterables are basic building blocks for
+all sorts of Dart applications,
+and you’re probably already using them,
+even without noticing.
+This codelab helps you make the most out of them.</p>
+
+<p>Using the embedded DartPad editors,
+you can test your knowledge by
+running example code and completing exercises.</p>
+
+<p>To get the most out of this codelab,
+you should have basic knowledge of <a href="/language">Dart syntax</a>.</p>
+
+<p>This codelab covers the following material:</p>
+
+<ul>
+  <li>How to read elements of an Iterable.</li>
+  <li>How to check if the elements of an Iterable satisfy a condition.</li>
+  <li>How to filter the contents of an Iterable.</li>
+  <li>How to map the contents of an Iterable to a different value.</li>
+</ul>
+
+<p>Estimated time to complete this codelab: 60 minutes.</p>
+
+<aside class="alert alert-info" role="alert">
+  <p><i class="material-icons" aria-hidden="true">info</i> <strong>備註:</strong>
+  This page uses embedded DartPads to display examples and exercises.
+  If you see empty boxes instead of DartPads, go to the
+<a href="/tools/dartpad/troubleshoot">DartPad troubleshooting page</a>.</p>
+
+  <p>如果你只看到了空白的框框（而沒有任何內容），請查閱
+<a href="/tools/dartpad/troubleshoot">DartPad 常見問題頁面</a>。</p>
+</aside>
+
+<h2 id="what-are-collections">
+<a class="anchor" href="#what-are-collections" aria-hidden="true"><span class="octicon octicon-link"></span></a>What are collections?</h2>
+
+<p>A collection is an object that
+represents a group of objects, which are called <em>elements</em>. 
+Iterables are a kind of collection.</p>
+
+<p>A collection can be empty, or it can contain many elements.
+Depending on the purpose,
+collections can have different structures and implementations.
+These are some of the most common collection types:</p>
+
+<ul>
+  <li>
+<a href="https://api.dart.dev/stable/dart-core/List-class.html">List:</a> Used to read elements by their indexes.</li>
+  <li>
+<a href="https://api.dart.dev/stable/dart-core/Set-class.html">Set:</a> Used to contain elements that can occur only once.</li>
+  <li>
+<a href="https://api.dart.dev/stable/dart-core/Map-class.html">Map:</a> Used to read elements using a key.</li>
+</ul>
+
+<h2 id="what-is-an-iterable">
+<a class="anchor" href="#what-is-an-iterable" aria-hidden="true"><span class="octicon octicon-link"></span></a>What is an Iterable?</h2>
+
+<p>An <code class="language-plaintext highlighter-rouge">Iterable</code> is a collection of elements that can be accessed sequentially.</p>
+
+<p>In Dart, an <code class="language-plaintext highlighter-rouge">Iterable</code> is an abstract class,
+meaning that you can’t instantiate it directly.
+However, you can create a new <code class="language-plaintext highlighter-rouge">Iterable</code> by creating a new <code class="language-plaintext highlighter-rouge">List</code> or <code class="language-plaintext highlighter-rouge">Set</code>.</p>
+
+<p>Both <code class="language-plaintext highlighter-rouge">List</code> and <code class="language-plaintext highlighter-rouge">Set</code> are <code class="language-plaintext highlighter-rouge">Iterable</code>,
+so they have the same methods and properties as the <code class="language-plaintext highlighter-rouge">Iterable</code> class.</p>
+
+<p>A <code class="language-plaintext highlighter-rouge">Map</code> uses a different data structure internally,
+depending on its implementation.
+For example, <a href="https://api.dart.dev/stable/dart-collection/HashMap-class.html">HashMap</a> uses a hash table
+in which the elements (also called <em>values</em>) are obtained using a key.
+Elements of a <code class="language-plaintext highlighter-rouge">Map</code> can also be read as <code class="language-plaintext highlighter-rouge">Iterable</code> objects
+by using the map’s <code class="language-plaintext highlighter-rouge">entries</code> or <code class="language-plaintext highlighter-rouge">values</code> property.</p>
+
+<p>This example shows a <code class="language-plaintext highlighter-rouge">List</code> of <code class="language-plaintext highlighter-rouge">int</code>,
+which is also an <code class="language-plaintext highlighter-rouge">Iterable</code> of <code class="language-plaintext highlighter-rouge">int</code>:</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">Iterable&lt;int&gt; iterable = [1, 2, 3];</code></pre></div>
+</div>
+
+<p>The difference with a <code class="language-plaintext highlighter-rouge">List</code> is that with the <code class="language-plaintext highlighter-rouge">Iterable</code>,
+you can’t guarantee that reading elements by index will be efficient.
+<code class="language-plaintext highlighter-rouge">Iterable</code>, as opposed to <code class="language-plaintext highlighter-rouge">List</code>, doesn’t have the <code class="language-plaintext highlighter-rouge">[]</code> operator.</p>
+
+<p>For example, consider the following code, which is <strong>invalid</strong>:</p>
+
+<pre class="prettyprint lang-dart bad"><code>Iterable&lt;int&gt; iterable = [1, 2, 3];
+int value = iterable<span class="highlight">[1]</span>;</code></pre>
+
+<p>If you read elements with <code class="language-plaintext highlighter-rouge">[]</code>,
+the compiler tells you that the operator <code class="language-plaintext highlighter-rouge">'[]'</code>
+isn’t defined for the class <code class="language-plaintext highlighter-rouge">Iterable</code>,
+which means that you can’t use <code class="language-plaintext highlighter-rouge">[index]</code> in this case.</p>
+
+<p>You can instead read elements with <code class="language-plaintext highlighter-rouge">elementAt()</code>,
+which steps through the elements of the iterable until
+it reaches that position.</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">Iterable&lt;int&gt; iterable = [1, 2, 3];
+int value = iterable.elementAt(1);</code></pre></div>
+</div>
+
+<p>Continue to the next section to learn more about
+how to access elements of an <code class="language-plaintext highlighter-rouge">Iterable</code>.</p>
+
+<h2 id="reading-elements">
+<a class="anchor" href="#reading-elements" aria-hidden="true"><span class="octicon octicon-link"></span></a>Reading elements</h2>
+
+<p>You can read the elements of an iterable sequentially,
+using a <code class="language-plaintext highlighter-rouge">for-in</code> loop.</p>
+
+<h3 id="example-using-a-for-in-loop">
+<a class="anchor" href="#example-using-a-for-in-loop" aria-hidden="true"><span class="octicon octicon-link"></span></a>Example: Using a for-in loop</h3>
+
+<p>The following example shows you how to read elements using  a <code class="language-plaintext highlighter-rouge">for-in</code> loop.</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart:run-dartpad:ga_id-for_in_loop prettyprint lang-dart">void main() {
+  const iterable = ['Salad', 'Popcorn', 'Toast'];
+  for (final element in iterable) {
+    print(element);
+  }
+}</code></pre></div>
+</div>
+
+<aside class="alert alert-info" role="alert">
+  <p><i class="material-icons" aria-hidden="true">info</i>
+  Behind the scenes, the <code class="language-plaintext highlighter-rouge">for-in</code> loop uses an <em>iterator.</em>
+  You rarely see the <a href="https://api.dart.dev/stable/dart-core/Iterator-class.html">Iterator API</a> used directly, however,
+  because <code class="language-plaintext highlighter-rouge">for-in</code> is easier to read and understand,
+  and is less prone to errors.</p>
+</aside>
+
+<aside class="alert alert-secondary" role="alert">
+  <p><strong>Key terms:</strong></p>
+  <ul>
+    <li>
+<strong>Iterable</strong>: The Dart <a href="https://api.dart.dev/stable/dart-core/Iterable-class.html">Iterable</a> class.</li>
+    <li>
+<strong>Iterator</strong>: An object used by <code class="language-plaintext highlighter-rouge">for-in</code> to read elements from
+an <code class="language-plaintext highlighter-rouge">Iterable</code> object.</li>
+    <li>
+<strong><code class="language-plaintext highlighter-rouge">for-in</code> loop</strong>: An easy way to sequentially read elements from
+an <code class="language-plaintext highlighter-rouge">Iterable</code>.</li>
+  </ul>
+</aside>
+
+<h3 id="example-using-first-and-last">
+<a class="anchor" href="#example-using-first-and-last" aria-hidden="true"><span class="octicon octicon-link"></span></a>Example: Using first and last</h3>
+
+<p>In some cases, you want to access only the first or the last element
+of an <code class="language-plaintext highlighter-rouge">Iterable</code>.</p>
+
+<p>With the <code class="language-plaintext highlighter-rouge">Iterable</code> class, you can’t access the elements directly,
+so you can’t call <code class="language-plaintext highlighter-rouge">iterable[0]</code> to access the first element.
+Instead, you can use <code class="language-plaintext highlighter-rouge">first</code>,
+which gets the first element.</p>
+
+<p>Also, with the <code class="language-plaintext highlighter-rouge">Iterable</code> class,
+you can’t use the operator <code class="language-plaintext highlighter-rouge">[]</code> to access the last element,
+but you can use the <code class="language-plaintext highlighter-rouge">last</code> property.</p>
+
+<aside class="alert alert-warning" role="alert">
+  <p><i class="material-icons" aria-hidden="true">report_problem</i>
+  Because accessing the last element of an <code class="language-plaintext highlighter-rouge">Iterable</code> requires
+  stepping through all the other elements,
+  <strong><code class="language-plaintext highlighter-rouge">last</code> can be slow.</strong>
+  Using <code class="language-plaintext highlighter-rouge">first</code> or <code class="language-plaintext highlighter-rouge">last</code> on an <strong>empty <code class="language-plaintext highlighter-rouge">Iterable</code></strong>
+  results in a <a href="https://api.dart.dev/stable/dart-core/StateError-class.html">StateError.</a></p>
+</aside>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart:run-dartpad:ga_id-first_and_last prettyprint lang-dart">void main() {
+  Iterable&lt;String&gt; iterable = const ['Salad', 'Popcorn', 'Toast'];
+  print('The first element is ${iterable.first}');
+  print('The last element is ${iterable.last}');
+}</code></pre></div>
+</div>
+
+<p>In this example you saw how to use <code class="language-plaintext highlighter-rouge">first</code> and <code class="language-plaintext highlighter-rouge">last</code> to
+get the first and last elements of an <code class="language-plaintext highlighter-rouge">Iterable</code>.
+It’s also possible to find the first element that satisfies a condition.
+The next section shows how to do that using a method called <code class="language-plaintext highlighter-rouge">firstWhere()</code>.</p>
+
+<h3 id="example-using-firstwhere">
+<a class="anchor" href="#example-using-firstwhere" aria-hidden="true"><span class="octicon octicon-link"></span></a>Example: Using firstWhere()</h3>
+
+<p>You already saw that you can access the elements of an <code class="language-plaintext highlighter-rouge">Iterable</code> sequentially,
+and you can easily get the first or last element.</p>
+
+<p>Now, you learn how to use <code class="language-plaintext highlighter-rouge">firstWhere()</code> to find the first element that
+satisfies certain conditions.
+This method requires you to pass a <em>predicate</em>,
+which is a function that returns true if
+the input satisfies a certain condition.</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">String element = iterable.firstWhere((element) =&gt; element.length &gt; 5);</code></pre></div>
+</div>
+
+<p>For example, if you want to find the first <code class="language-plaintext highlighter-rouge">String</code> that has
+more than 5 characters,
+you must pass a predicate that returns true when
+the element size is greater than 5.</p>
+
+<p>Run the following example to see how <code class="language-plaintext highlighter-rouge">firstWhere()</code> works.
+Do you think all the functions will give the same result?</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart:run-dartpad:height-565px:ga_id-using_firstwhere prettyprint lang-dart">bool predicate(String item) {
+  return item.length &gt; 5;
+}
+
+void main() {
+  const items = ['Salad', 'Popcorn', 'Toast', 'Lasagne'];
+
+  // You can find with a simple expression:
+  var foundItem1 = items.firstWhere((item) =&gt; item.length &gt; 5);
+  print(foundItem1);
+
+  // Or try using a function block:
+  var foundItem2 = items.firstWhere((item) {
+    return item.length &gt; 5;
+  });
+  print(foundItem2);
+
+  // Or even pass in a function reference:
+  var foundItem3 = items.firstWhere(predicate);
+  print(foundItem3);
+
+  // You can also use an `orElse` function in case no value is found!
+  var foundItem4 = items.firstWhere(
+    (item) =&gt; item.length &gt; 10,
+    orElse: () =&gt; 'None!',
+  );
+  print(foundItem4);
+}</code></pre></div>
+</div>
+
+<p>In this example, you can see three different ways to write a predicate:</p>
+
+<ul>
+  <li>
+<strong>As an expression:</strong>
+The test code has one line that uses arrow syntax (<code class="language-plaintext highlighter-rouge">=&gt;</code>).</li>
+  <li>
+<strong>As a block:</strong>
+The test code has multiple lines between brackets and a return statement.</li>
+  <li>
+<strong>As a function:</strong>
+The test code is in an external function that’s passed to
+the <code class="language-plaintext highlighter-rouge">firstWhere()</code> method as a parameter.</li>
+</ul>
+
+<p>There is no right or wrong way.
+Use the way that works best for you, 
+and that makes your code easier to read and understand.</p>
+
+<p>The final example calls <code class="language-plaintext highlighter-rouge">firstWhere()</code> with
+the optional named parameter <code class="language-plaintext highlighter-rouge">orElse</code>,
+which provides an alternative when an element isn’t found.
+In this case, the text <code class="language-plaintext highlighter-rouge">'None!'</code> is returned because
+no element satisfies the provided condition.</p>
+
+<aside class="alert alert-info" role="alert">
+  <p><i class="material-icons" aria-hidden="true">info</i> <strong>備註:</strong>
+  If no element satisfies the test predicate and
+  the <code class="language-plaintext highlighter-rouge">orElse</code> parameter isn’t provided,
+  then <code class="language-plaintext highlighter-rouge">firstWhere()</code> throws a <a href="https://api.dart.dev/stable/dart-core/StateError-class.html">StateError.</a></p>
+</aside>
+
+<aside class="alert alert-secondary" role="alert">
+  <p><strong>Quick review:</strong></p>
+  <ul>
+    <li>The elements of an <code class="language-plaintext highlighter-rouge">Iterable</code> must be accessed sequentially.</li>
+    <li>The easiest way to iterate through all the elements is
+using a <code class="language-plaintext highlighter-rouge">for-in</code> loop.</li>
+    <li>You can use the <code class="language-plaintext highlighter-rouge">first</code> and <code class="language-plaintext highlighter-rouge">last</code> getters to get
+the first and last elements.</li>
+    <li>You can also find the first element that
+satisfies a condition with <code class="language-plaintext highlighter-rouge">firstWhere()</code>.</li>
+    <li>You can write test predicates as expressions, blocks, or functions.</li>
+  </ul>
+
+  <p><strong>Key terms:</strong></p>
+  <ul>
+    <li>
+<strong>Predicate:</strong>
+A function that returns <code class="language-plaintext highlighter-rouge">true</code> when a certain condition is satisfied.</li>
+  </ul>
+</aside>
+
+<h3 id="exercise-practice-writing-a-test-predicate">
+<a class="anchor" href="#exercise-practice-writing-a-test-predicate" aria-hidden="true"><span class="octicon octicon-link"></span></a>Exercise: Practice writing a test predicate</h3>
+
+<p>The following exercise is a failing unit test that
+contains a partially complete code snippet.
+Your task is to complete the exercise by writing code to make the tests pass.
+You don’t need to implement <code class="language-plaintext highlighter-rouge">main()</code>.</p>
+
+<p>This exercise introduces <code class="language-plaintext highlighter-rouge">singleWhere()</code>
+This method works similarly to <code class="language-plaintext highlighter-rouge">firstWhere()</code>,
+but in this case it expects only one element of the <code class="language-plaintext highlighter-rouge">Iterable</code> to
+satisfy the predicate.
+If more than one or no element in the <code class="language-plaintext highlighter-rouge">Iterable</code>
+satisfies the predicate condition,
+then the method throws a <a href="https://api.dart.dev/stable/dart-core/StateError-class.html">StateError</a> exception.</p>
+
+<aside class="alert alert-warning" role="alert">
+  <p><i class="material-icons" aria-hidden="true">report_problem</i>
+  <code class="language-plaintext highlighter-rouge">singleWhere()</code> steps through the whole <code class="language-plaintext highlighter-rouge">Iterable</code> until the last element,
+  which can cause problems if the <code class="language-plaintext highlighter-rouge">Iterable</code> is infinite or
+  contains a large collection of elements.</p>
+</aside>
+
+<p>Your goal is to implement the predicate for <code class="language-plaintext highlighter-rouge">singleWhere()</code> that
+satisfies the following conditions:</p>
+
+<ul>
+  <li>The element contains the character <code class="language-plaintext highlighter-rouge">'a'</code>.</li>
+  <li>The element starts with the character <code class="language-plaintext highlighter-rouge">'M'</code>.</li>
+</ul>
+
+<p>All the elements in the test data are <a href="https://api.dart.dev/stable/dart-core/String-class.html">strings</a>;
+you can check the class documentation for help.</p>
+
+<pre><code class="language-dart:run-dartpad:theme-dark:ga_id-practice_writing_a_test_predicate">{$ begin main.dart $}
+// Implement the predicate of singleWhere
+// with the following conditions
+// * The element contains the character `'a'`
+// * The element starts with the character `'M'`
+String singleWhere(Iterable&lt;String&gt; items) {
+  return items.singleWhere(TODO('Implement predicate'));
+}
+{$ end main.dart $}
+{$ begin solution.dart $}
+String singleWhere(Iterable&lt;String&gt; items) {
+  return items.singleWhere(
+      (element) =&gt; element.startsWith('M') &amp;&amp; element.contains('a'));
+}
+{$ end solution.dart $}
+{$ begin test.dart $}
+const items = [
+  'Salad',
+  'Popcorn',
+  'Milk',
+  'Toast',
+  'Sugar',
+  'Mozzarella',
+  'Tomato',
+  'Egg',
+  'Water',
+];
+
+void main() {
+  try {
+    final str = singleWhere(items);
+    if (str == 'Mozzarella') {
+      _result(true);
+    } else {
+      _result(false, [
+        'Tried calling singleWhere, but received $str instead of the expected '
+            'value \'Mozzarella\''
+      ]);
+    }
+  } on StateError catch (stateError) {
+    _result(false, [
+      'Tried calling singleWhere, but received a StateError: ${stateError.message}. '
+          'singleWhere will fail if 0 or many elements match the '
+          'predicate'
+    ]);
+  } on UnimplementedError {
+    _result(false, [
+      'Tried running `singleWhere`, but received an error. Did you implement the method?'
+    ]);
+    return;
+  } catch (e) {
+    _result(false, [
+      'Tried calling singleWhere, but received an exception: $e'
+    ]);
+  }
+}
+{$ end test.dart $}
+{$ begin hint.txt $}
+Use the methods `contains()` and `startsWith()` from the `String` class.
+{$ end hint.txt $}
+</code></pre>
+
+<h2 id="checking-conditions">
+<a class="anchor" href="#checking-conditions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Checking conditions</h2>
+
+<p>When working with <code class="language-plaintext highlighter-rouge">Iterable</code>, sometimes you need to verify that
+all the elements of a collection satisfy some condition.</p>
+
+<p>You might be tempted to write a solution using a <code class="language-plaintext highlighter-rouge">for-in</code> loop like this one:</p>
+
+<div class="code-excerpt bad">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">for (final item in items) {
+  if (item.length &lt; 5) {
+    return false;
+  }
+}
+return true;</code></pre></div>
+</div>
+
+<p>However, you can accomplish the same using the <code class="language-plaintext highlighter-rouge">every()</code> method:</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">return items.every((item) =&gt; item.length &gt;= 5);</code></pre></div>
+</div>
+
+<p>Using the <code class="language-plaintext highlighter-rouge">every()</code> method results in code that is more
+readable, compact, and less error-prone.</p>
+
+<h3 id="example-using-any-and-every">
+<a class="anchor" href="#example-using-any-and-every" aria-hidden="true"><span class="octicon octicon-link"></span></a>Example: Using any() and every()</h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">Iterable</code> class provides two methods that
+you can use to verify conditions:</p>
+
+<ul>
+  <li>
+<code class="language-plaintext highlighter-rouge">any()</code>: Returns true if at least one element satisfies the condition.</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">every()</code>: Returns true if all elements satisfy the condition.</li>
+</ul>
+
+<p>Run this exercise to see them in action.</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart:run-dartpad:height-255px:ga_id-using_any_and_every prettyprint lang-dart">void main() {
+  const items = ['Salad', 'Popcorn', 'Toast'];
+
+  if (items.any((item) =&gt; item.contains('a'))) {
+    print('At least one item contains "a"');
+  }
+
+  if (items.every((item) =&gt; item.length &gt;= 5)) {
+    print('All items have length &gt;= 5');
+  }
+}</code></pre></div>
+</div>
+
+<p>In the example, <code class="language-plaintext highlighter-rouge">any()</code> verifies that
+at least one element contains the character <code class="language-plaintext highlighter-rouge">a</code>,
+and <code class="language-plaintext highlighter-rouge">every()</code> verifies that all elements
+have a length equal to or greater than 5.</p>
+
+<p>After running the code, try changing the predicate of <code class="language-plaintext highlighter-rouge">any()</code> so
+it returns false:</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">if (items.any((item) =&gt; item.contains('Z'))) {
+  print('At least one item contains "Z"');
+} else {
+  print('No item contains "Z"');
+}</code></pre></div>
+</div>
+
+<p>You can also use <code class="language-plaintext highlighter-rouge">any()</code> to verify that no element of an <code class="language-plaintext highlighter-rouge">Iterable</code>
+satisfies a certain condition.</p>
+
+<h3 id="exercise-verify-that-an-iterable-satisfies-a-condition">
+<a class="anchor" href="#exercise-verify-that-an-iterable-satisfies-a-condition" aria-hidden="true"><span class="octicon octicon-link"></span></a>Exercise: Verify that an Iterable satisfies a condition</h3>
+
+<p>The following exercise provides practice using the
+<code class="language-plaintext highlighter-rouge">any()</code> and <code class="language-plaintext highlighter-rouge">every()</code> methods, described in the previous example.
+In this case, you work with a group of users,
+represented by <code class="language-plaintext highlighter-rouge">User</code> objects that have the member field <code class="language-plaintext highlighter-rouge">age</code>.</p>
+
+<p>Use <code class="language-plaintext highlighter-rouge">any()</code> and <code class="language-plaintext highlighter-rouge">every()</code> to implement two functions:</p>
+
+<ul>
+  <li>Part 1: Implement <code class="language-plaintext highlighter-rouge">anyUserUnder18()</code>.
+    <ul>
+      <li>Return <code class="language-plaintext highlighter-rouge">true</code> if at least one user is 17 or younger.</li>
+    </ul>
+  </li>
+  <li>Part 2: Implement <code class="language-plaintext highlighter-rouge">everyUserOver13()</code>.
+    <ul>
+      <li>Return <code class="language-plaintext highlighter-rouge">true</code> if all users are 14 or older.</li>
+    </ul>
+  </li>
+</ul>
+
+<pre><code class="language-dart:run-dartpad:theme-dark:height-395px:ga_id-verify_iterable">{$ begin main.dart $}
+bool anyUserUnder18(Iterable&lt;User&gt; users) {
+  TODO('Implement this method');
+}
+
+bool everyUserOver13(Iterable&lt;User&gt; users) {
+  TODO('Implement this method');
+}
+
+class User {
+  String name;
+  int age;
+
+  User(
+    this.name,
+    this.age,
+  );
+}
+{$ end main.dart $}
+{$ begin solution.dart $}
+bool anyUserUnder18(Iterable&lt;User&gt; users) {
+  return users.any((user) =&gt; user.age &lt; 18);
+}
+
+bool everyUserOver13(Iterable&lt;User&gt; users) {
+  return users.every((user) =&gt; user.age &gt; 13);
+}
+
+class User {
+  String name;
+  int age;
+
+  User(
+    this.name,
+    this.age,
+  );
+}
+{$ end solution.dart $}
+{$ begin test.dart $}
+var users = [
+  User('Alice', 21),
+  User('Bob', 17),
+  User('Claire', 52),
+  User('David', 14),
+];
+
+void main() {
+  try {
+    var out = anyUserUnder18(users);
+    if (!out) {
+      _result(false, ['Looks like `anyUserUnder18` is wrong. Keep trying!']);
+      return;
+    }
+  } on UnimplementedError {
+    _result(false, [
+      'Tried running `anyUserUnder18`, but received an error. Did you implement the method?'
+    ]);
+    return;
+  } catch (e) {
+    _result(false,
+        ['Tried running `anyUserUnder18`, but received an exception: $e']);
+    return;
+  }
+
+  try {
+    // with only one user older than 18, should be false
+    var out = anyUserUnder18([User('Alice', 21)]);
+    if (out) {
+      _result(false, [
+        'Looks like `anyUserUnder18` is wrong. What if all users are over 18?'
+      ]);
+      return;
+    }
+  } on UnimplementedError {
+    _result(false, [
+      'Tried running `anyUserUnder18`, but received an error. Did you implement the method?'
+    ]);
+    return;
+  } catch (e) {
+    _result(false, [
+      'Tried running `anyUserUnder18([User("Alice", 21)])`, but received an exception: $e'
+    ]);
+    return;
+  }
+
+  try {
+    var out = everyUserOver13(users);
+    if (!out) {
+      _result(false, [
+        'Looks like `everyUserOver13` is wrong. There are no users under 13!'
+      ]);
+      return;
+    }
+  } on UnimplementedError {
+    _result(false, [
+      'Tried running `everyUserOver13`, but received an error. Did you implement the method?'
+    ]);
+    return;
+  } catch (e) {
+    _result(false, [
+      'Tried running `everyUserOver13`, but received an exception: $e'
+    ]);
+    return;
+  }
+
+  try {
+    var out = everyUserOver13([User('Dan', 12)]);
+    if (out) {
+      _result(false, [
+        'Looks like `everyUserOver13` is wrong. There is at least one user under 13!'
+      ]);
+      return;
+    }
+  } on UnimplementedError {
+    _result(false, [
+      'Tried running `everyUserOver13`, but received an error. Did you implement the method?'
+    ]);
+    return;
+  } catch (e) {
+    _result(false, [
+      'Tried running `everyUserOver13([User(\'Dan\', 12)])`, but received an exception: $e'
+    ]);
+    return;
+  }
+
+  _result(true);
+}
+{$ end test.dart $}
+{$ begin hint.txt $}
+Use the methods `any()` and `every()` to compare the user age.
+{$ end hint.txt $}
+</code></pre>
+
+<aside class="alert alert-secondary" role="alert">
+  <p><strong>Quick review:</strong></p>
+  <ul>
+    <li>Although you can use <code class="language-plaintext highlighter-rouge">for-in</code> loops to check conditions,
+there are better ways to do that.</li>
+    <li>The method <code class="language-plaintext highlighter-rouge">any()</code> enables you to check whether
+any element satisfies a condition.</li>
+    <li>The method <code class="language-plaintext highlighter-rouge">every()</code> enables you to verify that
+all elements satisfy a condition.</li>
+  </ul>
+</aside>
+
+<h2 id="filtering">
+<a class="anchor" href="#filtering" aria-hidden="true"><span class="octicon octicon-link"></span></a>Filtering</h2>
+
+<p>The previous sections cover methods like <code class="language-plaintext highlighter-rouge">firstWhere()</code> or
+<code class="language-plaintext highlighter-rouge">singleWhere()</code> that can help you find an element that
+satisfies a certain predicate.</p>
+
+<p>But what if you want to find all the elements that
+satisfy a certain condition?
+You can accomplish that using the <code class="language-plaintext highlighter-rouge">where()</code> method.</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">var evenNumbers = numbers.where((number) =&gt; number.isEven);</code></pre></div>
+</div>
+
+<p>In this example,
+<code class="language-plaintext highlighter-rouge">numbers</code> contains an <code class="language-plaintext highlighter-rouge">Iterable</code> with multiple <code class="language-plaintext highlighter-rouge">int</code> values, and
+<code class="language-plaintext highlighter-rouge">where()</code> finds all the numbers that are even.</p>
+
+<p>The output of <code class="language-plaintext highlighter-rouge">where()</code> is another <code class="language-plaintext highlighter-rouge">Iterable</code>,
+and you can use it as such to iterate over it or
+apply other <code class="language-plaintext highlighter-rouge">Iterable</code> methods.
+In the next example, the output of <code class="language-plaintext highlighter-rouge">where()</code>
+is used directly inside the <code class="language-plaintext highlighter-rouge">for-in</code> loop.</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">var evenNumbers = numbers.where((number) =&gt; number.isEven);
+for (final number in evenNumbers) {
+  print('$number is even');
+}</code></pre></div>
+</div>
+
+<h3 id="example-using-where">
+<a class="anchor" href="#example-using-where" aria-hidden="true"><span class="octicon octicon-link"></span></a>Example: Using where()</h3>
+
+<p>Run this example to see how <code class="language-plaintext highlighter-rouge">where()</code> can be used together with other
+methods like <code class="language-plaintext highlighter-rouge">any()</code>.</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart:run-dartpad:height-380px:ga_id-using_where prettyprint lang-dart">void main() {
+  var evenNumbers = const [1, -2, 3, 42].where((number) =&gt; number.isEven);
+
+  for (final number in evenNumbers) {
+    print('$number is even.');
+  }
+
+  if (evenNumbers.any((number) =&gt; number.isNegative)) {
+    print('evenNumbers contains negative numbers.');
+  }
+
+  // If no element satisfies the predicate, the output is empty.
+  var largeNumbers = evenNumbers.where((number) =&gt; number &gt; 1000);
+  if (largeNumbers.isEmpty) {
+    print('largeNumbers is empty!');
+  }
+}</code></pre></div>
+</div>
+
+<p>In this example, <code class="language-plaintext highlighter-rouge">where()</code> is used to find all numbers that are even, then
+<code class="language-plaintext highlighter-rouge">any()</code> is used to check if the results contain a negative number.</p>
+
+<p>Later in the example, <code class="language-plaintext highlighter-rouge">where()</code> is used again to
+find all numbers larger than 1000.
+Because there are none, the result is an empty <code class="language-plaintext highlighter-rouge">Iterable</code>.</p>
+
+<aside class="alert alert-info" role="alert">
+  <p><i class="material-icons" aria-hidden="true">info</i> <strong>備註:</strong>
+  If no element satisfies the predicate in <code class="language-plaintext highlighter-rouge">where()</code>,
+  then the method returns an empty <code class="language-plaintext highlighter-rouge">Iterable</code>.
+  Unlike <code class="language-plaintext highlighter-rouge">singleWhere()</code> or <code class="language-plaintext highlighter-rouge">firstWhere()</code>,
+  <code class="language-plaintext highlighter-rouge">where()</code> doesn’t throw a <a href="https://api.dart.dev/stable/dart-core/StateError-class.html">StateError</a> exception.</p>
+</aside>
+
+<h3 id="example-using-takewhile">
+<a class="anchor" href="#example-using-takewhile" aria-hidden="true"><span class="octicon octicon-link"></span></a>Example: Using takeWhile</h3>
+
+<p>The methods <code class="language-plaintext highlighter-rouge">takeWhile()</code> and <code class="language-plaintext highlighter-rouge">skipWhile()</code> can also
+help you filter elements from an <code class="language-plaintext highlighter-rouge">Iterable</code>.</p>
+
+<p>Run this example to see how <code class="language-plaintext highlighter-rouge">takeWhile()</code> and <code class="language-plaintext highlighter-rouge">skipWhile()</code> can
+split an <code class="language-plaintext highlighter-rouge">Iterable</code> containing numbers.</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart:run-dartpad:ga_id-using_takewhile prettyprint lang-dart">void main() {
+  const numbers = [1, 3, -2, 0, 4, 5];
+
+  var numbersUntilZero = numbers.takeWhile((number) =&gt; number != 0);
+  print('Numbers until 0: $numbersUntilZero');
+
+  var numbersStartingAtZero = numbers.skipWhile((number) =&gt; number != 0);
+  print('Numbers starting at 0: $numbersStartingAtZero');
+}</code></pre></div>
+</div>
+
+<p>In this example, <code class="language-plaintext highlighter-rouge">takeWhile()</code> returns an <code class="language-plaintext highlighter-rouge">Iterable</code> that
+contains all the elements before the one that
+satisfies the predicate.
+On the other hand, <code class="language-plaintext highlighter-rouge">skipWhile()</code> returns an <code class="language-plaintext highlighter-rouge">Iterable</code> 
+that contains all elements after and including the first one
+that <em>doesn’t</em> satisfy the predicate.</p>
+
+<p>After running the example,
+change <code class="language-plaintext highlighter-rouge">takeWhile()</code> to take elements until
+it reaches the first negative number.</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">var numbersUntilNegative =
+    numbers.takeWhile((number) =&gt; !number.isNegative);</code></pre></div>
+</div>
+
+<p>Notice that the condition <code class="language-plaintext highlighter-rouge">number.isNegative</code> is negated with <code class="language-plaintext highlighter-rouge">!</code>.</p>
+
+<h3 id="exercise-filtering-elements-from-a-list">
+<a class="anchor" href="#exercise-filtering-elements-from-a-list" aria-hidden="true"><span class="octicon octicon-link"></span></a>Exercise: Filtering elements from a list</h3>
+
+<p>The following exercise provides practice using the <code class="language-plaintext highlighter-rouge">where()</code> method with 
+the class <code class="language-plaintext highlighter-rouge">User</code> from the previous exercise.</p>
+
+<p>Use <code class="language-plaintext highlighter-rouge">where()</code> to implement two functions:</p>
+
+<ul>
+  <li>Part 1: Implement <code class="language-plaintext highlighter-rouge">filterOutUnder21()</code>.
+    <ul>
+      <li>Return an <code class="language-plaintext highlighter-rouge">Iterable</code> containing all users of age 21 or more.</li>
+    </ul>
+  </li>
+  <li>Part 2: Implement <code class="language-plaintext highlighter-rouge">findShortNamed()</code>.
+    <ul>
+      <li>Return an <code class="language-plaintext highlighter-rouge">Iterable</code> containing all users with
+names of length 3 or less.</li>
+    </ul>
+  </li>
+</ul>
+
+<pre><code class="language-dart:run-dartpad:theme-dark:height-380px:ga_id-filtering_elements_from_a_list">{$ begin main.dart $}
+Iterable&lt;User&gt; filterOutUnder21(Iterable&lt;User&gt; users) {
+  TODO('Implement this method');
+}
+
+Iterable&lt;User&gt; findShortNamed(Iterable&lt;User&gt; users) {
+  TODO('Implement this method');
+}
+
+class User {
+  String name;
+  int age;
+
+  User(
+    this.name,
+    this.age,
+  );
+}
+{$ end main.dart $}
+{$ begin solution.dart $}
+Iterable&lt;User&gt; filterOutUnder21(Iterable&lt;User&gt; users) {
+  return users.where((user) =&gt; user.age &gt;= 21);
+}
+
+Iterable&lt;User&gt; findShortNamed(Iterable&lt;User&gt; users) {
+  return users.where((user) =&gt; user.name.length &lt;= 3);
+}
+
+class User {
+  String name;
+  int age;
+
+  User(
+    this.name,
+    this.age,
+  );
+}
+{$ end solution.dart $}
+{$ begin test.dart $}
+var users = [
+  User('Alice', 21),
+  User('Bob', 17),
+  User('Claire', 52),
+  User('Dan', 12),
+];
+
+void main() {
+  try {
+    var out = filterOutUnder21(users);
+    if (out.any((user) =&gt; user.age &lt; 21) || out.length != 2) {
+      _result(false, ['Looks like `filterOutUnder21` is wrong, there are exactly two users with age under 21. Keep trying!']);
+      return;
+    }
+  } on UnimplementedError {
+    _result(false, [
+      'Tried running `filterOutUnder21`, but received an error. Did you implement the method?'
+    ]);
+    return;
+  } catch (e) {
+    _result(false, [
+      'Tried running `filterOutUnder21`, but received an exception: ${e.runtimeType}'
+    ]);
+    return;
+  }
+
+  try {
+    var out = findShortNamed(users);
+    if (out.any((user) =&gt; user.name.length &gt; 3) || out.length != 2) {
+      _result(false, ['Looks like `findShortNamed` is wrong, there are exactly two users with a three letter name. Keep trying!']);
+      return;
+    }
+  } on UnimplementedError {
+    _result(false, [
+      'Tried running `findShortNamed`, but received an error. Did you implement the method?'
+    ]);
+    return;
+  } catch (e) {
+    _result(false, [
+      'Tried running `findShortNamed`, but received an exception: ${e.runtimeType}'
+    ]);
+    return;
+  }
+  
+  _result(true);
+}
+{$ end test.dart $}
+{$ begin hint.txt $}
+Use the `where()` method to implement the filters.
+{$ end hint.txt $}
+</code></pre>
+
+<aside class="alert alert-secondary" role="alert">
+  <p><strong>Quick review:</strong></p>
+  <ul>
+    <li>Filter the elements of an <code class="language-plaintext highlighter-rouge">Iterable</code> with <code class="language-plaintext highlighter-rouge">where()</code>.</li>
+    <li>The output of <code class="language-plaintext highlighter-rouge">where()</code> is another <code class="language-plaintext highlighter-rouge">Iterable</code>.</li>
+    <li>Use <code class="language-plaintext highlighter-rouge">takeWhile()</code> and <code class="language-plaintext highlighter-rouge">skipWhile()</code> to obtain elements until or after
+a condition is met.</li>
+    <li>The output of these methods can be an empty <code class="language-plaintext highlighter-rouge">Iterable</code>.</li>
+  </ul>
+</aside>
+
+<h2 id="mapping">
+<a class="anchor" href="#mapping" aria-hidden="true"><span class="octicon octicon-link"></span></a>Mapping</h2>
+
+<p>Mapping <code class="language-plaintext highlighter-rouge">Iterables</code> with the method <code class="language-plaintext highlighter-rouge">map()</code> enables you to
+apply a function over each of the elements,
+replacing each element with a new one.</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">Iterable&lt;int&gt; output = numbers.map((number) =&gt; number * 10);</code></pre></div>
+</div>
+
+<p>In this example, each element of the <code class="language-plaintext highlighter-rouge">Iterable</code> numbers is multiplied by 10.</p>
+
+<p>You can also use <code class="language-plaintext highlighter-rouge">map()</code> 
+to transform an element into a different object—for example, 
+to convert all <code class="language-plaintext highlighter-rouge">int</code> to <code class="language-plaintext highlighter-rouge">String</code>,
+as you can see in the following example:</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">Iterable&lt;String&gt; output = numbers.map((number) =&gt; number.toString());</code></pre></div>
+</div>
+
+<aside class="alert alert-info" role="alert">
+  <p><i class="material-icons" aria-hidden="true">info</i> <strong>備註:</strong>
+  <code class="language-plaintext highlighter-rouge">map()</code> returns a <em>lazy</em> <code class="language-plaintext highlighter-rouge">Iterable</code>, meaning that the supplied function
+  is called only when the elements are iterated.</p>
+</aside>
+
+<h3 id="example-using-map-to-change-elements">
+<a class="anchor" href="#example-using-map-to-change-elements" aria-hidden="true"><span class="octicon octicon-link"></span></a>Example: Using map to change elements</h3>
+
+<p>Run this example to see how to use <code class="language-plaintext highlighter-rouge">map()</code> to
+multiply all the elements of an <code class="language-plaintext highlighter-rouge">Iterable</code> by 2.
+What do you think the output will be?</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart:run-dartpad:ga_id-using_map prettyprint lang-dart">void main() {
+  var numbersByTwo = const [1, -2, 3, 42].map((number) =&gt; number * 2);
+  print('Numbers: $numbersByTwo');
+}</code></pre></div>
+</div>
+
+<h3 id="exercise-mapping-to-a-different-type">
+<a class="anchor" href="#exercise-mapping-to-a-different-type" aria-hidden="true"><span class="octicon octicon-link"></span></a>Exercise: Mapping to a different type</h3>
+
+<p>In the previous example, you multiplied the elements of an <code class="language-plaintext highlighter-rouge">Iterable</code> by 2.
+Both the input and the output of that operation were an <code class="language-plaintext highlighter-rouge">Iterable</code> of <code class="language-plaintext highlighter-rouge">int</code>.</p>
+
+<p>In this exercise, your code takes an <code class="language-plaintext highlighter-rouge">Iterable</code> of <code class="language-plaintext highlighter-rouge">User</code>,
+and you need to return an <code class="language-plaintext highlighter-rouge">Iterable</code> that
+contains strings containing each user’s name and age.</p>
+
+<p>Each string in the <code class="language-plaintext highlighter-rouge">Iterable</code> must follow this format:
+<code class="language-plaintext highlighter-rouge">'{name} is {age}'</code>—for example <code class="language-plaintext highlighter-rouge">'Alice is 21'</code>.</p>
+
+<pre><code class="language-dart:run-dartpad:theme-dark:height-310px:ga_id-mapping_to_a_different_type">{$ begin main.dart $}
+Iterable&lt;String&gt; getNameAndAges(Iterable&lt;User&gt; users) {
+  TODO('Implement this method');
+}
+
+class User {
+  String name;
+  int age;
+
+  User(
+    this.name,
+    this.age,
+  );
+}
+{$ end main.dart $}
+{$ begin solution.dart $}
+Iterable&lt;String&gt; getNameAndAges(Iterable&lt;User&gt; users) {
+  return users.map((user) =&gt; '${user.name} is ${user.age}');
+}
+
+class User {
+  String name;
+  int age;
+
+  User(
+    this.name,
+    this.age,
+  );
+}
+{$ end solution.dart $}
+{$ begin test.dart $}
+var users = [
+  User('Alice', 21),
+  User('Bob', 17),
+  User('Claire', 52),
+];
+
+void main() {
+  try {
+    final out = getNameAndAges(users).toList();
+    if (!_listEquals(out, ['Alice is 21', 'Bob is 17', 'Claire is 52'])) {
+      _result(false, ['Looks like `getNameAndAges` is wrong. Keep trying! The output was $out']);
+      return;
+    }
+    _result(true);
+  } on UnimplementedError {
+    _result(false, [
+      'Tried running `getNameAndAges`, but received an error. Did you implement the method?'
+    ]);
+    return;
+  } catch (e) {
+    _result(false, ['Tried running the method, but received an exception: $e']);
+  }
+}
+
+bool _listEquals&lt;T&gt;(List&lt;T&gt;? a, List&lt;T&gt;? b) {
+  if (a == null) return b == null;
+  if (b == null || a.length != b.length) return false;
+  for (int index = 0; index &lt; a.length; index += 1) {
+    if (a[index] != b[index]) return false;
+  }
+  return true;
+}
+{$ end test.dart $}
+{$ begin hint.txt $}
+Use `map()` to create a String with the values of `user.name` and `user.age`.
+{$ end hint.txt $}
+</code></pre>
+
+<aside class="alert alert-secondary" role="alert">
+  <p><strong>Quick review:</strong></p>
+  <ul>
+    <li>
+<code class="language-plaintext highlighter-rouge">map()</code> applies a function to all the elements of an <code class="language-plaintext highlighter-rouge">Iterable</code>.</li>
+    <li>The output of <code class="language-plaintext highlighter-rouge">map()</code> is another <code class="language-plaintext highlighter-rouge">Iterable</code>.</li>
+    <li>The function isn’t evaluated until the <code class="language-plaintext highlighter-rouge">Iterable</code> is iterated.</li>
+  </ul>
+</aside>
+
+<h2 id="exercise-putting-it-all-together">
+<a class="anchor" href="#exercise-putting-it-all-together" aria-hidden="true"><span class="octicon octicon-link"></span></a>Exercise: Putting it all together</h2>
+
+<p>It’s time to practice what you learned, in one final exercise.</p>
+
+<p>This exercise provides the class <code class="language-plaintext highlighter-rouge">EmailAddress</code>,
+which has a constructor that takes a string.
+Another provided function is <code class="language-plaintext highlighter-rouge">isValidEmailAddress()</code>,
+which tests whether an email address is valid.</p>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Constructor/function</th>
+      <th>Type signature</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>EmailAddress()</td>
+      <td><code class="language-plaintext highlighter-rouge">EmailAddress(String address)</code></td>
+      <td>Creates an <code class="language-plaintext highlighter-rouge">EmailAddress</code> for the specified address.</td>
+    </tr>
+    <tr>
+      <td>isValidEmailAddress()</td>
+      <td><code class="language-plaintext highlighter-rouge">bool isValidEmailAddress(EmailAddress)</code></td>
+      <td>Returns <code class="language-plaintext highlighter-rouge">true</code> if the provided <code class="language-plaintext highlighter-rouge">EmailAddress</code> is valid.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Write the following code:</p>
+
+<p>Part 1: Implement <code class="language-plaintext highlighter-rouge">parseEmailAddresses()</code>.</p>
+<ul>
+  <li>Write the function <code class="language-plaintext highlighter-rouge">parseEmailAddresses()</code>,
+which takes an <code class="language-plaintext highlighter-rouge">Iterable&lt;String&gt;</code> containing email addresses, 
+and returns an <code class="language-plaintext highlighter-rouge">Iterable&lt;EmailAddress&gt;</code>.</li>
+  <li>Use the method <code class="language-plaintext highlighter-rouge">map()</code> to map from a <code class="language-plaintext highlighter-rouge">String</code> to <code class="language-plaintext highlighter-rouge">EmailAddress</code>.</li>
+  <li>Create the <code class="language-plaintext highlighter-rouge">EmailAddress</code> objects using
+the constructor <code class="language-plaintext highlighter-rouge">EmailAddress(String)</code>.</li>
+</ul>
+
+<p>Part 2: Implement <code class="language-plaintext highlighter-rouge">anyInvalidEmailAddress()</code>.</p>
+<ul>
+  <li>Write the function <code class="language-plaintext highlighter-rouge">anyInvalidEmailAddress()</code>,
+which takes an <code class="language-plaintext highlighter-rouge">Iterable&lt;EmailAddress&gt;</code> and
+returns <code class="language-plaintext highlighter-rouge">true</code> if any <code class="language-plaintext highlighter-rouge">EmailAddress</code> in the <code class="language-plaintext highlighter-rouge">Iterable</code> isn’t valid.</li>
+  <li>Use the method <code class="language-plaintext highlighter-rouge">any()</code> together with
+the provided function <code class="language-plaintext highlighter-rouge">isValidEmailAddress()</code>.</li>
+</ul>
+
+<p>Part 3: Implement <code class="language-plaintext highlighter-rouge">validEmailAddresses()</code>.</p>
+<ul>
+  <li>Write the function <code class="language-plaintext highlighter-rouge">validEmailAddresses()</code>,
+which takes an <code class="language-plaintext highlighter-rouge">Iterable&lt;EmailAddress&gt;</code> and
+returns another <code class="language-plaintext highlighter-rouge">Iterable&lt;EmailAddress&gt;</code> containing only valid addresses.</li>
+  <li>Use the method <code class="language-plaintext highlighter-rouge">where()</code> to filter the <code class="language-plaintext highlighter-rouge">Iterable&lt;EmailAddress&gt;</code>.</li>
+  <li>Use the provided function <code class="language-plaintext highlighter-rouge">isValidEmailAddress()</code> to evaluate whether
+an <code class="language-plaintext highlighter-rouge">EmailAddress</code> is valid.</li>
+</ul>
+
+<pre><code class="language-dart:run-dartpad:theme-dark:height-600px:ga_id-putting_it_all_together">{$ begin main.dart $}
+Iterable&lt;EmailAddress&gt; parseEmailAddresses(Iterable&lt;String&gt; strings) {
+  TODO('Implement this method');
+}
+
+bool anyInvalidEmailAddress(Iterable&lt;EmailAddress&gt; emails) {
+  TODO('Implement this method');
+}
+
+Iterable&lt;EmailAddress&gt; validEmailAddresses(Iterable&lt;EmailAddress&gt; emails) {
+  TODO('Implement this method');
+}
+
+class EmailAddress {
+  final String address;
+
+  EmailAddress(this.address);
+
+  @override
+  bool operator ==(Object other) =&gt;
+      identical(this, other) ||
+          other is EmailAddress &amp;&amp;
+              address == other.address;
+
+  @override
+  int get hashCode =&gt; address.hashCode;
+
+  @override
+  String toString() {
+    return 'EmailAddress{address: $address}';
+  }
+}
+{$ end main.dart $}
+{$ begin solution.dart $}
+Iterable&lt;EmailAddress&gt; parseEmailAddresses(Iterable&lt;String&gt; strings) {
+  return strings.map((s) =&gt; EmailAddress(s));
+}
+
+bool anyInvalidEmailAddress(Iterable&lt;EmailAddress&gt; emails) {
+  return emails.any((email) =&gt; !isValidEmailAddress(email));
+}
+
+Iterable&lt;EmailAddress&gt; validEmailAddresses(Iterable&lt;EmailAddress&gt; emails) {
+  return emails.where((email) =&gt; isValidEmailAddress(email));
+}
+
+class EmailAddress {
+  final String address;
+
+  EmailAddress(this.address);
+
+  @override
+  bool operator ==(Object other) =&gt;
+      identical(this, other) ||
+          other is EmailAddress &amp;&amp;
+              runtimeType == other.runtimeType &amp;&amp;
+              address == other.address;
+
+  @override
+  int get hashCode =&gt; address.hashCode;
+
+  @override
+  String toString() {
+    return 'EmailAddress{address: $address}';
+  }
+}
+{$ end solution.dart $}
+{$ begin test.dart $}
+const input = [
+  'ali@gmail.com',
+  'bobgmail.com',
+  'cal@gmail.com',
+];
+
+const correctInput = ['dash@gmail.com', 'sparky@gmail.com'];
+
+bool isValidEmailAddress(EmailAddress email) {
+  return email.address.contains('@');
+}
+
+void main() {
+  Iterable&lt;EmailAddress&gt; emails;
+  Iterable&lt;EmailAddress&gt; correctEmails;
+  try {
+    emails = parseEmailAddresses(input);
+    correctEmails = parseEmailAddresses(correctInput);
+    if (emails.isEmpty) {
+      _result(false, [
+        'Tried running `parseEmailAddresses`, but received an empty list.'
+      ]);
+      return;
+    }
+    if (!_listEquals(emails.toList(), [
+      EmailAddress('ali@gmail.com'),
+      EmailAddress('bobgmail.com'),
+      EmailAddress('cal@gmail.com'),
+    ])) {
+      _result(false, ['Looks like `parseEmailAddresses` is wrong. Keep trying!']);
+      return;
+    }
+  } on UnimplementedError {
+    _result(false, [
+      'Tried running `parseEmailAddresses`, but received an error. Did you implement the method?'
+    ]);
+    return;
+  } catch (e) {
+    _result(false, [
+      'Tried running `parseEmailAddresses`, but received an exception: $e'
+    ]);
+    return;
+  }
+
+  try {
+    final out = anyInvalidEmailAddress(emails);
+    if (!out) {
+      _result(false, [
+        'Looks like `anyInvalidEmailAddress` is wrong. Keep trying! The result should be false with at least one invalid address.'
+      ]);
+      return;
+    }
+    final falseOut = anyInvalidEmailAddress(correctEmails);
+    if (falseOut) {
+      _result(false, [
+        'Looks like `anyInvalidEmailAddress` is wrong. Keep trying! The result should be false with all valid addresses.'
+      ]);
+      return;
+    }
+  } on UnimplementedError {
+    _result(false, [
+      'Tried running `anyInvalidEmailAddress`, but received an error. Did you implement the method?'
+    ]);
+    return;
+  } catch (e) {
+    _result(false, [
+      'Tried running `anyInvalidEmailAddress`, but received an exception: $e'
+    ]);
+    return;
+  }
+
+  try {
+    final valid = validEmailAddresses(emails);
+    if (emails.isEmpty) {
+      _result(false, [
+        'Tried running `validEmailAddresses`, but received an empty list.'
+      ]);
+      return;
+    }
+    if (!_listEquals(valid.toList(), [
+      EmailAddress('ali@gmail.com'),
+      EmailAddress('cal@gmail.com'),
+    ])) {
+      _result(false, ['Looks like `validEmailAddresses` is wrong. Keep trying!']);
+      return;
+    }
+  } on UnimplementedError {
+    _result(false, [
+      'Tried running `validEmailAddresses`, but received an error. Did you implement the method?'
+    ]);
+    return;
+  } catch (e) {
+    _result(false, [
+      'Tried running the `validEmailAddresses`, but received an exception: $e'
+    ]);
+    return;
+  }
+
+  _result(true);
+}
+
+bool _listEquals&lt;T&gt;(List&lt;T&gt;? a, List&lt;T&gt;? b) {
+  if (a == null) return b == null;
+  if (b == null || a.length != b.length) return false;
+  for (int index = 0; index &lt; a.length; index += 1) {
+    if (a[index] != b[index]) return false;
+  }
+  return true;
+}
+{$ end test.dart $}
+{$ begin hint.txt $}
+Use the methods `map()`, `any()`, and `where()` to solve the exercise.
+{$ end hint.txt $}
+</code></pre>
+
+<h2 id="whats-next">
+<a class="anchor" href="#whats-next" aria-hidden="true"><span class="octicon octicon-link"></span></a>What’s next</h2>
+
+<p>Congratulations, you finished the codelab!
+If you want to learn more,
+here are some suggestions for where to go next:</p>
+
+<ul>
+  <li>Play with <a href="https://dartpad.dev">DartPad.</a>
+</li>
+  <li>Try another <a href="/codelabs">codelab</a>.</li>
+  <li>Read the <a href="https://api.dart.dev/stable/dart-core/Iterable-class.html">Iterable API reference</a>
+to learn about methods not covered by this codelab.</li>
+</ul>
+
+
+          
+
+        </div>
+      </article>
+    </main>
+    <footer id="page-footer">
+    <div class="footer-section footer-main">
+      <a href="/" class="brand" title="Dart">
+        <img src="/assets/img/shared/dart/logo+text/horizontal/white.svg" alt="Dart" width="164px">
+      </a>
+      <div class="footer-social-links">
+        <a href="https://github.com/doggy8088/dart.tw" target="_blank" rel="noopener" title="GitHub" class="no-automatic-external">
+          <svg>
+            <use href="/assets/img/social/github.svg#github"></use>
+          </svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-section footer-tray">
+      <div class="footer-licenses">
+        參考中文內容需註明本站及連結作為出處，英文內容和範例程式碼均遵從源站授權協議。
+      </div>
+      <div class="footer-utility-links">
+        <ul>
+          <li><a href="/terms" title="使用條款">使用條款</a></li>
+          <li><a href="https://policies.google.com/privacy?hl=zh-TW" target="_blank" rel="noopener" title="隱私政策" class="no-automatic-external">隱私政策</a></li>
+          <li><a href="/security" title="Security philosophy and practices">Dart 程式碼安全說明</a></li>
+          <li><a href="https://flutter.tw/about" target="_blank">關於中文文件</a>
+          </li><li><a href="https://flutter.tw/disclaimer" target="_blank">免責條款</a>
+          </li><li><a href="https://dart.cn/" target="_blank">Dart 簡體中文文檔</a>
+        </li></ul>
+      </div>
+    </div>
+  </footer>
+
+  
+
+<script src="/assets/translator/js/translator.js"></script></body></html>

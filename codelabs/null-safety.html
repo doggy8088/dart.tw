@@ -1,0 +1,1431 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Language" content="zh-cmn-Hans">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Google Tag Manager -->
+<!--  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':-->
+<!--  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],-->
+<!--  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=-->
+<!--  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);-->
+<!--  })(window,document,'script','dataLayer','GTM-5VSZM5J');</script>-->
+  <!-- End Google Tag Manager -->
+
+  <meta name="description" content="Learn about and practice writing null-safe code in DartPad!">
+  <title>Null safety codelab | Dart</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-28P0PYCRZ9"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-28P0PYCRZ9');
+  </script>
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?fa71f2474b82505e00203cf9956cf0bc";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+  <!-- Favicon / Touch Icons -->
+  <link rel="icon" sizes="64x64" href="/assets/shared/dart/icon/64.png">
+  <link href="/assets/img/touch-icon-iphone.png" rel="apple-touch-icon">
+  <link href="/assets/img/touch-icon-ipad.png" rel="apple-touch-icon" sizes="152x152">
+  <link href="/assets/img/touch-icon-iphone-retina.png" rel="apple-touch-icon" sizes="180x180">
+  <link href="/assets/img/touch-icon-ipad-retina.png" rel="apple-touch-icon" sizes="167x167">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@dart_lang">
+  <meta name="twitter:title" content="Null safety codelab">
+  <meta name="twitter:description" content="Learn about and practice writing null-safe code in DartPad!">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Null safety codelab">
+  <meta property="og:description" content="Learn about and practice writing null-safe code in DartPad!">
+  <meta property="og:url" content="https://dart.tw.gh.miniasp.com/codelabs/null-safety.html">
+
+  <meta property="og:image" content="https://dart.tw.gh.miniasp.com/assets/shared/dart-logo-for-shares.png?2">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Display:wght@400&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons&amp;display=swap" rel="stylesheet">
+  <script src="https://cdn.staticfile.org/font-awesome/5.15.4/js/all.js" data-auto-replace-svg="nest">
+  </script>
+
+  <link rel="stylesheet" href="/assets/css/main.css?v=1693674404">
+  <script src="https://cdn.staticfile.org/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.staticfile.org/popper.js/1.16.1/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.staticfile.org/bootstrap/4.6.2/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!-- <script src="https://cdn.staticfile.org/js-cookie/3.0.5/js.cookie.min.js"
+          integrity="sha512-nlp9/l96/EpjYBx7EP7pGASVXNe80hGhYAUrjeXnu/fyF5Py0/RXav4BBNs7n5Hx1WFhOEOWSAVjGeC3oKxDVQ=="
+          crossorigin="anonymous"
+          referrerpolicy="no-referrer"></script> -->
+
+  <script src="/assets/js/vendor/code-prettify/prettify.js"></script>
+  <script src="/assets/js/vendor/code-prettify/lang-dart.js"></script>
+  <script src="/assets/js/vendor/code-prettify/lang-yaml.js"></script>
+  <script src="/assets/js/os-tabs.js?v=1693674404"></script>
+  <script src="/assets/js/utilities.js?v=1693674404"></script>
+  <script src="/assets/js/main.js?v=1693674404"></script>
+
+  <script defer="" src="https://dartpad.dev/inject_embed.dart.js"></script>
+  <script>
+
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-122680122-5', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+
+ <link href="/assets/translator/css/translator.css" rel="stylesheet"></head>
+
+  <body class="default show_banner">
+    <section id="cookie-notice">
+  <div class="container">
+    <p>Google uses cookies to deliver its services, to personalize ads, and to 
+      analyze traffic. You can adjust your privacy controls anytime in your 
+      <a href="https://myaccount.google.com/data-and-personalization" target="_blank" rel="noopener" class="no-automatic-external">Google settings</a>. 
+      <a href="https://policies.google.com/technologies/cookies" target="_blank" rel="noopener" class="no-automatic-external">Learn more</a>.
+    </p>
+    <button id="cookie-consent" class="btn btn-primary">Okay</button>
+  </div>
+</section>
+
+    <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=G-28P0PYCRZ9"
+ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+    <header id="page-header" class="site-header">
+  <nav id="mainnav" class="site-header">
+  <div id="menu-toggle"><i class="material-icons">menu</i></div>
+  <a href="/" class="brand" title="Dart">
+    <img src="/assets/img/shared/dart/logo+text/horizontal/white.svg" alt="Dart">
+  </a>
+  <ul class="navbar">
+    <li>
+      <a href="/overview" class="nav-link">概覽</a>
+    </li>
+    <li class="mainnav__get-started">
+      <a href="/guides" class="nav-link
+         active">
+        <span>文件</span>
+      </a>
+    </li>
+    <li>
+      <a href="/community" class="nav-link">社群</a>
+    </li>
+    <li>
+      <a href="/#try-dart" class="nav-link">嘗試 Dart</a>
+    </li>
+    <li>
+      <a href="/get-dart" class="nav-link">獲取 Dart SDK</a>
+    </li>
+    <li class="searchfield">
+      <form action="/search" class="site-header__search form-inline" id="cse-search-box">
+        <input type="hidden" name="cx" value="011220921317074318178:_yy-tmb5t_i">
+        <input type="hidden" name="ie" value="UTF-8">
+        <input type="hidden" name="hl" value="en">
+        <input class="site-header__searchfield form-control search-field" type="search" name="q" id="q" autocomplete="off" placeholder="Search" aria-label="Search">
+      </form>
+    </li>
+  </ul>
+</nav>
+
+  
+</header>
+ <div class="banner">
+  <p class="banner__text">
+    Dart 3 已釋出！帶來了全新的
+    <a href="https://dart.tw.gh.miniasp.com/language/records" class="no-automatic-external">記錄型別 (records)</a>、
+    <a href="https://dart.tw.gh.miniasp.com/language/patterns" class="no-automatic-external">模式匹配 (patterns)</a>
+    以及 <a href="https://dart.tw.gh.miniasp.com/language/class-modifiers" class="no-automatic-external">型別修飾符 (class modifiers)</a>。
+    <br>
+    <!--<a href="https://medium.com/p/53f065a10635" class="no-automatic-external">Check out the blog post</a>!-->
+  </p>
+</div>
+ 
+
+    <div id="sidenav" class="">
+  <form action="/search/" class="site-header__search form-inline">
+    <input class="site-header__searchfield form-control search-field" type="search" name="q" id="q" autocomplete="off" placeholder="Search" aria-label="Search">
+  </form>
+
+  <div class="site-sidebar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a href="/overview" class="nav-link">概覽</a>
+      </li>
+      <li class="nav-item">
+        <a href="/community" class="nav-link">社群</a>
+      </li>
+      <li class="nav-item">
+        <a href="https://dartpad.dev" class="nav-link">嘗試 Dart</a>
+      </li>
+      <li class="nav-item">
+        <a href="/get-dart" class="nav-link">獲取 Dart SDK</a>
+      </li>
+      <li class="nav-item">
+        <a href="/guides" class="nav-link active">文件</a>
+      </li>
+    </ul>
+
+    <ul class="nav flex-column"><li class="nav-item">
+      <a class="nav-link active" data-toggle="collapse" href="#sidenav-1" role="button" aria-expanded="true" aria-controls="sidenav-1">範例和課程</a>
+
+      <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-1">
+        <li class="nav-item">
+    <a class="nav-link" href="/tutorials">語言概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link active collapsable" data-toggle="collapse" data-target="#sidenav-1-2" href="#sidenav-1-2" role="button" aria-expanded="true" aria-controls="sidenav-1-2">Codelabs
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-1-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/codelabs">Codelabs 列表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/dart-cheatsheet">Dart 速查表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/iterables">可迭代集合</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/async-await">Dart 非同步程式設計</a>
+  </li><li class="nav-item">
+    <a class="nav-link active" href="/codelabs/null-safety">空安全</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-2" role="button" aria-expanded="false" aria-controls="sidenav-2">Dart 開發語言</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2">
+        <li class="nav-item">
+    <a class="nav-link" href="/language">介紹</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-2" href="#sidenav-2-2" role="button" aria-expanded="false" aria-controls="sidenav-2-2">基礎表示式
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/variables">變數</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/operators">運運算元</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/comments">註釋</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/metadata">註解</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/libraries">庫 &amp; 導庫</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/keywords">關鍵字</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-3" href="#sidenav-2-3" role="button" aria-expanded="false" aria-controls="sidenav-2-3">型別
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-3">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/built-in-types">基本型別</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/records">記錄 (Records)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/collections">集合 (Collections)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/generics">泛型 (Generics)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/typedefs">別名 (Typedefs)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/type-system">型別系統</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-4" href="#sidenav-2-4" role="button" aria-expanded="false" aria-controls="sidenav-2-4">模式匹配
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-4">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/patterns">概覽 &amp; 用法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/pattern-types">模式匹配型別</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/language/functions">函式方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-6" href="#sidenav-2-6" role="button" aria-expanded="false" aria-controls="sidenav-2-6">控制流
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-6">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/loops">迴圈</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/branches">分支</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/language/error-handling">錯誤處理</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-8" href="#sidenav-2-8" role="button" aria-expanded="false" aria-controls="sidenav-2-8">類 &amp; 物件
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-8">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/classes">類</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/constructors">構造方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/methods">成員方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/extend">繼承</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/mixins">混入 (Mixin)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/enums">列舉</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/extension-methods">擴充方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/callable-objects">可呼叫的物件</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-9" href="#sidenav-2-9" role="button" aria-expanded="false" aria-controls="sidenav-2-9">型別修飾符
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-9">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/class-modifiers">概覽 &amp; 用法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/class-modifiers-for-apis">API 維護者應該用的型別修飾符</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/modifier-reference">速查表</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-10" href="#sidenav-2-10" role="button" aria-expanded="false" aria-controls="sidenav-2-10">併發
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-10">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/async">非同步支援</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/concurrency">Isolates</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-11" href="#sidenav-2-11" role="button" aria-expanded="false" aria-controls="sidenav-2-11">Null safety
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-11">
+      <li class="nav-item">
+    <a class="nav-link" href="/null-safety">健全的空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/migration-guide">遷移到空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/understanding-null-safety">深入理解空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/unsound-null-safety">非健全的空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/faq">空安全常見問題和解答</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-3" role="button" aria-expanded="false" aria-controls="sidenav-3">高效指南 (Effective Dart)</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-3">
+        <li class="nav-item">
+    <a class="nav-link" href="/effective-dart">概述</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/style">程式碼風格</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/documentation">文件</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/usage">用法範例</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/design">API 設計</a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-4" role="button" aria-expanded="false" aria-controls="sidenav-4">核心函式庫</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-4">
+        <li class="nav-item">
+    <a class="nav-link" href="/guides/libraries">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/library-tour">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-4-3" href="#sidenav-4-3" role="button" aria-expanded="false" aria-controls="sidenav-4-3">介紹文章
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-4-3">
+      <li class="nav-item">
+    <a class="nav-link" href="/articles/libraries/creating-streams">建立 stream</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-5" role="button" aria-expanded="false" aria-controls="sidenav-5">Packages</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-5">
+        <li class="nav-item">
+    <a class="nav-link" href="/guides/packages">如何使用 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/useful-libraries">常用 package 介紹</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/create-packages">建立 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/publishing">釋出 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/writing-package-pages">設定 package 介紹頁</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-5-6" href="#sidenav-5-6" role="button" aria-expanded="false" aria-controls="sidenav-5-6">Package 參考資料
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-5-6">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/pub/dependencies">依賴</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/glossary">術語表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/package-layout">Package 檔案結構</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/environment-variables">設定環境變數</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/pubspec">Pubspec 檔案</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/troubleshoot">問題排查</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/verified-publishers">釋出者認證</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/versioning">版本管理</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-6" role="button" aria-expanded="false" aria-controls="sidenav-6">開發文件</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6">
+        <li class="nav-item">
+    <a class="nav-link" href="/codelabs/async-await">Futures、async 和 await</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/language/streams">Streams 介紹</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/json">使用 JSON</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/numbers">Dart 中的數字</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-5" href="#sidenav-6-5" role="button" aria-expanded="false" aria-controls="sidenav-6-5">與其他語言進行互動呼叫
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-5">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/c-interop">與 C 互調</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/objective-c-interop">與 Objective-C 和 Swift 互調</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/java-interop">與 Java 和 Kotlin 互調</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/web/js-interop">與 JavaScript 互調</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/guides/google-apis">Google APIs</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/multiplatform-apps">跨平臺應用</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-8" href="#sidenav-6-8" role="button" aria-expanded="false" aria-controls="sidenav-6-8">命令列和伺服器端應用
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-8">
+      <li class="nav-item">
+    <a class="nav-link" href="/server">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/get-started">起步課程</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/cmdline">命令列應用</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/fetch-data">從網路上獲取資料</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/httpserver">編寫 HTTP 伺服器端應用</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/server/libraries">庫和 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/server/google-cloud">Google Cloud</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-9" href="#sidenav-6-9" role="button" aria-expanded="false" aria-controls="sidenav-6-9">網頁端 (Web) 應用
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-9">
+      <li class="nav-item">
+    <a class="nav-link" href="/web">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/get-started">開始使用</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-9-3" href="#sidenav-6-9-3" role="button" aria-expanded="false" aria-controls="sidenav-6-9-3">底層 Web 程式設計
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-9-3">
+      <li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/low-level-html/connect-dart-html">Dart 與 HTML 關聯</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/low-level-html/add-elements">向 DOM 新增元素</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/low-level-html/remove-elements">移除 DOM 元素</a>
+  </li>
+  </ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/web/deployment">部署</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/web/libraries">常用 Web 函式庫和 package</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/guides/environment-declarations">環境變數宣告</a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-7" role="button" aria-expanded="false" aria-controls="sidenav-7">開發工具和使用技巧</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7">
+        <li class="nav-item">
+    <a class="nav-link" href="/tools">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-2" href="#sidenav-7-2" role="button" aria-expanded="false" aria-controls="sidenav-7-2">編輯器和除錯工具
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/jetbrains-plugin">使用 IntelliJ 和 Android Studio</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/vs-code">使用 VS Code</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/dart-devtools">Dart 開發者工具</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-2-4" href="#sidenav-7-2-4" role="button" aria-expanded="false" aria-controls="sidenav-7-2-4">線上執行 Dart 程式碼
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-2-4">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/dartpad">Overview</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dartpad/dartpad-best-practices">DartPad 課程</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dartpad/troubleshoot">DartPad 疑難解答</a>
+  </li>
+  </ul>
+  </li>
+</ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-3" href="#sidenav-7-3" role="button" aria-expanded="false" aria-controls="sidenav-7-3">命令列工具
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-3">
+      <li class="nav-item">
+    <a class="nav-link collapsable" data-toggle="collapse" data-target="#sidenav-7-3-1" href="#sidenav-7-3-1" role="button" aria-expanded="true" aria-controls="sidenav-7-3-1">Dart SDK
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-7-3-1">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/sdk">概覽</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-tool">dart 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-analyze">dart analyze 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-compile">dart compile 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-create">dart create 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-doc">dart doc 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-fix">dart fix 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-format">dart format 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-info">dart info 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/pub/cmd">dart pub 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-run">dart run 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-test">dart test 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dartaotruntime">dartaotruntime 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/experiment-flags">實驗性命令標記</a>
+  </li>
+  </ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable" data-toggle="collapse" data-target="#sidenav-7-3-2" href="#sidenav-7-3-2" role="button" aria-expanded="true" aria-controls="sidenav-7-3-2">其他的命令列工具
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-7-3-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/build_runner">build_runner 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/webdev">webdev 命令</a>
+  </li>
+  </ul>
+  </li>
+</ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-4" href="#sidenav-7-4" role="button" aria-expanded="false" aria-controls="sidenav-7-4">原始碼管理
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-4">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/language/formatting">程式碼格式化</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/private-files">不應提交的內容</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-5" href="#sidenav-7-5" role="button" aria-expanded="false" aria-controls="sidenav-7-5">靜態分析
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-5">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/analysis">自訂靜態分析</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/sound-problems">修復常見的型別問題</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/diagnostic-messages">診斷訊息</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/linter-rules">Linter 規則</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-6" href="#sidenav-7-6" role="button" aria-expanded="false" aria-controls="sidenav-7-6">測試和調優
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-6">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/testing">測試</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/web/debugging">除錯 Web 應用</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-8" role="button" aria-expanded="false" aria-controls="sidenav-8">資源</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-8">
+        <li class="nav-item">
+    <a class="nav-link" href="/resources/faq">常見問題</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/evolution">版本演變</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/spec">語言規範</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/resources/dart-3-migration">Dart 3 遷移指南</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-8-5" href="#sidenav-8-5" role="button" aria-expanded="false" aria-controls="sidenav-8-5">從其他平台轉向 Dart
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-8-5">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/language/coming-from/js-to-dart">從 JavaScript 到 Dart</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/coming-from/swift-to-dart">從 Swift 到 Dart</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/resources/glossary">詞彙表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/resources/books">書籍資源</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/resources/videos">影片資源</a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link " data-toggle="collapse" href="#sidenav-9" role="button" aria-expanded="true" aria-controls="sidenav-9">相關站點</a>
+
+      <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-9">
+        <li class="nav-item">
+    <a class="nav-link" href="https://api.dart.dev" target="_blank" rel="noopener">API 文件<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://medium.com/dartlang" target="_blank" rel="noopener">Dart 團隊官方部落格<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://dartpad.dev" target="_blank" rel="noopener">DartPad (線上編輯器)<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://flutter.tw" target="_blank" rel="noopener">Flutter<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://pub.dev" target="_blank" rel="noopener">Package 網站<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-10" role="button" aria-expanded="false" aria-controls="sidenav-10">關於 Dart 中文文件</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-10">
+        <li class="nav-item">
+    <a class="nav-link" href="https://flutter.tw/about/docs-cn" target="_blank" rel="noopener">關於本站<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://flutter.tw/disclaimer" target="_blank" rel="noopener">免責條款 (Disclaimer)<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li>
+</ul>
+    </li></ul>
+
+  </div>
+</div>
+
+    <main id="page-content">
+      
+
+
+
+
+
+
+
+<div id="site-toc--side" class="site-toc ">
+  <header class="site-toc__title">
+    目錄
+    
+  </header>
+  <ul id="toc" class="section-nav">
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#nullable-and-non-nullable-types">Nullable and non-nullable types</a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#exercise-non-nullable-types">Exercise: Non-nullable types</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#exercise-nullable-types">Exercise: Nullable types</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#exercise-nullable-type-parameters-for-generics">Exercise: Nullable type parameters for generics</a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#the-null-assertion-operator-">The null assertion operator (!)</a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#exercise-null-assertion">Exercise: Null assertion</a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#null-aware-operators">Null-aware operators</a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#exercise-conditional-property-access">Exercise: Conditional property access</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#exercise-null-coalescing-operators">Exercise: Null-coalescing operators</a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#type-promotion">Type promotion</a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#exercise-definite-assignment">Exercise: Definite assignment</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#exercise-null-checking">Exercise: Null checking</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#exercise-promotion-with-exceptions">Exercise: Promotion with exceptions</a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#the-late-keyword">The late keyword</a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#exercise-using-late">Exercise: Using late</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#exercise-late-circular-references">Exercise: Late circular references</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#exercise-late-and-lazy">Exercise: Late and lazy</a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#whats-next">What’s next?</a></li>
+</ul>
+  
+</div>
+
+
+      <article>
+        <div class="content">
+          
+
+          <div id="site-content-title">
+            <div id="page-github-links" class="btn-group" aria-label="Page GitHub links" role="group">
+  <a href="https://github.com/doggy8088/dart.tw/tree/master/src/codelabs/null-safety.md" class="btn no-automatic-external" title="View page source" target="_blank" rel="noopener">
+    <i class="material-icons">description</i>
+  </a>
+  <a href="https://github.com/doggy8088/dart.tw/issues/new?template=1_page_issue.yml&amp;title=[PAGE ISSUE]: 'Null safety codelab'&amp;page-url=https://dart.tw.gh.miniasp.com/codelabs/null-safety.html&amp;page-source=https://github.com/doggy8088/dart.tw/tree/master/src/codelabs/null-safety.md" class="btn no-automatic-external" title="Report an issue with this page" target="_blank" rel="noopener">
+    <i class="material-icons">bug_report</i>
+  </a>
+</div>
+
+            
+            <h1 id="null-safety-codelab">Null safety codelab</h1>
+            </div>
+          
+
+
+
+
+
+
+
+<div id="site-toc--inline" class="site-toc toc-collapsible toc-collapsed">
+  <header class="site-toc__title">
+    目錄
+    
+      <span class="site-toc--inline__toggle toc-toggle-down"><i class="material-icons">keyboard_arrow_down</i></span>
+      <span class="site-toc--inline__toggle toc-toggle-up"><i class="material-icons">keyboard_arrow_up</i></span>
+    
+  </header>
+  <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#nullable-and-non-nullable-types">Nullable and non-nullable types</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#exercise-non-nullable-types">Exercise: Non-nullable types</a></li>
+<li class="toc-entry toc-h3"><a href="#exercise-nullable-types">Exercise: Nullable types</a></li>
+<li class="toc-entry toc-h3"><a href="#exercise-nullable-type-parameters-for-generics">Exercise: Nullable type parameters for generics</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#the-null-assertion-operator-">The null assertion operator (!)</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#exercise-null-assertion">Exercise: Null assertion</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#null-aware-operators">Null-aware operators</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#exercise-conditional-property-access">Exercise: Conditional property access</a></li>
+<li class="toc-entry toc-h3"><a href="#exercise-null-coalescing-operators">Exercise: Null-coalescing operators</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#type-promotion">Type promotion</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#exercise-definite-assignment">Exercise: Definite assignment</a></li>
+<li class="toc-entry toc-h3"><a href="#exercise-null-checking">Exercise: Null checking</a></li>
+<li class="toc-entry toc-h3"><a href="#exercise-promotion-with-exceptions">Exercise: Promotion with exceptions</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#the-late-keyword">The late keyword</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#exercise-using-late">Exercise: Using late</a></li>
+<li class="toc-entry toc-h3"><a href="#exercise-late-circular-references">Exercise: Late circular references</a></li>
+<li class="toc-entry toc-h3"><a href="#exercise-late-and-lazy">Exercise: Late and lazy</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#whats-next">What’s next?</a></li>
+</ul>
+  
+    <span class="site-toc--inline__toggle toc-toggle-more-items"><i class="material-icons">more_horiz</i></span>
+  
+</div>
+
+
+          
+<p>This codelab teaches you about Dart’s <a href="/null-safety">null-safe type system</a>.
+Dart introduced null safety as an optional setting in Dart 2.12.
+Dart 3 requires null safety.
+With null safety, values can’t be <code class="language-plaintext highlighter-rouge">null</code> unless you say they can be.</p>
+
+<p>This codelab covers the following material:</p>
+
+<ul>
+  <li>Nullable and non-nullable types.</li>
+  <li>When to add <code class="language-plaintext highlighter-rouge">?</code> or <code class="language-plaintext highlighter-rouge">!</code> to indicate nullability or non-nullability.</li>
+  <li>Flow analysis and type promotion.</li>
+  <li>How and when to use null-aware operators.</li>
+  <li>How the <code class="language-plaintext highlighter-rouge">late</code> keyword affects variables and initialization.</li>
+</ul>
+
+<p>Using embedded DartPad editors, you can test your knowledge by
+completing and running exercises. To get the most out of
+this codelab, you should have some knowledge of <a href="/language">basic Dart syntax</a>.</p>
+
+<aside class="alert alert-info" role="alert">
+  <p><i class="material-icons" aria-hidden="true">info</i> <strong>備註:</strong>
+  This page uses embedded DartPads to display exercises.
+  If you see empty boxes instead of DartPads, go to the
+<a href="/tools/dartpad/troubleshoot">DartPad troubleshooting page</a>.</p>
+
+  <p>如果你只看到了空白的框框（而沒有任何內容），請查閱
+<a href="/tools/dartpad/troubleshoot">DartPad 常見問題頁面</a>。</p>
+</aside>
+
+<h2 id="nullable-and-non-nullable-types">
+<a class="anchor" href="#nullable-and-non-nullable-types" aria-hidden="true"><span class="octicon octicon-link"></span></a>Nullable and non-nullable types</h2>
+
+<p>With <a href="/null-safety#enable-null-safety">null safety</a>, all types default
+to non-nullable. For example, if you have a variable of
+type <code class="language-plaintext highlighter-rouge">String</code>, it always contains a string.</p>
+
+<p>To allow a variable of type <code class="language-plaintext highlighter-rouge">String</code> to accept any string
+or the value <code class="language-plaintext highlighter-rouge">null</code>, add a question mark (<code class="language-plaintext highlighter-rouge">?</code>) after the type name.
+This changes the type of variable to a nullable type.
+For example, a variable of type <code class="language-plaintext highlighter-rouge">String?</code> can contain a string,
+or it can be null.</p>
+
+<h3 id="exercise-non-nullable-types">
+<a class="anchor" href="#exercise-non-nullable-types" aria-hidden="true"><span class="octicon octicon-link"></span></a>Exercise: Non-nullable types</h3>
+
+<p>In the following example, the developer declared variable <code class="language-plaintext highlighter-rouge">a</code> an <code class="language-plaintext highlighter-rouge">int</code>.
+Try changing the value in the assignment to <code class="language-plaintext highlighter-rouge">3</code> or <code class="language-plaintext highlighter-rouge">145</code>, but not <code class="language-plaintext highlighter-rouge">null</code>!</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart:run-dartpad:ga_id-nonnullable_type prettyprint lang-dart">void main() {
+  int a;
+  a = null;
+  print('a is $a.');
+}</code></pre></div>
+</div>
+
+<h3 id="exercise-nullable-types">
+<a class="anchor" href="#exercise-nullable-types" aria-hidden="true"><span class="octicon octicon-link"></span></a>Exercise: Nullable types</h3>
+
+<p>What if you need a variable that <em>can</em> hold a null value?
+Try changing the type of <code class="language-plaintext highlighter-rouge">a</code> so that <code class="language-plaintext highlighter-rouge">a</code> can be either <code class="language-plaintext highlighter-rouge">null</code> or an <code class="language-plaintext highlighter-rouge">int</code>:</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart:run-dartpad:ga_id-nullable_type prettyprint lang-dart">void main() {
+  int a;
+  a = null;
+  print('a is $a.');
+}</code></pre></div>
+</div>
+
+<h3 id="exercise-nullable-type-parameters-for-generics">
+<a class="anchor" href="#exercise-nullable-type-parameters-for-generics" aria-hidden="true"><span class="octicon octicon-link"></span></a>Exercise: Nullable type parameters for generics</h3>
+
+<p>Type parameters for generics can also be nullable or non-nullable.
+Try adding question marks to correct the type declarations of
+<code class="language-plaintext highlighter-rouge">aNullableListOfStrings</code> and <code class="language-plaintext highlighter-rouge">aListOfNullableStrings</code>:</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart:run-dartpad:ga_id-nullable_type_generics prettyprint lang-dart">void main() {
+  List&lt;String&gt; aListOfStrings = ['one', 'two', 'three'];
+  List&lt;String&gt; aNullableListOfStrings;
+  List&lt;String&gt; aListOfNullableStrings = ['one', null, 'three'];
+
+  print('aListOfStrings is $aListOfStrings.');
+  print('aNullableListOfStrings is $aNullableListOfStrings.');
+  print('aListOfNullableStrings is $aListOfNullableStrings.');
+}</code></pre></div>
+</div>
+
+<h2 id="the-null-assertion-operator-">
+<a class="anchor" href="#the-null-assertion-operator-" aria-hidden="true"><span class="octicon octicon-link"></span></a>The null assertion operator (!)</h2>
+
+<p>If you’re sure an expression with a nullable type doesn’t equal <code class="language-plaintext highlighter-rouge">null</code>,
+you can use the <a href="/null-safety/understanding-null-safety#null-assertion-operator">null assertion operator</a>
+(<code class="language-plaintext highlighter-rouge">!</code>) to make Dart treat it as non-nullable.
+By adding <code class="language-plaintext highlighter-rouge">!</code> after the expression,
+you assert two conditions to Dart about the expression:</p>
+
+<ol>
+  <li>Its value doesn’t equal <code class="language-plaintext highlighter-rouge">null</code>
+</li>
+  <li>Dart can assign the value to a non-nullable variable</li>
+</ol>
+
+<aside class="alert alert-warning" role="alert">
+  <p><i class="material-icons" aria-hidden="true">report_problem</i>
+  If the expression does equal <code class="language-plaintext highlighter-rouge">null</code>, <strong>Dart throws an exception at run-time</strong>.
+  This makes the <code class="language-plaintext highlighter-rouge">!</code> operator <em>unsafe</em>.
+  Don’t use it unless you have no doubt the expression can’t equal <code class="language-plaintext highlighter-rouge">null</code>.</p>
+</aside>
+
+<h3 id="exercise-null-assertion">
+<a class="anchor" href="#exercise-null-assertion" aria-hidden="true"><span class="octicon octicon-link"></span></a>Exercise: Null assertion</h3>
+
+<p>In the following code, try adding exclamation points to correct the
+broken assignments:</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart:run-dartpad:ga_id-null_assertion prettyprint lang-dart">int? couldReturnNullButDoesnt() =&gt; -3;
+
+void main() {
+  int? couldBeNullButIsnt = 1;
+  List&lt;int?&gt; listThatCouldHoldNulls = [2, null, 4];
+
+  int a = couldBeNullButIsnt;
+  int b = listThatCouldHoldNulls.first; // first item in the list
+  int c = couldReturnNullButDoesnt().abs(); // absolute value
+
+  print('a is $a.');
+  print('b is $b.');
+  print('c is $c.');
+}</code></pre></div>
+</div>
+
+<h2 id="null-aware-operators">
+<a class="anchor" href="#null-aware-operators" aria-hidden="true"><span class="octicon octicon-link"></span></a>Null-aware operators</h2>
+
+<p>If a variable or expression is nullable,
+you can use <a href="#type-promotion">type promotion</a>
+to access the type’s members.
+You can also use null-aware operators to handle nullable values.</p>
+
+<p>Sometimes the flow of the program tells you that the value of an
+expression cannot be <code class="language-plaintext highlighter-rouge">null</code>.
+To force Dart to treat that expression as non-nullable,
+add the <a href="#the-null-assertion-operator-">null assertion operator</a> (<code class="language-plaintext highlighter-rouge">!</code>).
+If the value does equal <code class="language-plaintext highlighter-rouge">null</code>, using this operator throws an exception.</p>
+
+<p>To handle potential <code class="language-plaintext highlighter-rouge">null</code> values, use the conditional property access
+operator (<code class="language-plaintext highlighter-rouge">?.</code>) or null-coalescing operators (<code class="language-plaintext highlighter-rouge">??</code>)
+to conditionally access a property or
+provide a default value if <code class="language-plaintext highlighter-rouge">null</code> respectively.</p>
+
+<h3 id="exercise-conditional-property-access">
+<a class="anchor" href="#exercise-conditional-property-access" aria-hidden="true"><span class="octicon octicon-link"></span></a>Exercise: Conditional property access</h3>
+
+<p>If you don’t know that an expression with a nullable type equals <code class="language-plaintext highlighter-rouge">null</code> or not,
+you can use the conditional member access operator (<code class="language-plaintext highlighter-rouge">?.</code>).
+This operator evaluates to <code class="language-plaintext highlighter-rouge">null</code> if the target expression resolves to <code class="language-plaintext highlighter-rouge">null</code>.
+Otherwise, it accesses the property on the non-null target value.</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">// The following calls the 'action' method only if nullableObject is not null
+nullableObject?.action();</code></pre></div>
+</div>
+
+<p>In the following code, try using conditional property access
+in the <code class="language-plaintext highlighter-rouge">stringLength</code> method. This fixes the error and
+returns the length of the string or <code class="language-plaintext highlighter-rouge">null</code> if it equals <code class="language-plaintext highlighter-rouge">null</code>:</p>
+
+<pre><code class="language-dart:run-dartpad:ga_id-null-safety-conditional-property">{$ begin main.dart $}
+int? stringLength(String? nullableString) {
+  return nullableString.length;
+}
+{$ end main.dart $}
+{$ begin solution.dart $}
+int? stringLength(String? nullableString) {
+  return nullableString?.length;
+}
+{$ end solution.dart $}
+{$ begin test.dart $}
+void main() {
+  const nonNullString = 'testing';
+  try {
+    final nonNullResult = stringLength(nonNullString);
+    if (nonNullResult != nonNullString.length) {
+      _result(false, [
+        'Tried calling `stringLength`, with the string \'testing\' but '
+            'received $nonNullResult instead of the expected ${nonNullString.length}.'
+      ]);
+      return;
+    }
+
+    final nullableResult = stringLength(null);
+    if (nullableResult != null) {
+      _result(false, [
+        'Tried calling `stringLength`, with a `null` value but '
+            'received $nullableResult instead of the expected `null`.'
+      ]);
+      return;
+    }
+    
+    _result(true);
+  } on UnimplementedError {
+    _result(false, [
+      'Tried running `stringLength`, but received an error. Did you implement the method?'
+    ]);
+    return;
+  } catch (e) {
+    _result(
+        false, ['Tried calling `stringLength`, but received an exception: $e']);
+  }
+}
+{$ end test.dart $}
+{$ begin hint.txt $}
+You can use the conditional property access operator (?.)
+to only access a property of if expression is not null otherwise return null.
+{$ end hint.txt $}
+</code></pre>
+
+<h3 id="exercise-null-coalescing-operators">
+<a class="anchor" href="#exercise-null-coalescing-operators" aria-hidden="true"><span class="octicon octicon-link"></span></a>Exercise: Null-coalescing operators</h3>
+
+<p>If you want to provide an alternative value
+when the expression evaluates to <code class="language-plaintext highlighter-rouge">null</code>,
+you can specify another expression to evaluate and return instead
+with the null-coalescing operator (<code class="language-plaintext highlighter-rouge">??</code>).</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">// Both of the following print out 'alternate' if nullableString is null
+print(nullableString ?? 'alternate');
+print(nullableString != null ? nullableString : 'alternate');</code></pre></div>
+</div>
+
+<p>You can also use the null-coalescing assignment operator (<code class="language-plaintext highlighter-rouge">??=</code>)
+to evaluate and assign an expression result to a variable
+only if that variable is currently <code class="language-plaintext highlighter-rouge">null</code>.</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">// Both of the following set nullableString to 'alternate' if it is null
+nullableString ??= 'alternate';
+nullableString = nullableString != null ? nullableString : 'alternate';</code></pre></div>
+</div>
+
+<p>In the following code, try using these operators to implement
+<code class="language-plaintext highlighter-rouge">updateStoredValue</code> following the logic outlined in its documentation comment:</p>
+
+<pre><code class="language-dart:run-dartpad:ga_id-null-safety-coalescing-operators">{$ begin main.dart $}
+abstract class Store {
+  int? storedNullableValue;
+
+  /// If [storedNullableValue] is currently `null`,
+  /// set it to the result of [calculateValue] 
+  /// or `0` if [calculateValue] returns `null`.
+  void updateStoredValue() {
+    TODO('Implement following documentation comment');
+  }
+
+  /// Calculates a value to be used,
+  /// potentially `null`.
+  int? calculateValue();
+}
+{$ end main.dart $}
+{$ begin solution.dart $}
+abstract class Store {
+  int? storedNullableValue;
+
+  /// If [storedNullableValue] is currently `null`,
+  /// set it to the result of [calculateValue] 
+  /// or `0` if [calculateValue] returns `null`.
+  void updateStoredValue() {
+    storedNullableValue ??= calculateValue() ?? 0;
+  }
+
+  /// Calculates a value to be used,
+  /// potentially `null`.
+  int? calculateValue();
+}
+{$ end solution.dart $}
+{$ begin test.dart $}
+class NullStore extends Store {
+  @override
+  int? calculateValue() {
+    return null;
+  }
+}
+
+class FiveStore extends Store {
+  @override
+  int? calculateValue() {
+    return 5;
+  }
+}
+
+void main() {
+  try {
+    final nullStore = NullStore();
+    if (nullStore.storedNullableValue != null) {
+      _result(false,
+          ['The `storedNullableValue` field should be `null` at first.']);
+      return;
+    }
+    nullStore.updateStoredValue();
+    if (nullStore.storedNullableValue != 0) {
+      _result(false, [
+        'Tried calling `updateStoredValue`, when `calculateValue` returned `null` '
+            'but `storedNullableValue` was ${nullStore.storedNullableValue} '
+            'instead of the expected 0.'
+      ]);
+      return;
+    }
+
+    final fiveStore = FiveStore();
+    fiveStore.updateStoredValue();
+    if (fiveStore.storedNullableValue != 5) {
+      _result(false, [
+        'Tried calling `updateStoredValue`, when `calculateValue` returned `5`'
+            'but `storedNullableValue` was ${fiveStore.storedNullableValue} '
+            'instead of the expected 5.'
+      ]);
+      return;
+    }
+
+    fiveStore.storedNullableValue = 3;
+    if (fiveStore.storedNullableValue != 3) {
+      _result(false, [
+        'Tried calling `updateStoredValue`, when `storedNullableValue` '
+            'was already not `null`'
+            'but `storedNullableValue` was still updated when it shouldn\'t be.'
+      ]);
+      return;
+    }
+
+    _result(true);
+  } on UnimplementedError {
+    _result(false, [
+      'Tried running `updateStoredValue`, but received an error. Did you implement the method?'
+    ]);
+    return;
+  } catch (e) {
+    _result(false,
+        ['Tried calling `updateStoredValue`, but received an exception: $e']);
+  }
+}
+{$ end test.dart $}
+{$ begin hint.txt $}
+You can think of the null-coalescing operators
+as providing an alternative value if the left-hand side is `null`.
+{$ end hint.txt $}
+</code></pre>
+
+<h2 id="type-promotion">
+<a class="anchor" href="#type-promotion" aria-hidden="true"><span class="octicon octicon-link"></span></a>Type promotion</h2>
+
+<p>Dart’s <a href="/null-safety/understanding-null-safety#flow-analysis">flow analysis</a>
+accounts for nullability.
+Dart treats nullable variables with no ability to contain null values
+as non-nullable variables.
+We call this behavior
+<a href="/null-safety/understanding-null-safety#type-promotion-on-null-checks">type promotion</a>.</p>
+
+<h3 id="exercise-definite-assignment">
+<a class="anchor" href="#exercise-definite-assignment" aria-hidden="true"><span class="octicon octicon-link"></span></a>Exercise: Definite assignment</h3>
+
+<p>Dart’s type system can track where variables are assigned and read.
+It can also verify that the developer assigned values to non-nullable variables
+before any code tries to read from those variables.
+This process is called
+<a href="/null-safety/understanding-null-safety#definite-assignment-analysis">definite assignment</a>.</p>
+
+<p>Try uncommenting the <code class="language-plaintext highlighter-rouge">if</code>-<code class="language-plaintext highlighter-rouge">else</code> statement in the following code.
+Watch the analyzer errors disappear:</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart:run-dartpad:ga_id-definite_assignment prettyprint lang-dart">void main() {
+  String text;
+
+  //if (DateTime.now().hour &lt; 12) {
+  //  text = "It's morning! Let's make aloo paratha!";
+  //} else {
+  //  text = "It's afternoon! Let's make biryani!";
+  //}
+
+  print(text);
+  print(text.length);
+}</code></pre></div>
+</div>
+
+<h3 id="exercise-null-checking">
+<a class="anchor" href="#exercise-null-checking" aria-hidden="true"><span class="octicon octicon-link"></span></a>Exercise: Null checking</h3>
+
+<p>In the following code, add an <code class="language-plaintext highlighter-rouge">if</code> statement to the beginning of
+<code class="language-plaintext highlighter-rouge">getLength</code> that returns zero if <code class="language-plaintext highlighter-rouge">str</code> is <code class="language-plaintext highlighter-rouge">null</code>:</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart:run-dartpad:ga_id-null_checking prettyprint lang-dart">int getLength(String? str) {
+  // Add null check here
+
+  return str.length;
+}
+
+void main() {
+  print(getLength('This is a string!'));
+}</code></pre></div>
+</div>
+
+<h3 id="exercise-promotion-with-exceptions">
+<a class="anchor" href="#exercise-promotion-with-exceptions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Exercise: Promotion with exceptions</h3>
+
+<p>Promotion works with exceptions as well as return statements.
+Try a null check that throws an <code class="language-plaintext highlighter-rouge">Exception</code> instead of returning zero.</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart:run-dartpad:ga_id-promotion_exceptions prettyprint lang-dart">int getLength(String? str) {
+  // Try throwing an exception here if `str` is null.
+
+  return str.length;
+}
+
+void main() {
+  print(getLength(null));
+}</code></pre></div>
+</div>
+
+<h2 id="the-late-keyword">
+<a class="anchor" href="#the-late-keyword" aria-hidden="true"><span class="octicon octicon-link"></span></a>The late keyword</h2>
+
+<p>Sometimes variables—fields in a class, or top-level variables—should 
+be non-nullable, but they can’t be
+assigned a value immediately. 
+For cases like that, use the
+<a href="/null-safety/understanding-null-safety#late-variables"><code class="language-plaintext highlighter-rouge">late</code> keyword</a>.</p>
+
+<p>When you put <code class="language-plaintext highlighter-rouge">late</code> in front of a variable declaration,
+that tells Dart the following about the variable:</p>
+
+<ul>
+  <li>The developer didn’t want to assign it a value yet.</li>
+  <li>It will get a value later.</li>
+  <li>It will have a value <em>before</em> being used.</li>
+</ul>
+
+<p>If you declare a variable <code class="language-plaintext highlighter-rouge">late</code> and Dart reads the variable before
+you assigned a value, Dart throws an error.</p>
+
+<h3 id="exercise-using-late">
+<a class="anchor" href="#exercise-using-late" aria-hidden="true"><span class="octicon octicon-link"></span></a>Exercise: Using late</h3>
+
+<p>Try using the <code class="language-plaintext highlighter-rouge">late</code> keyword to correct the following code.
+For a little extra fun afterward,
+try commenting out the line that sets <code class="language-plaintext highlighter-rouge">description</code>!</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart:run-dartpad:ga_id-late_keyword prettyprint lang-dart">class Meal {
+  String _description;
+
+  set description(String desc) {
+    _description = 'Meal description: $desc';
+  }
+
+  String get description =&gt; _description;
+}
+
+void main() {
+  final myMeal = Meal();
+  myMeal.description = 'Feijoada!';
+  print(myMeal.description);
+}</code></pre></div>
+</div>
+
+<h3 id="exercise-late-circular-references">
+<a class="anchor" href="#exercise-late-circular-references" aria-hidden="true"><span class="octicon octicon-link"></span></a>Exercise: Late circular references</h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">late</code> keyword helps with tricky patterns like circular references.
+The following code has two objects that need to maintain non-nullable references
+to each other. Try using the <code class="language-plaintext highlighter-rouge">late</code> keyword to fix this code.</p>
+
+<p>You don’t need to remove <code class="language-plaintext highlighter-rouge">final</code>. You can create
+<a href="/null-safety/understanding-null-safety#late-final-variables"><code class="language-plaintext highlighter-rouge">late final</code> variables</a>:
+you set their values once, and after that they stay read-only.</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart:run-dartpad:ga_id-late_circular prettyprint lang-dart">class Team {
+  final Coach coach;
+}
+
+class Coach {
+  final Team team;
+}
+
+void main() {
+  final myTeam = Team();
+  final myCoach = Coach();
+  myTeam.coach = myCoach;
+  myCoach.team = myTeam;
+
+  print('All done!');
+}</code></pre></div>
+</div>
+
+<h3 id="exercise-late-and-lazy">
+<a class="anchor" href="#exercise-late-and-lazy" aria-hidden="true"><span class="octicon octicon-link"></span></a>Exercise: Late and lazy</h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">late</code> keyword can help with another pattern:
+<a href="/null-safety/understanding-null-safety#lazy-initialization">lazy initialization</a>
+for expensive non-nullable fields.
+Try the following:</p>
+
+<ol>
+<li>Run this code without changing it, and note the output.</li>
+<li>Think: What will change if
+  you make <code>_cache</code> a <code>late</code> field?</li>
+<li>Make <code>_cache</code> a <code>late</code> field, and run the code.
+  Was your prediction correct?</li>
+</ol>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart:run-dartpad:ga_id-lazy_late prettyprint lang-dart">int _computeValue() {
+  print('In _computeValue...');
+  return 3;
+}
+
+class CachedValueProvider {
+  final _cache = _computeValue();
+  int get value =&gt; _cache;
+}
+
+void main() {
+  print('Calling constructor...');
+  var provider = CachedValueProvider();
+  print('Getting value...');
+  print('The value is ${provider.value}!');
+}</code></pre></div>
+</div>
+
+<aside class="alert alert-info" role="alert">
+  <p><i class="material-icons" aria-hidden="true">info</i>
+  <strong>Fun fact:</strong>
+  After you add <code class="language-plaintext highlighter-rouge">late</code> to the declaration of <code class="language-plaintext highlighter-rouge">_cache</code>,
+  if you move the   <code class="language-plaintext highlighter-rouge">_computeValue</code> function into the
+  <code class="language-plaintext highlighter-rouge">CachedValueProvider</code> class, the code still works!
+  Initialization expressions for <code class="language-plaintext highlighter-rouge">late</code> fields can use instance
+  methods in their initializers.</p>
+</aside>
+
+<h2 id="whats-next">
+<a class="anchor" href="#whats-next" aria-hidden="true"><span class="octicon octicon-link"></span></a>What’s next?</h2>
+
+<p>Congratulations, you’ve finished the codelab!
+To learn more, check out some suggestions for where to go next:</p>
+
+<ul>
+  <li>Learn more about null safety
+-<a href="/null-safety">Overview of null safety</a>.
+-<a href="/null-safety/understanding-null-safety">Deep dive into understanding null safety</a>.</li>
+  <li>If you want to improve this codelab, check out <a href="https://github.com/dart-lang/site-www/issues/3093">issue #3093</a>.</li>
+</ul>
+
+
+          
+
+        </div>
+      </article>
+    </main>
+    <footer id="page-footer">
+    <div class="footer-section footer-main">
+      <a href="/" class="brand" title="Dart">
+        <img src="/assets/img/shared/dart/logo+text/horizontal/white.svg" alt="Dart" width="164px">
+      </a>
+      <div class="footer-social-links">
+        <a href="https://github.com/doggy8088/dart.tw" target="_blank" rel="noopener" title="GitHub" class="no-automatic-external">
+          <svg>
+            <use href="/assets/img/social/github.svg#github"></use>
+          </svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-section footer-tray">
+      <div class="footer-licenses">
+        參考中文內容需註明本站及連結作為出處，英文內容和範例程式碼均遵從源站授權協議。
+      </div>
+      <div class="footer-utility-links">
+        <ul>
+          <li><a href="/terms" title="使用條款">使用條款</a></li>
+          <li><a href="https://policies.google.com/privacy?hl=zh-TW" target="_blank" rel="noopener" title="隱私政策" class="no-automatic-external">隱私政策</a></li>
+          <li><a href="/security" title="Security philosophy and practices">Dart 程式碼安全說明</a></li>
+          <li><a href="https://flutter.tw/about" target="_blank">關於中文文件</a>
+          </li><li><a href="https://flutter.tw/disclaimer" target="_blank">免責條款</a>
+          </li><li><a href="https://dart.cn/" target="_blank">Dart 簡體中文文檔</a>
+        </li></ul>
+      </div>
+    </div>
+  </footer>
+
+  
+
+<script src="/assets/translator/js/translator.js"></script></body></html>

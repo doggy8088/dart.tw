@@ -1,0 +1,1286 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Language" content="zh-cmn-Hans">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Google Tag Manager -->
+<!--  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':-->
+<!--  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],-->
+<!--  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=-->
+<!--  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);-->
+<!--  })(window,document,'script','dataLayer','GTM-5VSZM5J');</script>-->
+  <!-- End Google Tag Manager -->
+
+  <meta name="description" content="瞭解如何使用 single-subscriber 和 broadcast streams。">
+  <title>非同步程式設計：使用 stream | Dart</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-28P0PYCRZ9"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-28P0PYCRZ9');
+  </script>
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?fa71f2474b82505e00203cf9956cf0bc";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+  <!-- Favicon / Touch Icons -->
+  <link rel="icon" sizes="64x64" href="/assets/shared/dart/icon/64.png">
+  <link href="/assets/img/touch-icon-iphone.png" rel="apple-touch-icon">
+  <link href="/assets/img/touch-icon-ipad.png" rel="apple-touch-icon" sizes="152x152">
+  <link href="/assets/img/touch-icon-iphone-retina.png" rel="apple-touch-icon" sizes="180x180">
+  <link href="/assets/img/touch-icon-ipad-retina.png" rel="apple-touch-icon" sizes="167x167">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@dart_lang">
+  <meta name="twitter:title" content="非同步程式設計：使用 stream">
+  <meta name="twitter:description" content="瞭解如何使用 single-subscriber 和 broadcast streams。">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="非同步程式設計：使用 stream">
+  <meta property="og:description" content="瞭解如何使用 single-subscriber 和 broadcast streams。">
+  <meta property="og:url" content="https://dart.tw.gh.miniasp.com/tutorials/language/streams">
+
+  <meta property="og:image" content="https://dart.tw.gh.miniasp.com/assets/shared/dart-logo-for-shares.png?2">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Display:wght@400&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons&amp;display=swap" rel="stylesheet">
+  <script src="https://cdn.staticfile.org/font-awesome/5.15.4/js/all.js" data-auto-replace-svg="nest">
+  </script>
+
+  <link rel="stylesheet" href="/assets/css/main.css?v=1693674404">
+  <script src="https://cdn.staticfile.org/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.staticfile.org/popper.js/1.16.1/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.staticfile.org/bootstrap/4.6.2/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!-- <script src="https://cdn.staticfile.org/js-cookie/3.0.5/js.cookie.min.js"
+          integrity="sha512-nlp9/l96/EpjYBx7EP7pGASVXNe80hGhYAUrjeXnu/fyF5Py0/RXav4BBNs7n5Hx1WFhOEOWSAVjGeC3oKxDVQ=="
+          crossorigin="anonymous"
+          referrerpolicy="no-referrer"></script> -->
+
+  <script src="/assets/js/vendor/code-prettify/prettify.js"></script>
+  <script src="/assets/js/vendor/code-prettify/lang-dart.js"></script>
+  <script src="/assets/js/vendor/code-prettify/lang-yaml.js"></script>
+  <script src="/assets/js/os-tabs.js?v=1693674404"></script>
+  <script src="/assets/js/utilities.js?v=1693674404"></script>
+  <script src="/assets/js/main.js?v=1693674404"></script>
+
+  <script defer="" src="https://dartpad.dev/inject_embed.dart.js"></script>
+  <script>
+
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-122680122-5', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+
+ <link href="/assets/translator/css/translator.css" rel="stylesheet"></head>
+
+  <body class="default show_banner">
+    <section id="cookie-notice">
+  <div class="container">
+    <p>Google uses cookies to deliver its services, to personalize ads, and to 
+      analyze traffic. You can adjust your privacy controls anytime in your 
+      <a href="https://myaccount.google.com/data-and-personalization" target="_blank" rel="noopener" class="no-automatic-external">Google settings</a>. 
+      <a href="https://policies.google.com/technologies/cookies" target="_blank" rel="noopener" class="no-automatic-external">Learn more</a>.
+    </p>
+    <button id="cookie-consent" class="btn btn-primary">Okay</button>
+  </div>
+</section>
+
+    <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=G-28P0PYCRZ9"
+ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+    <header id="page-header" class="site-header">
+  <nav id="mainnav" class="site-header">
+  <div id="menu-toggle"><i class="material-icons">menu</i></div>
+  <a href="/" class="brand" title="Dart">
+    <img src="/assets/img/shared/dart/logo+text/horizontal/white.svg" alt="Dart">
+  </a>
+  <ul class="navbar">
+    <li>
+      <a href="/overview" class="nav-link">概覽</a>
+    </li>
+    <li class="mainnav__get-started">
+      <a href="/guides" class="nav-link
+         active">
+        <span>文件</span>
+      </a>
+    </li>
+    <li>
+      <a href="/community" class="nav-link">社群</a>
+    </li>
+    <li>
+      <a href="/#try-dart" class="nav-link">嘗試 Dart</a>
+    </li>
+    <li>
+      <a href="/get-dart" class="nav-link">獲取 Dart SDK</a>
+    </li>
+    <li class="searchfield">
+      <form action="/search" class="site-header__search form-inline" id="cse-search-box">
+        <input type="hidden" name="cx" value="011220921317074318178:_yy-tmb5t_i">
+        <input type="hidden" name="ie" value="UTF-8">
+        <input type="hidden" name="hl" value="en">
+        <input class="site-header__searchfield form-control search-field" type="search" name="q" id="q" autocomplete="off" placeholder="Search" aria-label="Search">
+      </form>
+    </li>
+  </ul>
+</nav>
+
+  
+</header>
+ <div class="banner">
+  <p class="banner__text">
+    Dart 3 已釋出！帶來了全新的
+    <a href="https://dart.tw.gh.miniasp.com/language/records" class="no-automatic-external">記錄型別 (records)</a>、
+    <a href="https://dart.tw.gh.miniasp.com/language/patterns" class="no-automatic-external">模式匹配 (patterns)</a>
+    以及 <a href="https://dart.tw.gh.miniasp.com/language/class-modifiers" class="no-automatic-external">型別修飾符 (class modifiers)</a>。
+    <br>
+    <!--<a href="https://medium.com/p/53f065a10635" class="no-automatic-external">Check out the blog post</a>!-->
+  </p>
+</div>
+ 
+
+    <div id="sidenav" class="">
+  <form action="/search/" class="site-header__search form-inline">
+    <input class="site-header__searchfield form-control search-field" type="search" name="q" id="q" autocomplete="off" placeholder="Search" aria-label="Search">
+  </form>
+
+  <div class="site-sidebar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a href="/overview" class="nav-link">概覽</a>
+      </li>
+      <li class="nav-item">
+        <a href="/community" class="nav-link">社群</a>
+      </li>
+      <li class="nav-item">
+        <a href="https://dartpad.dev" class="nav-link">嘗試 Dart</a>
+      </li>
+      <li class="nav-item">
+        <a href="/get-dart" class="nav-link">獲取 Dart SDK</a>
+      </li>
+      <li class="nav-item">
+        <a href="/guides" class="nav-link active">文件</a>
+      </li>
+    </ul>
+
+    <ul class="nav flex-column"><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-1" role="button" aria-expanded="false" aria-controls="sidenav-1">範例和課程</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-1">
+        <li class="nav-item">
+    <a class="nav-link" href="/tutorials">語言概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable" data-toggle="collapse" data-target="#sidenav-1-2" href="#sidenav-1-2" role="button" aria-expanded="true" aria-controls="sidenav-1-2">Codelabs
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-1-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/codelabs">Codelabs 列表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/dart-cheatsheet">Dart 速查表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/iterables">可迭代集合</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/async-await">Dart 非同步程式設計</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/null-safety">空安全</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-2" role="button" aria-expanded="false" aria-controls="sidenav-2">Dart 開發語言</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2">
+        <li class="nav-item">
+    <a class="nav-link" href="/language">介紹</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-2" href="#sidenav-2-2" role="button" aria-expanded="false" aria-controls="sidenav-2-2">基礎表示式
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/variables">變數</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/operators">運運算元</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/comments">註釋</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/metadata">註解</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/libraries">庫 &amp; 導庫</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/keywords">關鍵字</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-3" href="#sidenav-2-3" role="button" aria-expanded="false" aria-controls="sidenav-2-3">型別
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-3">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/built-in-types">基本型別</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/records">記錄 (Records)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/collections">集合 (Collections)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/generics">泛型 (Generics)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/typedefs">別名 (Typedefs)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/type-system">型別系統</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-4" href="#sidenav-2-4" role="button" aria-expanded="false" aria-controls="sidenav-2-4">模式匹配
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-4">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/patterns">概覽 &amp; 用法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/pattern-types">模式匹配型別</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/language/functions">函式方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-6" href="#sidenav-2-6" role="button" aria-expanded="false" aria-controls="sidenav-2-6">控制流
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-6">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/loops">迴圈</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/branches">分支</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/language/error-handling">錯誤處理</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-8" href="#sidenav-2-8" role="button" aria-expanded="false" aria-controls="sidenav-2-8">類 &amp; 物件
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-8">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/classes">類</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/constructors">構造方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/methods">成員方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/extend">繼承</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/mixins">混入 (Mixin)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/enums">列舉</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/extension-methods">擴充方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/callable-objects">可呼叫的物件</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-9" href="#sidenav-2-9" role="button" aria-expanded="false" aria-controls="sidenav-2-9">型別修飾符
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-9">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/class-modifiers">概覽 &amp; 用法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/class-modifiers-for-apis">API 維護者應該用的型別修飾符</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/modifier-reference">速查表</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-10" href="#sidenav-2-10" role="button" aria-expanded="false" aria-controls="sidenav-2-10">併發
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-10">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/async">非同步支援</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/concurrency">Isolates</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-11" href="#sidenav-2-11" role="button" aria-expanded="false" aria-controls="sidenav-2-11">Null safety
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-11">
+      <li class="nav-item">
+    <a class="nav-link" href="/null-safety">健全的空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/migration-guide">遷移到空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/understanding-null-safety">深入理解空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/unsound-null-safety">非健全的空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/faq">空安全常見問題和解答</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-3" role="button" aria-expanded="false" aria-controls="sidenav-3">高效指南 (Effective Dart)</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-3">
+        <li class="nav-item">
+    <a class="nav-link" href="/effective-dart">概述</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/style">程式碼風格</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/documentation">文件</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/usage">用法範例</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/design">API 設計</a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-4" role="button" aria-expanded="false" aria-controls="sidenav-4">核心函式庫</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-4">
+        <li class="nav-item">
+    <a class="nav-link" href="/guides/libraries">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/library-tour">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-4-3" href="#sidenav-4-3" role="button" aria-expanded="false" aria-controls="sidenav-4-3">介紹文章
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-4-3">
+      <li class="nav-item">
+    <a class="nav-link" href="/articles/libraries/creating-streams">建立 stream</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-5" role="button" aria-expanded="false" aria-controls="sidenav-5">Packages</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-5">
+        <li class="nav-item">
+    <a class="nav-link" href="/guides/packages">如何使用 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/useful-libraries">常用 package 介紹</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/create-packages">建立 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/publishing">釋出 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/writing-package-pages">設定 package 介紹頁</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-5-6" href="#sidenav-5-6" role="button" aria-expanded="false" aria-controls="sidenav-5-6">Package 參考資料
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-5-6">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/pub/dependencies">依賴</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/glossary">術語表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/package-layout">Package 檔案結構</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/environment-variables">設定環境變數</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/pubspec">Pubspec 檔案</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/troubleshoot">問題排查</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/verified-publishers">釋出者認證</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/versioning">版本管理</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link active" data-toggle="collapse" href="#sidenav-6" role="button" aria-expanded="true" aria-controls="sidenav-6">開發文件</a>
+
+      <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-6">
+        <li class="nav-item">
+    <a class="nav-link" href="/codelabs/async-await">Futures、async 和 await</a>
+  </li><li class="nav-item">
+    <a class="nav-link active" href="/tutorials/language/streams">Streams 介紹</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/json">使用 JSON</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/numbers">Dart 中的數字</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-5" href="#sidenav-6-5" role="button" aria-expanded="false" aria-controls="sidenav-6-5">與其他語言進行互動呼叫
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-5">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/c-interop">與 C 互調</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/objective-c-interop">與 Objective-C 和 Swift 互調</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/java-interop">與 Java 和 Kotlin 互調</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/web/js-interop">與 JavaScript 互調</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/guides/google-apis">Google APIs</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/multiplatform-apps">跨平臺應用</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-8" href="#sidenav-6-8" role="button" aria-expanded="false" aria-controls="sidenav-6-8">命令列和伺服器端應用
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-8">
+      <li class="nav-item">
+    <a class="nav-link" href="/server">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/get-started">起步課程</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/cmdline">命令列應用</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/fetch-data">從網路上獲取資料</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/httpserver">編寫 HTTP 伺服器端應用</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/server/libraries">庫和 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/server/google-cloud">Google Cloud</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-9" href="#sidenav-6-9" role="button" aria-expanded="false" aria-controls="sidenav-6-9">網頁端 (Web) 應用
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-9">
+      <li class="nav-item">
+    <a class="nav-link" href="/web">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/get-started">開始使用</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-9-3" href="#sidenav-6-9-3" role="button" aria-expanded="false" aria-controls="sidenav-6-9-3">底層 Web 程式設計
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-9-3">
+      <li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/low-level-html/connect-dart-html">Dart 與 HTML 關聯</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/low-level-html/add-elements">向 DOM 新增元素</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/low-level-html/remove-elements">移除 DOM 元素</a>
+  </li>
+  </ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/web/deployment">部署</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/web/libraries">常用 Web 函式庫和 package</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/guides/environment-declarations">環境變數宣告</a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-7" role="button" aria-expanded="false" aria-controls="sidenav-7">開發工具和使用技巧</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7">
+        <li class="nav-item">
+    <a class="nav-link" href="/tools">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-2" href="#sidenav-7-2" role="button" aria-expanded="false" aria-controls="sidenav-7-2">編輯器和除錯工具
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/jetbrains-plugin">使用 IntelliJ 和 Android Studio</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/vs-code">使用 VS Code</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/dart-devtools">Dart 開發者工具</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-2-4" href="#sidenav-7-2-4" role="button" aria-expanded="false" aria-controls="sidenav-7-2-4">線上執行 Dart 程式碼
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-2-4">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/dartpad">Overview</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dartpad/dartpad-best-practices">DartPad 課程</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dartpad/troubleshoot">DartPad 疑難解答</a>
+  </li>
+  </ul>
+  </li>
+</ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-3" href="#sidenav-7-3" role="button" aria-expanded="false" aria-controls="sidenav-7-3">命令列工具
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-3">
+      <li class="nav-item">
+    <a class="nav-link collapsable" data-toggle="collapse" data-target="#sidenav-7-3-1" href="#sidenav-7-3-1" role="button" aria-expanded="true" aria-controls="sidenav-7-3-1">Dart SDK
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-7-3-1">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/sdk">概覽</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-tool">dart 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-analyze">dart analyze 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-compile">dart compile 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-create">dart create 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-doc">dart doc 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-fix">dart fix 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-format">dart format 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-info">dart info 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/pub/cmd">dart pub 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-run">dart run 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-test">dart test 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dartaotruntime">dartaotruntime 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/experiment-flags">實驗性命令標記</a>
+  </li>
+  </ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable" data-toggle="collapse" data-target="#sidenav-7-3-2" href="#sidenav-7-3-2" role="button" aria-expanded="true" aria-controls="sidenav-7-3-2">其他的命令列工具
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-7-3-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/build_runner">build_runner 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/webdev">webdev 命令</a>
+  </li>
+  </ul>
+  </li>
+</ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-4" href="#sidenav-7-4" role="button" aria-expanded="false" aria-controls="sidenav-7-4">原始碼管理
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-4">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/language/formatting">程式碼格式化</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/private-files">不應提交的內容</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-5" href="#sidenav-7-5" role="button" aria-expanded="false" aria-controls="sidenav-7-5">靜態分析
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-5">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/analysis">自訂靜態分析</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/sound-problems">修復常見的型別問題</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/diagnostic-messages">診斷訊息</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/linter-rules">Linter 規則</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-6" href="#sidenav-7-6" role="button" aria-expanded="false" aria-controls="sidenav-7-6">測試和調優
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-6">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/testing">測試</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/web/debugging">除錯 Web 應用</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-8" role="button" aria-expanded="false" aria-controls="sidenav-8">資源</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-8">
+        <li class="nav-item">
+    <a class="nav-link" href="/resources/faq">常見問題</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/evolution">版本演變</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/spec">語言規範</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/resources/dart-3-migration">Dart 3 遷移指南</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-8-5" href="#sidenav-8-5" role="button" aria-expanded="false" aria-controls="sidenav-8-5">從其他平台轉向 Dart
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-8-5">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/language/coming-from/js-to-dart">從 JavaScript 到 Dart</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/coming-from/swift-to-dart">從 Swift 到 Dart</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/resources/glossary">詞彙表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/resources/books">書籍資源</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/resources/videos">影片資源</a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link " data-toggle="collapse" href="#sidenav-9" role="button" aria-expanded="true" aria-controls="sidenav-9">相關站點</a>
+
+      <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-9">
+        <li class="nav-item">
+    <a class="nav-link" href="https://api.dart.dev" target="_blank" rel="noopener">API 文件<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://medium.com/dartlang" target="_blank" rel="noopener">Dart 團隊官方部落格<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://dartpad.dev" target="_blank" rel="noopener">DartPad (線上編輯器)<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://flutter.tw" target="_blank" rel="noopener">Flutter<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://pub.dev" target="_blank" rel="noopener">Package 網站<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-10" role="button" aria-expanded="false" aria-controls="sidenav-10">關於 Dart 中文文件</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-10">
+        <li class="nav-item">
+    <a class="nav-link" href="https://flutter.tw/about/docs-cn" target="_blank" rel="noopener">關於本站<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://flutter.tw/disclaimer" target="_blank" rel="noopener">免責條款 (Disclaimer)<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li>
+</ul>
+    </li></ul>
+
+  </div>
+</div>
+
+    <main id="page-content">
+      
+
+
+
+
+
+
+
+<div id="site-toc--side" class="site-toc ">
+  <header class="site-toc__title">
+    目錄
+    
+  </header>
+  <ul id="toc" class="section-nav">
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#receiving-stream-events"><p>接收 Stream 事件</p></a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#error-events"><p>錯誤事件</p></a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#working-with-streams"><p>Stream 的使用</p></a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#two-kinds-of-streams"><p>Stream 的兩種型別</p></a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#single-subscription-streams"><p>Single-Subscription 型別的 Stream</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#broadcast-streams"><p>Broadcast 型別的 Stream</p></a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#process-stream-methods"><p>處理 Stream 的方法</p></a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#modify-stream-methods"><p>修改 Stream 的方法</p></a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#transform-function"><p>transform() 方法</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#reading-decoding-file"><p>讀取和解碼檔案</p></a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#listen-method"><p>listen() 方法</p></a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#other-resources"><p>其它資源資訊</p></a></li>
+</ul>
+  
+</div>
+
+
+      <article>
+        <div class="content">
+          
+
+          <div id="site-content-title">
+            <div id="page-github-links" class="btn-group" aria-label="Page GitHub links" role="group">
+  <a href="https://github.com/doggy8088/dart.tw/tree/master/src/_tutorials/language/streams.md" class="btn no-automatic-external" title="View page source" target="_blank" rel="noopener">
+    <i class="material-icons">description</i>
+  </a>
+  <a href="https://github.com/doggy8088/dart.tw/issues/new?template=1_page_issue.yml&amp;title=[PAGE ISSUE]: '非同步程式設計：使用 stream'&amp;page-url=https://dart.tw.gh.miniasp.com/tutorials/language/streams&amp;page-source=https://github.com/doggy8088/dart.tw/tree/master/src/_tutorials/language/streams.md" class="btn no-automatic-external" title="Report an issue with this page" target="_blank" rel="noopener">
+    <i class="material-icons">bug_report</i>
+  </a>
+</div>
+
+            
+            <h1 id="非同步程式設計使用-stream">非同步程式設計：使用 stream</h1>
+            </div>
+          
+
+
+
+
+
+
+
+<div id="site-toc--inline" class="site-toc toc-collapsible toc-collapsed">
+  <header class="site-toc__title">
+    目錄
+    
+      <span class="site-toc--inline__toggle toc-toggle-down"><i class="material-icons">keyboard_arrow_down</i></span>
+      <span class="site-toc--inline__toggle toc-toggle-up"><i class="material-icons">keyboard_arrow_up</i></span>
+    
+  </header>
+  <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#receiving-stream-events"><p>接收 Stream 事件</p></a></li>
+<li class="toc-entry toc-h2"><a href="#error-events"><p>錯誤事件</p></a></li>
+<li class="toc-entry toc-h2"><a href="#working-with-streams"><p>Stream 的使用</p></a></li>
+<li class="toc-entry toc-h2"><a href="#two-kinds-of-streams"><p>Stream 的兩種型別</p></a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#single-subscription-streams"><p>Single-Subscription 型別的 Stream</p></a></li>
+<li class="toc-entry toc-h3"><a href="#broadcast-streams"><p>Broadcast 型別的 Stream</p></a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#process-stream-methods"><p>處理 Stream 的方法</p></a></li>
+<li class="toc-entry toc-h2"><a href="#modify-stream-methods"><p>修改 Stream 的方法</p></a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#transform-function"><p>transform() 方法</p></a></li>
+<li class="toc-entry toc-h3"><a href="#reading-decoding-file"><p>讀取和解碼檔案</p></a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#listen-method"><p>listen() 方法</p></a></li>
+<li class="toc-entry toc-h2"><a href="#other-resources"><p>其它資源資訊</p></a></li>
+</ul>
+  
+    <span class="site-toc--inline__toggle toc-toggle-more-items"><i class="material-icons">more_horiz</i></span>
+  
+</div>
+
+
+          <div class="mini-toc">
+  <h4 id="whats-the-point">本章的重點</h4>
+
+  
+
+  <ul>
+    <li>
+      <p>Stream 提供一個非同步的資料序列。</p>
+
+      
+    </li>
+    <li>
+      <p>資料序列包括使用者產生的事件和從檔案讀取的資料。</p>
+
+      
+    </li>
+    <li>
+      <p>你可以使用 Stream API 中的 <code class="language-plaintext highlighter-rouge">listen()</code> 方法和 <strong>await for</strong> 關鍵字來處理一個 Stream。</p>
+
+      
+    </li>
+    <li>
+      <p>當出現錯誤時，Stream 提供一種處理錯誤的方式。</p>
+
+      
+    </li>
+    <li>
+      <p>Stream 有兩種型別：Single-Subscription 和 Broadcast。</p>
+
+      
+    </li>
+  </ul>
+</div>
+
+<p><a href="https://api.dart.dev/stable/dart-async/Future-class.html">Future</a> 和 <a href="https://api.dart.dev/stable/dart-async/Stream-class.html">Stream</a> 類是 Dart 非同步程式設計的核心。</p>
+
+
+
+<p>Future 表示一個不會立即完成的計算過程。與普通函式直接返回結果不同的是非同步函式返回一個將會包含結果的 Future。該 Future 會在結果準備好時通知呼叫者。</p>
+
+
+
+<p>Stream 是一系列非同步事件的序列。其類似於一個非同步的 Iterable，不同的是當你向 Iterable 獲取下一個事件時它會立即給你，但是 Stream 則不會立即給你而是在它準備好時告訴你。</p>
+
+
+
+<h2 id="receiving-stream-events">
+<a class="anchor" href="#receiving-stream-events" aria-hidden="true"><span class="octicon octicon-link"></span></a>接收 Stream 事件</h2>
+
+
+
+<p>Stream 可以透過許多方式建立，這個話題我們會在另一篇文章詳述，而這些所有的建立方式都可以相同的方式在程式碼中使用：像使用 <strong>for迴圈</strong> 迭代一個 Iterable 一樣，我們可以使用 <strong>非同步 for迴圈</strong> （通常我們直接稱之為 <strong>await for</strong>）來迭代 Stream 中的事件。例如：</p>
+
+
+<pre class="prettyprint lang-dart"><code>Future&lt;int&gt; sumStream(Stream&lt;int&gt; stream) <span class="highlight">async</span> {
+  var sum = 0;
+  <span class="highlight">await for</span> (final value in stream) {
+    sum += value;
+  }
+  return sum;
+}</code></pre>
+
+<p>該程式碼只是簡單地接收整型事件流中的每一個事件並將它們相加，然後返回（被 Future 包裹）相加後的整型值。當迴圈體結束時，函式會暫停直到下一個事件到達或 Stream 完成。</p>
+
+
+
+<p>內部使用 <strong>await for</strong> 迴圈的函式需要使用 <code class="language-plaintext highlighter-rouge">async</code> 關鍵字標記。</p>
+
+
+
+<p>下面的範例中使用了 <code class="language-plaintext highlighter-rouge">async*</code> 函式產生一個簡單的整型 Stream 來測試上一個程式碼片段：</p>
+
+
+
+<aside class="alert alert-info" role="alert">
+  <p><i class="material-icons" aria-hidden="true">info</i> <strong>備註:</strong></p>
+
+  <p>本頁面內嵌了一些 DartPads 做例子展示，</p>
+
+  
+
+  <p>如果你只看到了空白的框框（而沒有任何內容），請查閱
+<a href="/tools/dartpad/troubleshoot">DartPad 常見問題頁面</a>。</p>
+
+  
+
+</aside>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart:run-dartpad prettyprint lang-dart">Future&lt;int&gt; sumStream(Stream&lt;int&gt; stream) async {
+  var sum = 0;
+  await for (final value in stream) {
+    sum += value;
+  }
+  return sum;
+}
+
+Stream&lt;int&gt; countStream(int to) async* {
+  for (int i = 1; i &lt;= to; i++) {
+    yield i;
+  }
+}
+
+void main() async {
+  var stream = countStream(10);
+  var sum = await sumStream(stream);
+  print(sum); // 55
+}</code></pre></div>
+</div>
+
+<aside class="alert alert-info" role="alert">
+  <p><i class="material-icons" aria-hidden="true">info</i> <strong>備註:</strong></p>
+
+  <p><strong>注意：</strong> 點選 <strong>Run</strong> 可以在 <strong>控制檯輸出</strong> 檢視結果。</p>
+
+  
+
+</aside>
+
+<h2 id="error-events">
+<a class="anchor" href="#error-events" aria-hidden="true"><span class="octicon octicon-link"></span></a>錯誤事件</h2>
+
+
+
+<p>當 Stream 再也沒有需要處理的事件時會變為完成狀態，與此同時，呼叫者可以像接收到新事件回呼(Callback)那樣接收 Stream 完成的事件回呼(Callback)。當使用 <strong>await for</strong> 迴圈讀取事件時，迴圈會在 Stream 完成時停止。</p>
+
+
+
+<p>有時在 Stream 完成前會出現錯誤；比如從遠端伺服器獲取檔案時出現網路請求失敗，或者建立事件時出現 bug，儘管錯誤總是會有可能存在，但它出現時應該告知使用者。</p>
+
+
+
+<p>Stream 可以像提供資料事件那樣提供錯誤事件。大多數 Stream 會在第一次錯誤出現後停止，但其也可以提供多次錯誤並可以在在出現錯誤後繼續提供資料事件。在本篇文件中我們只討論 Stream 最多出現並提供一次錯誤事件的情況。</p>
+
+
+
+<p>當使用 <strong>await for</strong> 讀取 Stream 時，如果出現錯誤，則由迴圈陳述式丟擲，同時迴圈結束。你可以使用 <strong>try-catch</strong> 陳述式捕獲錯誤。下面的範例會在迴圈迭代到引數值等於 4 時丟擲一個錯誤：</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart:run-dartpad prettyprint lang-dart">Future&lt;int&gt; sumStream(Stream&lt;int&gt; stream) async {
+  var sum = 0;
+  try {
+    await for (final value in stream) {
+      sum += value;
+    }
+  } catch (e) {
+    return -1;
+  }
+  return sum;
+}
+
+Stream&lt;int&gt; countStream(int to) async* {
+  for (int i = 1; i &lt;= to; i++) {
+    if (i == 4) {
+      throw Exception('Intentional exception');
+    } else {
+      yield i;
+    }
+  }
+}
+
+void main() async {
+  var stream = countStream(10);
+  var sum = await sumStream(stream);
+  print(sum); // -1
+}</code></pre></div>
+</div>
+
+<aside class="alert alert-info" role="alert">
+  <p><i class="material-icons" aria-hidden="true">info</i> <strong>備註:</strong></p>
+
+  <p><strong>注意：</strong> 點選 <strong>Run</strong> 可以在 <strong>控制檯輸出</strong> 檢視結果。</p>
+
+  
+
+</aside>
+
+<h2 id="working-with-streams">
+<a class="anchor" href="#working-with-streams" aria-hidden="true"><span class="octicon octicon-link"></span></a>Stream 的使用</h2>
+
+
+
+<p>Stream 類中包含了許多像 <a href="https://api.dart.dev/stable/dart-core/Iterable-class.html">Iterable</a>
+類中一樣的輔助方法幫助你實現一些常用的操作。例如，你可以使用 Stream API 中的 <code class="language-plaintext highlighter-rouge">lastWhere()</code>
+方法從 Stream 中找出最後一個正整數。</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">Future&lt;int&gt; lastPositive(Stream&lt;int&gt; stream) =&gt;
+    stream.lastWhere((x) =&gt; x &gt;= 0);</code></pre></div>
+</div>
+
+<h2 id="two-kinds-of-streams">
+<a class="anchor" href="#two-kinds-of-streams" aria-hidden="true"><span class="octicon octicon-link"></span></a>Stream 的兩種型別</h2>
+
+
+
+<p>Stream 有兩種型別。</p>
+
+
+
+<h3 id="single-subscription-streams">
+<a class="anchor" href="#single-subscription-streams" aria-hidden="true"><span class="octicon octicon-link"></span></a>Single-Subscription 型別的 Stream</h3>
+
+
+
+<p>最常見的型別是一個 Stream 只包含了某個眾多事件序列的一個。而這些事件需要按順序提供並且不能丟失。當你讀取一個檔案或接收一個網頁請求時就需要使用這種型別的 Stream。</p>
+
+
+
+<p>這種 Stream 只能設定一次監聽。重複設定則會丟失原來的事件，而導致你所監聽到的剩餘其它事件毫無意義。當你開始監聽時，資料將以塊的形式提供和獲取。</p>
+
+
+
+<h3 id="broadcast-streams">
+<a class="anchor" href="#broadcast-streams" aria-hidden="true"><span class="octicon octicon-link"></span></a>Broadcast 型別的 Stream</h3>
+
+
+
+<p>另一種流是針對單個訊息的，這種流可以一次處理一個訊息。例如可以將其用於瀏覽器的滑鼠事件。</p>
+
+
+
+<p>你可以在任何時候監聽這種 Stream，且在此之後你可以獲取到任何觸發的事件。這種流可以在同一時間設定多個不同的監聽器同時監聽，同時你也可以在取消上一個訂閱後再次對其發起監聽。</p>
+
+
+
+<h2 id="process-stream-methods">
+<a class="anchor" href="#process-stream-methods" aria-hidden="true"><span class="octicon octicon-link"></span></a>處理 Stream 的方法</h2>
+
+
+
+<p>下面這些 <a href="https://api.dart.dev/stable/dart-async/Stream-class.html">Stream&lt;T&gt;</a> 類中的方法可以對 Stream 進行處理並返回結果：</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">Future&lt;T&gt; get first;
+Future&lt;bool&gt; get isEmpty;
+Future&lt;T&gt; get last;
+Future&lt;int&gt; get length;
+Future&lt;T&gt; get single;
+Future&lt;bool&gt; any(bool Function(T element) test);
+Future&lt;bool&gt; contains(Object? needle);
+Future&lt;E&gt; drain&lt;E&gt;([E? futureValue]);
+Future&lt;T&gt; elementAt(int index);
+Future&lt;bool&gt; every(bool Function(T element) test);
+Future&lt;T&gt; firstWhere(bool Function(T element) test, {T Function()? orElse});
+Future&lt;S&gt; fold&lt;S&gt;(S initialValue, S Function(S previous, T element) combine);
+Future forEach(void Function(T element) action);
+Future&lt;String&gt; join([String separator = '']);
+Future&lt;T&gt; lastWhere(bool Function(T element) test, {T Function()? orElse});
+Future pipe(StreamConsumer&lt;T&gt; streamConsumer);
+Future&lt;T&gt; reduce(T Function(T previous, T element) combine);
+Future&lt;T&gt; singleWhere(bool Function(T element) test, {T Function()? orElse});
+Future&lt;List&lt;T&gt;&gt; toList();
+Future&lt;Set&lt;T&gt;&gt; toSet();</code></pre></div>
+</div>
+
+<p>上述所有的方法，除了 <code class="language-plaintext highlighter-rouge">drain()</code> and <code class="language-plaintext highlighter-rouge">pipe()</code> 方法外，都在 <a href="https://api.dart.dev/stable/dart-core/Iterable-class.html">Iterable</a> 類中有對應的相似方法。如果你在非同步函式中使用了 <strong>await for</strong> 迴圈（或者只是在另一個方法中使用），那麼使用上述的這些方法將會更加容易。例如，一些程式碼實現大概是這樣的：</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">Future&lt;bool&gt; contains(Object? needle) async {
+  await for (final event in this) {
+    if (event == needle) return true;
+  }
+  return false;
+}
+
+Future forEach(void Function(T element) action) async {
+  await for (final event in this) {
+    action(event);
+  }
+}
+
+Future&lt;List&lt;T&gt;&gt; toList() async {
+  final result = &lt;T&gt;[];
+  await forEach(result.add);
+  return result;
+}
+
+Future&lt;String&gt; join([String separator = '']) async =&gt;
+    (await toList()).join(separator);</code></pre></div>
+</div>
+
+<p>（上述程式碼只是個簡單的範例，實際的實現邏輯可能要稍微複雜一點。）</p>
+
+
+
+<h2 id="modify-stream-methods">
+<a class="anchor" href="#modify-stream-methods" aria-hidden="true"><span class="octicon octicon-link"></span></a>修改 Stream 的方法</h2>
+
+
+
+<p>下面的方法可以對原始的 Stream 進行處理並返回新的 Stream。當呼叫了這些方法後，設定在原始 Stream 上的監聽器會先監聽被轉換後的新 Stream，待新的 Stream 處理完成後才會轉而回去監聽原始的 Stream。</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">Stream&lt;R&gt; cast&lt;R&gt;();
+Stream&lt;S&gt; expand&lt;S&gt;(Iterable&lt;S&gt; Function(T element) convert);
+Stream&lt;S&gt; map&lt;S&gt;(S Function(T event) convert);
+Stream&lt;T&gt; skip(int count);
+Stream&lt;T&gt; skipWhile(bool Function(T element) test);
+Stream&lt;T&gt; take(int count);
+Stream&lt;T&gt; takeWhile(bool Function(T element) test);
+Stream&lt;T&gt; where(bool Function(T event) test);</code></pre></div>
+</div>
+
+<p>在 <a href="https://api.dart.dev/stable/dart-core/Iterable-class.html">Iterable</a> 類中也有一些將一個 iterable 轉換為另一個 iterable 的方法，上述的這些方法與 <a href="https://api.dart.dev/stable/dart-core/Iterable-class.html">Iterable</a> 類中的這些方法相似。如果你在非同步函式中使用了 <strong>await for</strong> 迴圈，那麼使用上述的這些方法將會更加容易。</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">Stream&lt;E&gt; asyncExpand&lt;E&gt;(Stream&lt;E&gt;? Function(T event) convert);
+Stream&lt;E&gt; asyncMap&lt;E&gt;(FutureOr&lt;E&gt; Function(T event) convert);
+Stream&lt;T&gt; distinct([bool Function(T previous, T next)? equals]);</code></pre></div>
+</div>
+
+<p><code class="language-plaintext highlighter-rouge">asyncExpand()</code> 和 <code class="language-plaintext highlighter-rouge">asyncMap()</code> 方法與 <code class="language-plaintext highlighter-rouge">expand()</code> 和 <code class="language-plaintext highlighter-rouge">map()</code> 方法類似，不同的是前兩者允許將一個非同步函式作為函式引數。
+<code class="language-plaintext highlighter-rouge">Iterable</code> 中沒有與 <code class="language-plaintext highlighter-rouge">distinct()</code> 類似的方法，但是在不久的將來可能會加上。</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">Stream&lt;T&gt; handleError(Function onError, {bool Function(dynamic error)? test});
+Stream&lt;T&gt; timeout(Duration timeLimit,
+    {void Function(EventSink&lt;T&gt; sink)? onTimeout});
+Stream&lt;S&gt; transform&lt;S&gt;(StreamTransformer&lt;T, S&gt; streamTransformer);</code></pre></div>
+</div>
+
+<p>最後這三個方法比較特殊。它們用於處理 <strong>await for</strong> 迴圈不能處理的錯誤：當迴圈執行過程中出現錯誤時，該迴圈會結束同時取消 Stream 上的訂閱且不能恢復。你可以使用 <code class="language-plaintext highlighter-rouge">handleError()</code> 方法在 <strong>await for</strong> 迴圈中使用 Stream 前將相關錯誤移除。</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">Stream&lt;S&gt; mapLogErrors&lt;S, T&gt;(
+  Stream&lt;T&gt; stream,
+  S Function(T event) convert,
+) async* {
+  var streamWithoutErrors = stream.handleError((e) =&gt; log(e));
+  await for (final event in streamWithoutErrors) {
+    yield convert(event);
+  }
+}</code></pre></div>
+</div>
+
+<h3 id="transform-function">
+<a class="anchor" href="#transform-function" aria-hidden="true"><span class="octicon octicon-link"></span></a>transform() 方法</h3>
+
+
+
+<p><code class="language-plaintext highlighter-rouge">transform()</code> 方法並不只是用於處理錯誤；它更是一個通用的 Stream “map 對映”。通常而言，一個 “map 對映”會為每一個輸入事件設定一個值。但是對於 I/O Stream 而言，它可能會使用多個輸入事件來產生一個輸出事件。這時候使用 <a href="https://api.dart.dev/stable/dart-async/StreamTransformer-class.html">StreamTransformer</a> 就可以做到這一點。例如像 <a href="https://api.dart.dev/stable/dart-convert/Utf8Decoder-class.html">Utf8Decoder</a> 這樣的解碼器就是一個變換器。一個變換器只需要實現一個 <a href="https://api.dart.dev/stable/dart-async/StreamTransformer/bind.html">bind()</a> 方法，其可透過 <code class="language-plaintext highlighter-rouge">async</code> 函式輕鬆實現。</p>
+
+
+
+<h3 id="reading-decoding-file">
+<a class="anchor" href="#reading-decoding-file" aria-hidden="true"><span class="octicon octicon-link"></span></a>讀取和解碼檔案</h3>
+
+
+
+<p>下面的程式碼範例讀取一個檔案並在其 Stream 上執行了兩次變換。第一次轉換是將檔案資料轉換成 UTF-8 編碼格式，然後將轉換後的資料變換成一個 <a href="https://api.dart.dev/stable/dart-convert/LineSplitter-class.html">LineSplitter</a> 執行。檔案中除了 <code class="language-plaintext highlighter-rouge">#</code> 開頭的行外其它的行都會被打印出來。</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">import 'dart:convert';
+import 'dart:io';
+
+void main(List&lt;String&gt; args) async {
+  var file = File(args[0]);
+  var lines = utf8.decoder
+      .bind(file.openRead())
+      .transform(const LineSplitter());
+  await for (final line in lines) {
+    if (!line.startsWith('#')) print(line);
+  }
+}</code></pre></div>
+</div>
+
+<h2 id="listen-method">
+<a class="anchor" href="#listen-method" aria-hidden="true"><span class="octicon octicon-link"></span></a>listen() 方法</h2>
+
+
+
+<p>最後一個重要的方法是 <code class="language-plaintext highlighter-rouge">listen()</code>。這是一個“底層”方法，其它所有的 Stream 方法都根據 <code class="language-plaintext highlighter-rouge">listen()</code> 方法定義。</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">StreamSubscription&lt;T&gt; listen(void Function(T event)? onData,
+    {Function? onError, void Function()? onDone, bool? cancelOnError});</code></pre></div>
+</div>
+
+<p>你只需繼承 <code class="language-plaintext highlighter-rouge">Stream</code> 類並實現 <code class="language-plaintext highlighter-rouge">listen()</code> 方法來建立一個 <code class="language-plaintext highlighter-rouge">Stream</code> 型別的子類別。
+<code class="language-plaintext highlighter-rouge">Stream</code> 類中所有其它的方法都依賴於對 <code class="language-plaintext highlighter-rouge">listen()</code> 方法的呼叫。</p>
+
+
+
+<p><code class="language-plaintext highlighter-rouge">listen()</code> 方法可以讓你對一個 Stream 進行監聽。在你對一個 Stream 進行監聽前，它只不過是個惰性物件，該物件描述了你想檢視的事件。當你對其進行監聽後，其會返回一個 <a href="https://api.dart.dev/stable/dart-async/StreamSubscription-class.html">StreamSubscription</a> 物件，該物件用以表示一個生產事件的活躍的 Stream。這與 <code class="language-plaintext highlighter-rouge">Iterable</code> 物件的實現方式類似，不同的是 <code class="language-plaintext highlighter-rouge">Iterable</code> 物件可返回迭代器並可以進行真實的迭代操作。</p>
+
+
+
+<p>Stream 允許你暫停、繼續甚至完全取消一個訂閱。你也可以為其設定一個回呼(Callback)，該回調會在每一個數據事件、錯誤事件以及 Stream 自身關閉時通知呼叫者。</p>
+
+
+
+<h2 id="other-resources">
+<a class="anchor" href="#other-resources" aria-hidden="true"><span class="octicon octicon-link"></span></a>其它資源資訊</h2>
+
+
+
+<p>可以閱讀下面的文件獲取更多關於在 Dart 中使用 Stream 和非同步程式設計的資訊：</p>
+
+
+
+<ul>
+  <li>
+    <p><a href="/articles/libraries/creating-streams">在 Dart 中建立 Stream</a>, 該文將向你介紹如何建立 Stream。</p>
+
+    
+  </li>
+  <li>
+    <p><a href="/guides/libraries/futures-error-handling">Futures 以及錯誤處理</a>, 該文將向你介紹如何在使用 Future API 時處理相關錯誤。</p>
+
+    
+  </li>
+  <li>
+    <p><a href="/language">Dart 開發語言概覽</a> 中的 <a href="/language/async">非同步支援</a> 部分。</p>
+
+    
+  </li>
+  <li>
+    <p><a href="https://api.dart.dev/stable/dart-async/Stream-class.html">Stream API 參考文件</a></p>
+
+    
+  </li>
+</ul>
+
+
+          
+
+        </div>
+      </article>
+    </main>
+    <footer id="page-footer">
+    <div class="footer-section footer-main">
+      <a href="/" class="brand" title="Dart">
+        <img src="/assets/img/shared/dart/logo+text/horizontal/white.svg" alt="Dart" width="164px">
+      </a>
+      <div class="footer-social-links">
+        <a href="https://github.com/doggy8088/dart.tw" target="_blank" rel="noopener" title="GitHub" class="no-automatic-external">
+          <svg>
+            <use href="/assets/img/social/github.svg#github"></use>
+          </svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-section footer-tray">
+      <div class="footer-licenses">
+        參考中文內容需註明本站及連結作為出處，英文內容和範例程式碼均遵從源站授權協議。
+      </div>
+      <div class="footer-utility-links">
+        <ul>
+          <li><a href="/terms" title="使用條款">使用條款</a></li>
+          <li><a href="https://policies.google.com/privacy?hl=zh-TW" target="_blank" rel="noopener" title="隱私政策" class="no-automatic-external">隱私政策</a></li>
+          <li><a href="/security" title="Security philosophy and practices">Dart 程式碼安全說明</a></li>
+          <li><a href="https://flutter.tw/about" target="_blank">關於中文文件</a>
+          </li><li><a href="https://flutter.tw/disclaimer" target="_blank">免責條款</a>
+          </li><li><a href="https://dart.cn/" target="_blank">Dart 簡體中文文檔</a>
+        </li></ul>
+      </div>
+    </div>
+  </footer>
+
+  
+
+<script src="/assets/translator/js/translator.js"></script></body></html>

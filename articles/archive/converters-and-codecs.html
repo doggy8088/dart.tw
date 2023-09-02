@@ -1,0 +1,1403 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Language" content="zh-cmn-Hans">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Google Tag Manager -->
+<!--  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':-->
+<!--  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],-->
+<!--  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=-->
+<!--  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);-->
+<!--  })(window,document,'script','dataLayer','GTM-5VSZM5J');</script>-->
+  <!-- End Google Tag Manager -->
+
+  <meta name="description" content="Learn how to write efficient conversions.">
+  <title>Converters and codecs | Dart</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-28P0PYCRZ9"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-28P0PYCRZ9');
+  </script>
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?fa71f2474b82505e00203cf9956cf0bc";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+  <!-- Favicon / Touch Icons -->
+  <link rel="icon" sizes="64x64" href="/assets/shared/dart/icon/64.png">
+  <link href="/assets/img/touch-icon-iphone.png" rel="apple-touch-icon">
+  <link href="/assets/img/touch-icon-ipad.png" rel="apple-touch-icon" sizes="152x152">
+  <link href="/assets/img/touch-icon-iphone-retina.png" rel="apple-touch-icon" sizes="180x180">
+  <link href="/assets/img/touch-icon-ipad-retina.png" rel="apple-touch-icon" sizes="167x167">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@dart_lang">
+  <meta name="twitter:title" content="Converters and codecs">
+  <meta name="twitter:description" content="Learn how to write efficient conversions.">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Converters and codecs">
+  <meta property="og:description" content="Learn how to write efficient conversions.">
+  <meta property="og:url" content="https://dart.tw.gh.miniasp.com/articles/archive/converters-and-codecs">
+
+  <meta property="og:image" content="https://dart.tw.gh.miniasp.com/assets/shared/dart-logo-for-shares.png?2">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Display:wght@400&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons&amp;display=swap" rel="stylesheet">
+  <script src="https://cdn.staticfile.org/font-awesome/5.15.4/js/all.js" data-auto-replace-svg="nest">
+  </script>
+
+  <link rel="stylesheet" href="/assets/css/main.css?v=1693674404">
+  <script src="https://cdn.staticfile.org/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.staticfile.org/popper.js/1.16.1/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.staticfile.org/bootstrap/4.6.2/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!-- <script src="https://cdn.staticfile.org/js-cookie/3.0.5/js.cookie.min.js"
+          integrity="sha512-nlp9/l96/EpjYBx7EP7pGASVXNe80hGhYAUrjeXnu/fyF5Py0/RXav4BBNs7n5Hx1WFhOEOWSAVjGeC3oKxDVQ=="
+          crossorigin="anonymous"
+          referrerpolicy="no-referrer"></script> -->
+
+  <script src="/assets/js/vendor/code-prettify/prettify.js"></script>
+  <script src="/assets/js/vendor/code-prettify/lang-dart.js"></script>
+  <script src="/assets/js/vendor/code-prettify/lang-yaml.js"></script>
+  <script src="/assets/js/os-tabs.js?v=1693674404"></script>
+  <script src="/assets/js/utilities.js?v=1693674404"></script>
+  <script src="/assets/js/main.js?v=1693674404"></script>
+
+  <script>
+
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-122680122-5', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+
+ <link href="/assets/translator/css/translator.css" rel="stylesheet"></head>
+
+  <body class="default obsolete show_banner">
+    <section id="cookie-notice">
+  <div class="container">
+    <p>Google uses cookies to deliver its services, to personalize ads, and to 
+      analyze traffic. You can adjust your privacy controls anytime in your 
+      <a href="https://myaccount.google.com/data-and-personalization" target="_blank" rel="noopener" class="no-automatic-external">Google settings</a>. 
+      <a href="https://policies.google.com/technologies/cookies" target="_blank" rel="noopener" class="no-automatic-external">Learn more</a>.
+    </p>
+    <button id="cookie-consent" class="btn btn-primary">Okay</button>
+  </div>
+</section>
+
+    <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=G-28P0PYCRZ9"
+ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+    <header id="page-header" class="site-header">
+  <nav id="mainnav" class="site-header">
+  <div id="menu-toggle"><i class="material-icons">menu</i></div>
+  <a href="/" class="brand" title="Dart">
+    <img src="/assets/img/shared/dart/logo+text/horizontal/white.svg" alt="Dart">
+  </a>
+  <ul class="navbar">
+    <li>
+      <a href="/overview" class="nav-link">概覽</a>
+    </li>
+    <li class="mainnav__get-started">
+      <a href="/guides" class="nav-link
+        ">
+        <span>文件</span>
+      </a>
+    </li>
+    <li>
+      <a href="/community" class="nav-link">社群</a>
+    </li>
+    <li>
+      <a href="/#try-dart" class="nav-link">嘗試 Dart</a>
+    </li>
+    <li>
+      <a href="/get-dart" class="nav-link">獲取 Dart SDK</a>
+    </li>
+    <li class="searchfield">
+      <form action="/search" class="site-header__search form-inline" id="cse-search-box">
+        <input type="hidden" name="cx" value="011220921317074318178:_yy-tmb5t_i">
+        <input type="hidden" name="ie" value="UTF-8">
+        <input type="hidden" name="hl" value="en">
+        <input class="site-header__searchfield form-control search-field" type="search" name="q" id="q" autocomplete="off" placeholder="Search" aria-label="Search">
+      </form>
+    </li>
+  </ul>
+</nav>
+
+  
+  <div class="alert alert-warning">
+    <h4 class="text-center" id="------some-of-the-content-of-this-page-might-be-out-of-date----">
+      Some of the content of this page might be out of date.
+    </h4>
+  </div>
+  
+</header>
+ <div class="banner">
+  <p class="banner__text">
+    Dart 3 已釋出！帶來了全新的
+    <a href="https://dart.tw.gh.miniasp.com/language/records" class="no-automatic-external">記錄型別 (records)</a>、
+    <a href="https://dart.tw.gh.miniasp.com/language/patterns" class="no-automatic-external">模式匹配 (patterns)</a>
+    以及 <a href="https://dart.tw.gh.miniasp.com/language/class-modifiers" class="no-automatic-external">型別修飾符 (class modifiers)</a>。
+    <br>
+    <!--<a href="https://medium.com/p/53f065a10635" class="no-automatic-external">Check out the blog post</a>!-->
+  </p>
+</div>
+ 
+
+    <div id="sidenav" class="">
+  <form action="/search/" class="site-header__search form-inline">
+    <input class="site-header__searchfield form-control search-field" type="search" name="q" id="q" autocomplete="off" placeholder="Search" aria-label="Search">
+  </form>
+
+  <div class="site-sidebar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a href="/overview" class="nav-link">概覽</a>
+      </li>
+      <li class="nav-item">
+        <a href="/community" class="nav-link">社群</a>
+      </li>
+      <li class="nav-item">
+        <a href="https://dartpad.dev" class="nav-link">嘗試 Dart</a>
+      </li>
+      <li class="nav-item">
+        <a href="/get-dart" class="nav-link">獲取 Dart SDK</a>
+      </li>
+      <li class="nav-item">
+        <a href="/guides" class="nav-link">文件</a>
+      </li>
+    </ul>
+
+    <ul class="nav flex-column"><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-1" role="button" aria-expanded="false" aria-controls="sidenav-1">範例和課程</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-1">
+        <li class="nav-item">
+    <a class="nav-link" href="/tutorials">語言概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable" data-toggle="collapse" data-target="#sidenav-1-2" href="#sidenav-1-2" role="button" aria-expanded="true" aria-controls="sidenav-1-2">Codelabs
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-1-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/codelabs">Codelabs 列表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/dart-cheatsheet">Dart 速查表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/iterables">可迭代集合</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/async-await">Dart 非同步程式設計</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/null-safety">空安全</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-2" role="button" aria-expanded="false" aria-controls="sidenav-2">Dart 開發語言</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2">
+        <li class="nav-item">
+    <a class="nav-link" href="/language">介紹</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-2" href="#sidenav-2-2" role="button" aria-expanded="false" aria-controls="sidenav-2-2">基礎表示式
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/variables">變數</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/operators">運運算元</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/comments">註釋</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/metadata">註解</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/libraries">庫 &amp; 導庫</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/keywords">關鍵字</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-3" href="#sidenav-2-3" role="button" aria-expanded="false" aria-controls="sidenav-2-3">型別
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-3">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/built-in-types">基本型別</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/records">記錄 (Records)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/collections">集合 (Collections)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/generics">泛型 (Generics)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/typedefs">別名 (Typedefs)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/type-system">型別系統</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-4" href="#sidenav-2-4" role="button" aria-expanded="false" aria-controls="sidenav-2-4">模式匹配
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-4">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/patterns">概覽 &amp; 用法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/pattern-types">模式匹配型別</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/language/functions">函式方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-6" href="#sidenav-2-6" role="button" aria-expanded="false" aria-controls="sidenav-2-6">控制流
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-6">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/loops">迴圈</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/branches">分支</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/language/error-handling">錯誤處理</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-8" href="#sidenav-2-8" role="button" aria-expanded="false" aria-controls="sidenav-2-8">類 &amp; 物件
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-8">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/classes">類</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/constructors">構造方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/methods">成員方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/extend">繼承</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/mixins">混入 (Mixin)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/enums">列舉</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/extension-methods">擴充方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/callable-objects">可呼叫的物件</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-9" href="#sidenav-2-9" role="button" aria-expanded="false" aria-controls="sidenav-2-9">型別修飾符
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-9">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/class-modifiers">概覽 &amp; 用法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/class-modifiers-for-apis">API 維護者應該用的型別修飾符</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/modifier-reference">速查表</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-10" href="#sidenav-2-10" role="button" aria-expanded="false" aria-controls="sidenav-2-10">併發
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-10">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/async">非同步支援</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/concurrency">Isolates</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-11" href="#sidenav-2-11" role="button" aria-expanded="false" aria-controls="sidenav-2-11">Null safety
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-11">
+      <li class="nav-item">
+    <a class="nav-link" href="/null-safety">健全的空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/migration-guide">遷移到空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/understanding-null-safety">深入理解空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/unsound-null-safety">非健全的空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/faq">空安全常見問題和解答</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-3" role="button" aria-expanded="false" aria-controls="sidenav-3">高效指南 (Effective Dart)</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-3">
+        <li class="nav-item">
+    <a class="nav-link" href="/effective-dart">概述</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/style">程式碼風格</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/documentation">文件</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/usage">用法範例</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/design">API 設計</a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-4" role="button" aria-expanded="false" aria-controls="sidenav-4">核心函式庫</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-4">
+        <li class="nav-item">
+    <a class="nav-link" href="/guides/libraries">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/library-tour">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-4-3" href="#sidenav-4-3" role="button" aria-expanded="false" aria-controls="sidenav-4-3">介紹文章
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-4-3">
+      <li class="nav-item">
+    <a class="nav-link" href="/articles/libraries/creating-streams">建立 stream</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-5" role="button" aria-expanded="false" aria-controls="sidenav-5">Packages</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-5">
+        <li class="nav-item">
+    <a class="nav-link" href="/guides/packages">如何使用 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/useful-libraries">常用 package 介紹</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/create-packages">建立 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/publishing">釋出 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/writing-package-pages">設定 package 介紹頁</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-5-6" href="#sidenav-5-6" role="button" aria-expanded="false" aria-controls="sidenav-5-6">Package 參考資料
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-5-6">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/pub/dependencies">依賴</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/glossary">術語表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/package-layout">Package 檔案結構</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/environment-variables">設定環境變數</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/pubspec">Pubspec 檔案</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/troubleshoot">問題排查</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/verified-publishers">釋出者認證</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/versioning">版本管理</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-6" role="button" aria-expanded="false" aria-controls="sidenav-6">開發文件</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6">
+        <li class="nav-item">
+    <a class="nav-link" href="/codelabs/async-await">Futures、async 和 await</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/language/streams">Streams 介紹</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/json">使用 JSON</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/numbers">Dart 中的數字</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-5" href="#sidenav-6-5" role="button" aria-expanded="false" aria-controls="sidenav-6-5">與其他語言進行互動呼叫
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-5">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/c-interop">與 C 互調</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/objective-c-interop">與 Objective-C 和 Swift 互調</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/java-interop">與 Java 和 Kotlin 互調</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/web/js-interop">與 JavaScript 互調</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/guides/google-apis">Google APIs</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/multiplatform-apps">跨平臺應用</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-8" href="#sidenav-6-8" role="button" aria-expanded="false" aria-controls="sidenav-6-8">命令列和伺服器端應用
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-8">
+      <li class="nav-item">
+    <a class="nav-link" href="/server">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/get-started">起步課程</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/cmdline">命令列應用</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/fetch-data">從網路上獲取資料</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/httpserver">編寫 HTTP 伺服器端應用</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/server/libraries">庫和 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/server/google-cloud">Google Cloud</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-9" href="#sidenav-6-9" role="button" aria-expanded="false" aria-controls="sidenav-6-9">網頁端 (Web) 應用
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-9">
+      <li class="nav-item">
+    <a class="nav-link" href="/web">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/get-started">開始使用</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-9-3" href="#sidenav-6-9-3" role="button" aria-expanded="false" aria-controls="sidenav-6-9-3">底層 Web 程式設計
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-9-3">
+      <li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/low-level-html/connect-dart-html">Dart 與 HTML 關聯</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/low-level-html/add-elements">向 DOM 新增元素</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/low-level-html/remove-elements">移除 DOM 元素</a>
+  </li>
+  </ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/web/deployment">部署</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/web/libraries">常用 Web 函式庫和 package</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/guides/environment-declarations">環境變數宣告</a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-7" role="button" aria-expanded="false" aria-controls="sidenav-7">開發工具和使用技巧</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7">
+        <li class="nav-item">
+    <a class="nav-link" href="/tools">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-2" href="#sidenav-7-2" role="button" aria-expanded="false" aria-controls="sidenav-7-2">編輯器和除錯工具
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/jetbrains-plugin">使用 IntelliJ 和 Android Studio</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/vs-code">使用 VS Code</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/dart-devtools">Dart 開發者工具</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-2-4" href="#sidenav-7-2-4" role="button" aria-expanded="false" aria-controls="sidenav-7-2-4">線上執行 Dart 程式碼
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-2-4">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/dartpad">Overview</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dartpad/dartpad-best-practices">DartPad 課程</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dartpad/troubleshoot">DartPad 疑難解答</a>
+  </li>
+  </ul>
+  </li>
+</ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-3" href="#sidenav-7-3" role="button" aria-expanded="false" aria-controls="sidenav-7-3">命令列工具
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-3">
+      <li class="nav-item">
+    <a class="nav-link collapsable" data-toggle="collapse" data-target="#sidenav-7-3-1" href="#sidenav-7-3-1" role="button" aria-expanded="true" aria-controls="sidenav-7-3-1">Dart SDK
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-7-3-1">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/sdk">概覽</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-tool">dart 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-analyze">dart analyze 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-compile">dart compile 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-create">dart create 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-doc">dart doc 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-fix">dart fix 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-format">dart format 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-info">dart info 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/pub/cmd">dart pub 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-run">dart run 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-test">dart test 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dartaotruntime">dartaotruntime 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/experiment-flags">實驗性命令標記</a>
+  </li>
+  </ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable" data-toggle="collapse" data-target="#sidenav-7-3-2" href="#sidenav-7-3-2" role="button" aria-expanded="true" aria-controls="sidenav-7-3-2">其他的命令列工具
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-7-3-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/build_runner">build_runner 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/webdev">webdev 命令</a>
+  </li>
+  </ul>
+  </li>
+</ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-4" href="#sidenav-7-4" role="button" aria-expanded="false" aria-controls="sidenav-7-4">原始碼管理
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-4">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/language/formatting">程式碼格式化</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/private-files">不應提交的內容</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-5" href="#sidenav-7-5" role="button" aria-expanded="false" aria-controls="sidenav-7-5">靜態分析
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-5">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/analysis">自訂靜態分析</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/sound-problems">修復常見的型別問題</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/diagnostic-messages">診斷訊息</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/linter-rules">Linter 規則</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-6" href="#sidenav-7-6" role="button" aria-expanded="false" aria-controls="sidenav-7-6">測試和調優
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-6">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/testing">測試</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/web/debugging">除錯 Web 應用</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-8" role="button" aria-expanded="false" aria-controls="sidenav-8">資源</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-8">
+        <li class="nav-item">
+    <a class="nav-link" href="/resources/faq">常見問題</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/evolution">版本演變</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/spec">語言規範</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/resources/dart-3-migration">Dart 3 遷移指南</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-8-5" href="#sidenav-8-5" role="button" aria-expanded="false" aria-controls="sidenav-8-5">從其他平台轉向 Dart
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-8-5">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/language/coming-from/js-to-dart">從 JavaScript 到 Dart</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/coming-from/swift-to-dart">從 Swift 到 Dart</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/resources/glossary">詞彙表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/resources/books">書籍資源</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/resources/videos">影片資源</a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link " data-toggle="collapse" href="#sidenav-9" role="button" aria-expanded="true" aria-controls="sidenav-9">相關站點</a>
+
+      <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-9">
+        <li class="nav-item">
+    <a class="nav-link" href="https://api.dart.dev" target="_blank" rel="noopener">API 文件<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://medium.com/dartlang" target="_blank" rel="noopener">Dart 團隊官方部落格<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://dartpad.dev" target="_blank" rel="noopener">DartPad (線上編輯器)<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://flutter.tw" target="_blank" rel="noopener">Flutter<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://pub.dev" target="_blank" rel="noopener">Package 網站<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-10" role="button" aria-expanded="false" aria-controls="sidenav-10">關於 Dart 中文文件</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-10">
+        <li class="nav-item">
+    <a class="nav-link" href="https://flutter.tw/about/docs-cn" target="_blank" rel="noopener">關於本站<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://flutter.tw/disclaimer" target="_blank" rel="noopener">免責條款 (Disclaimer)<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li>
+</ul>
+    </li></ul>
+
+  </div>
+</div>
+
+    <main id="page-content">
+      
+
+
+
+
+
+
+
+<div id="site-toc--side" class="site-toc ">
+  <header class="site-toc__title">
+    目錄
+    
+  </header>
+  <ul id="toc" class="section-nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#how-to-write-efficient-conversions">How to write efficient conversions</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#big-picture">Big picture</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#codec">Codec</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#converter">Converter</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#chunked-conversion">Chunked conversion</a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#chunkedconversionsink">ChunkedConversionSink</a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#example">Example</a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#specialized-chunkedconversionsinks">Specialized ChunkedConversionSinks</a></li>
+</ul>
+</li>
+</ul>
+  
+</div>
+
+
+      <article>
+        <div class="content">
+          
+
+          <div id="site-content-title">
+            <div id="page-github-links" class="btn-group" aria-label="Page GitHub links" role="group">
+  <a href="https://github.com/doggy8088/dart.tw/tree/master/src/_articles/archive/converters-and-codecs.md" class="btn no-automatic-external" title="View page source" target="_blank" rel="noopener">
+    <i class="material-icons">description</i>
+  </a>
+  <a href="https://github.com/doggy8088/dart.tw/issues/new?template=1_page_issue.yml&amp;title=[PAGE ISSUE]: 'Converters and codecs'&amp;page-url=https://dart.tw.gh.miniasp.com/articles/archive/converters-and-codecs&amp;page-source=https://github.com/doggy8088/dart.tw/tree/master/src/_articles/archive/converters-and-codecs.md" class="btn no-automatic-external" title="Report an issue with this page" target="_blank" rel="noopener">
+    <i class="material-icons">bug_report</i>
+  </a>
+</div>
+
+            
+            <h1 id="converters-and-codecs">Converters and codecs</h1>
+            </div>
+          
+
+
+
+
+
+
+
+<div id="site-toc--inline" class="site-toc ">
+  <header class="site-toc__title">
+    目錄
+    
+  </header>
+  <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h3"><a href="#how-to-write-efficient-conversions">How to write efficient conversions</a></li>
+<li class="toc-entry toc-h2"><a href="#big-picture">Big picture</a></li>
+<li class="toc-entry toc-h2"><a href="#codec">Codec</a></li>
+<li class="toc-entry toc-h2"><a href="#converter">Converter</a></li>
+<li class="toc-entry toc-h2"><a href="#chunked-conversion">Chunked conversion</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#chunkedconversionsink">ChunkedConversionSink</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#example">Example</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#specialized-chunkedconversionsinks">Specialized ChunkedConversionSinks</a></li>
+</ul>
+</li>
+</ul>
+  
+</div>
+
+
+          <h3 id="how-to-write-efficient-conversions">
+<a class="anchor" href="#how-to-write-efficient-conversions" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong><em>How to write efficient conversions</em></strong>
+</h3>
+
+<p><em>Written by Florian Loitsch <br>
+February 2014 (updated March 2015)</em></p>
+
+<p>Converting data between different representations is a common task in computer
+engineering. Dart is no exception and comes with
+<a href="https://api.dart.dev/stable/dart-convert/dart-convert-library.html">dart:convert</a>, a
+core library that provides a set of converters
+and useful tools to build new converters.
+Examples of converters provided by the library include those
+for commonly used encodings such as JSON and UTF-8.
+In this document, we show how Dart’s
+converters work and how you can create your own efficient converters
+that fit into the Dart world.</p>
+
+<h2 id="big-picture">
+<a class="anchor" href="#big-picture" aria-hidden="true"><span class="octicon octicon-link"></span></a>Big picture</h2>
+
+<p>Dart’s conversion architecture is
+based on <em>converters</em>, which translate from one representation to another.
+When conversions are reversible, two converters are grouped together into a
+<em>codec</em> (coder-decoder). The term codec is frequently used for audio and
+video processing but also applies to string encodings such as UTF-8 or JSON.</p>
+
+<p>By convention, all converters in Dart use the abstractions provided in the
+dart:convert library. This provides a consistent API for developers and ensures
+that converters can work together.
+For instance, converters (or codecs) can be fused together if their
+type matches, and the resulting converter can then be used as a single unit.
+Furthermore, these fused converters frequently work more efficiently than if
+they had been used separately.</p>
+
+<h2 id="codec">
+<a class="anchor" href="#codec" aria-hidden="true"><span class="octicon octicon-link"></span></a>Codec</h2>
+
+<p>A codec is a combination of two converters where one encodes
+and the other one decodes:</p>
+
+<pre class="prettyprint lang-dart"><code>abstract class Codec&lt;S, T&gt; {
+  const Codec();
+
+  T encode(S input) =&gt; encoder.convert(input);
+  S decode(T encoded) =&gt; decoder.convert(encoded);
+
+  Converter&lt;S, T&gt; get encoder;
+  Converter&lt;T, S&gt; get decoder;
+
+  Codec&lt;S, dynamic&gt; fuse(Codec&lt;T, dynamic&gt; other) { .. }
+  Codec&lt;T, S&gt; get inverted =&gt; ...;
+}</code></pre>
+
+<p>As can be seen, codecs provide convenience methods such as <code class="language-plaintext highlighter-rouge">encode()</code> and
+<code class="language-plaintext highlighter-rouge">decode()</code> that are expressed in terms of the encoder and decoder. The <code class="language-plaintext highlighter-rouge">fuse()</code>
+method and <code class="language-plaintext highlighter-rouge">inverted</code> getter allow you to fuse converters and
+change the direction of a codec, respectively.
+The base implementation of
+<a href="https://api.dart.dev/stable/dart-convert/Codec-class.html">Codec</a>
+for these two members
+provides a solid default implementation
+and implementers usually don’t need to worry about them.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">encode()</code> and <code class="language-plaintext highlighter-rouge">decode()</code>
+methods, too, may be left untouched, but they can be extended for additional
+arguments. For example, the
+<a href="https://api.dart.dev/stable/dart-convert/JsonCodec-class.html">JsonCodec</a>
+adds named arguments to <code class="language-plaintext highlighter-rouge">encode()</code> and <code class="language-plaintext highlighter-rouge">decode()</code>
+to make these methods more useful:</p>
+
+<pre class="prettyprint lang-dart"><code>dynamic decode(String source, {reviver(var key, var value)}) { … }
+String encode(Object value, {toEncodable(var object)}) { … }</code></pre>
+
+<p>The codec can be instantiated with arguments that are used as default
+values, unless they are overridden by the named arguments during the
+<code class="language-plaintext highlighter-rouge">encode()</code>/<code class="language-plaintext highlighter-rouge">decode()</code> call.</p>
+
+<pre class="prettyprint lang-dart"><code>const JsonCodec({reviver(var key, var value), toEncodable(var object)})
+  ...</code></pre>
+
+<p>As a general rule: if a codec can be configured, it should add named arguments
+to the <code class="language-plaintext highlighter-rouge">encode()</code>/<code class="language-plaintext highlighter-rouge">decode()</code> methods and allow their defaults to be
+set in constructors.
+When possible, codec constructors should be <code class="language-plaintext highlighter-rouge">const</code> constructors.</p>
+
+<h2 id="converter">
+<a class="anchor" href="#converter" aria-hidden="true"><span class="octicon octicon-link"></span></a>Converter</h2>
+
+<p>Converters, and in particular their <code class="language-plaintext highlighter-rouge">convert()</code> methods, are
+where the real conversions happen:</p>
+
+<pre class="prettyprint lang-dart"><code>T convert(S input);  // where T is the target and S the source type.</code></pre>
+
+<p>A minimal converter implementation only needs to extend the
+<a href="https://api.dart.dev/stable/dart-convert/Converter-class.html">Converter</a> class and
+implement the <code class="language-plaintext highlighter-rouge">convert()</code> method. Similar to the Codec class, converters can be
+made configurable by extending the constructors and adding named arguments to
+the <code class="language-plaintext highlighter-rouge">convert()</code> method.</p>
+
+<p>Such a minimal converter works in synchronous settings, but
+does not work when used with chunks (either synchronously or asynchronously). In
+particular, such a simple converter doesn’t work as a transformer (one of the
+nicer features of Converters). A fully implemented converter implements the
+<a href="https://api.dart.dev/stable/dart-async/StreamTransformer-class.html">StreamTransformer</a>
+interface and can thus be given to the <code class="language-plaintext highlighter-rouge">Stream.transform()</code> method.</p>
+
+<p>Probably the most common use case is the decoding of UTF-8 with
+<a href="https://api.dart.dev/stable/dart-convert/Utf8Codec-class.html">utf8.decoder</a>:</p>
+
+<pre class="prettyprint lang-dart"><code>File.openRead().transform(utf8.decoder).</code></pre>
+
+<h2 id="chunked-conversion">
+<a class="anchor" href="#chunked-conversion" aria-hidden="true"><span class="octicon octicon-link"></span></a>Chunked conversion</h2>
+
+<p>The concept of chunked conversions can be confusing, but at its core, it is
+relatively simple. When a chunked conversion (including a stream
+transformation) is started, the converter’s
+<a href="https://api.dart.dev/stable/dart-convert/Converter/startChunkedConversion.html">startChunkedConversion</a>
+method is invoked with an output-
+sink as argument. The method then returns an input sink into which the caller
+puts data.</p>
+
+<p><img src="/articles/archive/images/chunked-conversion.png" alt="Chunked conversion"></p>
+
+<p><strong>Note</strong>: An asterisk (<code class="language-plaintext highlighter-rouge">*</code>) in the diagram represents optional multiple calls.</p>
+
+<p>In the diagram, the first step consists of creating an <code class="language-plaintext highlighter-rouge">outputSink</code> that should
+be filled with the converted data. Then, the user invokes the
+<code class="language-plaintext highlighter-rouge">startChunkedConversion()</code> method of the converter with the output sink.
+The result is an input sink with methods <code class="language-plaintext highlighter-rouge">add()</code> and <code class="language-plaintext highlighter-rouge">close()</code>.</p>
+
+<p>At a later point, the code that started the chunked conversion invokes,
+possibly multiple times, the <code class="language-plaintext highlighter-rouge">add()</code> method with
+some data. The data is converted by the input sink. If the converted data is
+ready the input sink sends it to the output sink, possibly with multiple
+<code class="language-plaintext highlighter-rouge">add()</code> calls. Eventually the user finishes the conversion by invoking
+<code class="language-plaintext highlighter-rouge">close()</code>. At this point any remaining converted data is sent from the input
+sink to the output sink and the output sink is closed.</p>
+
+<p>Depending on the converter the input sink may need to buffer parts of the
+incoming data. For example, a line-splitter that receives <code class="language-plaintext highlighter-rouge">ab\ncd</code> as the first
+chunk can safely invoke its output sink with <code class="language-plaintext highlighter-rouge">ab</code>, but needs to wait for the
+next data (or the <code class="language-plaintext highlighter-rouge">close()</code> call) before it can handle <code class="language-plaintext highlighter-rouge">cd</code>. If the next data is
+<code class="language-plaintext highlighter-rouge">e\nf</code>, the input sink must concatenate <code class="language-plaintext highlighter-rouge">cd</code> and <code class="language-plaintext highlighter-rouge">e</code> and invoke the output sink
+with the string <code class="language-plaintext highlighter-rouge">cde</code>, while buffering <code class="language-plaintext highlighter-rouge">f</code> for the next data event (or the
+<code class="language-plaintext highlighter-rouge">close()</code> call).</p>
+
+<p>The complexity of the input sink (in combination with the converter) varies.
+Some chunked conversions are trivially mapped to the non-chunked versions (like
+a String→String converter that removes the character <code class="language-plaintext highlighter-rouge">a</code>), while others are
+more complicated. A safe, although inefficient (and usually unrecommended)
+way to implement the chunked conversion is to buffer and concatenate all the
+incoming data and to do the conversion in one go. This is, how the JSON decoder
+is currently (January 2014) implemented.</p>
+
+<p>Interestingly, the type of chunked conversion cannot be extrapolated from its
+synchronous conversion. For example, the
+<a href="https://api.dart.dev/stable/dart-convert/HtmlEscape-class.html">HtmlEscape</a>
+converter synchronously
+converts Strings to Strings, and asynchronously converts chunks of Strings to
+chunks of Strings (String→String). The
+<a href="https://api.dart.dev/stable/dart-convert/LineSplitter-class.html">LineSplitter</a>
+converter synchronously
+converts Strings to List<string> (the individual lines). Despite the difference
+in the synchronous signature, the chunked version of the LineSplitter converter
+has the same signature as
+HtmlEscape: String→String. In this case each individual output chunk
+represents one line.</string></p>
+
+<pre class="prettyprint lang-dart"><code>import 'dart:convert';
+import 'dart:async';
+
+main() async {
+  // HtmlEscape synchronously converts Strings to Strings.
+  print(const HtmlEscape().convert("foo")); // "foo".
+  // When used in a chunked way it converts from Strings
+  // to Strings.
+  var stream = new Stream.fromIterable(["f", "o", "o"]);
+  print(await (stream.transform(const HtmlEscape())
+                     .toList()));    // ["f", "o", "o"].
+
+  // LineSplitter synchronously converts Strings to Lists of String.
+  print(const LineSplitter().convert("foo\nbar")); // ["foo", "bar"]
+  // However, asynchronously it converts from Strings to Strings (and
+  // not Lists of Strings).
+  var stream2 = new Stream.fromIterable(["fo", "o\nb", "ar"]);
+  print("${await (stream2.transform(const LineSplitter())
+                          .toList())}");
+}</code></pre>
+
+<p>In general, the type of the chunked conversion is determined by the most
+useful case when used as a StreamTransformer.</p>
+
+<h3 id="chunkedconversionsink">
+<a class="anchor" href="#chunkedconversionsink" aria-hidden="true"><span class="octicon octicon-link"></span></a>ChunkedConversionSink</h3>
+
+<p><a href="https://api.dart.dev/stable/dart-convert/ChunkedConversionSink-class.html">ChunkedConversionSinks</a>
+are used to add new data to a
+converter or as output from converters. The basic ChunkedConversionSink comes
+with two methods: <code class="language-plaintext highlighter-rouge">add()</code> and <code class="language-plaintext highlighter-rouge">close()</code>. These have the same functionality as in
+all other sinks of the system such as
+<a href="https://api.dart.dev/stable/dart-core/StringSink-class.html">StringSinks</a>
+or
+<a href="https://api.dart.dev/stable/dart-async/StreamSink-class.html">StreamSinks</a>.</p>
+
+<p>The ChunkedConversionSinks semantics are similar to that of
+<a href="https://api.dart.dev/stable/dart-io/IOSink-class.html">IOSinks</a>:
+data added to the
+sink must not be modified unless it can be guaranteed that the data has been
+handled. For Strings this is not a problem (since they are immutable), but for
+lists of bytes it frequently means allocating a fresh copy of the list. This
+can be inefficient and the dart:convert library thus comes with subclasses of
+ChunkedConversionSink that support more efficient ways of passing data.</p>
+
+<p>For instance, the
+<a href="https://api.dart.dev/stable/dart-convert/ByteConversionSink-class.html">ByteConversionSink</a>,
+has the additional method</p>
+
+<p><code class="language-plaintext highlighter-rouge">addSlice(List&lt;int&gt; chunk, int start, int end, bool isLast)</code></p>
+
+<p>Semantically, it
+accepts a list (which may not be held onto), the sub-range that the converter
+operates on, and a boolean <code class="language-plaintext highlighter-rouge">isLast</code>, which can be set instead of calling
+<code class="language-plaintext highlighter-rouge">close()</code>.</p>
+
+<pre class="prettyprint lang-dart"><code>import 'dart:convert';
+
+main() {
+  var outSink = new ChunkedConversionSink.withCallback((chunks) {
+    print(chunks.single); // 𝅘𝅥𝅯
+  });
+
+  var inSink = utf8.decoder.startChunkedConversion(outSink);
+  var list = [0xF0, 0x9D];
+  inSink.addSlice(list, 0, 2, false);
+  // Since we used `addSlice` we are allowed to reuse the list.
+  list[0] = 0x85;
+  list[1] = 0xA1;
+  inSink.addSlice(list, 0, 2, true);
+}</code></pre>
+
+<p>As a user of the chunked conversion sink (which is used both as input and output
+of converters), this simply provides more choice. The fact that the list is not
+held onto, means that you can use a cache and reuse that one for every call.
+Combining <code class="language-plaintext highlighter-rouge">add()</code> with <code class="language-plaintext highlighter-rouge">close()</code> may help the receiver in that it can avoid
+buffering data. Accepting sub-lists avoids expensive calls to <code class="language-plaintext highlighter-rouge">subList()</code>
+(to copy the data).</p>
+
+<p>The drawback of this interface is that it is more complicated to implement. To
+ease the pain for developers, every improved chunked conversion sink of
+dart:convert also comes with a base class that implements all methods except one
+(which is abstract). The implementor of the conversion sink can then decide
+whether to take advantage of the additional methods.</p>
+
+<p><strong>Note</strong>: <em>Chunked conversion sinks *must* extend the corresponding base class.
+This assures that adding functionality to the existing sink interfaces does
+not break the extended sinks.</em></p>
+
+<h2 id="example">
+<a class="anchor" href="#example" aria-hidden="true"><span class="octicon octicon-link"></span></a>Example</h2>
+
+<p>This section shows all the steps needed to create a simple encryption
+converter and how a custom ChunkedConversionSink can improve performance.</p>
+
+<p>Let’s start with the simple synchronous converter,
+whose encryption routine simply rotates bytes by the given key:</p>
+
+<pre class="prettyprint lang-dart"><code>import 'dart:convert';
+
+/// A simple extension of Rot13 to bytes and a key.
+class RotConverter extends Converter&lt;List&lt;int&gt;, List&lt;int&gt;&gt; {
+  final _key;
+  const RotConverter(this._key);
+
+  List&lt;int&gt; convert(List&lt;int&gt; data, { int key }) {
+    if (key == null) key = this._key;
+    var result = new List&lt;int&gt;(data.length);
+    for (int i = 0; i &lt; data.length; i++) {
+      result[i] = (data[i] + key) % 256;
+    }
+    return result;
+  }
+}</code></pre>
+
+<p>The corresponding Codec class is also simple:</p>
+
+<pre class="prettyprint lang-dart"><code>class Rot extends Codec&lt;List&lt;int&gt;, List&lt;int&gt;&gt; {
+  final _key;
+  const Rot(this._key);
+
+  List&lt;int&gt; encode(List&lt;int&gt; data, { int key }) {
+    if (key == null) key = this._key;
+    return new RotConverter(key).convert(data);
+  }
+
+  List&lt;int&gt; decode(List&lt;int&gt; data, { int key }) {
+    if (key == null) key = this._key;
+    return new RotConverter(-key).convert(data);
+  }
+
+  RotConverter get encoder =&gt; new RotConverter(_key);
+  RotConverter get decoder =&gt; new RotConverter(-_key);
+}</code></pre>
+
+<p>We can (and should) avoid some of the <code class="language-plaintext highlighter-rouge">new</code> allocations, but for simplicity we
+allocate a new instance of RotConverter every time one is needed.</p>
+
+<p>This is how we use the Rot codec:</p>
+
+<pre class="prettyprint lang-dart"><code>const Rot ROT128 = const Rot(128);
+const Rot ROT1 = const Rot(1);
+main() {
+
+  print(const RotConverter(128).convert([0, 128, 255, 1]));   // [128, 0, 127, 129]
+  print(const RotConverter(128).convert([128, 0, 127, 129])); // [0, 128, 255, 1]
+  print(const RotConverter(-128).convert([128, 0, 127, 129]));// [0, 128, 255, 1]
+
+  print(ROT1.decode(ROT1.encode([0, 128, 255, 1])));          // [0, 128, 255, 1]
+  print(ROT128.decode(ROT128.encode([0, 128, 255, 1])));      // [0, 128, 255, 1]
+}</code></pre>
+
+<p>We are on the right track. The codec works, but it is still missing the chunked
+encoding part. Because each byte is encoded separately we can fall back to
+the synchronous conversion method:</p>
+
+<pre class="prettyprint lang-dart"><code>class RotConverter {
+  ...
+  RotSink startChunkedConversion(sink) {
+    return new RotSink(_key, sink);
+  }
+}
+
+class RotSink extends ChunkedConversionSink&lt;List&lt;int&gt;&gt; {
+  final _converter;
+  final ChunkedConversionSink&lt;List&lt;int&gt;&gt; _outSink;
+  RotSink(key, this._outSink) : _converter = new RotConverter(key);
+
+  void add(List&lt;int&gt; data) {
+    _outSink.add(_converter.convert(data));
+  }
+
+  void close() {
+    _outSink.close();
+  }
+}</code></pre>
+
+<p>Now, we can use the converter with chunked conversions or even for stream
+transformations:</p>
+
+<pre class="prettyprint lang-dart"><code>// Requires importing dart:io.
+main(args) {
+  String inFile = args[0];
+  String outFile = args[1];
+  int key = int.parse(args[2]);
+  new File(inFile)
+    .openRead()
+    .transform(new RotConverter(key))
+    .pipe(new File(outFile).openWrite());
+}</code></pre>
+
+<h3 id="specialized-chunkedconversionsinks">
+<a class="anchor" href="#specialized-chunkedconversionsinks" aria-hidden="true"><span class="octicon octicon-link"></span></a>Specialized ChunkedConversionSinks</h3>
+
+<p>For many purposes, the current version of Rot is sufficient. That is, the
+benefit of improvements would be outweighed by the cost of more complex code
+and test requirements. Let’s assume, however,
+that the performance of the converter is critical
+(it’s on the hot path and up on the profile).
+We furthermore assume that
+the cost of allocating a new list for every chunk is killing performance
+(a reasonable assumption).</p>
+
+<p>We start by making the allocation cost cheaper: by using a
+<a href="https://api.dart.dev/stable/dart-typed_data/Uint8List-class.html">typed byte-list</a>
+we can reduce the size of the allocated list by a factor of 8 (on 64-bit
+machines). This one line change doesn’t remove the allocation, but makes it much
+cheaper.</p>
+
+<p>We can also avoid the allocation altogether if we overwrite the input. In
+the following version of RotSink, we add a new method <code class="language-plaintext highlighter-rouge">addModifiable()</code> that
+does exactly that:</p>
+
+<pre class="prettyprint lang-dart"><code>class RotSink extends ChunkedConversionSink&lt;List&lt;int&gt;&gt; {
+  final _key;
+  final ChunkedConversionSink&lt;List&lt;int&gt;&gt; _outSink;
+  RotSink(this._key, this._outSink);
+
+  void add(List&lt;int&gt; data) {
+    addModifiable(new Uint8List.fromList(data));
+  }
+
+  void addModifiable(List&lt;int&gt; data) {
+    for (int i = 0; i &lt; data.length; i++) {
+      data[i] = (data[i] + _key) % 256;
+    }
+    _outSink.add(data);
+  }
+
+  void close() {
+    _outSink.close();
+  }
+}</code></pre>
+
+<p>For simplicity we propose a new method that consumes a complete list. A more
+advanced method (for example <code class="language-plaintext highlighter-rouge">addModifiableSlice()</code>) would take range arguments
+(<code class="language-plaintext highlighter-rouge">from</code>, <code class="language-plaintext highlighter-rouge">to</code>) and an <code class="language-plaintext highlighter-rouge">isLast</code> boolean as arguments.</p>
+
+<p>This new method is not yet used by transformers, but we can already use it when
+invoking <code class="language-plaintext highlighter-rouge">startChunkedConversion()</code> explicitly.</p>
+
+<pre class="prettyprint lang-dart"><code>main() {
+  var outSink = new ChunkedConversionSink.withCallback((chunks) {
+    print(chunks); // [[31, 32, 33], [24, 25, 26]]
+  });
+  var inSink = new RotConverter(30).startChunkedConversion(outSink);
+  inSink.addModifiable([1, 2, 3]);
+  inSink.addModifiable([250, 251, 252]);
+  inSink.close();
+}</code></pre>
+
+<p>In this small example, performance isn’t visibly different,
+but internally the
+chunked conversion avoids allocating new lists for the individual chunks.
+For two small chunks, it doesn’t make a difference, but
+if we implement this for the stream transformer,
+encrypting a bigger file can be noticeably faster.</p>
+
+<p>To do this,
+we can make use of the undocumented feature that IOStreams provide modifiable lists.
+We could now simply rewrite <code class="language-plaintext highlighter-rouge">add()</code> and
+point it directly to <code class="language-plaintext highlighter-rouge">addModifiable()</code>. In general, this is not safe,
+and
+such a converter would be the potential source of hard-to-track bugs. Instead,
+we write a converter that does the unmodifiable-to-modifiable conversion
+explicitly, and then fuse the two converters.</p>
+
+<pre class="prettyprint lang-dart"><code>class ToModifiableConverter extends Converter&lt;List&lt;int&gt;, List&lt;int&gt;&gt; {
+  List&lt;int&gt; convert(List&lt;int&gt; data) =&gt; data;
+  ToModifiableSink startChunkedConversion(RotSink sink) {
+    return new ToModifiableSink(sink);
+  }
+}
+
+class ToModifiableSink
+    extends ChunkedConversionSink&lt;List&lt;int&gt;, List&lt;int&gt;&gt; {
+  final RotSink sink;
+  ToModifiableSink(this.sink);
+
+  void add(List&lt;int&gt; data) { sink.addModifiable(data); }
+  void close() { sink.close(); }
+}</code></pre>
+
+<p>ToModifiableSink just signals the next sink that the incoming chunk
+is modifiable. We can use this to make our pipeline more efficient:</p>
+
+<pre class="prettyprint lang-dart"><code>main(args) {
+  String inFile = args[0];
+  String outFile = args[1];
+  int key = int.parse(args[2]);
+  new File(inFile)
+      .openRead()
+      .transform(
+          new ToModifiableConverter().fuse(new RotConverter(key)))
+      .pipe(new File(outFile).openWrite());
+}</code></pre>
+
+<p>On my machine, this small modification brought the encryption time of an 11MB
+file from 450ms down to 260ms. We achieved this speed up without losing
+compatibility with existing codecs (with regard to the <code class="language-plaintext highlighter-rouge">fuse()</code> method)
+and the converter still functions as a stream transformer.</p>
+
+<p>Reusing the input works nicely with other
+converters and not just with our Rot cipher. We should therefore make an
+interface that generalizes the concept. For simplicity, we named it
+<code class="language-plaintext highlighter-rouge">CipherSink</code>, although it has, of course, uses outside the encryption world.</p>
+
+<pre class="prettyprint lang-dart"><code>abstract class CipherSink
+    extends ChunkedConversionSink&lt;List&lt;int&gt;, List&lt;int&gt;&gt; {
+  void addModifiable(List&lt;int&gt; data) { add(data); }
+}</code></pre>
+
+<p>We can then make our RotSink private and expose the CipherSink instead.
+Other developers can now reuse our work (CipherSink and ToModifiableConverter)
+and benefit from it.</p>
+
+<p>But we are not done yet.</p>
+
+<p>Although we won’t make the cipher faster anymore,
+we can improve the output side of our Rot converter.
+Take, for instance, the fusion of two encryptions:</p>
+
+<pre class="prettyprint lang-dart"><code>main(args) {
+  String inFile = args[0];
+  String outFile = args[1];
+  int key = int.parse(args[2]);
+  // Double-strength cipher running the Rot-cipher twice.
+  var transformer = new ToModifiableConverter()
+       .fuse(new RotConverter(key))  // &lt;= fused RotConverters.
+       .fuse(new RotConverter(key));
+  new File(inFile)
+      .openRead()
+      .transform(transformer)
+      .pipe(new File(outFile).openWrite());
+}</code></pre>
+
+<p>Since the first RotConverter invokes <code class="language-plaintext highlighter-rouge">outSink.add()</code>, the second RotConverter
+assumes that input cannot be modified and allocates a copy. We can work around
+this by sandwiching a ToModifiableConverter in between the two ciphers:</p>
+
+<pre class="prettyprint lang-dart"><code>var transformer = new ToModifiableConverter()
+     .fuse(new RotConverter(key))
+     .fuse(new ToModifiableConverter())
+     .fuse(new RotConverter(key));</code></pre>
+
+<p>This works, but is hackish. We want the RotConverters to work without
+intermediate converters. The first cipher should look at the outSink and
+determines if it is a CipherSink or not. We can do this either,
+whenever we want to add a new chunk,
+or at the beginning when we start a chunked
+conversion. We prefer the latter approach:</p>
+
+<pre class="prettyprint lang-dart"><code>/// Works more efficiently if given a CipherSink as argument.
+CipherSink startChunkedConversion(
+    ChunkedConversionSink&lt;List&lt;int&gt;&gt; sink) {
+  if (sink is! CipherSink) sink = new _CipherSinkAdapter(sink);
+  return new _RotSink(_key, sink);
+}</code></pre>
+
+<p>_CipherSinkAdapter is simply:</p>
+
+<pre class="prettyprint lang-dart"><code>class _CipherSinkAdapter implements CipherSink {
+  ChunkedConversionSink&lt;List&lt;int&gt;, List&lt;int&gt;&gt; sink;
+  _CipherSinkAdapter(this.sink);
+
+  void add(data) { sink.add(data); }
+  void addModifiable(data) { sink.add(data); }
+  void close() { sink.close(); }
+}</code></pre>
+
+<p>We now only need to change the _RotSink to take advantage of the fact that it
+always receives a CipherSink as an argument to its constructor:</p>
+
+<pre class="prettyprint lang-dart"><code>class _RotSink extends CipherSink {
+  final _key;
+  final CipherSink _outSink;  // &lt;= always a CipherSink.
+  _RotSink(this._key, this._outSink);
+
+  void add(List&lt;int&gt; data) {
+    addModifiable(data.toList());
+  }
+
+  void addModifiable(List&lt;int&gt; data) {
+    for (int i = 0; i &lt; data.length; i++) {
+      data[i] = (data[i] + _key) % 256;
+    }
+    _outSink.addModifiable(data);  // &lt;= safe to call addModifiable.
+  }
+
+  void close() {
+    _outSink.close();
+  }
+}</code></pre>
+
+<p>With these changes our super secure, double cipher won’t allocate any new lists
+and our work is done.</p>
+
+<p>Thanks to Lasse Reichstein Holst Nielsen, Anders Johnsen, and Matias Meno who
+were a great help in writing this article.</p>
+
+          
+
+        </div>
+      </article>
+    </main>
+    <footer id="page-footer">
+    <div class="footer-section footer-main">
+      <a href="/" class="brand" title="Dart">
+        <img src="/assets/img/shared/dart/logo+text/horizontal/white.svg" alt="Dart" width="164px">
+      </a>
+      <div class="footer-social-links">
+        <a href="https://github.com/doggy8088/dart.tw" target="_blank" rel="noopener" title="GitHub" class="no-automatic-external">
+          <svg>
+            <use href="/assets/img/social/github.svg#github"></use>
+          </svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-section footer-tray">
+      <div class="footer-licenses">
+        參考中文內容需註明本站及連結作為出處，英文內容和範例程式碼均遵從源站授權協議。
+      </div>
+      <div class="footer-utility-links">
+        <ul>
+          <li><a href="/terms" title="使用條款">使用條款</a></li>
+          <li><a href="https://policies.google.com/privacy?hl=zh-TW" target="_blank" rel="noopener" title="隱私政策" class="no-automatic-external">隱私政策</a></li>
+          <li><a href="/security" title="Security philosophy and practices">Dart 程式碼安全說明</a></li>
+          <li><a href="https://flutter.tw/about" target="_blank">關於中文文件</a>
+          </li><li><a href="https://flutter.tw/disclaimer" target="_blank">免責條款</a>
+          </li><li><a href="https://dart.cn/" target="_blank">Dart 簡體中文文檔</a>
+        </li></ul>
+      </div>
+    </div>
+  </footer>
+
+  
+
+<script src="/assets/translator/js/translator.js"></script></body></html>

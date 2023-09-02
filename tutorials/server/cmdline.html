@@ -1,0 +1,1567 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Language" content="zh-cmn-Hans">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Google Tag Manager -->
+<!--  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':-->
+<!--  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],-->
+<!--  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=-->
+<!--  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);-->
+<!--  })(window,document,'script','dataLayer','GTM-5VSZM5J');</script>-->
+  <!-- End Google Tag Manager -->
+
+  <meta name="description" content="編寫命令列應用的基礎課程。">
+  <title>編寫命令列應用 | Dart</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-28P0PYCRZ9"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-28P0PYCRZ9');
+  </script>
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?fa71f2474b82505e00203cf9956cf0bc";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+  <!-- Favicon / Touch Icons -->
+  <link rel="icon" sizes="64x64" href="/assets/shared/dart/icon/64.png">
+  <link href="/assets/img/touch-icon-iphone.png" rel="apple-touch-icon">
+  <link href="/assets/img/touch-icon-ipad.png" rel="apple-touch-icon" sizes="152x152">
+  <link href="/assets/img/touch-icon-iphone-retina.png" rel="apple-touch-icon" sizes="180x180">
+  <link href="/assets/img/touch-icon-ipad-retina.png" rel="apple-touch-icon" sizes="167x167">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@dart_lang">
+  <meta name="twitter:title" content="編寫命令列應用">
+  <meta name="twitter:description" content="編寫命令列應用的基礎課程。">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="編寫命令列應用">
+  <meta property="og:description" content="編寫命令列應用的基礎課程。">
+  <meta property="og:url" content="https://dart.tw.gh.miniasp.com/tutorials/server/cmdline">
+
+  <meta property="og:image" content="https://dart.tw.gh.miniasp.com/assets/shared/dart-logo-for-shares.png?2">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Display:wght@400&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons&amp;display=swap" rel="stylesheet">
+  <script src="https://cdn.staticfile.org/font-awesome/5.15.4/js/all.js" data-auto-replace-svg="nest">
+  </script>
+
+  <link rel="stylesheet" href="/assets/css/main.css?v=1693674404">
+  <script src="https://cdn.staticfile.org/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.staticfile.org/popper.js/1.16.1/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.staticfile.org/bootstrap/4.6.2/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!-- <script src="https://cdn.staticfile.org/js-cookie/3.0.5/js.cookie.min.js"
+          integrity="sha512-nlp9/l96/EpjYBx7EP7pGASVXNe80hGhYAUrjeXnu/fyF5Py0/RXav4BBNs7n5Hx1WFhOEOWSAVjGeC3oKxDVQ=="
+          crossorigin="anonymous"
+          referrerpolicy="no-referrer"></script> -->
+
+  <script src="/assets/js/vendor/code-prettify/prettify.js"></script>
+  <script src="/assets/js/vendor/code-prettify/lang-dart.js"></script>
+  <script src="/assets/js/vendor/code-prettify/lang-yaml.js"></script>
+  <script src="/assets/js/os-tabs.js?v=1693674404"></script>
+  <script src="/assets/js/utilities.js?v=1693674404"></script>
+  <script src="/assets/js/main.js?v=1693674404"></script>
+
+  <script>
+
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-122680122-5', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+
+ <link href="/assets/translator/css/translator.css" rel="stylesheet"></head>
+
+  <body class="default show_banner">
+    <section id="cookie-notice">
+  <div class="container">
+    <p>Google uses cookies to deliver its services, to personalize ads, and to 
+      analyze traffic. You can adjust your privacy controls anytime in your 
+      <a href="https://myaccount.google.com/data-and-personalization" target="_blank" rel="noopener" class="no-automatic-external">Google settings</a>. 
+      <a href="https://policies.google.com/technologies/cookies" target="_blank" rel="noopener" class="no-automatic-external">Learn more</a>.
+    </p>
+    <button id="cookie-consent" class="btn btn-primary">Okay</button>
+  </div>
+</section>
+
+    <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=G-28P0PYCRZ9"
+ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+    <header id="page-header" class="site-header">
+  <nav id="mainnav" class="site-header">
+  <div id="menu-toggle"><i class="material-icons">menu</i></div>
+  <a href="/" class="brand" title="Dart">
+    <img src="/assets/img/shared/dart/logo+text/horizontal/white.svg" alt="Dart">
+  </a>
+  <ul class="navbar">
+    <li>
+      <a href="/overview" class="nav-link">概覽</a>
+    </li>
+    <li class="mainnav__get-started">
+      <a href="/guides" class="nav-link
+         active">
+        <span>文件</span>
+      </a>
+    </li>
+    <li>
+      <a href="/community" class="nav-link">社群</a>
+    </li>
+    <li>
+      <a href="/#try-dart" class="nav-link">嘗試 Dart</a>
+    </li>
+    <li>
+      <a href="/get-dart" class="nav-link">獲取 Dart SDK</a>
+    </li>
+    <li class="searchfield">
+      <form action="/search" class="site-header__search form-inline" id="cse-search-box">
+        <input type="hidden" name="cx" value="011220921317074318178:_yy-tmb5t_i">
+        <input type="hidden" name="ie" value="UTF-8">
+        <input type="hidden" name="hl" value="en">
+        <input class="site-header__searchfield form-control search-field" type="search" name="q" id="q" autocomplete="off" placeholder="Search" aria-label="Search">
+      </form>
+    </li>
+  </ul>
+</nav>
+
+  
+</header>
+ <div class="banner">
+  <p class="banner__text">
+    Dart 3 已釋出！帶來了全新的
+    <a href="https://dart.tw.gh.miniasp.com/language/records" class="no-automatic-external">記錄型別 (records)</a>、
+    <a href="https://dart.tw.gh.miniasp.com/language/patterns" class="no-automatic-external">模式匹配 (patterns)</a>
+    以及 <a href="https://dart.tw.gh.miniasp.com/language/class-modifiers" class="no-automatic-external">型別修飾符 (class modifiers)</a>。
+    <br>
+    <!--<a href="https://medium.com/p/53f065a10635" class="no-automatic-external">Check out the blog post</a>!-->
+  </p>
+</div>
+ 
+
+    <div id="sidenav" class="">
+  <form action="/search/" class="site-header__search form-inline">
+    <input class="site-header__searchfield form-control search-field" type="search" name="q" id="q" autocomplete="off" placeholder="Search" aria-label="Search">
+  </form>
+
+  <div class="site-sidebar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a href="/overview" class="nav-link">概覽</a>
+      </li>
+      <li class="nav-item">
+        <a href="/community" class="nav-link">社群</a>
+      </li>
+      <li class="nav-item">
+        <a href="https://dartpad.dev" class="nav-link">嘗試 Dart</a>
+      </li>
+      <li class="nav-item">
+        <a href="/get-dart" class="nav-link">獲取 Dart SDK</a>
+      </li>
+      <li class="nav-item">
+        <a href="/guides" class="nav-link active">文件</a>
+      </li>
+    </ul>
+
+    <ul class="nav flex-column"><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-1" role="button" aria-expanded="false" aria-controls="sidenav-1">範例和課程</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-1">
+        <li class="nav-item">
+    <a class="nav-link" href="/tutorials">語言概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable" data-toggle="collapse" data-target="#sidenav-1-2" href="#sidenav-1-2" role="button" aria-expanded="true" aria-controls="sidenav-1-2">Codelabs
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-1-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/codelabs">Codelabs 列表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/dart-cheatsheet">Dart 速查表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/iterables">可迭代集合</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/async-await">Dart 非同步程式設計</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/null-safety">空安全</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-2" role="button" aria-expanded="false" aria-controls="sidenav-2">Dart 開發語言</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2">
+        <li class="nav-item">
+    <a class="nav-link" href="/language">介紹</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-2" href="#sidenav-2-2" role="button" aria-expanded="false" aria-controls="sidenav-2-2">基礎表示式
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/variables">變數</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/operators">運運算元</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/comments">註釋</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/metadata">註解</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/libraries">庫 &amp; 導庫</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/keywords">關鍵字</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-3" href="#sidenav-2-3" role="button" aria-expanded="false" aria-controls="sidenav-2-3">型別
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-3">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/built-in-types">基本型別</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/records">記錄 (Records)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/collections">集合 (Collections)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/generics">泛型 (Generics)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/typedefs">別名 (Typedefs)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/type-system">型別系統</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-4" href="#sidenav-2-4" role="button" aria-expanded="false" aria-controls="sidenav-2-4">模式匹配
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-4">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/patterns">概覽 &amp; 用法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/pattern-types">模式匹配型別</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/language/functions">函式方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-6" href="#sidenav-2-6" role="button" aria-expanded="false" aria-controls="sidenav-2-6">控制流
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-6">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/loops">迴圈</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/branches">分支</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/language/error-handling">錯誤處理</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-8" href="#sidenav-2-8" role="button" aria-expanded="false" aria-controls="sidenav-2-8">類 &amp; 物件
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-8">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/classes">類</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/constructors">構造方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/methods">成員方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/extend">繼承</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/mixins">混入 (Mixin)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/enums">列舉</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/extension-methods">擴充方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/callable-objects">可呼叫的物件</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-9" href="#sidenav-2-9" role="button" aria-expanded="false" aria-controls="sidenav-2-9">型別修飾符
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-9">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/class-modifiers">概覽 &amp; 用法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/class-modifiers-for-apis">API 維護者應該用的型別修飾符</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/modifier-reference">速查表</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-10" href="#sidenav-2-10" role="button" aria-expanded="false" aria-controls="sidenav-2-10">併發
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-10">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/async">非同步支援</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/concurrency">Isolates</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-11" href="#sidenav-2-11" role="button" aria-expanded="false" aria-controls="sidenav-2-11">Null safety
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-11">
+      <li class="nav-item">
+    <a class="nav-link" href="/null-safety">健全的空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/migration-guide">遷移到空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/understanding-null-safety">深入理解空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/unsound-null-safety">非健全的空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/faq">空安全常見問題和解答</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-3" role="button" aria-expanded="false" aria-controls="sidenav-3">高效指南 (Effective Dart)</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-3">
+        <li class="nav-item">
+    <a class="nav-link" href="/effective-dart">概述</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/style">程式碼風格</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/documentation">文件</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/usage">用法範例</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/design">API 設計</a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-4" role="button" aria-expanded="false" aria-controls="sidenav-4">核心函式庫</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-4">
+        <li class="nav-item">
+    <a class="nav-link" href="/guides/libraries">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/library-tour">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-4-3" href="#sidenav-4-3" role="button" aria-expanded="false" aria-controls="sidenav-4-3">介紹文章
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-4-3">
+      <li class="nav-item">
+    <a class="nav-link" href="/articles/libraries/creating-streams">建立 stream</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-5" role="button" aria-expanded="false" aria-controls="sidenav-5">Packages</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-5">
+        <li class="nav-item">
+    <a class="nav-link" href="/guides/packages">如何使用 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/useful-libraries">常用 package 介紹</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/create-packages">建立 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/publishing">釋出 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/writing-package-pages">設定 package 介紹頁</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-5-6" href="#sidenav-5-6" role="button" aria-expanded="false" aria-controls="sidenav-5-6">Package 參考資料
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-5-6">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/pub/dependencies">依賴</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/glossary">術語表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/package-layout">Package 檔案結構</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/environment-variables">設定環境變數</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/pubspec">Pubspec 檔案</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/troubleshoot">問題排查</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/verified-publishers">釋出者認證</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/versioning">版本管理</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link active" data-toggle="collapse" href="#sidenav-6" role="button" aria-expanded="true" aria-controls="sidenav-6">開發文件</a>
+
+      <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-6">
+        <li class="nav-item">
+    <a class="nav-link" href="/codelabs/async-await">Futures、async 和 await</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/language/streams">Streams 介紹</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/json">使用 JSON</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/numbers">Dart 中的數字</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-5" href="#sidenav-6-5" role="button" aria-expanded="false" aria-controls="sidenav-6-5">與其他語言進行互動呼叫
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-5">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/c-interop">與 C 互調</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/objective-c-interop">與 Objective-C 和 Swift 互調</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/java-interop">與 Java 和 Kotlin 互調</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/web/js-interop">與 JavaScript 互調</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/guides/google-apis">Google APIs</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/multiplatform-apps">跨平臺應用</a>
+  </li><li class="nav-item">
+    <a class="nav-link active collapsable" data-toggle="collapse" data-target="#sidenav-6-8" href="#sidenav-6-8" role="button" aria-expanded="true" aria-controls="sidenav-6-8">命令列和伺服器端應用
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-6-8">
+      <li class="nav-item">
+    <a class="nav-link" href="/server">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/get-started">起步課程</a>
+  </li><li class="nav-item">
+    <a class="nav-link active" href="/tutorials/server/cmdline">命令列應用</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/fetch-data">從網路上獲取資料</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/httpserver">編寫 HTTP 伺服器端應用</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/server/libraries">庫和 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/server/google-cloud">Google Cloud</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-9" href="#sidenav-6-9" role="button" aria-expanded="false" aria-controls="sidenav-6-9">網頁端 (Web) 應用
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-9">
+      <li class="nav-item">
+    <a class="nav-link" href="/web">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/get-started">開始使用</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-9-3" href="#sidenav-6-9-3" role="button" aria-expanded="false" aria-controls="sidenav-6-9-3">底層 Web 程式設計
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-9-3">
+      <li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/low-level-html/connect-dart-html">Dart 與 HTML 關聯</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/low-level-html/add-elements">向 DOM 新增元素</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/low-level-html/remove-elements">移除 DOM 元素</a>
+  </li>
+  </ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/web/deployment">部署</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/web/libraries">常用 Web 函式庫和 package</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/guides/environment-declarations">環境變數宣告</a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-7" role="button" aria-expanded="false" aria-controls="sidenav-7">開發工具和使用技巧</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7">
+        <li class="nav-item">
+    <a class="nav-link" href="/tools">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-2" href="#sidenav-7-2" role="button" aria-expanded="false" aria-controls="sidenav-7-2">編輯器和除錯工具
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/jetbrains-plugin">使用 IntelliJ 和 Android Studio</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/vs-code">使用 VS Code</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/dart-devtools">Dart 開發者工具</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-2-4" href="#sidenav-7-2-4" role="button" aria-expanded="false" aria-controls="sidenav-7-2-4">線上執行 Dart 程式碼
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-2-4">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/dartpad">Overview</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dartpad/dartpad-best-practices">DartPad 課程</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dartpad/troubleshoot">DartPad 疑難解答</a>
+  </li>
+  </ul>
+  </li>
+</ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-3" href="#sidenav-7-3" role="button" aria-expanded="false" aria-controls="sidenav-7-3">命令列工具
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-3">
+      <li class="nav-item">
+    <a class="nav-link collapsable" data-toggle="collapse" data-target="#sidenav-7-3-1" href="#sidenav-7-3-1" role="button" aria-expanded="true" aria-controls="sidenav-7-3-1">Dart SDK
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-7-3-1">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/sdk">概覽</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-tool">dart 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-analyze">dart analyze 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-compile">dart compile 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-create">dart create 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-doc">dart doc 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-fix">dart fix 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-format">dart format 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-info">dart info 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/pub/cmd">dart pub 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-run">dart run 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-test">dart test 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dartaotruntime">dartaotruntime 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/experiment-flags">實驗性命令標記</a>
+  </li>
+  </ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable" data-toggle="collapse" data-target="#sidenav-7-3-2" href="#sidenav-7-3-2" role="button" aria-expanded="true" aria-controls="sidenav-7-3-2">其他的命令列工具
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-7-3-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/build_runner">build_runner 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/webdev">webdev 命令</a>
+  </li>
+  </ul>
+  </li>
+</ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-4" href="#sidenav-7-4" role="button" aria-expanded="false" aria-controls="sidenav-7-4">原始碼管理
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-4">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/language/formatting">程式碼格式化</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/private-files">不應提交的內容</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-5" href="#sidenav-7-5" role="button" aria-expanded="false" aria-controls="sidenav-7-5">靜態分析
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-5">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/analysis">自訂靜態分析</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/sound-problems">修復常見的型別問題</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/diagnostic-messages">診斷訊息</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/linter-rules">Linter 規則</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-6" href="#sidenav-7-6" role="button" aria-expanded="false" aria-controls="sidenav-7-6">測試和調優
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-6">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/testing">測試</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/web/debugging">除錯 Web 應用</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-8" role="button" aria-expanded="false" aria-controls="sidenav-8">資源</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-8">
+        <li class="nav-item">
+    <a class="nav-link" href="/resources/faq">常見問題</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/evolution">版本演變</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/spec">語言規範</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/resources/dart-3-migration">Dart 3 遷移指南</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-8-5" href="#sidenav-8-5" role="button" aria-expanded="false" aria-controls="sidenav-8-5">從其他平台轉向 Dart
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-8-5">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/language/coming-from/js-to-dart">從 JavaScript 到 Dart</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/coming-from/swift-to-dart">從 Swift 到 Dart</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/resources/glossary">詞彙表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/resources/books">書籍資源</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/resources/videos">影片資源</a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link " data-toggle="collapse" href="#sidenav-9" role="button" aria-expanded="true" aria-controls="sidenav-9">相關站點</a>
+
+      <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-9">
+        <li class="nav-item">
+    <a class="nav-link" href="https://api.dart.dev" target="_blank" rel="noopener">API 文件<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://medium.com/dartlang" target="_blank" rel="noopener">Dart 團隊官方部落格<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://dartpad.dev" target="_blank" rel="noopener">DartPad (線上編輯器)<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://flutter.tw" target="_blank" rel="noopener">Flutter<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://pub.dev" target="_blank" rel="noopener">Package 網站<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-10" role="button" aria-expanded="false" aria-controls="sidenav-10">關於 Dart 中文文件</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-10">
+        <li class="nav-item">
+    <a class="nav-link" href="https://flutter.tw/about/docs-cn" target="_blank" rel="noopener">關於本站<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://flutter.tw/disclaimer" target="_blank" rel="noopener">免責條款 (Disclaimer)<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li>
+</ul>
+    </li></ul>
+
+  </div>
+</div>
+
+    <main id="page-content">
+      
+
+
+
+
+
+
+
+<div id="site-toc--side" class="site-toc ">
+  <header class="site-toc__title">
+    目錄
+    
+  </header>
+  <ul id="toc" class="section-nav">
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#running-an-app-with-the-standalone-dart-vm">Running an app with the standalone Dart VM</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#overview-of-the-dcat-app-code">Overview of the dcat app code</a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#getting-dependencies">Getting dependencies</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#running-dcat">Running dcat</a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#parsing-command-line-arguments">Parsing command-line arguments</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#reading-and-writing-with-stdin-stdout-and-stderr">Reading and writing with stdin, stdout, and stderr</a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#stdout">stdout</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#stderr">stderr</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#stdin">stdin</a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#getting-info-about-a-file">Getting info about a file</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#reading-a-file">Reading a file</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#writing-a-file">Writing a file</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#getting-environment-information">Getting environment information</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#setting-exit-codes">Setting exit codes</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#summary">Summary</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#what-next">What next?</a></li>
+</ul>
+  
+</div>
+
+
+      <article>
+        <div class="content">
+          
+<nav id="subnav">
+  <ul>
+    <li class="previous">
+      
+        <a href="/tutorials/server/get-started">⟨&nbsp;&nbsp;起步課程：編寫命令列和伺服器端應用</a>
+      
+    </li>
+    <li class="next">
+      
+        <a href="/tutorials/server/httpserver">編寫 HTTP 伺服器端應用&nbsp;&nbsp;⟩</a>
+      
+    </li>
+  </ul>
+</nav>
+
+
+          <div id="site-content-title">
+            <div id="page-github-links" class="btn-group" aria-label="Page GitHub links" role="group">
+  <a href="https://github.com/doggy8088/dart.tw/tree/master/src/_tutorials/server/cmdline.md" class="btn no-automatic-external" title="View page source" target="_blank" rel="noopener">
+    <i class="material-icons">description</i>
+  </a>
+  <a href="https://github.com/doggy8088/dart.tw/issues/new?template=1_page_issue.yml&amp;title=[PAGE ISSUE]: '編寫命令列應用'&amp;page-url=https://dart.tw.gh.miniasp.com/tutorials/server/cmdline&amp;page-source=https://github.com/doggy8088/dart.tw/tree/master/src/_tutorials/server/cmdline.md" class="btn no-automatic-external" title="Report an issue with this page" target="_blank" rel="noopener">
+    <i class="material-icons">bug_report</i>
+  </a>
+</div>
+
+            
+            <h1 id="編寫命令列應用">編寫命令列應用</h1>
+            </div>
+          
+
+
+
+
+
+
+
+<div id="site-toc--inline" class="site-toc toc-collapsible toc-collapsed">
+  <header class="site-toc__title">
+    目錄
+    
+      <span class="site-toc--inline__toggle toc-toggle-down"><i class="material-icons">keyboard_arrow_down</i></span>
+      <span class="site-toc--inline__toggle toc-toggle-up"><i class="material-icons">keyboard_arrow_up</i></span>
+    
+  </header>
+  <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#running-an-app-with-the-standalone-dart-vm">Running an app with the standalone Dart VM</a></li>
+<li class="toc-entry toc-h2"><a href="#overview-of-the-dcat-app-code">Overview of the dcat app code</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#getting-dependencies">Getting dependencies</a></li>
+<li class="toc-entry toc-h3"><a href="#running-dcat">Running dcat</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#parsing-command-line-arguments">Parsing command-line arguments</a></li>
+<li class="toc-entry toc-h2"><a href="#reading-and-writing-with-stdin-stdout-and-stderr">Reading and writing with stdin, stdout, and stderr</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#stdout">stdout</a></li>
+<li class="toc-entry toc-h3"><a href="#stderr">stderr</a></li>
+<li class="toc-entry toc-h3"><a href="#stdin">stdin</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#getting-info-about-a-file">Getting info about a file</a></li>
+<li class="toc-entry toc-h2"><a href="#reading-a-file">Reading a file</a></li>
+<li class="toc-entry toc-h2"><a href="#writing-a-file">Writing a file</a></li>
+<li class="toc-entry toc-h2"><a href="#getting-environment-information">Getting environment information</a></li>
+<li class="toc-entry toc-h2"><a href="#setting-exit-codes">Setting exit codes</a></li>
+<li class="toc-entry toc-h2"><a href="#summary">Summary</a></li>
+<li class="toc-entry toc-h2"><a href="#what-next">What next?</a></li>
+</ul>
+  
+    <span class="site-toc--inline__toggle toc-toggle-more-items"><i class="material-icons">more_horiz</i></span>
+  
+</div>
+
+
+          <style>
+[data-toggle="popover"] { background: #fffde7; }
+</style>
+
+<div class="mini-toc">
+  <h4 id="whats-the-point">What's the point?</h4>
+
+  <ul>
+    <li>Command-line applications need to do input and output.</li>
+    <li>The dart:io library provides I/O functionality.</li>
+    <li>The args package helps define and parse command-line arguments.</li>
+    <li>A <code class="language-plaintext highlighter-rouge">Future</code> object represents a value that will be available at some time in the future.</li>
+    <li>Streams provide a series of asynchronous data events.</li>
+    <li>Most input and output requires the use of streams.</li>
+  </ul>
+</div>
+
+<aside class="alert alert-info" role="alert">
+  <p><i class="material-icons" aria-hidden="true">info</i> <strong>備註:</strong>
+  This tutorial uses the <code class="language-plaintext highlighter-rouge">async</code> and <code class="language-plaintext highlighter-rouge">await</code> language features, which rely on
+  the <a href="https://api.dart.dev/stable/dart-async/Future-class.html">Future</a> and
+  <a href="https://api.dart.dev/stable/dart-async/Stream-class.html">Stream</a>
+  classes for asynchronous support.
+  To learn more about these features, see the
+  <a href="/codelabs/async-await">asynchronous programming codelab</a> and the
+  <a href="/tutorials/language/streams">streams tutorial</a>.</p>
+</aside>
+
+<p>This tutorial teaches you how to build command-line apps
+and shows you a few small command-line applications.
+These programs use resources that most command-line applications need,
+including the standard output, error, and input streams,
+command-line arguments, files and directories, and more.</p>
+
+<h2 id="running-an-app-with-the-standalone-dart-vm">
+<a class="anchor" href="#running-an-app-with-the-standalone-dart-vm" aria-hidden="true"><span class="octicon octicon-link"></span></a>Running an app with the standalone Dart VM</h2>
+
+<p>To run a command-line app in the Dart VM, use <code class="language-plaintext highlighter-rouge">dart run</code>.
+The <code class="language-plaintext highlighter-rouge">dart</code> commands are included with the <a href="/tools/sdk">Dart SDK</a>.</p>
+
+<aside class="alert alert-warning" role="alert">
+  <p><i class="material-icons" aria-hidden="true">error</i> <strong>重要說明:</strong>
+  The location of the SDK installation directory
+  (we’ll call it <em>&lt;sdk-install-dir&gt;</em>) depends on your platform
+  and how you installed the SDK.
+  You can find <code class="language-plaintext highlighter-rouge">dart</code> in <em>&lt;sdk-install-dir&gt;</em>/bin.
+  By putting this directory in your PATH
+  you can refer to the <code class="language-plaintext highlighter-rouge">dart</code> command by name.</p>
+</aside>
+
+<p>Let’s run a small program.</p>
+
+<ol>
+  <li>
+    <p>Create a file called <code class="language-plaintext highlighter-rouge">hello_world.dart</code> that contains this code:</p>
+
+    <div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">void main() {
+  print('Hello, World!');
+}</code></pre></div>
+</div>
+  </li>
+  <li>
+    <p>In the directory that contains the file you just created, run the program:</p>
+
+    <div class="language-terminal highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>dart run hello_world.dart
+<span class="go">Hello, World!
+</span></code></pre></div>    </div>
+  </li>
+</ol>
+
+<p>The Dart tool supports many commands and options.
+Use <code class="language-plaintext highlighter-rouge">dart --help</code> to see commonly used commands and options.
+Use <code class="language-plaintext highlighter-rouge">dart --verbose</code> to see all options.</p>
+
+<h2 id="overview-of-the-dcat-app-code">
+<a class="anchor" href="#overview-of-the-dcat-app-code" aria-hidden="true"><span class="octicon octicon-link"></span></a>Overview of the dcat app code</h2>
+
+<p>This tutorial covers the details of a small sample app called <code class="language-plaintext highlighter-rouge">dcat</code>, which
+displays the contents of any files listed on the command line. This app uses
+various classes, functions, and properties available to command-line apps. For a
+brief description of key app features, click the highlighted code below.</p>
+
+<pre class="prettyprint lang-dart"><code>import 'dart:convert';
+import 'dart:io';
+
+import 'package:args/args.dart';
+
+const lineNumber = 'line-number';
+
+void main(<a tabindex="0" role="button" data-toggle="popover" title="Command-line arguments" data-content="Command-line arguments are passed in by the system when the program starts.">List&lt;String&gt; arguments</a>) {
+  exitCode = 0; // presume success
+  final parser = ArgParser()..addFlag(lineNumber, negatable: false, abbr: 'n');
+
+  ArgResults argResults = <a tabindex="0" role="button" data-toggle="popover" title="Arguments parser" data-content="The <code>ArgParser</code> class provides help with parsing command-line arguments.">parser.parse(arguments)</a>;
+  final paths = argResults.rest;
+
+  dcat(paths, showLineNumbers: argResults[lineNumber] as bool);
+}
+
+Future&lt;void&gt; dcat(List&lt;String&gt; paths, {bool showLineNumbers = false}) <a tabindex="0" role="button" data-toggle="popover" title="Async function" data-content="A function marked as <code>async</code>. These functions are asynchronous and return futures.">async</a> {
+  if (paths.isEmpty) {
+    // No files provided as arguments. Read from stdin and print each line.
+    <a tabindex="0" role="button" data-toggle="popover" title="Using await" data-content="The <code>await</code> keyword, which works only in <code>async</code> functions, makes the program pause until the following expression completes.">await</a> <a tabindex="0" role="button" data-toggle="popover" title="Standard I/O streams" data-content="This line reads from the standard input stream and pipes the data to the standard output stream.">stdin.pipe(stdout)</a>;
+  } else {
+    for (final path in paths) {
+      var lineNumber = 1;
+      final lines = utf8.decoder
+          .bind(<a tabindex="0" role="button" data-toggle="popover" title="Create a File object" data-content="Use the <code>File</code> class to represent the file on the native file system.">File(path)</a>.<a tabindex="0" role="button" data-toggle="popover" title="Open a file for reading" data-content="Read the content from the file asynchronously.">openRead()</a>)
+          .<a tabindex="0" role="button" data-toggle="popover" title="Data converters" data-content="Convert data as it becomes available on the stream.">transform(const LineSplitter())</a>;
+      <a tabindex="0" role="button" data-toggle="popover" title="Exception handling" data-content="Function calls that might generate an exception are placed in a <code>try</code> block.">try</a> {
+        <a tabindex="0" role="button" data-toggle="popover" title="Get data from the stream" data-content="Use <code>await for</code> to loop over the values as they become available on the stream. The program pauses while waiting for the next line.">await for (final line in lines)</a> {
+          if (showLineNumbers) {
+            stdout.write('${lineNumber++} ');
+          }
+          stdout.writeln(line);
+        }
+      } <a tabindex="0" role="button" data-toggle="popover" title="Exception handling" data-content="Any errors encountered in the stream are handled in the <code>catch</code> block.">catch</a> (_) {
+        await _handleError(path);
+      }
+    }
+  }
+}
+
+Future&lt;void&gt; _handleError(String path) async {
+  if (<a tabindex="0" role="button" data-toggle="popover" title="Test the path" data-content="You can get information about the file system on which your program is running. The <code>await</code> keyword causes error handling to pause until the path is available.">await FileSystemEntity.isDirectory(path)</a>) {
+    stderr.writeln('error: $path is a directory');
+  } else {
+    <a tabindex="0" role="button" data-toggle="popover" title="Exit code" data-content="A well-behaved command-line app sets an exit code to indicate whether the program was successful.">exitCode = 2</a>;
+  }
+}</code>
+</pre>
+
+<h3 id="getting-dependencies">
+<a class="anchor" href="#getting-dependencies" aria-hidden="true"><span class="octicon octicon-link"></span></a>Getting dependencies</h3>
+
+<p>You might notice that dcat depends on a package named <strong>args</strong>.
+To get the args package, use the
+<a href="/guides/packages">pub package manager</a>.</p>
+
+<p>A real app has tests, license files, dependency files, examples, and so on.
+For the first app though, we can easily create only what is necessary
+with the <a href="/tools/dart-create"><code class="language-plaintext highlighter-rouge">dart create</code></a> command.</p>
+
+<ol>
+  <li>
+    <p>Inside a directory, create the dcat app with the dart tool.</p>
+
+    <div class="language-terminal highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>dart create dcat
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Change to the created directory.</p>
+
+    <div class="language-terminal highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">cd </span>dcat
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Inside the <code class="language-plaintext highlighter-rouge">dcat</code> directory, use <a href="/tools/pub/cmd/pub-add">dart pub add</a> 
+to add the <code class="language-plaintext highlighter-rouge">args</code> package as a dependency. This adds <code class="language-plaintext highlighter-rouge">args</code> to 
+the list of your dependencies found in the <code class="language-plaintext highlighter-rouge">pubspec.yaml</code> file.</p>
+
+    <div class="language-terminal highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>dart pub add args
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Open the <code class="language-plaintext highlighter-rouge">bin/dcat.dart</code> file and copy the preceding code into it.</p>
+  </li>
+</ol>
+
+<aside class="alert alert-info" role="alert">
+  <p><i class="material-icons" aria-hidden="true">info</i> <strong>備註:</strong>
+  To learn more about using packages and organizing your code, see the
+  <a href="/guides/packages">package documentation</a> and
+  <a href="/tools/pub/package-layout">layout conventions</a>.</p>
+</aside>
+
+<h3 id="running-dcat">
+<a class="anchor" href="#running-dcat" aria-hidden="true"><span class="octicon octicon-link"></span></a>Running dcat</h3>
+
+<p>Once you have your app’s dependencies,
+you can run the app from the command line over any text file,
+like <code class="language-plaintext highlighter-rouge">pubspec.yaml</code>:</p>
+
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>dart run bin/dcat.dart <span class="nt">-n</span> pubspec.yaml
+<span class="go">1 name: dcat
+2 description: A sample command-line application.
+3 version: 1.0.0
+</span><span class="gp">4 #</span><span class="w"> </span>repository: https://github.com/my_org/my_repo
+<span class="go">5 
+6 environment:
+</span><span class="gp">7   sdk: '&gt;</span><span class="o">=</span>2.19.0 &lt;3.0.0<span class="s1">'
+</span><span class="go">8 
+</span><span class="gp">9 #</span><span class="w"> </span>dependencies:
+<span class="gp">10 #</span><span class="w">   </span>path: ^1.8.0
+<span class="go">11 
+12 dev_dependencies:
+13   lints: ^2.0.0
+14   test: ^1.21.0
+15 dependencies:
+16   args: ^2.3.2
+</span></code></pre></div></div>
+
+<p>This command displays each line of the specified file. Because the <code class="language-plaintext highlighter-rouge">-n</code> argument
+is present, a line number is displayed before each line.</p>
+
+<h2 id="parsing-command-line-arguments">
+<a class="anchor" href="#parsing-command-line-arguments" aria-hidden="true"><span class="octicon octicon-link"></span></a>Parsing command-line arguments</h2>
+
+<p>The <a href="https://pub.dev/packages/args">args package</a> provides
+parser support for transforming command-line arguments
+into a set of options, flags, and additional values.
+Import the package’s
+<a href="https://pub.dev/documentation/args/latest/args/args-library.html">args library</a>
+as follows:</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">import 'package:args/args.dart';</code></pre></div>
+</div>
+
+<p>The <code class="language-plaintext highlighter-rouge">args</code> library contains these classes, among others:</p>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Class</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="https://pub.dev/documentation/args/latest/args/ArgParser-class.html">ArgParser</a></td>
+      <td>A command-line argument parser.</td>
+    </tr>
+    <tr>
+      <td><a href="https://pub.dev/documentation/args/latest/args/ArgResults-class.html">ArgResults</a></td>
+      <td>The result of parsing command-line arguments using <code class="language-plaintext highlighter-rouge">ArgParser</code>.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Here is the <code class="language-plaintext highlighter-rouge">dcat</code> code that uses these classes to parse and store command-line
+arguments:</p>
+<pre class="prettyprint lang-dart"><code>void main(<span class="highlight">List&lt;String&gt; arguments</span>) {
+  exitCode = 0; // presume success
+  final <span class="highlight">parser = ArgParser()..addFlag(lineNumber, negatable: false, abbr: 'n');</span>
+
+
+  <span class="highlight">ArgResults argResults = parser.parse(arguments);</span>
+  final paths = <span class="highlight">argResults.rest</span>;
+
+  dcat(paths, showLineNumbers: <span class="highlight">argResults[lineNumber] as bool</span>);
+}</code></pre>
+
+<p>The runtime passes command-line arguments to the app’s <code class="language-plaintext highlighter-rouge">main()</code> function as a
+list of strings. The <code class="language-plaintext highlighter-rouge">ArgParser</code> is configured to parse the <code class="language-plaintext highlighter-rouge">-n</code> flag. The
+result of parsing command-line arguments is stored in <code class="language-plaintext highlighter-rouge">argResults</code>.</p>
+
+<p>The following diagram shows how the <code class="language-plaintext highlighter-rouge">dcat</code> command line used above
+is parsed into an <code class="language-plaintext highlighter-rouge">ArgResults</code> object.</p>
+
+<p><img src="images/dcat-dart-run.svg" alt="Run dcat from the command-line" width="350"></p>
+
+<p>You can access flags and options by name,
+treating an <code class="language-plaintext highlighter-rouge">ArgResults</code> like a <code class="language-plaintext highlighter-rouge">Map</code>.
+You can access other values using the <code class="language-plaintext highlighter-rouge">rest</code> property.</p>
+
+<p>The <a href="https://pub.dev/documentation/args/latest/args/args-library.html">API reference</a>
+for the <code class="language-plaintext highlighter-rouge">args</code> library provides detailed information to help you use
+the <code class="language-plaintext highlighter-rouge">ArgParser</code> and <code class="language-plaintext highlighter-rouge">ArgResults</code> classes.</p>
+
+<h2 id="reading-and-writing-with-stdin-stdout-and-stderr">
+<a class="anchor" href="#reading-and-writing-with-stdin-stdout-and-stderr" aria-hidden="true"><span class="octicon octicon-link"></span></a>Reading and writing with stdin, stdout, and stderr</h2>
+
+<p>Like other languages,
+Dart has standard output, standard error, and standard input streams.
+The standard I/O streams are defined at the top level of the dart:io library:</p>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Stream</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="https://api.dart.dev/stable/dart-io/stdout.html">stdout</a></td>
+      <td>The standard output</td>
+    </tr>
+    <tr>
+      <td><a href="https://api.dart.dev/stable/dart-io/stderr.html">stderr</a></td>
+      <td>The standard error</td>
+    </tr>
+    <tr>
+      <td><a href="https://api.dart.dev/stable/dart-io/stdin.html">stdin</a></td>
+      <td>The standard input</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Import the dart:io library as follows:</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">import 'dart:io';</code></pre></div>
+</div>
+
+<aside class="alert alert-info" role="alert">
+  <p><i class="material-icons" aria-hidden="true">info</i> <strong>備註:</strong>
+  Web apps (apps that depend on dart:html) can’t use the dart:io library.</p>
+</aside>
+
+<h3 id="stdout">
+<a class="anchor" href="#stdout" aria-hidden="true"><span class="octicon octicon-link"></span></a>stdout</h3>
+
+<p>Here’s the code from the <code class="language-plaintext highlighter-rouge">dcat</code> program that writes the line number to
+the <code class="language-plaintext highlighter-rouge">stdout</code> (if the <code class="language-plaintext highlighter-rouge">-n</code> flag is set) followed by the line from the file.</p>
+<pre class="prettyprint lang-dart"><code>if (showLineNumbers) {
+  <span class="highlight">stdout.write('${lineNumber++} ');</span>
+}
+<span class="highlight">stdout.writeln(line);</span></code></pre>
+
+<p>The <code class="language-plaintext highlighter-rouge">write()</code> and <code class="language-plaintext highlighter-rouge">writeln()</code> methods take an object of any type,
+convert it to a string, and print it. The <code class="language-plaintext highlighter-rouge">writeln()</code> method
+also prints a newline character.
+<code class="language-plaintext highlighter-rouge">dcat</code> uses the <code class="language-plaintext highlighter-rouge">write()</code> method to print the line number so the
+line number and text appear on the same line.</p>
+
+<p>You can also use the <code class="language-plaintext highlighter-rouge">writeAll()</code> method to print a list of objects,
+or use <code class="language-plaintext highlighter-rouge">addStream()</code> to asynchronously print all the elements from a stream.</p>
+
+<p><code class="language-plaintext highlighter-rouge">stdout</code> provides more functionality than the <code class="language-plaintext highlighter-rouge">print()</code> function.
+For example, you can display the contents of a stream with <code class="language-plaintext highlighter-rouge">stdout</code>.
+However, you must use <code class="language-plaintext highlighter-rouge">print()</code> instead of <code class="language-plaintext highlighter-rouge">stdout</code>
+for programs that run on the web.</p>
+
+<h3 id="stderr">
+<a class="anchor" href="#stderr" aria-hidden="true"><span class="octicon octicon-link"></span></a>stderr</h3>
+
+<p>Use <code class="language-plaintext highlighter-rouge">stderr</code> to write error messages to the console.
+The standard error stream has the same methods as <code class="language-plaintext highlighter-rouge">stdout</code>,
+and you use it in the same way.
+Although both <code class="language-plaintext highlighter-rouge">stdout</code> and <code class="language-plaintext highlighter-rouge">stderr</code> print to the console,
+their output is separate
+and can be redirected or piped at the command line
+or programmatically to different destinations.</p>
+
+<p>This code from <code class="language-plaintext highlighter-rouge">dcat</code> prints an error message if the user
+tries to list a directory.</p>
+<pre class="prettyprint lang-dart"><code>if (await FileSystemEntity.isDirectory(path)) {
+  <span class="highlight">stderr.writeln('error: $path is a directory');</span>
+} else {
+  exitCode = 2;
+}</code></pre>
+
+<h3 id="stdin">
+<a class="anchor" href="#stdin" aria-hidden="true"><span class="octicon octicon-link"></span></a>stdin</h3>
+
+<p>The standard input stream typically
+reads data synchronously from the keyboard,
+although it can read asynchronously
+and get input piped in from the standard output of another program.</p>
+
+<p>Here’s a small program that reads a single line from <code class="language-plaintext highlighter-rouge">stdin</code>:</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">import 'dart:io';
+
+void main() {
+  stdout.writeln('Type something');
+  final input = stdin.readLineSync();
+  stdout.writeln('You typed: $input');
+}</code></pre></div>
+</div>
+
+<p>The <code class="language-plaintext highlighter-rouge">readLineSync()</code> method reads text from the standard input stream,
+blocking until the user types in text and presses return.
+This little program prints out the typed text.</p>
+
+<p>In the <code class="language-plaintext highlighter-rouge">dcat</code> program,
+if the user does not provide a filename on the command line,
+the program instead reads from stdin
+using the <code class="language-plaintext highlighter-rouge">pipe()</code> method.
+Because <code class="language-plaintext highlighter-rouge">pipe()</code> is asynchronous
+(returning a future, even though this code doesn’t use that return value),
+the code that calls it uses <code class="language-plaintext highlighter-rouge">await</code>.</p>
+<pre class="prettyprint lang-dart"><code>await stdin.<span class="highlight">pipe</span>(stdout);</code></pre>
+
+<p>In this case, the user types in lines of text,
+and the program copies them to stdout.
+The user signals the end of input by pressing <kbd>Control</kbd>+<kbd>D</kbd>
+(or <kbd>Control</kbd>+<kbd>Z</kbd> on Windows).</p>
+
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>dart run bin/dcat.dart
+<span class="go">The quick brown fox jumps over the lazy dog.
+The quick brown fox jumps over the lazy dog.
+</span></code></pre></div></div>
+
+<h2 id="getting-info-about-a-file">
+<a class="anchor" href="#getting-info-about-a-file" aria-hidden="true"><span class="octicon octicon-link"></span></a>Getting info about a file</h2>
+
+<p>The <a href="https://api.dart.dev/stable/dart-io/FileSystemEntity-class.html">FileSystemEntity</a>
+class in the dart:io library provides properties and static methods
+that help you inspect and manipulate the file system.</p>
+
+<p>For example, if you have a path,
+you can determine whether the path is a file, a directory, a link, or not found
+by using the <code class="language-plaintext highlighter-rouge">type()</code> method from the <code class="language-plaintext highlighter-rouge">FileSystemEntity</code> class.
+Because the <code class="language-plaintext highlighter-rouge">type()</code> method accesses the file system,
+it performs the check asynchronously.</p>
+
+<p>The following code from the <code class="language-plaintext highlighter-rouge">dcat</code> example uses <code class="language-plaintext highlighter-rouge">FileSystemEntity</code>
+to determine if the path provided on the command line is a directory.
+The future returns a boolean that indicates if the path is a directory or not.
+Because the check is asynchronous, the code calls <code class="language-plaintext highlighter-rouge">isDirectory()</code>
+using <code class="language-plaintext highlighter-rouge">await</code>.</p>
+<pre class="prettyprint lang-dart"><code>if (<span class="highlight">await FileSystemEntity.isDirectory(path)</span>) {
+  stderr.writeln('error: $path is a directory');
+} else {
+  exitCode = 2;
+}</code></pre>
+
+<p>Other interesting methods in the <code class="language-plaintext highlighter-rouge">FileSystemEntity</code> class
+include <code class="language-plaintext highlighter-rouge">isFile()</code>, <code class="language-plaintext highlighter-rouge">exists()</code>, <code class="language-plaintext highlighter-rouge">stat()</code>, <code class="language-plaintext highlighter-rouge">delete()</code>,
+and <code class="language-plaintext highlighter-rouge">rename()</code>, all of which also use a future to return a value.</p>
+
+<p><code class="language-plaintext highlighter-rouge">FileSystemEntity</code> is the superclass for the <code class="language-plaintext highlighter-rouge">File</code>, <code class="language-plaintext highlighter-rouge">Directory</code>, and <code class="language-plaintext highlighter-rouge">Link</code> classes.</p>
+
+<h2 id="reading-a-file">
+<a class="anchor" href="#reading-a-file" aria-hidden="true"><span class="octicon octicon-link"></span></a>Reading a file</h2>
+
+<p><code class="language-plaintext highlighter-rouge">dcat</code> opens each file listed on the command line
+with the <code class="language-plaintext highlighter-rouge">openRead()</code> method, which returns a stream.
+The <code class="language-plaintext highlighter-rouge">await for</code> block waits for the file to be read
+asynchronously. The data prints to stdout when it
+becomes available on the stream.</p>
+<pre class="prettyprint lang-dart"><code>for (final path in paths) {
+  var lineNumber = 1;
+  final lines = utf8.decoder
+      .bind(File(path).openRead())
+      .transform(const LineSplitter());
+  try {
+    <span class="highlight">await for (final line in lines) {</span>
+    <span class="highlight">  if (showLineNumbers) {</span>
+    <span class="highlight">    stdout.write('${lineNumber++} ');</span>
+    <span class="highlight">  }</span>
+    <span class="highlight">  stdout.writeln(line);</span>
+    <span class="highlight">}</span>
+  } catch (_) {
+    await _handleError(path);
+  }
+}</code></pre>
+
+<p>The following shows the rest of the code, which uses two decoders that
+transform the data before making it available in the <code class="language-plaintext highlighter-rouge">await for</code> block.
+The UTF8 decoder converts the data into Dart strings.
+<code class="language-plaintext highlighter-rouge">LineSplitter</code> splits the data at newlines.</p>
+<pre class="prettyprint lang-dart"><code>for (final path in paths) {
+  var lineNumber = 1;
+  final lines = <span class="highlight">utf8.decoder</span>
+      .bind(File(path).openRead())
+      .transform(const <span class="highlight">LineSplitter</span>());
+  try {
+    await for (final line in lines) {
+      if (showLineNumbers) {
+        stdout.write('${lineNumber++} ');
+      }
+      stdout.writeln(line);
+    }
+  } catch (_) {
+    await _handleError(path);
+  }
+}</code></pre>
+
+<p>The dart:convert library contains these and other data converters,
+including one for JSON.
+To use these converters you need to import the dart:convert library:</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">import 'dart:convert';</code></pre></div>
+</div>
+
+<h2 id="writing-a-file">
+<a class="anchor" href="#writing-a-file" aria-hidden="true"><span class="octicon octicon-link"></span></a>Writing a file</h2>
+
+<p>The easiest way to write text to a file is to create a
+<a href="https://api.dart.dev/stable/dart-io/File-class.html">File</a>
+object and use the <code class="language-plaintext highlighter-rouge">writeAsString()</code> method:</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">final quotes = File('quotes.txt');
+const stronger = 'That which does not kill us makes us stronger. -Nietzsche';
+
+await quotes.writeAsString(stronger, mode: FileMode.append);</code></pre></div>
+</div>
+
+<p>The <code class="language-plaintext highlighter-rouge">writeAsString()</code> method writes the data asynchronously.
+It opens the file before writing and closes the file when done.
+To append data to an existing file, you can use the optional
+parameter <code class="language-plaintext highlighter-rouge">mode</code> and set its value to <code class="language-plaintext highlighter-rouge">FileMode.append</code>.
+Otherwise, the mode is <code class="language-plaintext highlighter-rouge">FileMode.write</code> and the previous contents of the file,
+if any, are overwritten.</p>
+
+<p>If you want to write more data, you can open the file for writing.
+The <code class="language-plaintext highlighter-rouge">openWrite()</code> method returns an IOSink (the same type as stdin and stderr).
+You can continue to write to the file until done,
+at which time, you must close the file.
+The <code class="language-plaintext highlighter-rouge">close()</code> method is asynchronous and returns a future.</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">final quotes = File('quotes.txt').openWrite(mode: FileMode.append);
+
+quotes.write("Don't cry because it's over, ");
+quotes.writeln('smile because it happened. -Dr. Seuss');
+await quotes.close();</code></pre></div>
+</div>
+
+<h2 id="getting-environment-information">
+<a class="anchor" href="#getting-environment-information" aria-hidden="true"><span class="octicon octicon-link"></span></a>Getting environment information</h2>
+
+<p>Use the <a href="https://api.dart.dev/stable/dart-io/Platform-class.html">Platform</a> class
+to get information about the machine and OS that the program is running on.</p>
+
+<p><a href="https://api.dart.dev/stable/dart-io/Platform/environment.html">Platform.environment</a>
+provides a copy of the environment
+variables in an immutable map. If you need a mutable map (modifiable copy) you
+can use <code class="language-plaintext highlighter-rouge">Map.of(Platform.environment)</code>.</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">final envVarMap = Platform.environment;
+
+print('PWD = ${envVarMap['PWD']}');
+print('LOGNAME = ${envVarMap['LOGNAME']}');
+print('PATH = ${envVarMap['PATH']}');</code></pre></div>
+</div>
+
+<p><code class="language-plaintext highlighter-rouge">Platform</code> provides other useful properties that give
+information about the machine, OS, and currently
+running program. For example:</p>
+
+<ul>
+  <li><a href="https://api.dart.dev/stable/dart-io/Platform/isMacOS.html">Platform.isMacOS()</a></li>
+  <li><a href="https://api.dart.dev/stable/dart-io/Platform/numberOfProcessors.html">Platform.numberOfProcessors</a></li>
+  <li><a href="https://api.dart.dev/stable/dart-io/Platform/script.html">Platform.script</a></li>
+</ul>
+
+<h2 id="setting-exit-codes">
+<a class="anchor" href="#setting-exit-codes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Setting exit codes</h2>
+
+<p>The dart:io library defines a top-level property,
+<code class="language-plaintext highlighter-rouge">exitCode</code>, that you can change to set the exit code for
+the current invocation of the Dart VM.
+An exit code is a number passed from
+the Dart program to the parent process
+to indicate the success, failure, or other state of the
+execution of the program.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">dcat</code> program sets the exit code
+in the <code class="language-plaintext highlighter-rouge">_handleError()</code> function to indicate that an error
+occurred during execution.</p>
+<pre class="prettyprint lang-dart"><code>Future&lt;void&gt; _handleError(String path) async {
+  if (await FileSystemEntity.isDirectory(path)) {
+    stderr.writeln('error: $path is a directory');
+  } else {
+    <span class="highlight">exitCode = 2;</span>
+  }
+}</code></pre>
+
+<p>An exit code of 2 indicates that the program encountered an error.</p>
+
+<p>An alternative to using <code class="language-plaintext highlighter-rouge">exitCode</code> is to use the top-level <code class="language-plaintext highlighter-rouge">exit()</code> function,
+which sets the exit code and quits the program immediately.
+For example, the <code class="language-plaintext highlighter-rouge">_handleError()</code> function could call <code class="language-plaintext highlighter-rouge">exit(2)</code>
+instead of setting <code class="language-plaintext highlighter-rouge">exitCode</code> to 2,
+but <code class="language-plaintext highlighter-rouge">exit()</code> would quit the program
+and it might not process all of the files on the command line.</p>
+
+<aside class="alert alert-info" role="alert">
+  <p><i class="material-icons" aria-hidden="true">info</i>
+  Generally speaking, you’re better off using the <code class="language-plaintext highlighter-rouge">exitCode</code> property,
+  which sets the exit code but allows the program to continue through to its
+  natural completion.</p>
+</aside>
+
+<p>Although you can use any number for an exit code,
+by convention, the codes in the table below have the following meanings:</p>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Code</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>Success</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>Warnings</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Errors</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="summary">
+<a class="anchor" href="#summary" aria-hidden="true"><span class="octicon octicon-link"></span></a>Summary</h2>
+
+<p>This tutorial described some basic API found in these classes from the dart:io library:</p>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>API</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="https://api.dart.dev/stable/dart-io/IOSink-class.html">IOSink</a></td>
+      <td>Helper class for objects that consume data from streams</td>
+    </tr>
+    <tr>
+      <td><a href="https://api.dart.dev/stable/dart-io/File-class.html">File</a></td>
+      <td>Represents a file on the native file system</td>
+    </tr>
+    <tr>
+      <td><a href="https://api.dart.dev/stable/dart-io/Directory-class.html">Directory</a></td>
+      <td>Represents a directory on the native file system</td>
+    </tr>
+    <tr>
+      <td><a href="https://api.dart.dev/stable/dart-io/FileSystemEntity-class.html">FileSystemEntity</a></td>
+      <td>Superclass for File and Directory</td>
+    </tr>
+    <tr>
+      <td><a href="https://api.dart.dev/stable/dart-io/Platform-class.html">Platform</a></td>
+      <td>Provides information about the machine and operating system</td>
+    </tr>
+    <tr>
+      <td><a href="https://api.dart.dev/stable/dart-io/stdout.html">stdout</a></td>
+      <td>The standard output stream</td>
+    </tr>
+    <tr>
+      <td><a href="https://api.dart.dev/stable/dart-io/stderr.html">stderr</a></td>
+      <td>The standard error stream</td>
+    </tr>
+    <tr>
+      <td><a href="https://api.dart.dev/stable/dart-io/stdin.html">stdin</a></td>
+      <td>The standard input stream</td>
+    </tr>
+    <tr>
+      <td><a href="https://api.dart.dev/stable/dart-io/exitCode.html">exitCode</a></td>
+      <td>Access and set the exit code</td>
+    </tr>
+    <tr>
+      <td><a href="https://api.dart.dev/stable/dart-io/exit.html">exit()</a></td>
+      <td>Sets the exit code and quits</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>In addition, this tutorial covers two classes that help with command-line arguments:
+<a href="https://pub.dev/documentation/args/latest/args/ArgParser-class.html">ArgParser</a> and
+<a href="https://pub.dev/documentation/args/latest/args/ArgResults-class.html">ArgResults.</a></p>
+
+<p>For more classes, functions, and properties,
+consult to the API reference for
+<a href="https://api.dart.dev/stable/dart-io/dart-io-library.html">dart:io,</a>
+<a href="https://api.dart.dev/stable/dart-convert/dart-convert-library.html">dart:convert,</a>
+and the <a href="https://pub.dev/documentation/args/latest/args/args-library.html">args</a> package.</p>
+
+<p>For another example of a command line app, 
+see the <a href="https://github.com/dart-lang/samples/tree/main/command_line">command_line</a> sample.</p>
+
+<h2 id="what-next">
+<a class="anchor" href="#what-next" aria-hidden="true"><span class="octicon octicon-link"></span></a>What next?</h2>
+
+<p>If you’re interested in server-side programming,
+check out the <a href="/tutorials/server/httpserver">next tutorial</a>.</p>
+
+          
+<nav id="subnav">
+  <ul>
+    <li class="previous">
+      
+        <a href="/tutorials/server/get-started">⟨&nbsp;&nbsp;起步課程：編寫命令列和伺服器端應用</a>
+      
+    </li>
+    <li class="next">
+      
+        <a href="/tutorials/server/httpserver">編寫 HTTP 伺服器端應用&nbsp;&nbsp;⟩</a>
+      
+    </li>
+  </ul>
+</nav>
+
+
+        </div>
+      </article>
+    </main>
+    <footer id="page-footer">
+    <div class="footer-section footer-main">
+      <a href="/" class="brand" title="Dart">
+        <img src="/assets/img/shared/dart/logo+text/horizontal/white.svg" alt="Dart" width="164px">
+      </a>
+      <div class="footer-social-links">
+        <a href="https://github.com/doggy8088/dart.tw" target="_blank" rel="noopener" title="GitHub" class="no-automatic-external">
+          <svg>
+            <use href="/assets/img/social/github.svg#github"></use>
+          </svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-section footer-tray">
+      <div class="footer-licenses">
+        參考中文內容需註明本站及連結作為出處，英文內容和範例程式碼均遵從源站授權協議。
+      </div>
+      <div class="footer-utility-links">
+        <ul>
+          <li><a href="/terms" title="使用條款">使用條款</a></li>
+          <li><a href="https://policies.google.com/privacy?hl=zh-TW" target="_blank" rel="noopener" title="隱私政策" class="no-automatic-external">隱私政策</a></li>
+          <li><a href="/security" title="Security philosophy and practices">Dart 程式碼安全說明</a></li>
+          <li><a href="https://flutter.tw/about" target="_blank">關於中文文件</a>
+          </li><li><a href="https://flutter.tw/disclaimer" target="_blank">免責條款</a>
+          </li><li><a href="https://dart.cn/" target="_blank">Dart 簡體中文文檔</a>
+        </li></ul>
+      </div>
+    </div>
+  </footer>
+
+  
+
+<script src="/assets/translator/js/translator.js"></script></body></html>

@@ -1,0 +1,1350 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Language" content="zh-cmn-Hans">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Google Tag Manager -->
+<!--  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':-->
+<!--  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],-->
+<!--  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=-->
+<!--  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);-->
+<!--  })(window,document,'script','dataLayer','GTM-5VSZM5J');</script>-->
+  <!-- End Google Tag Manager -->
+
+  <meta name="description" content="學習一下 package 和 pub 命令的檔案結構。">
+  <title>Package 的檔案結構 | Dart</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-28P0PYCRZ9"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-28P0PYCRZ9');
+  </script>
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?fa71f2474b82505e00203cf9956cf0bc";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+  <!-- Favicon / Touch Icons -->
+  <link rel="icon" sizes="64x64" href="/assets/shared/dart/icon/64.png">
+  <link href="/assets/img/touch-icon-iphone.png" rel="apple-touch-icon">
+  <link href="/assets/img/touch-icon-ipad.png" rel="apple-touch-icon" sizes="152x152">
+  <link href="/assets/img/touch-icon-iphone-retina.png" rel="apple-touch-icon" sizes="180x180">
+  <link href="/assets/img/touch-icon-ipad-retina.png" rel="apple-touch-icon" sizes="167x167">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@dart_lang">
+  <meta name="twitter:title" content="Package 的檔案結構">
+  <meta name="twitter:description" content="學習一下 package 和 pub 命令的檔案結構。">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Package 的檔案結構">
+  <meta property="og:description" content="學習一下 package 和 pub 命令的檔案結構。">
+  <meta property="og:url" content="https://dart.tw.gh.miniasp.com/tools/pub/package-layout.html">
+
+  <meta property="og:image" content="https://dart.tw.gh.miniasp.com/assets/shared/dart-logo-for-shares.png?2">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Display:wght@400&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons&amp;display=swap" rel="stylesheet">
+  <script src="https://cdn.staticfile.org/font-awesome/5.15.4/js/all.js" data-auto-replace-svg="nest">
+  </script>
+
+  <link rel="stylesheet" href="/assets/css/main.css?v=1693674404">
+  <script src="https://cdn.staticfile.org/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.staticfile.org/popper.js/1.16.1/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.staticfile.org/bootstrap/4.6.2/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!-- <script src="https://cdn.staticfile.org/js-cookie/3.0.5/js.cookie.min.js"
+          integrity="sha512-nlp9/l96/EpjYBx7EP7pGASVXNe80hGhYAUrjeXnu/fyF5Py0/RXav4BBNs7n5Hx1WFhOEOWSAVjGeC3oKxDVQ=="
+          crossorigin="anonymous"
+          referrerpolicy="no-referrer"></script> -->
+
+  <script src="/assets/js/vendor/code-prettify/prettify.js"></script>
+  <script src="/assets/js/vendor/code-prettify/lang-dart.js"></script>
+  <script src="/assets/js/vendor/code-prettify/lang-yaml.js"></script>
+  <script src="/assets/js/os-tabs.js?v=1693674404"></script>
+  <script src="/assets/js/utilities.js?v=1693674404"></script>
+  <script src="/assets/js/main.js?v=1693674404"></script>
+
+  <script>
+
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-122680122-5', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+
+ <link href="/assets/translator/css/translator.css" rel="stylesheet"></head>
+
+  <body class="default show_banner">
+    <section id="cookie-notice">
+  <div class="container">
+    <p>Google uses cookies to deliver its services, to personalize ads, and to 
+      analyze traffic. You can adjust your privacy controls anytime in your 
+      <a href="https://myaccount.google.com/data-and-personalization" target="_blank" rel="noopener" class="no-automatic-external">Google settings</a>. 
+      <a href="https://policies.google.com/technologies/cookies" target="_blank" rel="noopener" class="no-automatic-external">Learn more</a>.
+    </p>
+    <button id="cookie-consent" class="btn btn-primary">Okay</button>
+  </div>
+</section>
+
+    <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=G-28P0PYCRZ9"
+ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+    <header id="page-header" class="site-header">
+  <nav id="mainnav" class="site-header">
+  <div id="menu-toggle"><i class="material-icons">menu</i></div>
+  <a href="/" class="brand" title="Dart">
+    <img src="/assets/img/shared/dart/logo+text/horizontal/white.svg" alt="Dart">
+  </a>
+  <ul class="navbar">
+    <li>
+      <a href="/overview" class="nav-link">概覽</a>
+    </li>
+    <li class="mainnav__get-started">
+      <a href="/guides" class="nav-link
+         active">
+        <span>文件</span>
+      </a>
+    </li>
+    <li>
+      <a href="/community" class="nav-link">社群</a>
+    </li>
+    <li>
+      <a href="/#try-dart" class="nav-link">嘗試 Dart</a>
+    </li>
+    <li>
+      <a href="/get-dart" class="nav-link">獲取 Dart SDK</a>
+    </li>
+    <li class="searchfield">
+      <form action="/search" class="site-header__search form-inline" id="cse-search-box">
+        <input type="hidden" name="cx" value="011220921317074318178:_yy-tmb5t_i">
+        <input type="hidden" name="ie" value="UTF-8">
+        <input type="hidden" name="hl" value="en">
+        <input class="site-header__searchfield form-control search-field" type="search" name="q" id="q" autocomplete="off" placeholder="Search" aria-label="Search">
+      </form>
+    </li>
+  </ul>
+</nav>
+
+  
+</header>
+ <div class="banner">
+  <p class="banner__text">
+    Dart 3 已釋出！帶來了全新的
+    <a href="https://dart.tw.gh.miniasp.com/language/records" class="no-automatic-external">記錄型別 (records)</a>、
+    <a href="https://dart.tw.gh.miniasp.com/language/patterns" class="no-automatic-external">模式匹配 (patterns)</a>
+    以及 <a href="https://dart.tw.gh.miniasp.com/language/class-modifiers" class="no-automatic-external">型別修飾符 (class modifiers)</a>。
+    <br>
+    <!--<a href="https://medium.com/p/53f065a10635" class="no-automatic-external">Check out the blog post</a>!-->
+  </p>
+</div>
+ 
+
+    <div id="sidenav" class="">
+  <form action="/search/" class="site-header__search form-inline">
+    <input class="site-header__searchfield form-control search-field" type="search" name="q" id="q" autocomplete="off" placeholder="Search" aria-label="Search">
+  </form>
+
+  <div class="site-sidebar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a href="/overview" class="nav-link">概覽</a>
+      </li>
+      <li class="nav-item">
+        <a href="/community" class="nav-link">社群</a>
+      </li>
+      <li class="nav-item">
+        <a href="https://dartpad.dev" class="nav-link">嘗試 Dart</a>
+      </li>
+      <li class="nav-item">
+        <a href="/get-dart" class="nav-link">獲取 Dart SDK</a>
+      </li>
+      <li class="nav-item">
+        <a href="/guides" class="nav-link active">文件</a>
+      </li>
+    </ul>
+
+    <ul class="nav flex-column"><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-1" role="button" aria-expanded="false" aria-controls="sidenav-1">範例和課程</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-1">
+        <li class="nav-item">
+    <a class="nav-link" href="/tutorials">語言概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable" data-toggle="collapse" data-target="#sidenav-1-2" href="#sidenav-1-2" role="button" aria-expanded="true" aria-controls="sidenav-1-2">Codelabs
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-1-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/codelabs">Codelabs 列表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/dart-cheatsheet">Dart 速查表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/iterables">可迭代集合</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/async-await">Dart 非同步程式設計</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/null-safety">空安全</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-2" role="button" aria-expanded="false" aria-controls="sidenav-2">Dart 開發語言</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2">
+        <li class="nav-item">
+    <a class="nav-link" href="/language">介紹</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-2" href="#sidenav-2-2" role="button" aria-expanded="false" aria-controls="sidenav-2-2">基礎表示式
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/variables">變數</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/operators">運運算元</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/comments">註釋</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/metadata">註解</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/libraries">庫 &amp; 導庫</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/keywords">關鍵字</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-3" href="#sidenav-2-3" role="button" aria-expanded="false" aria-controls="sidenav-2-3">型別
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-3">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/built-in-types">基本型別</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/records">記錄 (Records)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/collections">集合 (Collections)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/generics">泛型 (Generics)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/typedefs">別名 (Typedefs)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/type-system">型別系統</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-4" href="#sidenav-2-4" role="button" aria-expanded="false" aria-controls="sidenav-2-4">模式匹配
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-4">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/patterns">概覽 &amp; 用法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/pattern-types">模式匹配型別</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/language/functions">函式方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-6" href="#sidenav-2-6" role="button" aria-expanded="false" aria-controls="sidenav-2-6">控制流
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-6">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/loops">迴圈</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/branches">分支</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/language/error-handling">錯誤處理</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-8" href="#sidenav-2-8" role="button" aria-expanded="false" aria-controls="sidenav-2-8">類 &amp; 物件
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-8">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/classes">類</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/constructors">構造方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/methods">成員方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/extend">繼承</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/mixins">混入 (Mixin)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/enums">列舉</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/extension-methods">擴充方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/callable-objects">可呼叫的物件</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-9" href="#sidenav-2-9" role="button" aria-expanded="false" aria-controls="sidenav-2-9">型別修飾符
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-9">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/class-modifiers">概覽 &amp; 用法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/class-modifiers-for-apis">API 維護者應該用的型別修飾符</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/modifier-reference">速查表</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-10" href="#sidenav-2-10" role="button" aria-expanded="false" aria-controls="sidenav-2-10">併發
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-10">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/async">非同步支援</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/concurrency">Isolates</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-11" href="#sidenav-2-11" role="button" aria-expanded="false" aria-controls="sidenav-2-11">Null safety
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-11">
+      <li class="nav-item">
+    <a class="nav-link" href="/null-safety">健全的空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/migration-guide">遷移到空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/understanding-null-safety">深入理解空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/unsound-null-safety">非健全的空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/faq">空安全常見問題和解答</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-3" role="button" aria-expanded="false" aria-controls="sidenav-3">高效指南 (Effective Dart)</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-3">
+        <li class="nav-item">
+    <a class="nav-link" href="/effective-dart">概述</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/style">程式碼風格</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/documentation">文件</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/usage">用法範例</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/design">API 設計</a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-4" role="button" aria-expanded="false" aria-controls="sidenav-4">核心函式庫</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-4">
+        <li class="nav-item">
+    <a class="nav-link" href="/guides/libraries">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/library-tour">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-4-3" href="#sidenav-4-3" role="button" aria-expanded="false" aria-controls="sidenav-4-3">介紹文章
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-4-3">
+      <li class="nav-item">
+    <a class="nav-link" href="/articles/libraries/creating-streams">建立 stream</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link active" data-toggle="collapse" href="#sidenav-5" role="button" aria-expanded="true" aria-controls="sidenav-5">Packages</a>
+
+      <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-5">
+        <li class="nav-item">
+    <a class="nav-link" href="/guides/packages">如何使用 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/useful-libraries">常用 package 介紹</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/create-packages">建立 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/publishing">釋出 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/writing-package-pages">設定 package 介紹頁</a>
+  </li><li class="nav-item">
+    <a class="nav-link active collapsable" data-toggle="collapse" data-target="#sidenav-5-6" href="#sidenav-5-6" role="button" aria-expanded="true" aria-controls="sidenav-5-6">Package 參考資料
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-5-6">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/pub/dependencies">依賴</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/glossary">術語表</a>
+  </li><li class="nav-item">
+    <a class="nav-link active" href="/tools/pub/package-layout">Package 檔案結構</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/environment-variables">設定環境變數</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/pubspec">Pubspec 檔案</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/troubleshoot">問題排查</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/verified-publishers">釋出者認證</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/versioning">版本管理</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-6" role="button" aria-expanded="false" aria-controls="sidenav-6">開發文件</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6">
+        <li class="nav-item">
+    <a class="nav-link" href="/codelabs/async-await">Futures、async 和 await</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/language/streams">Streams 介紹</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/json">使用 JSON</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/numbers">Dart 中的數字</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-5" href="#sidenav-6-5" role="button" aria-expanded="false" aria-controls="sidenav-6-5">與其他語言進行互動呼叫
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-5">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/c-interop">與 C 互調</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/objective-c-interop">與 Objective-C 和 Swift 互調</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/java-interop">與 Java 和 Kotlin 互調</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/web/js-interop">與 JavaScript 互調</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/guides/google-apis">Google APIs</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/multiplatform-apps">跨平臺應用</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-8" href="#sidenav-6-8" role="button" aria-expanded="false" aria-controls="sidenav-6-8">命令列和伺服器端應用
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-8">
+      <li class="nav-item">
+    <a class="nav-link" href="/server">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/get-started">起步課程</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/cmdline">命令列應用</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/fetch-data">從網路上獲取資料</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/httpserver">編寫 HTTP 伺服器端應用</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/server/libraries">庫和 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/server/google-cloud">Google Cloud</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-9" href="#sidenav-6-9" role="button" aria-expanded="false" aria-controls="sidenav-6-9">網頁端 (Web) 應用
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-9">
+      <li class="nav-item">
+    <a class="nav-link" href="/web">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/get-started">開始使用</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-9-3" href="#sidenav-6-9-3" role="button" aria-expanded="false" aria-controls="sidenav-6-9-3">底層 Web 程式設計
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-9-3">
+      <li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/low-level-html/connect-dart-html">Dart 與 HTML 關聯</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/low-level-html/add-elements">向 DOM 新增元素</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/low-level-html/remove-elements">移除 DOM 元素</a>
+  </li>
+  </ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/web/deployment">部署</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/web/libraries">常用 Web 函式庫和 package</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/guides/environment-declarations">環境變數宣告</a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-7" role="button" aria-expanded="false" aria-controls="sidenav-7">開發工具和使用技巧</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7">
+        <li class="nav-item">
+    <a class="nav-link" href="/tools">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-2" href="#sidenav-7-2" role="button" aria-expanded="false" aria-controls="sidenav-7-2">編輯器和除錯工具
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/jetbrains-plugin">使用 IntelliJ 和 Android Studio</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/vs-code">使用 VS Code</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/dart-devtools">Dart 開發者工具</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-2-4" href="#sidenav-7-2-4" role="button" aria-expanded="false" aria-controls="sidenav-7-2-4">線上執行 Dart 程式碼
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-2-4">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/dartpad">Overview</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dartpad/dartpad-best-practices">DartPad 課程</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dartpad/troubleshoot">DartPad 疑難解答</a>
+  </li>
+  </ul>
+  </li>
+</ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-3" href="#sidenav-7-3" role="button" aria-expanded="false" aria-controls="sidenav-7-3">命令列工具
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-3">
+      <li class="nav-item">
+    <a class="nav-link collapsable" data-toggle="collapse" data-target="#sidenav-7-3-1" href="#sidenav-7-3-1" role="button" aria-expanded="true" aria-controls="sidenav-7-3-1">Dart SDK
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-7-3-1">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/sdk">概覽</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-tool">dart 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-analyze">dart analyze 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-compile">dart compile 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-create">dart create 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-doc">dart doc 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-fix">dart fix 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-format">dart format 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-info">dart info 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/pub/cmd">dart pub 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-run">dart run 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-test">dart test 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dartaotruntime">dartaotruntime 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/experiment-flags">實驗性命令標記</a>
+  </li>
+  </ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable" data-toggle="collapse" data-target="#sidenav-7-3-2" href="#sidenav-7-3-2" role="button" aria-expanded="true" aria-controls="sidenav-7-3-2">其他的命令列工具
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-7-3-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/build_runner">build_runner 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/webdev">webdev 命令</a>
+  </li>
+  </ul>
+  </li>
+</ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-4" href="#sidenav-7-4" role="button" aria-expanded="false" aria-controls="sidenav-7-4">原始碼管理
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-4">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/language/formatting">程式碼格式化</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/private-files">不應提交的內容</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-5" href="#sidenav-7-5" role="button" aria-expanded="false" aria-controls="sidenav-7-5">靜態分析
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-5">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/analysis">自訂靜態分析</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/sound-problems">修復常見的型別問題</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/diagnostic-messages">診斷訊息</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/linter-rules">Linter 規則</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-6" href="#sidenav-7-6" role="button" aria-expanded="false" aria-controls="sidenav-7-6">測試和調優
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-6">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/testing">測試</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/web/debugging">除錯 Web 應用</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-8" role="button" aria-expanded="false" aria-controls="sidenav-8">資源</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-8">
+        <li class="nav-item">
+    <a class="nav-link" href="/resources/faq">常見問題</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/evolution">版本演變</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/spec">語言規範</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/resources/dart-3-migration">Dart 3 遷移指南</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-8-5" href="#sidenav-8-5" role="button" aria-expanded="false" aria-controls="sidenav-8-5">從其他平台轉向 Dart
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-8-5">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/language/coming-from/js-to-dart">從 JavaScript 到 Dart</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/coming-from/swift-to-dart">從 Swift 到 Dart</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/resources/glossary">詞彙表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/resources/books">書籍資源</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/resources/videos">影片資源</a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link " data-toggle="collapse" href="#sidenav-9" role="button" aria-expanded="true" aria-controls="sidenav-9">相關站點</a>
+
+      <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-9">
+        <li class="nav-item">
+    <a class="nav-link" href="https://api.dart.dev" target="_blank" rel="noopener">API 文件<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://medium.com/dartlang" target="_blank" rel="noopener">Dart 團隊官方部落格<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://dartpad.dev" target="_blank" rel="noopener">DartPad (線上編輯器)<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://flutter.tw" target="_blank" rel="noopener">Flutter<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://pub.dev" target="_blank" rel="noopener">Package 網站<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-10" role="button" aria-expanded="false" aria-controls="sidenav-10">關於 Dart 中文文件</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-10">
+        <li class="nav-item">
+    <a class="nav-link" href="https://flutter.tw/about/docs-cn" target="_blank" rel="noopener">關於本站<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://flutter.tw/disclaimer" target="_blank" rel="noopener">免責條款 (Disclaimer)<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li>
+</ul>
+    </li></ul>
+
+  </div>
+</div>
+
+    <main id="page-content">
+      
+
+
+
+
+
+
+
+<div id="site-toc--side" class="site-toc ">
+  <header class="site-toc__title">
+    目錄
+    
+  </header>
+  <ul id="toc" class="section-nav">
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#the-pubspec">The pubspec</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#license">LICENSE</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#readmemd">README.md</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#changelogmd">CHANGELOG.md</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#public-directories">Public directories</a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#public-libraries">Public libraries</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#public-tools">Public tools</a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#public-assets">Public assets</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#implementation-files">Implementation files</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#web-files">Web files</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#command-line-apps">Command-line apps</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#tests-and-benchmarks">Tests and benchmarks</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#documentation">Documentation</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#examples">Examples</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#internal-tools-and-scripts">Internal tools and scripts</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#project-specific-caching-for-tools">Project-specific caching for tools</a></li>
+</ul>
+  
+</div>
+
+
+      <article>
+        <div class="content">
+          
+
+          <div id="site-content-title">
+            <div id="page-github-links" class="btn-group" aria-label="Page GitHub links" role="group">
+  <a href="https://github.com/doggy8088/dart.tw/tree/master/src/tools/pub/package-layout.md" class="btn no-automatic-external" title="View page source" target="_blank" rel="noopener">
+    <i class="material-icons">description</i>
+  </a>
+  <a href="https://github.com/doggy8088/dart.tw/issues/new?template=1_page_issue.yml&amp;title=[PAGE ISSUE]: 'Package 的檔案結構'&amp;page-url=https://dart.tw.gh.miniasp.com/tools/pub/package-layout.html&amp;page-source=https://github.com/doggy8088/dart.tw/tree/master/src/tools/pub/package-layout.md" class="btn no-automatic-external" title="Report an issue with this page" target="_blank" rel="noopener">
+    <i class="material-icons">bug_report</i>
+  </a>
+</div>
+
+            
+            <h1 id="package-的檔案結構">Package 的檔案結構</h1>
+            </div>
+          
+
+
+
+
+
+
+
+<div id="site-toc--inline" class="site-toc toc-collapsible toc-collapsed">
+  <header class="site-toc__title">
+    目錄
+    
+      <span class="site-toc--inline__toggle toc-toggle-down"><i class="material-icons">keyboard_arrow_down</i></span>
+      <span class="site-toc--inline__toggle toc-toggle-up"><i class="material-icons">keyboard_arrow_up</i></span>
+    
+  </header>
+  <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#the-pubspec">The pubspec</a></li>
+<li class="toc-entry toc-h2"><a href="#license">LICENSE</a></li>
+<li class="toc-entry toc-h2"><a href="#readmemd">README.md</a></li>
+<li class="toc-entry toc-h2"><a href="#changelogmd">CHANGELOG.md</a></li>
+<li class="toc-entry toc-h2"><a href="#public-directories">Public directories</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#public-libraries">Public libraries</a></li>
+<li class="toc-entry toc-h3"><a href="#public-tools">Public tools</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#public-assets">Public assets</a></li>
+<li class="toc-entry toc-h2"><a href="#implementation-files">Implementation files</a></li>
+<li class="toc-entry toc-h2"><a href="#web-files">Web files</a></li>
+<li class="toc-entry toc-h2"><a href="#command-line-apps">Command-line apps</a></li>
+<li class="toc-entry toc-h2"><a href="#tests-and-benchmarks">Tests and benchmarks</a></li>
+<li class="toc-entry toc-h2"><a href="#documentation">Documentation</a></li>
+<li class="toc-entry toc-h2"><a href="#examples">Examples</a></li>
+<li class="toc-entry toc-h2"><a href="#internal-tools-and-scripts">Internal tools and scripts</a></li>
+<li class="toc-entry toc-h2"><a href="#project-specific-caching-for-tools">Project-specific caching for tools</a></li>
+</ul>
+  
+    <span class="site-toc--inline__toggle toc-toggle-more-items"><i class="material-icons">more_horiz</i></span>
+  
+</div>
+
+
+          <p>When you build a <a href="/guides/packages">pub package</a>,
+we encourage you to follow the conventions that this page describes.
+They describe how you organize the files and directories within your
+package, and how to name things.</p>
+
+<aside class="alert alert-info" role="alert">
+  <p><img src="/assets/img/shared/flutter/icon/64.png" width="24" alt="Flutter logo"> <strong>與 Flutter 相關的備註:</strong>
+  Flutter apps can use custom directories for their assets.
+  For details, see
+  <a href="https://flutter.tw/development/ui/assets-and-images">Adding assets and images</a>
+  on the <a href="https://flutter.tw">Flutter website.</a></p>
+</aside>
+
+<p>Here’s what a complete package (named <code class="language-plaintext highlighter-rouge">enchilada</code>)
+that uses every corner of these guidelines
+might look like:</p>
+
+<pre><code class="language-nocode">enchilada/
+  .dart_tool/ *
+  pubspec.yaml
+  pubspec.lock **
+  LICENSE
+  README.md
+  CHANGELOG.md
+  benchmark/
+    make_lunch.dart
+  bin/
+    enchilada
+  doc/
+    api/ ***
+    getting_started.md
+  example/
+    main.dart
+  lib/
+    enchilada.dart
+    tortilla.dart
+    guacamole.css
+    src/
+      beans.dart
+      queso.dart
+  test/
+    enchilada_test.dart
+    tortilla_test.dart
+  tool/
+    generate_docs.dart
+  web/
+    index.html
+    main.dart
+    style.css
+</code></pre>
+
+<p>* The <code class="language-plaintext highlighter-rouge">.dart_tool/</code> directory exists after you’ve run <code class="language-plaintext highlighter-rouge">dart pub get</code>.
+   Don’t check it into source control.
+   To learn more, see 
+   <a href="#project-specific-caching-for-tools">Project specific caching for tools</a>.</p>
+
+<p>** The <code class="language-plaintext highlighter-rouge">pubspec.lock</code> file exists after you’ve run <code class="language-plaintext highlighter-rouge">dart pub get</code>.
+    Leave it out of source control unless your package is an
+    <a href="/tools/pub/glossary#application-package">application package</a>.</p>
+
+<p>*** The <code class="language-plaintext highlighter-rouge">doc/api</code> directory exists locally after you’ve run
+     <a href="/tools/dart-doc"><code class="language-plaintext highlighter-rouge">dart doc</code></a>.
+     Don’t check the <code class="language-plaintext highlighter-rouge">api</code> directory into source control.</p>
+
+<h2 id="the-pubspec">
+<a class="anchor" href="#the-pubspec" aria-hidden="true"><span class="octicon octicon-link"></span></a>The pubspec</h2>
+
+<pre><code class="language-nocode">enchilada/
+  pubspec.yaml
+  pubspec.lock
+</code></pre>
+
+<p>Every package has a <a href="/tools/pub/pubspec"><em>pubspec</em></a>, a file named
+<code class="language-plaintext highlighter-rouge">pubspec.yaml</code>, in the root directory of the package. That’s what <em>makes</em> it a
+package.</p>
+
+<p>Running <a href="/tools/pub/cmd/pub-get"><code class="language-plaintext highlighter-rouge">dart pub get</code></a>,
+<a href="/tools/pub/cmd/pub-upgrade"><code class="language-plaintext highlighter-rouge">dart pub upgrade</code></a>, or
+<a href="/tools/pub/cmd/pub-downgrade"><code class="language-plaintext highlighter-rouge">dart pub downgrade</code></a> on the package
+creates a <strong>lockfile</strong>, named <code class="language-plaintext highlighter-rouge">pubspec.lock</code>. 
+If your package is an 
+<a href="/tools/pub/glossary#application-package">application package</a>, 
+check the lockfile into source control. Otherwise, don’t.</p>
+
+<p>For more information, see the <a href="/tools/pub/pubspec">pubspec page</a>.</p>
+
+<h2 id="license">
+<a class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>LICENSE</h2>
+
+<pre><code class="language-nocode">enchilada/
+  LICENSE
+</code></pre>
+
+<p>If you’re publishing your package, include a license file named <code class="language-plaintext highlighter-rouge">LICENSE</code>.
+We recommend using an <a href="https://opensource.org/licenses">OSI-approved license</a>
+such as <a href="https://opensource.org/licenses/BSD-3-Clause">BSD-3-Clause,</a>
+so that others can reuse your work.</p>
+
+<h2 id="readmemd">
+<a class="anchor" href="#readmemd" aria-hidden="true"><span class="octicon octicon-link"></span></a>README.md</h2>
+
+<pre><code class="language-nocode">enchilada/
+  README.md
+</code></pre>
+
+<p>One file that’s very common in open source is a <em>README</em> file that
+describes the project. This is especially important in pub. When you upload
+to the <a href="https://pub.dev">pub.dev site,</a> your <code class="language-plaintext highlighter-rouge">README.md</code> file
+is shown—rendered as <a href="https://pub.dev/packages/markdown">Markdown</a>—on the page for your package. 
+This is the perfect place to introduce people to your code.</p>
+
+<p>For guidance on how to write a great README, see
+<a href="/guides/libraries/writing-package-pages">Writing package pages</a>.</p>
+
+<h2 id="changelogmd">
+<a class="anchor" href="#changelogmd" aria-hidden="true"><span class="octicon octicon-link"></span></a>CHANGELOG.md</h2>
+
+<pre><code class="language-nocode">enchilada/
+  CHANGELOG.md
+</code></pre>
+
+<p>Include a <code class="language-plaintext highlighter-rouge">CHANGELOG.md</code> file that has a section for
+each release of your package,
+with notes to help users of your package upgrade.
+Users of your package often review the changelog
+to discover bug fixes and new features,
+or to determine how much effort it will take to upgrade
+to the latest version of your package.</p>
+
+<p>To support tools that parse <code class="language-plaintext highlighter-rouge">CHANGELOG.md</code>,
+use the following format:</p>
+
+<ul>
+  <li>Each version has its own section with a heading.</li>
+  <li>The version headings are either all level 1 or all level 2.</li>
+  <li>The version heading text contains a package version number,
+optionally prefixed with “v”.</li>
+</ul>
+
+<p>When you upload your package to the <a href="https://pub.dev">pub.dev site,</a>
+your package’s <code class="language-plaintext highlighter-rouge">CHANGELOG.md</code> file (if any)
+appears in the <strong>Changelog</strong> tab, rendered as <a href="https://pub.dev/packages/markdown">Markdown.</a></p>
+
+<p>Here’s an example of a <code class="language-plaintext highlighter-rouge">CHANGELOG.md</code> file.
+As the example shows, you can add subsections.</p>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gh"># 1.0.1</span>
+<span class="p">
+*</span> Fixed missing exclamation mark in <span class="sb">`sayHi()`</span> method.
+
+<span class="gh"># 1.0.0</span>
+<span class="p">
+*</span> <span class="gs">**Breaking change:**</span> Removed deprecated <span class="sb">`sayHello()`</span> method.
+<span class="p">*</span> Initial stable release.
+
+<span class="gu">## Upgrading from 0.1.x</span>
+
+Change all calls to <span class="sb">`sayHello()`</span> to instead be to <span class="sb">`sayHi()`</span>.
+
+<span class="gh"># 0.1.1</span>
+<span class="p">
+*</span> Deprecated the <span class="sb">`sayHello()`</span> method; use <span class="sb">`sayHi()`</span> instead.
+
+<span class="gh"># 0.1.0</span>
+<span class="p">
+*</span> Initial development release.
+</code></pre></div></div>
+
+<h2 id="public-directories">
+<a class="anchor" href="#public-directories" aria-hidden="true"><span class="octicon octicon-link"></span></a>Public directories</h2>
+
+<p>Two directories in your package are public to other packages: <code class="language-plaintext highlighter-rouge">lib</code> and
+<code class="language-plaintext highlighter-rouge">bin</code>. You place <a href="#public-libraries">public libraries</a> in <code class="language-plaintext highlighter-rouge">lib</code> and
+<a href="#public-tools">public tools</a> in <code class="language-plaintext highlighter-rouge">bin</code>.</p>
+
+<h3 id="public-libraries">
+<a class="anchor" href="#public-libraries" aria-hidden="true"><span class="octicon octicon-link"></span></a>Public libraries</h3>
+
+<p>The following directory structure shows the <code class="language-plaintext highlighter-rouge">lib</code> portion of enchilada:</p>
+
+<pre><code class="language-nocode">enchilada/
+  lib/
+    enchilada.dart
+    tortilla.dart
+</code></pre>
+
+<p>Many <a href="/tools/pub/glossary#package">packages</a>
+define Dart libraries that other packages can import and use.
+These public Dart library files go inside a directory called <code class="language-plaintext highlighter-rouge">lib</code>.</p>
+
+<p>Most packages define a single library that users can import. In that case,
+its name should usually be the same as the name of the package, like
+<code class="language-plaintext highlighter-rouge">enchilada.dart</code> in the example here. But you can also define other
+libraries with whatever names make sense for your package.</p>
+
+<p>When you do, users can import these libraries using the name of the
+package and the library file, like so:</p>
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="s">'package:enchilada/enchilada.dart'</span><span class="o">;</span>
+<span class="kn">import</span> <span class="s">'package:enchilada/tortilla.dart'</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p>If you want to organize your public libraries, you can also create
+subdirectories inside <code class="language-plaintext highlighter-rouge">lib</code>. If you do that, users will specify that path
+when they import it. Say you have the following file hierarchy:</p>
+
+<pre><code class="language-nocode">enchilada/
+  lib/
+    some/
+      path/
+        olives.dart
+</code></pre>
+
+<p>Users import <code class="language-plaintext highlighter-rouge">olives.dart</code> as follows:</p>
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="s">'package:enchilada/some/path/olives.dart'</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p>Note that only <em>libraries</em> should be in <code class="language-plaintext highlighter-rouge">lib</code>.
+<em>Entrypoints</em>—Dart scripts with a <code class="language-plaintext highlighter-rouge">main()</code> function—cannot
+go in <code class="language-plaintext highlighter-rouge">lib</code>. If you place a Dart script inside <code class="language-plaintext highlighter-rouge">lib</code>,
+you will discover that any <code class="language-plaintext highlighter-rouge">package:</code> imports it contains don’t
+resolve. Instead, your entrypoints should go in the appropriate
+<a href="/tools/pub/glossary#entrypoint-directory">entrypoint directory</a>.</p>
+
+<aside class="alert alert-info" role="alert">
+  <p><i class="material-icons" aria-hidden="true">info</i>
+  <strong>Tip for web apps:</strong>
+  For the best performance when developing web apps,
+  put <a href="#implementation-files">implementation files</a> under <code class="language-plaintext highlighter-rouge">/lib/src</code>,
+  instead of elsewhere under <code class="language-plaintext highlighter-rouge">/lib</code>.
+  Also, avoid imports of <code>package:<em>package_name</em>/src/...</code>.</p>
+</aside>
+
+<p>For more information on packages, see
+<a href="/guides/libraries/create-packages">Creating packages</a>.</p>
+
+<h3 id="public-tools">
+<a class="anchor" href="#public-tools" aria-hidden="true"><span class="octicon octicon-link"></span></a>Public tools</h3>
+
+<p>Dart scripts placed inside of the <code class="language-plaintext highlighter-rouge">bin</code> directory are public. If you’re
+inside the directory of a package, you can use
+<a href="/tools/dart-run"><code class="language-plaintext highlighter-rouge">dart run</code></a> to run scripts from the <code class="language-plaintext highlighter-rouge">bin</code>
+directories of any other package the package depends on. From <em>any</em>
+directory, you can <a href="/tools/pub/cmd/pub-global#running-a-script">run scripts</a>
+from packages that you have activated using
+<a href="/tools/pub/cmd/pub-global#activating-a-package"><code class="language-plaintext highlighter-rouge">dart pub global activate</code></a>.</p>
+
+<p>If you intend for your package to be depended on,
+and you want your scripts to be private to your package, place them
+in the top-level <code class="language-plaintext highlighter-rouge">tool</code> directory.
+If you don’t intend for your package to be depended on, you can leave your
+scripts in <code class="language-plaintext highlighter-rouge">bin</code>.</p>
+
+<h2 id="public-assets">
+<a class="anchor" href="#public-assets" aria-hidden="true"><span class="octicon octicon-link"></span></a>Public assets</h2>
+
+<pre><code class="language-nocode">enchilada/
+  lib/
+    guacamole.css
+</code></pre>
+
+<p>While most packages exist to let you reuse Dart code, you can also
+reuse other kinds of content. For example, a package for
+<a href="https://getbootstrap.com/">Bootstrap</a> might include a number of CSS files
+for consumers of the package to use.</p>
+
+<p>These go in the top-level <code class="language-plaintext highlighter-rouge">lib</code> directory. You can put any kind of file
+in there and organize it with subdirectories however you like.</p>
+
+<h2 id="implementation-files">
+<a class="anchor" href="#implementation-files" aria-hidden="true"><span class="octicon octicon-link"></span></a>Implementation files</h2>
+
+<pre><code class="language-nocode">enchilada/
+  lib/
+    src/
+      beans.dart
+      queso.dart
+</code></pre>
+
+<p>The libraries inside <code class="language-plaintext highlighter-rouge">lib</code> are publicly visible: other packages are free to
+import them. But much of a package’s code is internal implementation libraries
+that should only be imported and used by the package itself. Those go inside a
+subdirectory of <code class="language-plaintext highlighter-rouge">lib</code> called <code class="language-plaintext highlighter-rouge">src</code>. You can create subdirectories in there if
+it helps you organize things.</p>
+
+<p>You are free to import libraries that live in <code class="language-plaintext highlighter-rouge">lib/src</code> from within other Dart
+code in the <em>same</em> package (like other libraries in <code class="language-plaintext highlighter-rouge">lib</code>, scripts in <code class="language-plaintext highlighter-rouge">bin</code>, and
+tests) but you should never import from another package’s <code class="language-plaintext highlighter-rouge">lib/src</code> directory.
+Those files are not part of the package’s public API, and they might change in
+ways that could break your code.</p>
+
+<p>How you import libraries from within your own package
+depends on the locations of the libraries:</p>
+
+<ul>
+  <li>When <a href="/effective-dart/usage#dont-allow-an-import-path-to-reach-into-or-out-of-lib">reaching inside or outside <code class="language-plaintext highlighter-rouge">lib/</code></a>
+(lint: <a href="/tools/linter-rules/avoid_relative_lib_imports"><em>avoid_relative_lib_imports</em></a>),
+use <code class="language-plaintext highlighter-rouge">package:</code>.</li>
+  <li>Otherwise, <a href="/effective-dart/usage#prefer-relative-import-paths">prefer relative imports</a>.</li>
+</ul>
+
+<p>For example:</p>
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// When importing from lib/beans.dart</span>
+<span class="kn">import</span> <span class="s">'src/beans.dart'</span><span class="o">;</span>
+
+<span class="c1">// When importing from test/beans_test.dart</span>
+<span class="kn">import</span> <span class="s">'package:enchilada/src/beans.dart'</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p>The name you use here (in this case <code class="language-plaintext highlighter-rouge">enchilada</code>) is the name you specify for
+your package in its <a href="/tools/pub/pubspec">pubspec</a>.</p>
+
+<h2 id="web-files">
+<a class="anchor" href="#web-files" aria-hidden="true"><span class="octicon octicon-link"></span></a>Web files</h2>
+
+<pre><code class="language-nocode">enchilada/
+  web/
+    index.html
+    main.dart
+    style.css
+</code></pre>
+
+<p>For web packages, place entrypoint code—Dart scripts that include
+<code class="language-plaintext highlighter-rouge">main()</code> and supporting files, such as CSS or HTML—under <code class="language-plaintext highlighter-rouge">web</code>.
+You can organize the <code class="language-plaintext highlighter-rouge">web</code> directory into subdirectories if you like.</p>
+
+<p>Put <a href="#public-libraries">library code</a> under <code class="language-plaintext highlighter-rouge">lib</code>.
+If the library isn’t imported directly by code under <code class="language-plaintext highlighter-rouge">web</code>, or by
+another package, put it under <code class="language-plaintext highlighter-rouge">lib/src</code>.
+Put <a href="#examples">web-based examples</a> under <code class="language-plaintext highlighter-rouge">example</code>. See
+<a href="#public-assets">Public assets</a> for tips on where to put assets,
+such as images.</p>
+
+<h2 id="command-line-apps">
+<a class="anchor" href="#command-line-apps" aria-hidden="true"><span class="octicon octicon-link"></span></a>Command-line apps</h2>
+
+<pre><code class="language-nocode">enchilada/
+  bin/
+    enchilada
+</code></pre>
+
+<p>Some packages define programs that can be run directly from the command
+line. These can be shell scripts or any other scripting language,
+including Dart.</p>
+
+<p>If your package defines code like this, put it in a directory named <code class="language-plaintext highlighter-rouge">bin</code>.
+You can run that script from anywhere on the command line, if you set it up
+using
+<a href="/tools/pub/cmd/pub-global#running-a-script-from-your-path"><code class="language-plaintext highlighter-rouge">dart pub global</code></a>.</p>
+
+<h2 id="tests-and-benchmarks">
+<a class="anchor" href="#tests-and-benchmarks" aria-hidden="true"><span class="octicon octicon-link"></span></a>Tests and benchmarks</h2>
+
+<pre><code class="language-nocode">enchilada/
+  test/
+    enchilada_test.dart
+    tortilla_test.dart
+</code></pre>
+
+<p>Every package should have tests. With pub, the convention is
+that these go in a <code class="language-plaintext highlighter-rouge">test</code> directory (or some directory inside it if you like)
+and have <code class="language-plaintext highlighter-rouge">_test</code> at the end of their file names.</p>
+
+<p>Typically, these use the <a href="https://pub.dev/packages/test">test</a>
+package.</p>
+
+<pre><code class="language-nocode">enchilada/
+  benchmark/
+    make_lunch.dart
+</code></pre>
+
+<p>Packages that have performance critical code may also include <em>benchmarks</em>.
+These test the API not for correctness but for speed (or memory use, or maybe
+other empirical metrics).</p>
+
+<h2 id="documentation">
+<a class="anchor" href="#documentation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Documentation</h2>
+
+<pre><code class="language-nocode">enchilada/
+  doc/
+    api/
+    getting_started.md
+</code></pre>
+
+<p>If you have code and tests, the next piece you might want
+is good documentation. That goes inside a directory named <code class="language-plaintext highlighter-rouge">doc</code>.</p>
+
+<p>When you run the <a href="/tools/dart-doc"><code class="language-plaintext highlighter-rouge">dart doc</code></a>
+tool, it places the API documentation, by default, under <code class="language-plaintext highlighter-rouge">doc/api</code>.
+Since the API documentation is generated from the source code,
+you should not place it under source control.</p>
+
+<p>Other than the generated <code class="language-plaintext highlighter-rouge">api</code>, we don’t
+have any guidelines about format or organization of the documentation
+that you author.  Use whatever markup format that you prefer.</p>
+
+<h2 id="examples">
+<a class="anchor" href="#examples" aria-hidden="true"><span class="octicon octicon-link"></span></a>Examples</h2>
+
+<pre><code class="language-nocode">enchilada/
+  example/
+    main.dart
+</code></pre>
+
+<p>Code, tests, docs, what else
+could your users want? Standalone example programs that use your package, of
+course! Those go inside the <code class="language-plaintext highlighter-rouge">example</code> directory. If the examples are complex
+and use multiple files, consider making a directory for each example. Otherwise,
+you can place each one right inside <code class="language-plaintext highlighter-rouge">example</code>.</p>
+
+<p>In your examples, use <code class="language-plaintext highlighter-rouge">package:</code> to import files from your own package.
+That ensures that the example code in your package looks exactly
+like code outside of your package would look.</p>
+
+<p>If you might publish your package,
+consider creating an example file with one of the following names:</p>
+
+<ul>
+  <li><code>example/example[.md]</code></li>
+  <li><code>example[/lib]/main.dart</code></li>
+  <li><code>example[/lib]/<em>package_name</em>.dart</code></li>
+  <li><code>example[/lib]/<em>package_name</em>_example.dart</code></li>
+  <li><code>example[/lib]/example.dart</code></li>
+  <li><code>example/README[.md]</code></li>
+</ul>
+
+<p>When you publish a package that contains one or more of the above files,
+the pub.dev site creates an <strong>Example</strong> tab to display the first file it finds
+(searching in the order shown in the list above).
+For example, if your package has many files under its <code class="language-plaintext highlighter-rouge">example</code> directory,
+including a file named <code class="language-plaintext highlighter-rouge">README.md</code>,
+then your package’s Example tab displays the contents of <code class="language-plaintext highlighter-rouge">example/README.md</code>
+(parsed as <a href="https://pub.dev/packages/markdown">Markdown.)</a></p>
+
+<h2 id="internal-tools-and-scripts">
+<a class="anchor" href="#internal-tools-and-scripts" aria-hidden="true"><span class="octicon octicon-link"></span></a>Internal tools and scripts</h2>
+
+<pre><code class="language-nocode">enchilada/
+  tool/
+    generate_docs.dart
+</code></pre>
+
+<p>Mature packages often have little helper scripts and programs that people
+run while developing the package itself. Think things like test runners,
+documentation generators, or other bits of automation.</p>
+
+<p>Unlike the scripts in <code class="language-plaintext highlighter-rouge">bin</code>, these are <em>not</em> for external users of the package.
+If you have any of these, place them in a directory called <code class="language-plaintext highlighter-rouge">tool</code>.</p>
+
+<h2 id="project-specific-caching-for-tools">
+<a class="anchor" href="#project-specific-caching-for-tools" aria-hidden="true"><span class="octicon octicon-link"></span></a>Project-specific caching for tools</h2>
+
+<aside class="alert alert-info" role="alert">
+  <p><i class="material-icons" aria-hidden="true">info</i>
+  Do not check the <code class="language-plaintext highlighter-rouge">.dart_tool/</code> directory into source control.
+  Instead, keep <code class="language-plaintext highlighter-rouge">.dart_tool/</code> in <code class="language-plaintext highlighter-rouge">.gitignore</code>.</p>
+</aside>
+
+<p>The <code class="language-plaintext highlighter-rouge">.dart_tool/</code> directory is created when you run <code class="language-plaintext highlighter-rouge">dart pub get</code>
+and might be deleted at any time. Various tools use this directory
+for caching files specific to your project and/or local machine.
+The <code class="language-plaintext highlighter-rouge">.dart_tool/</code> directory should never be checked into
+source control, or copied between machines.</p>
+
+<p>It is also generally safe to delete the <code class="language-plaintext highlighter-rouge">.dart_tool/</code> directory,
+though some tools might need recompute the cached information.</p>
+
+<p><strong>Example:</strong> The <a href="/tools/pub/cmd/pub-get"><code class="language-plaintext highlighter-rouge">dart pub get</code></a> tool
+will download and extract dependencies to a global <code class="language-plaintext highlighter-rouge">$PUB_CACHE</code> directory,
+and then write a <code class="language-plaintext highlighter-rouge">.dart_tool/package_config.json</code> file mapping <em>package names</em>
+to directories in the global <code class="language-plaintext highlighter-rouge">$PUB_CACHE</code> directory.
+The <code class="language-plaintext highlighter-rouge">.dart_tool/package_config.json</code> file is used by other tools,
+such as the analyzer and compilers when they need to resolve statements
+such as <code class="language-plaintext highlighter-rouge">import 'package:foo/foo.dart'</code>.</p>
+
+<p>When developing a tool that needs project-specific caching, 
+you might consider using the <code class="language-plaintext highlighter-rouge">.dart_tool/</code> directory 
+because most users already ignore it with <code class="language-plaintext highlighter-rouge">.gitignore</code>.
+When caching files for your tool in a user’s <code class="language-plaintext highlighter-rouge">.dart_tool/</code> directory,
+you should use a unique subdirectory. To avoid collisions,
+subdirectories of the form <code class="language-plaintext highlighter-rouge">.dart_tool/&lt;tool_package_name&gt;/</code>
+are reserved for the package named <code class="language-plaintext highlighter-rouge">&lt;tool_package_name&gt;</code>.
+If your tool isn’t distributed through the <a href="https://pub.dev">pub.dev site,</a>
+you might consider publishing a placeholder package in order to 
+reserve the unique name.</p>
+
+<p><strong>Example:</strong> <a href="https://pub.dev/packages/build"><code class="language-plaintext highlighter-rouge">package:build</code></a> provides a
+framework for writing code generation steps.
+When running these build steps, files are cached in <code class="language-plaintext highlighter-rouge">.dart_tool/build/</code>.
+This helps speed-up future re-runs of the build steps.</p>
+
+<aside class="alert alert-warning" role="alert">
+  <p><i class="material-icons" aria-hidden="true">report_problem</i> <strong>請注意:</strong>
+  When developing a tool that wants to cache files in <code class="language-plaintext highlighter-rouge">.dart_tool/</code>,
+  ensure the following:</p>
+
+  <ul>
+    <li>You are using a subdirectory named after a package you own
+(<code class="language-plaintext highlighter-rouge">.dart_tool/&lt;my_tool_package_name&gt;/</code>)</li>
+    <li>Your files don’t belong under source control, 
+as <code class="language-plaintext highlighter-rouge">.dart_tool/</code> is generally listed in <code class="language-plaintext highlighter-rouge">.gitignore</code>
+</li>
+  </ul>
+</aside>
+
+
+          
+
+        </div>
+      </article>
+    </main>
+    <footer id="page-footer">
+    <div class="footer-section footer-main">
+      <a href="/" class="brand" title="Dart">
+        <img src="/assets/img/shared/dart/logo+text/horizontal/white.svg" alt="Dart" width="164px">
+      </a>
+      <div class="footer-social-links">
+        <a href="https://github.com/doggy8088/dart.tw" target="_blank" rel="noopener" title="GitHub" class="no-automatic-external">
+          <svg>
+            <use href="/assets/img/social/github.svg#github"></use>
+          </svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-section footer-tray">
+      <div class="footer-licenses">
+        參考中文內容需註明本站及連結作為出處，英文內容和範例程式碼均遵從源站授權協議。
+      </div>
+      <div class="footer-utility-links">
+        <ul>
+          <li><a href="/terms" title="使用條款">使用條款</a></li>
+          <li><a href="https://policies.google.com/privacy?hl=zh-TW" target="_blank" rel="noopener" title="隱私政策" class="no-automatic-external">隱私政策</a></li>
+          <li><a href="/security" title="Security philosophy and practices">Dart 程式碼安全說明</a></li>
+          <li><a href="https://flutter.tw/about" target="_blank">關於中文文件</a>
+          </li><li><a href="https://flutter.tw/disclaimer" target="_blank">免責條款</a>
+          </li><li><a href="https://dart.cn/" target="_blank">Dart 簡體中文文檔</a>
+        </li></ul>
+      </div>
+    </div>
+  </footer>
+
+  
+
+<script src="/assets/translator/js/translator.js"></script></body></html>

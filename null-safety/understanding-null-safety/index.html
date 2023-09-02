@@ -1,0 +1,2317 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Language" content="zh-cmn-Hans">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Google Tag Manager -->
+<!--  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':-->
+<!--  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],-->
+<!--  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=-->
+<!--  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);-->
+<!--  })(window,document,'script','dataLayer','GTM-5VSZM5J');</script>-->
+  <!-- End Google Tag Manager -->
+
+  <meta name="description" content="深入瞭解 Dart 語言及其依賴在空安全方面的改動。">
+  <title>深入理解空安全 | Dart</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-28P0PYCRZ9"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-28P0PYCRZ9');
+  </script>
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?fa71f2474b82505e00203cf9956cf0bc";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+  <!-- Favicon / Touch Icons -->
+  <link rel="icon" sizes="64x64" href="/assets/shared/dart/icon/64.png">
+  <link href="/assets/img/touch-icon-iphone.png" rel="apple-touch-icon">
+  <link href="/assets/img/touch-icon-ipad.png" rel="apple-touch-icon" sizes="152x152">
+  <link href="/assets/img/touch-icon-iphone-retina.png" rel="apple-touch-icon" sizes="180x180">
+  <link href="/assets/img/touch-icon-ipad-retina.png" rel="apple-touch-icon" sizes="167x167">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@dart_lang">
+  <meta name="twitter:title" content="深入理解空安全">
+  <meta name="twitter:description" content="深入瞭解 Dart 語言及其依賴在空安全方面的改動。">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="深入理解空安全">
+  <meta property="og:description" content="深入瞭解 Dart 語言及其依賴在空安全方面的改動。">
+  <meta property="og:url" content="https://dart.tw.gh.miniasp.com/null-safety/understanding-null-safety/">
+
+  <meta property="og:image" content="https://dart.tw.gh.miniasp.com/assets/shared/dart-logo-for-shares.png?2">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Display:wght@400&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons&amp;display=swap" rel="stylesheet">
+  <script src="https://cdn.staticfile.org/font-awesome/5.15.4/js/all.js" data-auto-replace-svg="nest">
+  </script>
+
+  <link rel="stylesheet" href="/assets/css/main.css?v=1693674404">
+  <script src="https://cdn.staticfile.org/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.staticfile.org/popper.js/1.16.1/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.staticfile.org/bootstrap/4.6.2/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!-- <script src="https://cdn.staticfile.org/js-cookie/3.0.5/js.cookie.min.js"
+          integrity="sha512-nlp9/l96/EpjYBx7EP7pGASVXNe80hGhYAUrjeXnu/fyF5Py0/RXav4BBNs7n5Hx1WFhOEOWSAVjGeC3oKxDVQ=="
+          crossorigin="anonymous"
+          referrerpolicy="no-referrer"></script> -->
+
+  <script src="/assets/js/vendor/code-prettify/prettify.js"></script>
+  <script src="/assets/js/vendor/code-prettify/lang-dart.js"></script>
+  <script src="/assets/js/vendor/code-prettify/lang-yaml.js"></script>
+  <script src="/assets/js/os-tabs.js?v=1693674404"></script>
+  <script src="/assets/js/utilities.js?v=1693674404"></script>
+  <script src="/assets/js/main.js?v=1693674404"></script>
+
+  <script>
+
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-122680122-5', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+
+ <link href="/assets/translator/css/translator.css" rel="stylesheet"></head>
+
+  <body class="default show_banner">
+    <section id="cookie-notice">
+  <div class="container">
+    <p>Google uses cookies to deliver its services, to personalize ads, and to 
+      analyze traffic. You can adjust your privacy controls anytime in your 
+      <a href="https://myaccount.google.com/data-and-personalization" target="_blank" rel="noopener" class="no-automatic-external">Google settings</a>. 
+      <a href="https://policies.google.com/technologies/cookies" target="_blank" rel="noopener" class="no-automatic-external">Learn more</a>.
+    </p>
+    <button id="cookie-consent" class="btn btn-primary">Okay</button>
+  </div>
+</section>
+
+    <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=G-28P0PYCRZ9"
+ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+    <header id="page-header" class="site-header">
+  <nav id="mainnav" class="site-header">
+  <div id="menu-toggle"><i class="material-icons">menu</i></div>
+  <a href="/" class="brand" title="Dart">
+    <img src="/assets/img/shared/dart/logo+text/horizontal/white.svg" alt="Dart">
+  </a>
+  <ul class="navbar">
+    <li>
+      <a href="/overview" class="nav-link">概覽</a>
+    </li>
+    <li class="mainnav__get-started">
+      <a href="/guides" class="nav-link
+        ">
+        <span>文件</span>
+      </a>
+    </li>
+    <li>
+      <a href="/community" class="nav-link">社群</a>
+    </li>
+    <li>
+      <a href="/#try-dart" class="nav-link">嘗試 Dart</a>
+    </li>
+    <li>
+      <a href="/get-dart" class="nav-link">獲取 Dart SDK</a>
+    </li>
+    <li class="searchfield">
+      <form action="/search" class="site-header__search form-inline" id="cse-search-box">
+        <input type="hidden" name="cx" value="011220921317074318178:_yy-tmb5t_i">
+        <input type="hidden" name="ie" value="UTF-8">
+        <input type="hidden" name="hl" value="en">
+        <input class="site-header__searchfield form-control search-field" type="search" name="q" id="q" autocomplete="off" placeholder="Search" aria-label="Search">
+      </form>
+    </li>
+  </ul>
+</nav>
+
+  
+</header>
+ <div class="banner">
+  <p class="banner__text">
+    Dart 3 已釋出！帶來了全新的
+    <a href="https://dart.tw.gh.miniasp.com/language/records" class="no-automatic-external">記錄型別 (records)</a>、
+    <a href="https://dart.tw.gh.miniasp.com/language/patterns" class="no-automatic-external">模式匹配 (patterns)</a>
+    以及 <a href="https://dart.tw.gh.miniasp.com/language/class-modifiers" class="no-automatic-external">型別修飾符 (class modifiers)</a>。
+    <br>
+    <!--<a href="https://medium.com/p/53f065a10635" class="no-automatic-external">Check out the blog post</a>!-->
+  </p>
+</div>
+ 
+
+    <div id="sidenav" class="">
+  <form action="/search/" class="site-header__search form-inline">
+    <input class="site-header__searchfield form-control search-field" type="search" name="q" id="q" autocomplete="off" placeholder="Search" aria-label="Search">
+  </form>
+
+  <div class="site-sidebar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a href="/overview" class="nav-link">概覽</a>
+      </li>
+      <li class="nav-item">
+        <a href="/community" class="nav-link">社群</a>
+      </li>
+      <li class="nav-item">
+        <a href="https://dartpad.dev" class="nav-link">嘗試 Dart</a>
+      </li>
+      <li class="nav-item">
+        <a href="/get-dart" class="nav-link">獲取 Dart SDK</a>
+      </li>
+      <li class="nav-item">
+        <a href="/guides" class="nav-link">文件</a>
+      </li>
+    </ul>
+
+    <ul class="nav flex-column"><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-1" role="button" aria-expanded="false" aria-controls="sidenav-1">範例和課程</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-1">
+        <li class="nav-item">
+    <a class="nav-link" href="/tutorials">語言概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable" data-toggle="collapse" data-target="#sidenav-1-2" href="#sidenav-1-2" role="button" aria-expanded="true" aria-controls="sidenav-1-2">Codelabs
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-1-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/codelabs">Codelabs 列表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/dart-cheatsheet">Dart 速查表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/iterables">可迭代集合</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/async-await">Dart 非同步程式設計</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/null-safety">空安全</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link active" data-toggle="collapse" href="#sidenav-2" role="button" aria-expanded="true" aria-controls="sidenav-2">Dart 開發語言</a>
+
+      <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-2">
+        <li class="nav-item">
+    <a class="nav-link" href="/language">介紹</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-2" href="#sidenav-2-2" role="button" aria-expanded="false" aria-controls="sidenav-2-2">基礎表示式
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/variables">變數</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/operators">運運算元</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/comments">註釋</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/metadata">註解</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/libraries">庫 &amp; 導庫</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/keywords">關鍵字</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-3" href="#sidenav-2-3" role="button" aria-expanded="false" aria-controls="sidenav-2-3">型別
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-3">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/built-in-types">基本型別</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/records">記錄 (Records)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/collections">集合 (Collections)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/generics">泛型 (Generics)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/typedefs">別名 (Typedefs)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/type-system">型別系統</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-4" href="#sidenav-2-4" role="button" aria-expanded="false" aria-controls="sidenav-2-4">模式匹配
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-4">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/patterns">概覽 &amp; 用法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/pattern-types">模式匹配型別</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/language/functions">函式方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-6" href="#sidenav-2-6" role="button" aria-expanded="false" aria-controls="sidenav-2-6">控制流
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-6">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/loops">迴圈</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/branches">分支</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/language/error-handling">錯誤處理</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-8" href="#sidenav-2-8" role="button" aria-expanded="false" aria-controls="sidenav-2-8">類 &amp; 物件
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-8">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/classes">類</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/constructors">構造方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/methods">成員方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/extend">繼承</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/mixins">混入 (Mixin)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/enums">列舉</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/extension-methods">擴充方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/callable-objects">可呼叫的物件</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-9" href="#sidenav-2-9" role="button" aria-expanded="false" aria-controls="sidenav-2-9">型別修飾符
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-9">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/class-modifiers">概覽 &amp; 用法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/class-modifiers-for-apis">API 維護者應該用的型別修飾符</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/modifier-reference">速查表</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-10" href="#sidenav-2-10" role="button" aria-expanded="false" aria-controls="sidenav-2-10">併發
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-10">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/async">非同步支援</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/concurrency">Isolates</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link active collapsable" data-toggle="collapse" data-target="#sidenav-2-11" href="#sidenav-2-11" role="button" aria-expanded="true" aria-controls="sidenav-2-11">Null safety
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-2-11">
+      <li class="nav-item">
+    <a class="nav-link" href="/null-safety">健全的空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/migration-guide">遷移到空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link active" href="/null-safety/understanding-null-safety">深入理解空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/unsound-null-safety">非健全的空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/faq">空安全常見問題和解答</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-3" role="button" aria-expanded="false" aria-controls="sidenav-3">高效指南 (Effective Dart)</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-3">
+        <li class="nav-item">
+    <a class="nav-link" href="/effective-dart">概述</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/style">程式碼風格</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/documentation">文件</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/usage">用法範例</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/design">API 設計</a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-4" role="button" aria-expanded="false" aria-controls="sidenav-4">核心函式庫</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-4">
+        <li class="nav-item">
+    <a class="nav-link" href="/guides/libraries">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/library-tour">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-4-3" href="#sidenav-4-3" role="button" aria-expanded="false" aria-controls="sidenav-4-3">介紹文章
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-4-3">
+      <li class="nav-item">
+    <a class="nav-link" href="/articles/libraries/creating-streams">建立 stream</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-5" role="button" aria-expanded="false" aria-controls="sidenav-5">Packages</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-5">
+        <li class="nav-item">
+    <a class="nav-link" href="/guides/packages">如何使用 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/useful-libraries">常用 package 介紹</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/create-packages">建立 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/publishing">釋出 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/writing-package-pages">設定 package 介紹頁</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-5-6" href="#sidenav-5-6" role="button" aria-expanded="false" aria-controls="sidenav-5-6">Package 參考資料
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-5-6">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/pub/dependencies">依賴</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/glossary">術語表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/package-layout">Package 檔案結構</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/environment-variables">設定環境變數</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/pubspec">Pubspec 檔案</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/troubleshoot">問題排查</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/verified-publishers">釋出者認證</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/versioning">版本管理</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-6" role="button" aria-expanded="false" aria-controls="sidenav-6">開發文件</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6">
+        <li class="nav-item">
+    <a class="nav-link" href="/codelabs/async-await">Futures、async 和 await</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/language/streams">Streams 介紹</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/json">使用 JSON</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/numbers">Dart 中的數字</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-5" href="#sidenav-6-5" role="button" aria-expanded="false" aria-controls="sidenav-6-5">與其他語言進行互動呼叫
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-5">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/c-interop">與 C 互調</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/objective-c-interop">與 Objective-C 和 Swift 互調</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/java-interop">與 Java 和 Kotlin 互調</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/web/js-interop">與 JavaScript 互調</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/guides/google-apis">Google APIs</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/multiplatform-apps">跨平臺應用</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-8" href="#sidenav-6-8" role="button" aria-expanded="false" aria-controls="sidenav-6-8">命令列和伺服器端應用
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-8">
+      <li class="nav-item">
+    <a class="nav-link" href="/server">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/get-started">起步課程</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/cmdline">命令列應用</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/fetch-data">從網路上獲取資料</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/httpserver">編寫 HTTP 伺服器端應用</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/server/libraries">庫和 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/server/google-cloud">Google Cloud</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-9" href="#sidenav-6-9" role="button" aria-expanded="false" aria-controls="sidenav-6-9">網頁端 (Web) 應用
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-9">
+      <li class="nav-item">
+    <a class="nav-link" href="/web">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/get-started">開始使用</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-9-3" href="#sidenav-6-9-3" role="button" aria-expanded="false" aria-controls="sidenav-6-9-3">底層 Web 程式設計
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-9-3">
+      <li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/low-level-html/connect-dart-html">Dart 與 HTML 關聯</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/low-level-html/add-elements">向 DOM 新增元素</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/low-level-html/remove-elements">移除 DOM 元素</a>
+  </li>
+  </ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/web/deployment">部署</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/web/libraries">常用 Web 函式庫和 package</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/guides/environment-declarations">環境變數宣告</a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-7" role="button" aria-expanded="false" aria-controls="sidenav-7">開發工具和使用技巧</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7">
+        <li class="nav-item">
+    <a class="nav-link" href="/tools">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-2" href="#sidenav-7-2" role="button" aria-expanded="false" aria-controls="sidenav-7-2">編輯器和除錯工具
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/jetbrains-plugin">使用 IntelliJ 和 Android Studio</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/vs-code">使用 VS Code</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/dart-devtools">Dart 開發者工具</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-2-4" href="#sidenav-7-2-4" role="button" aria-expanded="false" aria-controls="sidenav-7-2-4">線上執行 Dart 程式碼
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-2-4">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/dartpad">Overview</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dartpad/dartpad-best-practices">DartPad 課程</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dartpad/troubleshoot">DartPad 疑難解答</a>
+  </li>
+  </ul>
+  </li>
+</ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-3" href="#sidenav-7-3" role="button" aria-expanded="false" aria-controls="sidenav-7-3">命令列工具
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-3">
+      <li class="nav-item">
+    <a class="nav-link collapsable" data-toggle="collapse" data-target="#sidenav-7-3-1" href="#sidenav-7-3-1" role="button" aria-expanded="true" aria-controls="sidenav-7-3-1">Dart SDK
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-7-3-1">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/sdk">概覽</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-tool">dart 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-analyze">dart analyze 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-compile">dart compile 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-create">dart create 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-doc">dart doc 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-fix">dart fix 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-format">dart format 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-info">dart info 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/pub/cmd">dart pub 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-run">dart run 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-test">dart test 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dartaotruntime">dartaotruntime 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/experiment-flags">實驗性命令標記</a>
+  </li>
+  </ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable" data-toggle="collapse" data-target="#sidenav-7-3-2" href="#sidenav-7-3-2" role="button" aria-expanded="true" aria-controls="sidenav-7-3-2">其他的命令列工具
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-7-3-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/build_runner">build_runner 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/webdev">webdev 命令</a>
+  </li>
+  </ul>
+  </li>
+</ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-4" href="#sidenav-7-4" role="button" aria-expanded="false" aria-controls="sidenav-7-4">原始碼管理
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-4">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/language/formatting">程式碼格式化</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/private-files">不應提交的內容</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-5" href="#sidenav-7-5" role="button" aria-expanded="false" aria-controls="sidenav-7-5">靜態分析
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-5">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/analysis">自訂靜態分析</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/sound-problems">修復常見的型別問題</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/diagnostic-messages">診斷訊息</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/linter-rules">Linter 規則</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-6" href="#sidenav-7-6" role="button" aria-expanded="false" aria-controls="sidenav-7-6">測試和調優
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-6">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/testing">測試</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/web/debugging">除錯 Web 應用</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-8" role="button" aria-expanded="false" aria-controls="sidenav-8">資源</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-8">
+        <li class="nav-item">
+    <a class="nav-link" href="/resources/faq">常見問題</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/evolution">版本演變</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/spec">語言規範</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/resources/dart-3-migration">Dart 3 遷移指南</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-8-5" href="#sidenav-8-5" role="button" aria-expanded="false" aria-controls="sidenav-8-5">從其他平台轉向 Dart
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-8-5">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/language/coming-from/js-to-dart">從 JavaScript 到 Dart</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/coming-from/swift-to-dart">從 Swift 到 Dart</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/resources/glossary">詞彙表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/resources/books">書籍資源</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/resources/videos">影片資源</a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link " data-toggle="collapse" href="#sidenav-9" role="button" aria-expanded="true" aria-controls="sidenav-9">相關站點</a>
+
+      <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-9">
+        <li class="nav-item">
+    <a class="nav-link" href="https://api.dart.dev" target="_blank" rel="noopener">API 文件<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://medium.com/dartlang" target="_blank" rel="noopener">Dart 團隊官方部落格<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://dartpad.dev" target="_blank" rel="noopener">DartPad (線上編輯器)<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://flutter.tw" target="_blank" rel="noopener">Flutter<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://pub.dev" target="_blank" rel="noopener">Package 網站<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-10" role="button" aria-expanded="false" aria-controls="sidenav-10">關於 Dart 中文文件</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-10">
+        <li class="nav-item">
+    <a class="nav-link" href="https://flutter.tw/about/docs-cn" target="_blank" rel="noopener">關於本站<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://flutter.tw/disclaimer" target="_blank" rel="noopener">免責條款 (Disclaimer)<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li>
+</ul>
+    </li></ul>
+
+  </div>
+</div>
+
+    <main id="page-content">
+      
+
+
+
+
+
+
+
+<div id="site-toc--side" class="site-toc ">
+  <header class="site-toc__title">
+    目錄
+    
+  </header>
+  <ul id="toc" class="section-nav">
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#nullability-in-the-type-system"><p>型別系統中的可空性</p></a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#non-nullable-and-nullable-types"><p>非空和可空型別</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#using-nullable-types"><p>使用可空型別</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#top-and-bottom"><p>最上層及底層</p></a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#ensuring-correctness"><p>確保正確性</p></a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#invalid-returns"><p>無效的返回值</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#uninitialized-variables"><p>未初始化的變數</p></a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#flow-analysis"><p>流程分析</p></a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#reachability-analysis"><p>可達性分析</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#never-for-unreachable-code"><p>為不可達的程式碼準備的 Never</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#definite-assignment-analysis"><p>絕對的賦值分析</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#type-promotion-on-null-checks"><p>空檢查的型別提升</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#unnecessary-code-warnings"><p>無用程式碼的警告</p></a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#working-with-nullable-types"><p>與可空型別共舞</p></a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#smarter-null-aware-methods"><p>更智慧的空判斷方法</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#null-assertion-operator"><p>空值斷言運運算元</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#late-variables"><p>延遲載入的變數</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#lazy-initialization"><p>延遲初始化</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#late-final-variables"><p>延遲的終值</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#required-named-parameters"><p>必需的命名引數</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#abstract-fields"><p>抽象欄位</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#working-with-nullable-fields"><p>與可空欄位共舞</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#nullability-and-generics"><p>可空性和泛型</p></a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#core-library-changes"><p>核心函式庫的改動</p></a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#the-map-index-operator-is-nullable"><p>Map 的索引運運算元是可空的</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#no-unnamed-list-constructor"><p>去除 List 的非命名構造</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#cannot-set-a-larger-length-on-non-nullable-lists"><p>不能對非空的列表設定更大的長度</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#cannot-access-iteratorcurrent-before-or-after-iteration"><p>在迭代前後不能存取 Iterator.current</p></a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#summary"><p>總結</p></a></li>
+</ul>
+  
+</div>
+
+
+      <article>
+        <div class="content">
+          
+
+          <div id="site-content-title">
+            <div id="page-github-links" class="btn-group" aria-label="Page GitHub links" role="group">
+  <a href="https://github.com/doggy8088/dart.tw/tree/master/src/null-safety/understanding-null-safety/index.md" class="btn no-automatic-external" title="View page source" target="_blank" rel="noopener">
+    <i class="material-icons">description</i>
+  </a>
+  <a href="https://github.com/doggy8088/dart.tw/issues/new?template=1_page_issue.yml&amp;title=[PAGE ISSUE]: '深入理解空安全'&amp;page-url=https://dart.tw.gh.miniasp.com/null-safety/understanding-null-safety/&amp;page-source=https://github.com/doggy8088/dart.tw/tree/master/src/null-safety/understanding-null-safety/index.md" class="btn no-automatic-external" title="Report an issue with this page" target="_blank" rel="noopener">
+    <i class="material-icons">bug_report</i>
+  </a>
+</div>
+
+            
+            <h1 id="深入理解空安全">深入理解空安全</h1>
+            </div>
+          
+
+
+
+
+
+
+
+<div id="site-toc--inline" class="site-toc toc-collapsible toc-collapsed">
+  <header class="site-toc__title">
+    目錄
+    
+      <span class="site-toc--inline__toggle toc-toggle-down"><i class="material-icons">keyboard_arrow_down</i></span>
+      <span class="site-toc--inline__toggle toc-toggle-up"><i class="material-icons">keyboard_arrow_up</i></span>
+    
+  </header>
+  <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#nullability-in-the-type-system"><p>型別系統中的可空性</p></a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#non-nullable-and-nullable-types"><p>非空和可空型別</p></a></li>
+<li class="toc-entry toc-h3"><a href="#using-nullable-types"><p>使用可空型別</p></a></li>
+<li class="toc-entry toc-h3"><a href="#top-and-bottom"><p>最上層及底層</p></a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#ensuring-correctness"><p>確保正確性</p></a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#invalid-returns"><p>無效的返回值</p></a></li>
+<li class="toc-entry toc-h3"><a href="#uninitialized-variables"><p>未初始化的變數</p></a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#flow-analysis"><p>流程分析</p></a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#reachability-analysis"><p>可達性分析</p></a></li>
+<li class="toc-entry toc-h3"><a href="#never-for-unreachable-code"><p>為不可達的程式碼準備的 Never</p></a></li>
+<li class="toc-entry toc-h3"><a href="#definite-assignment-analysis"><p>絕對的賦值分析</p></a></li>
+<li class="toc-entry toc-h3"><a href="#type-promotion-on-null-checks"><p>空檢查的型別提升</p></a></li>
+<li class="toc-entry toc-h3"><a href="#unnecessary-code-warnings"><p>無用程式碼的警告</p></a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#working-with-nullable-types"><p>與可空型別共舞</p></a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#smarter-null-aware-methods"><p>更智慧的空判斷方法</p></a></li>
+<li class="toc-entry toc-h3"><a href="#null-assertion-operator"><p>空值斷言運運算元</p></a></li>
+<li class="toc-entry toc-h3"><a href="#late-variables"><p>延遲載入的變數</p></a></li>
+<li class="toc-entry toc-h3"><a href="#lazy-initialization"><p>延遲初始化</p></a></li>
+<li class="toc-entry toc-h3"><a href="#late-final-variables"><p>延遲的終值</p></a></li>
+<li class="toc-entry toc-h3"><a href="#required-named-parameters"><p>必需的命名引數</p></a></li>
+<li class="toc-entry toc-h3"><a href="#abstract-fields"><p>抽象欄位</p></a></li>
+<li class="toc-entry toc-h3"><a href="#working-with-nullable-fields"><p>與可空欄位共舞</p></a></li>
+<li class="toc-entry toc-h3"><a href="#nullability-and-generics"><p>可空性和泛型</p></a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#core-library-changes"><p>核心函式庫的改動</p></a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#the-map-index-operator-is-nullable"><p>Map 的索引運運算元是可空的</p></a></li>
+<li class="toc-entry toc-h3"><a href="#no-unnamed-list-constructor"><p>去除 List 的非命名構造</p></a></li>
+<li class="toc-entry toc-h3"><a href="#cannot-set-a-larger-length-on-non-nullable-lists"><p>不能對非空的列表設定更大的長度</p></a></li>
+<li class="toc-entry toc-h3"><a href="#cannot-access-iteratorcurrent-before-or-after-iteration"><p>在迭代前後不能存取 Iterator.current</p></a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#summary"><p>總結</p></a></li>
+</ul>
+  
+    <span class="site-toc--inline__toggle toc-toggle-more-items"><i class="material-icons">more_horiz</i></span>
+  
+</div>
+
+
+          <p><em>Written by Bob Nystrom<br>
+July 2020</em>
+<em>文/ Bob Nystrom, Google Dart 團隊工程師, 2020 年 7 月</em></p>
+
+<p>自 Dart 2.0 替換了靜態可選型別系統為 <a href="/language/type-system">健全的靜態型別系統</a> 後，空安全是我們對 Dart 作出最大的改變。在 Dart 初始之際，編譯時的空安全是一項少有且需要大量時間推進的功能。時至今日，Kotlin、Swift、Rust 及眾多語言都擁有他們自己的解決方案，空安全已經成為 <a href="https://www.infoq.com/presentations/Null-References-The-Billion-Dollar-Mistake-Tony-Hoare/">屢見不鮮的話題</a>。讓我們來看下面這個例子：</p>
+
+
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Without null safety:</span>
+<span class="kt">bool</span> <span class="nf">isEmpty</span><span class="p">(</span><span class="kt">String</span> <span class="n">string</span><span class="p">)</span> <span class="o">=</span><span class="p">&gt;</span> <span class="n">string</span><span class="o">.</span><span class="na">length</span> <span class="o">==</span> <span class="mi">0</span><span class="p">;</span>
+
+<span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">isEmpty</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>如果你在執行這個 Dart 程式時並未使用空安全，它將在呼叫 <code class="language-plaintext highlighter-rouge">.length</code> 時丟擲 <code class="language-plaintext highlighter-rouge">NoSuchMethodError</code> 例外。
+<code class="language-plaintext highlighter-rouge">null</code> 值是 <code class="language-plaintext highlighter-rouge">Null</code> 類別的一個例項，而 <code class="language-plaintext highlighter-rouge">Null</code> 沒有 “length” getter。執行時才出現的錯誤十分惱人，在本就是為終端打造的 Dart 語言上尤其如此。如果一個伺服器端應用出現了例外，你可以快速對它進行重啟，而不被使用者察覺。但當一個 Flutter 應用在使用者的手機上崩潰了，他們的體驗就會大打折扣。使用者不開心，想必開發者也不會開心。</p>
+
+
+
+<p>開發者偏愛像 Dart 這樣的靜態型別語言，因為它通常可以讓使用 IDE 的開發者透過型別檢查發現錯誤。
+Bug 越早被發現，就能越早處理。當語言設計者在談論“修復空參考錯誤”時，他們指的是加強靜態型別檢查器，使得諸如在可能為 <code class="language-plaintext highlighter-rouge">null</code> 的值上呼叫 <code class="language-plaintext highlighter-rouge">.length</code> 這樣的錯誤能被檢測到。</p>
+
+
+
+<p>針對這個問題，從來沒有一個標準答案。
+Rust 和 Kotlin 在其語言內都各自擁有合理的解決方案。這篇文件將帶你瞭解 Dart 的解決方案。它包含了對靜態型別系統及諸多方面的修改，以及新的語言特性，讓你在編寫程式碼時不僅能寫出空安全的程式碼，同時也能非常 <strong>享受</strong>。</p>
+
+
+
+<p>這篇文件很長。如果你只需要一份如何開始並執行的簡短的文件，請從 <a href="/null-safety">概覽</a> 開始。當你認為你有充足的時間，且已經準備好深入理解它時，再回到這裡，彼時你可以瞭解到語言是 <strong>如何</strong> 處理 <code class="language-plaintext highlighter-rouge">null</code>、<strong>為什麼</strong> 我們會這樣設計，以及你如何寫出符合現代習慣的空安全 Dart 程式碼。（劇透一下：實際上它和你當前寫 Dart 程式碼的方式相差無幾。）</p>
+
+
+
+<p>處理空參考錯誤的方法各有利弊。我們基於以下的原則做出選擇：</p>
+
+
+
+<ul>
+  <li>
+    <p><strong>程式碼在預設情況下是安全的。</strong>
+如果你寫的新程式碼中沒有顯式使用不安全的特性，執行時將不會有空參考錯誤丟擲。所有潛在的空參考錯誤都將被靜態捕獲。如果你想為了靈活度而將某些檢查放到執行時進行，當然不成問題，但你必須在程式碼中顯式使用一些功能來達成你的目的。</p>
+
+    
+
+    <p>換句話說，我們並不是在你每次出海前給你一件救生衣，提醒你記得穿戴。相反，我們提供給你一艘不會沉的小船，只要你不跳下水裡，就無事發生。</p>
+
+    
+  </li>
+  <li>
+    <p><strong>空安全的程式碼應可以輕鬆編寫。</strong>
+現有的大多數 Dart 程式碼都是動態正確的，並且不會丟擲空參考錯誤。想必你非常喜歡現在你編寫 Dart 程式碼的方式，我們也希望你可以繼續使用這樣的方式編寫程式碼。安全性不應該要求易用性作出妥協、不應花更多時間耗費在型別檢查器上，也不應使你顯著改變你的思維方式。</p>
+
+    
+  </li>
+  <li>
+    <p><strong>產出的空安全程式碼應該是非常健全的。</strong>
+對於靜態檢查而言，“健全”有著多層含義。而對我們來說，在空安全的上下文裡，“健全”意味著如果一個表示式聲明瞭一個不允許值為 <code class="language-plaintext highlighter-rouge">null</code> 的靜態型別，那麼這個表示式的任何執行結果都不可能為 <code class="language-plaintext highlighter-rouge">null</code>。
+Dart 語言主要透過靜態檢查來保證這項特性，但在執行時也有一些檢查參與其中。（不過，根據第一條原則，在執行時何時何地進行檢查，完全由你自己掌握。）</p>
+
+    
+
+    <p>程式碼的健全性極大程度地決定了開發者對於自己的程式碼是否有自信。一艘 <strong>大部分時間</strong> 都在飄忽不定的小船，是不足以讓你鼓起勇氣，駛往公海進行冒險的。這對於我們無畏的“駭客”編譯器而言，同樣十分重要。當語言對程式中語義化的屬性做出硬性保證時，說明編譯器能真正意義上為這些屬性作出最佳化。當它涉及到 <code class="language-plaintext highlighter-rouge">null</code> 時，意味著可以消除不必要的 <code class="language-plaintext highlighter-rouge">null</code> 檢查，提供更精悍的程式碼，並且在對其呼叫方法前，不需要再校驗是否其為空呼叫。</p>
+
+    
+
+    <p>需要注意一點：目前我們只能完全保證使用了空安全的程式碼的健全性。
+Dart 程式支援新的空安全程式碼和舊的傳統程式碼混合。在這些使用混合空安全的程式版本中，空參考的錯誤仍有可能出現。這類程式裡讓你可以在使用了空安全的部分，享受到所有 <strong>靜態部分的</strong> 空安全福利。但在整個程式都使用了空安全之前，程式碼在執行時仍然不能保證是空安全的。</p>
+
+    
+  </li>
+</ul>
+
+<p>值得注意的是，我們的目標並不是 <strong>消除</strong> <code class="language-plaintext highlighter-rouge">null</code>。<code class="language-plaintext highlighter-rouge">null</code> 沒有任何錯。相反，可以表示一個 <strong>空缺</strong> 的值是十分有用的。在語言中提供對空缺的值的支援，讓處理空缺更為靈活和高效。它為可選引數、<code class="language-plaintext highlighter-rouge">?.</code> 空呼叫語法糖和預設值初始化提供了基礎。
+<code class="language-plaintext highlighter-rouge">null</code> 並不糟糕，糟糕的是 <strong>它在你意想不到的地方出現</strong>，最終引發問題。</p>
+
+
+
+<p>因此，對於空安全而言，我們的目標是讓你對程式碼中的 <code class="language-plaintext highlighter-rouge">null</code> 可見且可控，並且確保它不會傳遞至某些位置從而引發崩潰。</p>
+
+
+
+<h2 id="nullability-in-the-type-system">
+<a class="anchor" href="#nullability-in-the-type-system" aria-hidden="true"><span class="octicon octicon-link"></span></a>型別系統中的可空性</h2>
+
+
+
+<p>因為一切均建立於靜態型別系統上，所以空安全也始於此處。你的 Dart 程式中包含了整個型別世界：基本型別（如 <code class="language-plaintext highlighter-rouge">int</code> 和 <code class="language-plaintext highlighter-rouge">String</code>）、集合型別（如 <code class="language-plaintext highlighter-rouge">List</code>）以及你和你所使用的依賴所定義的類和型別。在空安全推出之前，靜態型別系統允許所有型別的表示式中的每一處都可以有 <code class="language-plaintext highlighter-rouge">null</code>。</p>
+
+
+
+<p>從型別理論的角度來說，<code class="language-plaintext highlighter-rouge">Null</code> 型別被看作是所有型別的子類別；</p>
+
+
+
+<p><img src="/null-safety/understanding-null-safety/hierarchy-before.png" width="335"></p>
+
+<p>型別會定義一些操作物件，包括 getters、setters、方法和運運算元，在表示式中使用。如果是 <code class="language-plaintext highlighter-rouge">List</code> 型別，你可以對其呼叫 <code class="language-plaintext highlighter-rouge">.add()</code> 或 <code class="language-plaintext highlighter-rouge">[]</code>。如果是 <code class="language-plaintext highlighter-rouge">int</code> 型別，你可以對其呼叫 <code class="language-plaintext highlighter-rouge">+</code>。但是 <code class="language-plaintext highlighter-rouge">null</code> 值並沒有它們定義的任何一個方法。所以當 <code class="language-plaintext highlighter-rouge">null</code> 傳遞至其他型別的表示式時，任何操作都有可能失敗。這就是空參考的癥結所在——所有錯誤都來源於嘗試在 <code class="language-plaintext highlighter-rouge">null</code> 上查詢一個不存在的方法或屬性。</p>
+
+
+
+<h3 id="non-nullable-and-nullable-types">
+<a class="anchor" href="#non-nullable-and-nullable-types" aria-hidden="true"><span class="octicon octicon-link"></span></a>非空和可空型別</h3>
+
+
+
+<p>空安全透過修改了型別的層級結構，從根源上解決了這個問題。
+<code class="language-plaintext highlighter-rouge">Null</code> 型別仍然存在，但它不再是所有型別的子類別。現在的型別層級看起來是這樣的：</p>
+
+
+
+<p><img src="/null-safety/understanding-null-safety/hierarchy-after.png" width="344"></p>
+
+<p>既然 <code class="language-plaintext highlighter-rouge">Null</code> 已不再被看作所有型別的子類別，那麼除了特殊的 <code class="language-plaintext highlighter-rouge">Null</code> 型別允許傳遞 <code class="language-plaintext highlighter-rouge">null</code> 值，其他型別均不允許。我們已經將所有的型別設定為 <strong>預設不可空</strong> 的型別。如果你的變數是 <code class="language-plaintext highlighter-rouge">String</code> 型別，它必須包含 <strong>一個字串</strong>。這樣一來，我們就修復了所有的空參考錯誤。</p>
+
+
+
+<p>如果 <code class="language-plaintext highlighter-rouge">null</code> 對我們來說沒有什麼意義的話，那大可不必再研究下去了。但實際上 <code class="language-plaintext highlighter-rouge">null</code> 十分有用，所以我們仍然需要合理地處理它。可選引數就是非常好的例子。讓我們來看下這段空安全的程式碼：</p>
+
+
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Using null safety:</span>
+<span class="n">makeCoffee</span><span class="p">(</span><span class="kt">String</span> <span class="n">coffee</span><span class="p">,</span> <span class="p">[</span><span class="kt">String</span><span class="o">?</span> <span class="n">dairy</span><span class="p">])</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">dairy</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">print</span><span class="p">(</span><span class="s">'</span><span class="si">$coffee</span><span class="s"> with </span><span class="si">$dairy</span><span class="s">'</span><span class="p">);</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="n">print</span><span class="p">(</span><span class="s">'Black </span><span class="si">$coffee</span><span class="s">'</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>此處我們希望 <code class="language-plaintext highlighter-rouge">dairy</code> 引數能傳入任意字串，或者一個 <code class="language-plaintext highlighter-rouge">null</code> 值。為了表達我們的想法，我們在原有型別 <code class="language-plaintext highlighter-rouge">String</code> 的尾部加上 <code class="language-plaintext highlighter-rouge">?</code> 使得 <code class="language-plaintext highlighter-rouge">dairy</code> 成為可空的型別。本質上，這和定義了一個原有型別加 <code class="language-plaintext highlighter-rouge">Null</code> 的 <a href="https://en.wikipedia.org/wiki/Union_type">組合型別</a> 沒有什麼區別。所以如果 Dart 包含完整的組合型別定義，那麼 <code class="language-plaintext highlighter-rouge">String?</code> 就是 <code class="language-plaintext highlighter-rouge">String|Null</code> 的縮寫。</p>
+
+
+
+<h3 id="using-nullable-types">
+<a class="anchor" href="#using-nullable-types" aria-hidden="true"><span class="octicon octicon-link"></span></a>使用可空型別</h3>
+
+
+
+<p>如果你的表示式可能返回空值，你會如何處理它呢？由於安全是我們的原則之一，答案其實所剩無幾。因為你在其值為 <code class="language-plaintext highlighter-rouge">null</code> 的時候呼叫方法將會失敗，所以我們不會允許你這樣做。</p>
+
+
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Hypothetical unsound null safety:</span>
+<span class="n">bad</span><span class="p">(</span><span class="kt">String</span><span class="o">?</span> <span class="n">maybeString</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">print</span><span class="p">(</span><span class="n">maybeString</span><span class="o">.</span><span class="na">length</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">bad</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>如果我們允許這樣的程式碼執行，那麼它將毫無疑問地崩潰。我們只允許你存取同時在原有型別及 <code class="language-plaintext highlighter-rouge">Null</code> 類下同時定義的方法和屬性。所以只有 <code class="language-plaintext highlighter-rouge">toString()</code>、<code class="language-plaintext highlighter-rouge">==</code> 和 <code class="language-plaintext highlighter-rouge">hashCode</code> 可以存取。因此，你可以將可空型別用於 Map 的鍵值、儲存於集合中或者與其他值進行比較，僅此而已。</p>
+
+
+
+<p>那麼原有型別是如何與可空型別互動的呢？我們知道，將一個 <strong>非</strong> 空型別的值傳遞給可空型別是一定安全的。如果一個函式接受 <code class="language-plaintext highlighter-rouge">String?</code>，那麼向其傳遞 <code class="language-plaintext highlighter-rouge">String</code> 是允許的，不會有任何問題。在此次改動中，我們將所有的可空型別作為基礎型別的超類別。你也可以將 <code class="language-plaintext highlighter-rouge">null</code> 傳遞給一個可空的型別，即 <code class="language-plaintext highlighter-rouge">Null</code> 也是任何可空型別的子類別：</p>
+
+
+
+<p><img src="/null-safety/understanding-null-safety/nullable-hierarchy.png" width="235"></p>
+
+<p>但將一個可空型別傳遞給非空的基礎型別，是不安全的。宣告為 <code class="language-plaintext highlighter-rouge">String</code> 的變數可能會在你傳遞的值上呼叫 <code class="language-plaintext highlighter-rouge">String</code> 的方法。如果你傳遞了 <code class="language-plaintext highlighter-rouge">String?</code>，傳入的 <code class="language-plaintext highlighter-rouge">null</code> 將可能產生錯誤：</p>
+
+
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Hypothetical unsound null safety:</span>
+<span class="n">requireStringNotNull</span><span class="p">(</span><span class="kt">String</span> <span class="n">definitelyString</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">print</span><span class="p">(</span><span class="n">definitelyString</span><span class="o">.</span><span class="na">length</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">String</span><span class="o">?</span> <span class="n">maybeString</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span> <span class="c1">// Or not!</span>
+  <span class="n">requireStringNotNull</span><span class="p">(</span><span class="n">maybeString</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>我們不會允許這樣不安全的程式出現。然而，<strong>隱含轉換</strong> 在 Dart 中一直存在。假設你將型別為 <code class="language-plaintext highlighter-rouge">Object</code> 的例項傳遞給了需要 <code class="language-plaintext highlighter-rouge">String</code> 的函式，型別檢查器會允許你這樣做：</p>
+
+
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Without null safety:</span>
+<span class="n">requireStringNotObject</span><span class="p">(</span><span class="kt">String</span> <span class="n">definitelyString</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">print</span><span class="p">(</span><span class="n">definitelyString</span><span class="o">.</span><span class="na">length</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">Object</span> <span class="n">maybeString</span> <span class="o">=</span> <span class="s">'it is'</span><span class="p">;</span>
+  <span class="n">requireStringNotObject</span><span class="p">(</span><span class="n">maybeString</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>為了保持健全性，編譯器為 <code class="language-plaintext highlighter-rouge">requireStringNotObject()</code> 的引數靜默添加了 <code class="language-plaintext highlighter-rouge">as String</code> 強制轉換。在執行時進行轉換可能會丟擲例外，但在編譯時，Dart 允許這樣的操作。在可空型別已經變為非空型別的子類別的前提下，隱含轉換允許你給需要 <code class="language-plaintext highlighter-rouge">String</code> 的內容傳遞 <code class="language-plaintext highlighter-rouge">String?</code>。這項來自隱含轉換的允諾與我們的安全性目標不符。所以在空安全推出之際，我們完全移除了隱含轉換。</p>
+
+
+
+<p>這會讓 <code class="language-plaintext highlighter-rouge">requireStringNotNull()</code> 的呼叫產生你預料中的編譯錯誤。同時也意味著，類似 <code class="language-plaintext highlighter-rouge">requireStringNotObject()</code> 這樣的
+<strong>所有</strong> 隱含轉換呼叫都變成了編譯錯誤。你需要自己新增顯式型別轉換：</p>
+
+
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Using null safety:</span>
+<span class="n">requireStringNotObject</span><span class="p">(</span><span class="kt">String</span> <span class="n">definitelyString</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">print</span><span class="p">(</span><span class="n">definitelyString</span><span class="o">.</span><span class="na">length</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">Object</span> <span class="n">maybeString</span> <span class="o">=</span> <span class="s">'it is'</span><span class="p">;</span>
+  <span class="n">requireStringNotObject</span><span class="p">(</span><span class="n">maybeString</span> <span class="k">as</span> <span class="kt">String</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>總的來說，我們認為這是項非常好的改動。在我們的印象中，大部分使用者非常厭惡隱含轉換。你可能已經遭受過它的摧殘：</p>
+
+
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Without null safety:</span>
+<span class="kt">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;</span> <span class="n">filterEvens</span><span class="p">(</span><span class="kt">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;</span> <span class="n">ints</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="n">ints</span><span class="o">.</span><span class="na">where</span><span class="p">((</span><span class="n">n</span><span class="p">)</span> <span class="o">=</span><span class="p">&gt;</span> <span class="n">n</span><span class="o">.</span><span class="na">isEven</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>看出問題了嗎？<code class="language-plaintext highlighter-rouge">.where()</code> 方法是延遲載入的，所以它返回了一個 <code class="language-plaintext highlighter-rouge">Iterable</code> 而非 <code class="language-plaintext highlighter-rouge">List</code>。這段程式碼會正常編譯，但會在執行時丟擲一個例外，提示你在對 <code class="language-plaintext highlighter-rouge">Iterable</code> 進行轉換為 <code class="language-plaintext highlighter-rouge">filterEvens</code> 宣告的返回型別 <code class="language-plaintext highlighter-rouge">List</code> 時遇到了錯誤。在隱含轉換移除後，這就變成了一個編譯錯誤。</p>
+
+
+
+<p>（我是誰我在哪？剛剛說到哪了？）所以正如我們在型別世界中將所有型別拆分成兩半一樣：</p>
+
+
+
+<p><img src="/null-safety/understanding-null-safety/bifurcate.png" width="668"></p>
+
+<p>此處有一個非空型別的區域劃分。該區域中的型別能存取到你想要的所有方法，但不能包含 <code class="language-plaintext highlighter-rouge">null</code>。接著有一個對應並行的可空型別家族。它們允許出現 <code class="language-plaintext highlighter-rouge">null</code>，但你並沒有太多操作空間。讓值從非空的一側走向可空的一側是安全的，但反之則不是。</p>
+
+
+
+<p>這麼看來，可空型別基本宣告毫無作用了。它們不包含任何方法，但是你又無法擺脫它們。別擔心，接下來我們有一整套的方法來幫助你把值從可空的一半轉移到另一半。</p>
+
+
+
+<h3 id="top-and-bottom">
+<a class="anchor" href="#top-and-bottom" aria-hidden="true"><span class="octicon octicon-link"></span></a>最上層及底層</h3>
+
+
+
+<p>這一節會略微深奧。除非你對型別系統非常感興趣，否則你可以直接跳過這一節，並且在本文最後部分，還有兩項有趣的內容。想象一下，在你的程式裡，所有的型別都互為子類別或超類別。如果將它們的關係用畫圖表示出來，就像文中的那些圖一樣，那將會是一幅巨大的有向圖，諸如 <code class="language-plaintext highlighter-rouge">Object</code> 的超類會在最上層，子類別在底層。</p>
+
+
+
+<p>如果這張有向圖的頂部有是一個單一的超類（直接或間接），那麼這個型別稱為 <strong>最上層型別</strong>。類似的，如果有一個在底部有一個奇怪的型別，是所有型別的子類別，這個型別就被稱為 <strong>底層型別</strong>。（在這個情況下，你的有向圖是一種 <a href="https://en.wikipedia.org/wiki/Lattice_(order)">偏序集合 (lattice)</a>）</p>
+
+
+
+<p>如果型別系統中有最上層和底層型別，將給我們帶來一定程度的便利，因為它意味著像最小上界這樣型別層面的操作（型別推理常根據一個條件表示式的兩個分支推匯出一個類別型）一定能推匯出一個類別型。在空安全引入以前，Dart 中的最上層型別是 <code class="language-plaintext highlighter-rouge">Object</code>，底層型別是 <code class="language-plaintext highlighter-rouge">Null</code>。</p>
+
+
+
+<p>由於現在 <code class="language-plaintext highlighter-rouge">Object</code> 不再可空，所以它不再是一個最上層型別了。<code class="language-plaintext highlighter-rouge">Null</code> 也不再是它的子類別。
+Dart 中沒有 <strong>令人熟知的</strong> 最上層型別。如果你需要一個最上層型別，可以用 <code class="language-plaintext highlighter-rouge">Object?</code>。同樣的，<code class="language-plaintext highlighter-rouge">Null</code> 也不再是底層型別，否則所有型別都仍將是可空。取而代之是一個全新的底層型別 <code class="language-plaintext highlighter-rouge">Never</code>：</p>
+
+
+
+<p><img src="/null-safety/understanding-null-safety/top-and-bottom.png" width="360"></p>
+
+<p>依據實際開發中的經驗，這意味著：</p>
+
+
+
+<ul>
+  <li>
+    <p>如果你想表明讓一個值可以接受任意類別型，請用 <code class="language-plaintext highlighter-rouge">Object?</code> 而不是 <code class="language-plaintext highlighter-rouge">Object</code>。使用 <code class="language-plaintext highlighter-rouge">Object</code> 後會使得程式碼的行為變得非常詭異，因為它意味著能夠是“除了 <code class="language-plaintext highlighter-rouge">null</code> 以外的任何例項”。</p>
+
+    
+  </li>
+  <li>On the rare occasion that you need a bottom type, use <code class="language-plaintext highlighter-rouge">Never</code> instead of
+<code class="language-plaintext highlighter-rouge">Null</code>. If you don’t know if you need a bottom type, you probably don’t.</li>
+  <li>
+    <p>在極少數需要底層型別的情況下，請使用 <code class="language-plaintext highlighter-rouge">Never</code> 代替 <code class="language-plaintext highlighter-rouge">Null</code>。對於不會呼叫成功返回的方法，它可以 <a href="#never-for-unreachable-code">幫助程式碼可達性分析</a>。如果你不瞭解是否需要一個底層型別，那麼你基本上不會需要它。</p>
+
+    
+  </li>
+</ul>
+
+<h2 id="ensuring-correctness">
+<a class="anchor" href="#ensuring-correctness" aria-hidden="true"><span class="octicon octicon-link"></span></a>確保正確性</h2>
+
+
+
+<p>我們將型別世界劃分為了非空和可空的兩半。為了保持程式碼的健全和我們的原則：“除非你需要，否則你永遠不會在執行時遇到空參考錯誤”，我們需要保證 <code class="language-plaintext highlighter-rouge">null</code> 不會出現在非空一側的任何型別裡。</p>
+
+
+
+<p>透過取代了隱含轉換，並且不再將 <code class="language-plaintext highlighter-rouge">Null</code> 作為底層型別，我們覆蓋了程式中宣告、函式引數和函式呼叫等所有的主要位置。現在只有當變數首次出現和你跳出函式的時候，<code class="language-plaintext highlighter-rouge">null</code> 可以悄悄潛入。所以我們還會看到一些附加的編譯錯誤：</p>
+
+
+
+<h3 id="invalid-returns">
+<a class="anchor" href="#invalid-returns" aria-hidden="true"><span class="octicon octicon-link"></span></a>無效的返回值</h3>
+
+
+
+<p>如果一個函式的返回型別非空，那麼函式內最終一定要呼叫 <code class="language-plaintext highlighter-rouge">return</code> 返回一個值。在空安全引入以前，Dart 在限制未返回內容的函式時非常鬆懈。舉個例子：</p>
+
+
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Without null safety:</span>
+<span class="kt">String</span> <span class="nf">missingReturn</span><span class="p">()</span> <span class="p">{</span>
+  <span class="c1">// No return.</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>如果分析器檢查了這個函式，你會看到一個輕微的 <strong>提示</strong>，提醒你 <strong>可能</strong> 忘記返回值，但不返回也無關緊要。這是因為程式碼執行到最後時，Dart 會隱含返回一個 <code class="language-plaintext highlighter-rouge">null</code>。因為所有的型別都是可空的，所以 <strong>從程式碼層面而言</strong>，這個函式是安全的，儘管它並不一定與你預期相符。</p>
+
+
+
+<p>有了確定的非空型別，這段程式就是錯誤且不安全的。在空安全下，如果一個返回值為非空型別的函式，沒有可靠地返回一個值，你就會看到編譯錯誤。這裡所提到的“可靠”，指的是分析器會分析函式中所有的控制流。只要它們都返回了內容，就滿足了條件。分析器相當聰明，聰明到下面的程式碼也能應付：</p>
+
+
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Using null safety:</span>
+<span class="kt">String</span> <span class="nf">alwaysReturns</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="s">'zero'</span><span class="p">;</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="p">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">throw</span> <span class="n">ArgumentError</span><span class="p">(</span><span class="s">'Negative values not allowed.'</span><span class="p">);</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="p">&gt;</span> <span class="mi">1000</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="s">'big'</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="n">n</span><span class="o">.</span><span class="na">toString</span><span class="p">();</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>下個章節我們會更加深入地瞭解新的流程分析。</p>
+
+
+
+<h3 id="uninitialized-variables">
+<a class="anchor" href="#uninitialized-variables" aria-hidden="true"><span class="octicon octicon-link"></span></a>未初始化的變數</h3>
+
+
+
+<p>當你在宣告變數時，如果沒有傳遞一個顯式的初始化內容，Dart 預設會將變數初始化為 <code class="language-plaintext highlighter-rouge">null</code>。這的確非常方便，但在變數可空的情況下，明顯非常不安全。所以，我們需要加強對非空變數的處理：</p>
+
+
+
+<ul>
+  <li>
+    <p><strong>最上層變數和靜態欄位必須包含一個初始化方法。</strong>
+由於它們能在程式裡的任何位置被存取到，編譯器無法保證它們在被使用前已被賦值。唯一保險的選項是要求其本身包含初始化表示式，以確保產生匹配的型別的值。</p>
+
+    
+
+    <div class="language-dart highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code><span class="c1">// Using null safety:</span>
+<span class="kt">int</span> <span class="n">topLevel</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nc">SomeClass</span> <span class="p">{</span>
+  <span class="kd">static</span> <span class="kt">int</span> <span class="n">staticField</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>例項的欄位也必須在宣告時包含初始化方法，可以為常見初始化形式，也可以在例項的構造方法中進行初始化。</strong>
+這類初始化非常常見。舉個例子：</p>
+
+    
+
+    <div class="language-dart highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code><span class="c1">// Using null safety:</span>
+<span class="kd">class</span> <span class="nc">SomeClass</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">atDeclaration</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">initializingFormal</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">initializationList</span><span class="p">;</span>
+
+  <span class="n">SomeClass</span><span class="p">(</span><span class="k">this</span><span class="o">.</span><span class="na">initializingFormal</span><span class="p">)</span>
+      <span class="o">:</span> <span class="n">initializationList</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>    </div>
+
+    <p>換句話說，欄位在構造體執行前被賦值即可。</p>
+
+    
+  </li>
+  <li>
+    <p>區域變數的靈活度最高。一個非空的變數 <strong>不一定需要</strong> 一個初始化方法。這裡有個很好的例子：</p>
+
+    
+
+    <div class="language-dart highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code><span class="c1">// Using null safety:</span>
+<span class="kt">int</span> <span class="nf">tracingFibonacci</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">result</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="p">&lt;</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">n</span><span class="p">;</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">tracingFibonacci</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">tracingFibonacci</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="n">print</span><span class="p">(</span><span class="n">result</span><span class="p">);</span>
+  <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>    </div>
+
+    <p>此處遵循的規則是 <strong>區域變數必須<em>確保在使用前被賦值</em>。</strong>
+我們也可以依賴於之前所提到的全新的流程分析來實現。只要所有使用變數的路徑，在使用前都先初始化，就可以正常呼叫。</p>
+
+    
+  </li>
+  <li>
+    <p><strong>可選引數必須具有預設值。</strong>
+如果一個可選位置引數或可選命名引數沒有傳遞內容，Dart 會自動使用預設值進行填充。在未指定預設值的情況下，<strong>預設的</strong> 預設值為 <code class="language-plaintext highlighter-rouge">null</code>，如此一來，非空型別的引數就要出事了。</p>
+
+    
+
+    <p>所以，如果你需要一個可選引數，要麼它是可空的，要麼它的預設值不為 <code class="language-plaintext highlighter-rouge">null</code>。</p>
+
+    
+  </li>
+</ul>
+
+<p>這些限制聽起來非常繁瑣，但在實際操作中並不難。它們與目前 <code class="language-plaintext highlighter-rouge">final</code> 有關的限制非常相似，你可能沒有特別關注過，但它們伴隨你已久。另外，請記住，這些限制僅適用於 <strong>非空</strong> 變數。在你使用可空的型別時，<code class="language-plaintext highlighter-rouge">null</code> 仍然可以作為初始化的預設值。</p>
+
+
+
+<p>即便如此，這些規則也會讓你的適配之路有些小磕碰。幸運的是，我們有一整套新的語言特性，來幫助你平穩渡過一些常見的顛簸。不過，首先，我們是時候來聊一聊流程分析了。</p>
+
+
+
+<h2 id="flow-analysis">
+<a class="anchor" href="#flow-analysis" aria-hidden="true"><span class="octicon octicon-link"></span></a>流程分析</h2>
+
+
+
+<p><a href="https://en.wikipedia.org/wiki/Control_flow_analysis">控制流程分析</a> 已經在眾多編譯器中存在多年了。通常它對於使用者而言是不可見的，只在編譯最佳化流程中使用，但是，部分較新的語言，已經開始在可以看見的語言特性中使用同樣的技術了。
+Dart 已經以 <strong>型別提升</strong> 的方式實現了一些流程分析：</p>
+
+
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// With (or without) null safety:</span>
+<span class="kt">bool</span> <span class="nf">isEmptyList</span><span class="p">(</span><span class="kt">Object</span> <span class="n">object</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">object</span> <span class="k">is</span> <span class="kt">List</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">object</span><span class="o">.</span><span class="na">isEmpty</span><span class="p">;</span> <span class="c1">// &lt;-- OK!</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>請留意我們是如何在標記的程式碼行上對 <code class="language-plaintext highlighter-rouge">object</code> 呼叫 <code class="language-plaintext highlighter-rouge">isEmpty</code> 的。該方法是在 <code class="language-plaintext highlighter-rouge">List</code> 中定義的，而不是 <code class="language-plaintext highlighter-rouge">Object</code>。因為型別檢查器檢查了程式碼中所有的 <code class="language-plaintext highlighter-rouge">is</code> 表示式，以及控制流的路徑，所以這段程式碼是有效的。如果部分控制流的程式碼主體只在變數的某個 <code class="language-plaintext highlighter-rouge">is</code> 表示式為真時才執行，那麼這個程式碼塊中的變數，將會是經過推導得出的型別。</p>
+
+
+
+<p>在這個例子中，<code class="language-plaintext highlighter-rouge">if</code> 陳述式的 then 分支僅會在 <code class="language-plaintext highlighter-rouge">object</code> 是列表的時候執行。因此，在這裡 Dart 將 <code class="language-plaintext highlighter-rouge">object</code> 的型別從它宣告的 <code class="language-plaintext highlighter-rouge">Object</code> 提升到了 <code class="language-plaintext highlighter-rouge">List</code>。這項功能非常方便，但它有著諸多限制。在空安全引入以前，下面的程式無法執行：</p>
+
+
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Without null safety:</span>
+<span class="kt">bool</span> <span class="nf">isEmptyList</span><span class="p">(</span><span class="kt">Object</span> <span class="n">object</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">object</span> <span class="k">is</span><span class="o">!</span> <span class="kt">List</span><span class="p">)</span> <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+  <span class="k">return</span> <span class="n">object</span><span class="o">.</span><span class="na">isEmpty</span><span class="p">;</span> <span class="c1">// &lt;-- Error!</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>與之前一樣，你只能在 <code class="language-plaintext highlighter-rouge">object</code> 是列表的時候呼叫 <code class="language-plaintext highlighter-rouge">.isEmpty</code>，所以實際上這段程式碼是正確的。但是型別提升規則並不那麼智慧，它無法預測到 <code class="language-plaintext highlighter-rouge">return</code> 讓下面程式碼只能在 <code class="language-plaintext highlighter-rouge">object</code> 為列表時才能存取到。</p>
+
+
+
+<p>在空安全中，我們 <a href="https://github.com/dart-lang/language/blob/main/resources/type-system/flow-analysis.md">從不同的維度增強了</a> 這項能力，讓它不再只能進行有限的分析。</p>
+
+
+
+<h3 id="reachability-analysis">
+<a class="anchor" href="#reachability-analysis" aria-hidden="true"><span class="octicon octicon-link"></span></a>可達性分析</h3>
+
+
+
+<p>首先，長期以來型別提升在處理提前返回和無法到達的程式碼路徑時 <a href="https://github.com/dart-lang/sdk/issues/18921">不夠智慧的問題</a>，已經被我們修復。當我們在分析一個函式時，<code class="language-plaintext highlighter-rouge">return</code>、<code class="language-plaintext highlighter-rouge">break</code>、<code class="language-plaintext highlighter-rouge">throw</code> 以及任何可能提早結束函式的方式，都將被考慮進來。在空安全下，下面的這個函式：</p>
+
+
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Using null safety:</span>
+<span class="kt">bool</span> <span class="nf">isEmptyList</span><span class="p">(</span><span class="kt">Object</span> <span class="n">object</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">object</span> <span class="k">is</span><span class="o">!</span> <span class="kt">List</span><span class="p">)</span> <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+  <span class="k">return</span> <span class="n">object</span><span class="o">.</span><span class="na">isEmpty</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>現在是完全有效的。由於 <code class="language-plaintext highlighter-rouge">if</code> 陳述式會在 <code class="language-plaintext highlighter-rouge">object</code> <strong>不是</strong> <code class="language-plaintext highlighter-rouge">List</code> 時退出這個函式，因此 Dart 將下一句的 <code class="language-plaintext highlighter-rouge">object</code> 型別提升至了 <code class="language-plaintext highlighter-rouge">List</code>。對於眾多 Dart 程式碼來說，這是一項非常棒的改進，就算對於一些與空安全無關的程式碼來說也是。</p>
+
+
+
+<h3 id="never-for-unreachable-code">
+<a class="anchor" href="#never-for-unreachable-code" aria-hidden="true"><span class="octicon octicon-link"></span></a>為不可達的程式碼準備的 Never</h3>
+
+
+
+<p>你可以自己 <strong>碼出</strong> 這項可達性分析。新的底層型別 <code class="language-plaintext highlighter-rouge">Never</code> 是沒有任何值的。（什麼值能同時是 <code class="language-plaintext highlighter-rouge">String</code>、<code class="language-plaintext highlighter-rouge">bool</code> 和 <code class="language-plaintext highlighter-rouge">int</code> 呢？）那麼一個類別型為 <code class="language-plaintext highlighter-rouge">Never</code> 的表示式有什麼含義呢？它意味著這個表示式永遠無法成功的推導和執行。它必須要丟擲一個例外、中斷或者確保呼叫它的程式碼永遠不會執行。</p>
+
+
+
+<p>事實上，根據語言的細則，<code class="language-plaintext highlighter-rouge">throw</code> 表示式的靜態型別就是 <code class="language-plaintext highlighter-rouge">Never</code>。該型別已在核心庫中定義，你可以將它用於變數宣告。也許你會寫一個輔助函式，用於簡單方便地丟擲一個固定的例外：</p>
+
+
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Using null safety:</span>
+<span class="kt">Never</span> <span class="nf">wrongType</span><span class="p">(</span><span class="kt">String</span> <span class="n">type</span><span class="p">,</span> <span class="kt">Object</span> <span class="n">value</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">throw</span> <span class="n">ArgumentError</span><span class="p">(</span><span class="s">'Expected </span><span class="si">$type</span><span class="s">, but was </span><span class="si">${value.runtimeType}</span><span class="s">.'</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>你也可以這樣用：</p>
+
+
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Using null safety:</span>
+<span class="kd">class</span> <span class="nc">Point</span> <span class="p">{</span>
+  <span class="kd">final</span> <span class="kt">double</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">;</span>
+
+  <span class="kt">bool</span> <span class="kd">operator</span> <span class="o">==</span><span class="p">(</span><span class="kt">Object</span> <span class="n">other</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">other</span> <span class="k">is</span><span class="o">!</span> <span class="n">Point</span><span class="p">)</span> <span class="n">wrongType</span><span class="p">(</span><span class="s">'Point'</span><span class="p">,</span> <span class="n">other</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="na">x</span> <span class="o">&amp;&amp;</span> <span class="n">y</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="na">y</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="c1">// Constructor and hashCode...</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>這段程式碼不會分析出錯誤。請注意 <code class="language-plaintext highlighter-rouge">==</code> 方法的最後一行，在 <code class="language-plaintext highlighter-rouge">other</code> 上呼叫 <code class="language-plaintext highlighter-rouge">.x</code> 和 <code class="language-plaintext highlighter-rouge">.y</code>。儘管在第一行並沒有包含 <code class="language-plaintext highlighter-rouge">return</code> 或 <code class="language-plaintext highlighter-rouge">throw</code>，它的型別仍然提升為了 <code class="language-plaintext highlighter-rouge">Point</code>。控制流程分析意識到 <code class="language-plaintext highlighter-rouge">wrongType()</code> 宣告的型別是 <code class="language-plaintext highlighter-rouge">Never</code>，代表著 <code class="language-plaintext highlighter-rouge">if</code> 陳述式的 then 分支 <strong>一定會</strong> 由於某些原因被中斷。由於下一句的程式碼僅能在 <code class="language-plaintext highlighter-rouge">other</code> 是 <code class="language-plaintext highlighter-rouge">Point</code> 時執行，所以 Dart 提升了它的型別。</p>
+
+
+
+<p>換句話說，在你的程式碼中使用 <code class="language-plaintext highlighter-rouge">Never</code> 讓你可以擴充 Dart 的可達性分析。</p>
+
+
+
+<h3 id="definite-assignment-analysis">
+<a class="anchor" href="#definite-assignment-analysis" aria-hidden="true"><span class="octicon octicon-link"></span></a>絕對的賦值分析</h3>
+
+
+
+<p>前文已經在提到區域變數時簡單提到了這個分析。
+Dart 需要確保一個非空的區域變數在它被讀取前一定完成了初始化。我們使用了 <strong>絕對的賦值分析</strong>，從而保證儘可能靈活地處理變數的初始化。
+Dart 語言會逐個分析函式的主體，並且追蹤所有控制流路徑的區域變數和引數的賦值。只要變數在每個使用路徑中都已經被賦值，這個變數就被視為已初始化。這項分析可以讓你不再一開始就對變數初始化，而是在後面複雜的控制流中進行賦值，甚至非空型別變數也可以這樣做。</p>
+
+
+
+<p>同時我們也透過絕對賦值分析使得宣告為 <strong>final</strong> 的變數更靈活。在空安全引入以前，當你需要宣告一個 <code class="language-plaintext highlighter-rouge">final</code> 變數時，一些有意思的初始化方式是無法使用的：</p>
+
+
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Using null safety:</span>
+<span class="kt">int</span> <span class="nf">tracingFibonacci</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">final</span> <span class="kt">int</span> <span class="n">result</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="p">&lt;</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">n</span><span class="p">;</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">tracingFibonacci</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">tracingFibonacci</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="n">print</span><span class="p">(</span><span class="n">result</span><span class="p">);</span>
+  <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>鑑於 <code class="language-plaintext highlighter-rouge">result</code> 被宣告為 <code class="language-plaintext highlighter-rouge">final</code>，又不包含初始化內容，這段程式碼將返回一個錯誤。而對於更智慧的空安全流程分析來說，這段程式碼是正確的。透過分析可以知道，<code class="language-plaintext highlighter-rouge">result</code> 在所有的控制流路徑上都已經被初始化，所以對於標記的 <code class="language-plaintext highlighter-rouge">final</code> 變數而言，約束得以滿足。</p>
+
+
+
+<h3 id="type-promotion-on-null-checks">
+<a class="anchor" href="#type-promotion-on-null-checks" aria-hidden="true"><span class="octicon octicon-link"></span></a>空檢查的型別提升</h3>
+
+
+
+<p>更智慧的流程分析對於眾多 Dart 程式碼而言幫助極大，甚至對於一些與是否可空無關的程式碼也是如此。但是我們在現在做出這些改動並非巧合。我們已經將型別劃分成了可空和非空的集合，如果一個變數是一個可空的型別，你無法對它 <strong>做</strong> 任何有用的事情。所以在 <strong>值為</strong> <code class="language-plaintext highlighter-rouge">null</code> 的情況下，這項限制是很有效的，它可以避免你的程式崩潰。</p>
+
+
+
+<p>而如果值不為 <code class="language-plaintext highlighter-rouge">null</code>，最好是直接將它移到非空的一側，如此一來你就可以呼叫它的方法了。流程分析是對變數和區域變數進行處理的主要方法之一。我們在分析 <code class="language-plaintext highlighter-rouge">== null</code> 和 <code class="language-plaintext highlighter-rouge">!= null</code> 表示式時也進行了型別提升的擴充。</p>
+
+
+
+<p>如果你判斷了一個可空的變數是否不為 <code class="language-plaintext highlighter-rouge">null</code>，進行到下一步後
+Dart 就會將這個變數的型別提升至非空的對應型別：</p>
+
+
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Using null safety:</span>
+<span class="kt">String</span> <span class="nf">makeCommand</span><span class="p">(</span><span class="kt">String</span> <span class="n">executable</span><span class="p">,</span> <span class="p">[</span><span class="kt">List</span><span class="p">&lt;</span><span class="kt">String</span><span class="p">&gt;</span><span class="o">?</span> <span class="n">arguments</span><span class="p">])</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="n">result</span> <span class="o">=</span> <span class="n">executable</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">arguments</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">result</span> <span class="o">+=</span> <span class="s">' '</span> <span class="o">+</span> <span class="n">arguments</span><span class="o">.</span><span class="na">join</span><span class="p">(</span><span class="s">' '</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>此處，<code class="language-plaintext highlighter-rouge">arguments</code> 是可空的型別。通常來說，對其呼叫 <code class="language-plaintext highlighter-rouge">.join()</code> 是禁止的。但是，由於 <code class="language-plaintext highlighter-rouge">if</code> 陳述式中的判斷已經足以確認值不為 <code class="language-plaintext highlighter-rouge">null</code>，
+Dart 將它的型別從 <code class="language-plaintext highlighter-rouge">List&lt;String&gt;?</code> 提升到了 <code class="language-plaintext highlighter-rouge">List&lt;String&gt;</code>，從而讓你能夠呼叫它的方法，或將它傳遞給一個需要非空列表的函式。</p>
+
+
+
+<p>這聽起來是件小事，但這種基於流程的空檢查提升，是大部分 Dart 程式碼能執行在空安全下的保障。大部分的 Dart 程式碼 <strong>是</strong> 動態正確的，並且在呼叫前透過判斷 <code class="language-plaintext highlighter-rouge">null</code> 來避免丟擲空呼叫錯誤。新的空安全流程分析將 <strong>動態</strong> 正確變成了更有保障的 <strong>靜態</strong> 正確。</p>
+
+
+
+<p>當然，它也同時和更智慧的分析一起進行檢查工作。上面的函式也可以像下面這樣編寫：</p>
+
+
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Using null safety:</span>
+<span class="kt">String</span> <span class="nf">makeCommand</span><span class="p">(</span><span class="kt">String</span> <span class="n">executable</span><span class="p">,</span> <span class="p">[</span><span class="kt">List</span><span class="p">&lt;</span><span class="kt">String</span><span class="p">&gt;</span><span class="o">?</span> <span class="n">arguments</span><span class="p">])</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="n">result</span> <span class="o">=</span> <span class="n">executable</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">arguments</span> <span class="o">==</span> <span class="kc">null</span><span class="p">)</span> <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+  <span class="k">return</span> <span class="n">result</span> <span class="o">+</span> <span class="s">' '</span> <span class="o">+</span> <span class="n">arguments</span><span class="o">.</span><span class="na">join</span><span class="p">(</span><span class="s">' '</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Dart 語言也對什麼表示式需要提升變數判斷地更智慧了。除了顯式的 <code class="language-plaintext highlighter-rouge">== null</code> 和 <code class="language-plaintext highlighter-rouge">!= null</code> 以外，顯式使用 <code class="language-plaintext highlighter-rouge">as</code> 或賦值，以及我們馬上就要提到的後置運運算元 <code class="language-plaintext highlighter-rouge">!</code> 也會進行型別提升。總體來說的目標是：如果程式碼是動態正確的，而靜態分析時又是合理的，那麼分析結果也足夠聰明，會對其進行型別提升。</p>
+
+
+
+<p>請注意，型別提升僅對當前方法內的變數有效，對欄位和最上層變數無效。想要了解更多針對非方法內的變數的處理，閱讀
+<a href="#working-with-nullable-fields">與可空欄位共舞</a>。</p>
+
+
+
+<h3 id="unnecessary-code-warnings">
+<a class="anchor" href="#unnecessary-code-warnings" aria-hidden="true"><span class="octicon octicon-link"></span></a>無用程式碼的警告</h3>
+
+
+
+<p>在你的程式中，一個可以準確知曉 <code class="language-plaintext highlighter-rouge">null</code> 去向的可達性分析，能確保你已經 <strong>增加</strong> 了對 <code class="language-plaintext highlighter-rouge">null</code> 的處理。不過我們也可以用同樣的分析來檢測你是否有 <strong>不用</strong> 的程式碼。在空安全以前，如果你編寫了如下的程式碼：</p>
+
+
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Using null safety:</span>
+<span class="kt">String</span> <span class="nf">checkList</span><span class="p">(</span><span class="kt">List</span><span class="p">&lt;</span><span class="kt">Object</span><span class="p">&gt;</span> <span class="n">list</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">list</span><span class="o">?.</span><span class="na">isEmpty</span> <span class="o">??</span> <span class="kc">false</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="s">'Got nothing'</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="s">'Got something'</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Dart 無法得知避空運算子 <code class="language-plaintext highlighter-rouge">?.</code> 是否有用。它只知道你可以將 <code class="language-plaintext highlighter-rouge">null</code> 傳遞進方法內。但是在有空安全的 Dart 裡，如果你將函式宣告為現有的非空 <code class="language-plaintext highlighter-rouge">List</code> 型別，它就知道 <code class="language-plaintext highlighter-rouge">list</code> 永遠不會為空。實際上就暗示了 <code class="language-plaintext highlighter-rouge">?.</code> 是不必要的，你完全可以直接使用 <code class="language-plaintext highlighter-rouge">.</code>。</p>
+
+
+
+<p>為了幫助你簡化程式碼，我們為一些不必要的程式碼增加了一些警告，靜態分析可以精確地檢測到它。在一個非空型別上使用避空運算子、用 <code class="language-plaintext highlighter-rouge">== null</code> 或 <code class="language-plaintext highlighter-rouge">!= null</code> 判斷，都會出現一個警告。</p>
+
+
+
+<p>同時，在非空型別提升的情況中也會看到類似的提示。當一個變數已經被提升至非空型別，你會在不必要的 <code class="language-plaintext highlighter-rouge">null</code> 檢查時看到一個警告：</p>
+
+
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Using null safety:</span>
+<span class="kt">String</span> <span class="nf">checkList</span><span class="p">(</span><span class="kt">List</span><span class="p">&lt;</span><span class="kt">Object</span><span class="p">&gt;</span><span class="o">?</span> <span class="n">list</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">list</span> <span class="o">==</span> <span class="kc">null</span><span class="p">)</span> <span class="k">return</span> <span class="s">'No list'</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">list</span><span class="o">?.</span><span class="na">isEmpty</span> <span class="o">??</span> <span class="kc">false</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="s">'Empty list'</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="s">'Got something'</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>此處由於程式碼執行後，<code class="language-plaintext highlighter-rouge">list</code> 不能為 <code class="language-plaintext highlighter-rouge">null</code>，所以你會在 <code class="language-plaintext highlighter-rouge">?.</code> 的呼叫處看到一個警告。這些警告不僅僅是為了減少無意義的程式碼，透過移除 <strong>不必要</strong> 的 <code class="language-plaintext highlighter-rouge">null</code> 判斷，我們得以確保其他有意義的判斷能夠脫穎而出。我們期望你能 <strong>看到</strong> 你程式碼中的 <code class="language-plaintext highlighter-rouge">null</code> 會向何處傳遞。</p>
+
+
+
+<h2 id="working-with-nullable-types">
+<a class="anchor" href="#working-with-nullable-types" aria-hidden="true"><span class="octicon octicon-link"></span></a>與可空型別共舞</h2>
+
+
+
+<p>現在，我們已經將 <code class="language-plaintext highlighter-rouge">null</code> 歸到了可空型別的集合中。有了流程分析，我們可以讓一些非 <code class="language-plaintext highlighter-rouge">null</code> 值安全地越過柵欄，到達非空的那一側，供我們使用。這是相當大的一步，但如果我們就此止步不前，產出的系統仍然飽含痛苦的限制，而流程分析也僅對區域變數和引數起作用。</p>
+
+
+
+<p>為了儘可能地保持 Dart 在擁有空安全之前的靈活度，並且在一定程度上超越它，我們帶來了一些其他的實用新特性。</p>
+
+
+
+<h3 id="smarter-null-aware-methods">
+<a class="anchor" href="#smarter-null-aware-methods" aria-hidden="true"><span class="octicon octicon-link"></span></a>更智慧的空判斷方法</h3>
+
+
+
+<p>Dart 的避空運算子 <code class="language-plaintext highlighter-rouge">?.</code> 相對空安全而言儼然是一位老生。根據執行時的語義化規定，如果接收者是 <code class="language-plaintext highlighter-rouge">null</code>，那麼右側的屬性存取就會被跳過，表示式將被作為 <code class="language-plaintext highlighter-rouge">null</code> 看待。</p>
+
+
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Without null safety:</span>
+<span class="kt">String</span> <span class="n">notAString</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+<span class="n">print</span><span class="p">(</span><span class="n">notAString</span><span class="o">?.</span><span class="na">length</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>這段程式碼將列印 “null”，而不是丟擲一個例外。避空運算子是一個不錯的工具，讓可空型別在 Dart 中變得可用。儘管我們不能讓你在可空型別上呼叫方法，但我們可以讓你使用避空運算子呼叫它們。空安全版本的程式是這樣的：</p>
+
+
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Using null safety:</span>
+<span class="kt">String</span><span class="o">?</span> <span class="n">notAString</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+<span class="n">print</span><span class="p">(</span><span class="n">notAString</span><span class="o">?.</span><span class="na">length</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>與之前一樣，它可以正常執行。</p>
+
+
+
+<p>然而，如果你曾經在 Dart 中使用過避空運算子，你可能經歷過鏈式方法呼叫的惱人操作。假設你需要判斷一個可能為空的字串的長度是否為偶數（這可能不是個貼合實際的問題，但請繼續往下看）：</p>
+
+
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Using null safety:</span>
+<span class="kt">String</span><span class="o">?</span> <span class="n">notAString</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+<span class="n">print</span><span class="p">(</span><span class="n">notAString</span><span class="o">?.</span><span class="na">length</span><span class="o">.</span><span class="na">isEven</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>就算這個程式使用了 <code class="language-plaintext highlighter-rouge">?.</code>，它仍然會在執行時丟擲例外。這裡的問題在於，<code class="language-plaintext highlighter-rouge">.isEven</code> 的接收器是左側整個 <code class="language-plaintext highlighter-rouge">notAString?.length</code> 表示式的結果。這個表示式被認為是 <code class="language-plaintext highlighter-rouge">null</code>，所以我們在嘗試呼叫 <code class="language-plaintext highlighter-rouge">.isEven</code> 的時候出現了空參考的錯誤。如果你在 Dart 中使用過 <code class="language-plaintext highlighter-rouge">?.</code>，你可能已經學會了一個非常繁瑣的方法，那就是在使用了一次避空運算子後，其 <strong>每一處</strong> 屬性或方法的鏈式呼叫處都加上它。</p>
+
+
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">String</span><span class="o">?</span> <span class="n">notAString</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+<span class="n">print</span><span class="p">(</span><span class="n">notAString</span><span class="o">?.</span><span class="na">length</span><span class="o">?.</span><span class="na">isEven</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>這非常煩人，但更致命的是，它會擾亂重要資訊的獲取。看看下面這個：</p>
+
+
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Using null safety:</span>
+<span class="n">showGizmo</span><span class="p">(</span><span class="n">Thing</span><span class="o">?</span> <span class="n">thing</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">print</span><span class="p">(</span><span class="n">thing</span><span class="o">?.</span><span class="na">doohickey</span><span class="o">?.</span><span class="na">gizmo</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>這裡我們想問你一個問題：<code class="language-plaintext highlighter-rouge">Thing</code> 中獲取 <code class="language-plaintext highlighter-rouge">doohickey</code> 是否會返回 <code class="language-plaintext highlighter-rouge">null</code>？看上去它 <strong>會</strong> 返回 <code class="language-plaintext highlighter-rouge">null</code>，因為你在呼叫後使用了 <code class="language-plaintext highlighter-rouge">?.</code>。但也有可能第二個 <code class="language-plaintext highlighter-rouge">?.</code> 僅僅是為了處理 <code class="language-plaintext highlighter-rouge">thing</code> 為 <code class="language-plaintext highlighter-rouge">null</code> 的情況，而不是 <code class="language-plaintext highlighter-rouge">doohickey</code> 的結果。你無法直接得出結論。</p>
+
+
+
+<p>為了解決這類問題，我們從 C# 相同功能的設計中借鑑了一個聰明的處理方法。當你在鏈式方法呼叫中使用避空運算子時，如果接收器被判斷為 <code class="language-plaintext highlighter-rouge">null</code>，那麼 <strong>整個鏈式呼叫的剩餘部分都會被截斷並跳過</strong>。這意味著如果 <code class="language-plaintext highlighter-rouge">doohickey</code> 的返回值是一個非空的型別，你應該這樣寫：</p>
+
+
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Using null safety:</span>
+<span class="n">showGizmo</span><span class="p">(</span><span class="n">Thing</span><span class="o">?</span> <span class="n">thing</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">print</span><span class="p">(</span><span class="n">thing</span><span class="o">?.</span><span class="na">doohickey</span><span class="o">.</span><span class="na">gizmo</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>實際上，如果你不去掉第二個 <code class="language-plaintext highlighter-rouge">?.</code>，你會看到一個警告，提示這段程式碼是不必要的。所以如果你看到了這樣的程式碼：</p>
+
+
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Using null safety:</span>
+<span class="n">showGizmo</span><span class="p">(</span><span class="n">Thing</span><span class="o">?</span> <span class="n">thing</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">print</span><span class="p">(</span><span class="n">thing</span><span class="o">?.</span><span class="na">doohickey</span><span class="o">?.</span><span class="na">gizmo</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>你立刻就會知道 <code class="language-plaintext highlighter-rouge">doohickey</code> 本身的返回型別就是可空的。每一個 <code class="language-plaintext highlighter-rouge">?.</code> 對應一個 <strong>獨一無二的</strong> 程式碼路徑，能夠讓 <code class="language-plaintext highlighter-rouge">null</code> 隨著鏈式呼叫傳遞。這就讓鏈式方法呼叫中的避空運算子更為簡潔和精確。</p>
+
+
+
+<p>同時，我們也在這裡加入了一些其他的避空運算子：</p>
+
+
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Using null safety:</span>
+
+<span class="c1">// Null-aware cascade:</span>
+<span class="n">receiver</span><span class="o">?</span><span class="p">.</span><span class="o">.</span><span class="na">method</span><span class="p">();</span>
+
+<span class="c1">// Null-aware index operator:</span>
+<span class="n">receiver</span><span class="o">?</span><span class="p">[</span><span class="n">index</span><span class="p">];</span>
+</code></pre></div></div>
+
+<p>目前還沒有空判斷函式呼叫運運算元，但是你可以這樣寫：</p>
+
+
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Allowed with or without null safety:</span>
+<span class="n">function</span><span class="o">?.</span><span class="na">call</span><span class="p">(</span><span class="n">arg1</span><span class="p">,</span> <span class="n">arg2</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h3 id="null-assertion-operator">
+<a class="anchor" href="#null-assertion-operator" aria-hidden="true"><span class="octicon octicon-link"></span></a>空值斷言運運算元</h3>
+
+
+
+<p>利用流程分析，將可空的變數轉移到非空的一側，是安全可靠的。你可以在先前可空的變數上呼叫方法，同時還能享受到非空型別的安全和效能優勢。</p>
+
+
+
+<p>但是，很多有效的可空型別使用方法，不能向靜態分析 <strong>證明</strong> 它們的安全性。例如：</p>
+
+
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Using null safety, incorrectly:</span>
+<span class="kd">class</span> <span class="nc">HttpResponse</span> <span class="p">{</span>
+  <span class="kd">final</span> <span class="kt">int</span> <span class="n">code</span><span class="p">;</span>
+  <span class="kd">final</span> <span class="kt">String</span><span class="o">?</span> <span class="n">error</span><span class="p">;</span>
+
+  <span class="n">HttpResponse</span><span class="o">.</span><span class="na">ok</span><span class="p">()</span>
+      <span class="o">:</span> <span class="n">code</span> <span class="o">=</span> <span class="mi">200</span><span class="p">,</span>
+        <span class="n">error</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+  <span class="n">HttpResponse</span><span class="o">.</span><span class="na">notFound</span><span class="p">()</span>
+      <span class="o">:</span> <span class="n">code</span> <span class="o">=</span> <span class="mi">404</span><span class="p">,</span>
+        <span class="n">error</span> <span class="o">=</span> <span class="s">'Not found'</span><span class="p">;</span>
+
+  <span class="nd">@override</span>
+  <span class="kt">String</span> <span class="n">toString</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">)</span> <span class="k">return</span> <span class="s">'OK'</span><span class="p">;</span>
+    <span class="k">return</span> <span class="s">'ERROR </span><span class="si">$code</span><span class="s"> </span><span class="si">${error.toUpperCase()}</span><span class="s">'</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>如果你嘗試執行這段程式碼，你會看到一個指向 <code class="language-plaintext highlighter-rouge">toUpperCase()</code> 呼叫的編譯錯誤。
+<code class="language-plaintext highlighter-rouge">error</code> 屬性是可空的，在返回結果成功時，它不會有值。我們透過仔細觀察類可以看出，當訊息為空時，我們永遠不會存取 <code class="language-plaintext highlighter-rouge">error</code>。但為了知曉這個行為，必須要理解 <code class="language-plaintext highlighter-rouge">code</code> 的值與 <code class="language-plaintext highlighter-rouge">error</code> 的可空性之間的聯絡。型別檢查器看不出這種聯絡。</p>
+
+
+
+<p>換句話說，作為程式碼的人類維護者，我們知道在使用 error 時，它的值不會是 <code class="language-plaintext highlighter-rouge">null</code>，並且我們需要對其進行斷言。通常你可以透過使用 <code class="language-plaintext highlighter-rouge">as</code> 轉換來斷言型別，這裡你也可以這樣做：</p>
+
+
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Using null safety:</span>
+<span class="kt">String</span> <span class="nf">toString</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">)</span> <span class="k">return</span> <span class="s">'OK'</span><span class="p">;</span>
+  <span class="k">return</span> <span class="s">'ERROR </span><span class="si">$code</span><span class="s"> </span><span class="si">${(error as String).toUpperCase()}</span><span class="s">'</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>如果在執行時，將 <code class="language-plaintext highlighter-rouge">error</code> 轉換為非空的 <code class="language-plaintext highlighter-rouge">String</code> 型別出現了無法轉換的錯誤，會丟擲一個例外。若轉換成功，一個非空的字串就會回到我們的手上，讓我們可以進行方法呼叫。</p>
+
+
+
+<p>“排除可空性的轉換”的場景頻繁出現，這促使了我們帶來了新的短小精悍的語法。一個作為字尾的感嘆號標記 (<code class="language-plaintext highlighter-rouge">!</code>) 會讓左側的表示式轉換成其對應的非空型別。所以上面的函式等效於：</p>
+
+
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Using null safety:</span>
+<span class="kt">String</span> <span class="nf">toString</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">)</span> <span class="k">return</span> <span class="s">'OK'</span><span class="p">;</span>
+  <span class="k">return</span> <span class="s">'ERROR </span><span class="si">$code</span><span class="s"> </span><span class="si">${error!.toUpperCase()}</span><span class="s">'</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>當原有的型別非常繁瑣的時候，這個只有一個字元的“重點運運算元”就會非常上手。如果僅僅是為了將一個類別型轉換為非空，就需要寫出類似於
+<code class="language-plaintext highlighter-rouge">as Map&lt;TransactionProviderFactory, List&lt;Set&lt;ResponseFilter&gt;&gt;&gt;</code>
+這樣的程式碼，會讓這個過程變得非常煩人。</p>
+
+
+
+<p>當然，與其他所有轉換一樣，使用 <code class="language-plaintext highlighter-rouge">!</code> 將會失去部分靜態的安全性。這些轉換必須在執行時進行，從而確保程式碼健全，並且有可能失敗並丟擲例外。但你可以完全控制這些轉換的使用位置，並且能從程式碼中直接看到它們。</p>
+
+
+
+<h3 id="late-variables">
+<a class="anchor" href="#late-variables" aria-hidden="true"><span class="octicon octicon-link"></span></a>延遲載入的變數</h3>
+
+
+
+<p>對於最上層變數和欄位而言，型別檢查器常常無法證明其是否安全。這裡有一個例子：</p>
+
+
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Using null safety, incorrectly:</span>
+<span class="kd">class</span> <span class="nc">Coffee</span> <span class="p">{</span>
+  <span class="kt">String</span> <span class="n">_temperature</span><span class="p">;</span>
+
+  <span class="kt">void</span> <span class="n">heat</span><span class="p">()</span> <span class="p">{</span> <span class="n">_temperature</span> <span class="o">=</span> <span class="s">'hot'</span><span class="p">;</span> <span class="p">}</span>
+  <span class="kt">void</span> <span class="n">chill</span><span class="p">()</span> <span class="p">{</span> <span class="n">_temperature</span> <span class="o">=</span> <span class="s">'iced'</span><span class="p">;</span> <span class="p">}</span>
+
+  <span class="kt">String</span> <span class="n">serve</span><span class="p">()</span> <span class="o">=</span><span class="p">&gt;</span> <span class="n">_temperature</span> <span class="o">+</span> <span class="s">' coffee'</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="n">coffee</span> <span class="o">=</span> <span class="n">Coffee</span><span class="p">();</span>
+  <span class="n">coffee</span><span class="o">.</span><span class="na">heat</span><span class="p">();</span>
+  <span class="n">coffee</span><span class="o">.</span><span class="na">serve</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>在這裡，<code class="language-plaintext highlighter-rouge">heat()</code> 方法在 <code class="language-plaintext highlighter-rouge">serve()</code> 之前就被呼叫了。這意味著 <code class="language-plaintext highlighter-rouge">_temperature</code> 會在它被使用前初始化為一個非空的值。但對於靜態分析而言，這樣是不可行的。（實際上在與例子類別似的情況下，程式碼可能是可行的，但是在一般情況下，我們難以追蹤每一個例項的狀態。）</p>
+
+
+
+<p>由於型別檢查器無法分析欄位和最上層變數的用途，因此它遵循一個相對保守的規則，即不可空的欄位必須在宣告時初始化（或是在建構函式的初始化欄位列表中）。所以在這裡，Dart 會在這個類上提示一個編譯錯誤。</p>
+
+
+
+<p>為了解決這個問題，你可以將它宣告為可空，接著使用空斷言運運算元：</p>
+
+
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Using null safety:</span>
+<span class="kd">class</span> <span class="nc">Coffee</span> <span class="p">{</span>
+  <span class="kt">String</span><span class="o">?</span> <span class="n">_temperature</span><span class="p">;</span>
+
+  <span class="kt">void</span> <span class="n">heat</span><span class="p">()</span> <span class="p">{</span> <span class="n">_temperature</span> <span class="o">=</span> <span class="s">'hot'</span><span class="p">;</span> <span class="p">}</span>
+  <span class="kt">void</span> <span class="n">chill</span><span class="p">()</span> <span class="p">{</span> <span class="n">_temperature</span> <span class="o">=</span> <span class="s">'iced'</span><span class="p">;</span> <span class="p">}</span>
+
+  <span class="kt">String</span> <span class="n">serve</span><span class="p">()</span> <span class="o">=</span><span class="p">&gt;</span> <span class="n">_temperature</span><span class="o">!</span> <span class="o">+</span> <span class="s">' coffee'</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>這樣一來，程式碼確實可以正常工作了。但是它讓這個類別的維護人員感到困惑。將 <code class="language-plaintext highlighter-rouge">_temperature</code> 變為可空，暗示著 <code class="language-plaintext highlighter-rouge">null</code> 對於欄位來說是有用的值。但實際上其與你的企圖背道而馳。
+<code class="language-plaintext highlighter-rouge">_temperature</code> 欄位永遠不會在為 <code class="language-plaintext highlighter-rouge">null</code> 的情況下 <strong>被觀測到</strong>。</p>
+
+
+
+<p>為了處理類似延遲初始化這樣常見的行為，我們新增了一個修飾符：<code class="language-plaintext highlighter-rouge">late</code>。你可以這樣使用：</p>
+
+
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Using null safety:</span>
+<span class="kd">class</span> <span class="nc">Coffee</span> <span class="p">{</span>
+  <span class="kd">late</span> <span class="kt">String</span> <span class="n">_temperature</span><span class="p">;</span>
+
+  <span class="kt">void</span> <span class="n">heat</span><span class="p">()</span> <span class="p">{</span> <span class="n">_temperature</span> <span class="o">=</span> <span class="s">'hot'</span><span class="p">;</span> <span class="p">}</span>
+  <span class="kt">void</span> <span class="n">chill</span><span class="p">()</span> <span class="p">{</span> <span class="n">_temperature</span> <span class="o">=</span> <span class="s">'iced'</span><span class="p">;</span> <span class="p">}</span>
+
+  <span class="kt">String</span> <span class="n">serve</span><span class="p">()</span> <span class="o">=</span><span class="p">&gt;</span> <span class="n">_temperature</span> <span class="o">+</span> <span class="s">' coffee'</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>此處我們注意到，<code class="language-plaintext highlighter-rouge">_temperature</code> 欄位是一個非空的型別，但是並沒有進行初始化。同時，在使用時也沒有明確的空斷言。雖然 <code class="language-plaintext highlighter-rouge">late</code> 應用的語義有幾種解釋，但在這裡應該是：
+<code class="language-plaintext highlighter-rouge">late</code> 修飾符是“在執行時而非編譯時對變數進行約束”。這就讓 <code class="language-plaintext highlighter-rouge">late</code> 這個詞語約等於 <strong>何時</strong> 執行對變數的強制約束。</p>
+
+
+
+<p>當前場景裡，欄位並不一定已經被初始化，每次它被讀取時，都會插入一個執行時的檢查，以確保它已經被賦值。如果並未賦值，就會丟擲一個例外。給一個變數加上 <code class="language-plaintext highlighter-rouge">String</code> 型別就是在說：“我的值絕對是字串”，而加上 <code class="language-plaintext highlighter-rouge">late</code> 修飾符意味著：“每次執行都要檢查檢查是不是真的”。</p>
+
+
+
+<p>在某些方面，<code class="language-plaintext highlighter-rouge">late</code> 修飾符比 <code class="language-plaintext highlighter-rouge">?</code> 更為神奇，因為對這個欄位的任何呼叫都有可能失敗，且在失敗的事故現場不會有任何的文字說明。</p>
+
+
+
+<p>作為回報，它在靜態安全方面比可空型別更靠譜。因為這個欄位現在是非空的了，在 <strong>編譯時</strong> 為它賦予 <code class="language-plaintext highlighter-rouge">null</code> 或可空的 <code class="language-plaintext highlighter-rouge">String</code> 就會出錯。雖然 <code class="language-plaintext highlighter-rouge">late</code> 修飾符讓你延遲了初始化，但它仍然禁止你將變數作為可空的型別進行處理。</p>
+
+
+
+<h3 id="lazy-initialization">
+<a class="anchor" href="#lazy-initialization" aria-hidden="true"><span class="octicon octicon-link"></span></a>延遲初始化</h3>
+
+
+
+<p><code class="language-plaintext highlighter-rouge">late</code> 修飾符也有一些特殊的能力。雖然聽起來起來有一些自相矛盾，但是你可以在一個包含初始化內容的欄位上使用 <code class="language-plaintext highlighter-rouge">late</code>：</p>
+
+
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Using null safety:</span>
+<span class="kd">class</span> <span class="nc">Weather</span> <span class="p">{</span>
+  <span class="kd">late</span> <span class="kt">int</span> <span class="n">_temperature</span> <span class="o">=</span> <span class="n">_readThermometer</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>當你這麼宣告時，會讓初始化 <strong>延遲</strong> 執行。例項的構造將會延遲到欄位首次被存取時執行，而不是在例項構造時就初始化。換句話說，它讓欄位的初始化方式變得與最上層變數和靜態欄位完全一致。當初始化表示式比較消耗效能，並且有可能不需要時，這會變得非常有用。</p>
+
+
+
+<p>當你在例項欄位上使用 <code class="language-plaintext highlighter-rouge">late</code> 時，延遲初始化會給你帶來更多的便利。通常例項欄位的初始化內容無法存取到 <code class="language-plaintext highlighter-rouge">this</code>，因為在所有的初始化方法完成前，你無法存取到新的例項物件。但是，使用了 <code class="language-plaintext highlighter-rouge">late</code> 讓這個條件不再為真，所以你 <strong>可以</strong> 存取到 <code class="language-plaintext highlighter-rouge">this</code>、呼叫方法以及存取例項的欄位。</p>
+
+
+
+<h3 id="late-final-variables">
+<a class="anchor" href="#late-final-variables" aria-hidden="true"><span class="octicon octicon-link"></span></a>延遲的終值</h3>
+
+
+
+<p>你也可以將 <code class="language-plaintext highlighter-rouge">late</code> 與 <code class="language-plaintext highlighter-rouge">final</code> 結合使用：</p>
+
+
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Using null safety:</span>
+<span class="kd">class</span> <span class="nc">Coffee</span> <span class="p">{</span>
+  <span class="kd">late</span> <span class="kd">final</span> <span class="kt">String</span> <span class="n">_temperature</span><span class="p">;</span>
+
+  <span class="kt">void</span> <span class="n">heat</span><span class="p">()</span> <span class="p">{</span> <span class="n">_temperature</span> <span class="o">=</span> <span class="s">'hot'</span><span class="p">;</span> <span class="p">}</span>
+  <span class="kt">void</span> <span class="n">chill</span><span class="p">()</span> <span class="p">{</span> <span class="n">_temperature</span> <span class="o">=</span> <span class="s">'iced'</span><span class="p">;</span> <span class="p">}</span>
+
+  <span class="kt">String</span> <span class="n">serve</span><span class="p">()</span> <span class="o">=</span><span class="p">&gt;</span> <span class="n">_temperature</span> <span class="o">+</span> <span class="s">' coffee'</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>與普通的 <code class="language-plaintext highlighter-rouge">final</code> 欄位不同，你不需要在宣告或構造時就將其初始化。你可以稍後在執行中的某個地方載入它。但是你只能對其進行 <strong>一次</strong> 賦值，並且它在執行時會進行校驗。如果你嘗試對它進行多次賦值，比如 <code class="language-plaintext highlighter-rouge">heat()</code> 和 <code class="language-plaintext highlighter-rouge">chill()</code> 都呼叫，那麼第二次的賦值會丟擲例外。這是確定欄位狀態的好方法，它最終會被初始化，並且在初始化後是無法改變的。</p>
+
+
+
+<p>換句話說，新的 <code class="language-plaintext highlighter-rouge">late</code> 修飾符與 Dart 的其他變數修飾符結合後，已經實現了 Kotlin 中的 <code class="language-plaintext highlighter-rouge">lateinit</code> 和 Swift 中的 <code class="language-plaintext highlighter-rouge">lazy</code> 的大量特性。如果你需要給區域變數加上一些延遲初始化，你也可以在區域變數上使用它。</p>
+
+
+
+<h3 id="required-named-parameters">
+<a class="anchor" href="#required-named-parameters" aria-hidden="true"><span class="octicon octicon-link"></span></a>必需的命名引數</h3>
+
+
+
+<p>為了保證你永遠不會看到一個非空型別的引數值為 <code class="language-plaintext highlighter-rouge">null</code>，型別檢查器給所有的可選引數提出了要求，要麼是一個可空的型別，要麼包含一個預設值。如果你需要一個可空的命名引數，同時又不包含預設值，該怎麼辦呢？這就意味著你要求呼叫者 <strong>每次</strong> 都為其傳遞內容。換句話說，你需要的是一個非可選的 <strong>命名</strong> 引數。</p>
+
+
+
+<p>這個表格直觀地展示了 Dart 的各種引數：</p>
+
+
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                必需的可選的
+            +------------+------------+
+位置引數     | f(int x)   | f([int x]) |
+            +------------+------------+
+命名引數     | ???        | f({int x}) |
+            +------------+------------+
+</code></pre></div></div>
+
+<p>Dart 為何長期以來只支援三種引數型別，而不支援命名+必需組合的引數，仍然是未解之謎。隨著空安全的引入，我們將這個空缺的引數型別補充上了。現在你只需要將 <code class="language-plaintext highlighter-rouge">required</code> 放在引數前，就可以宣告一個必需的命名引數：</p>
+
+
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Using null safety:</span>
+<span class="n">function</span><span class="p">({</span><span class="kt">int</span><span class="o">?</span> <span class="n">a</span><span class="p">,</span> <span class="kd">required</span> <span class="kt">int</span><span class="o">?</span> <span class="n">b</span><span class="p">,</span> <span class="kt">int</span><span class="o">?</span> <span class="n">c</span><span class="p">,</span> <span class="kd">required</span> <span class="kt">int</span><span class="o">?</span> <span class="n">d</span><span class="p">})</span> <span class="p">{}</span>
+</code></pre></div></div>
+
+<p>這裡的所有引數都必須透過命名來傳遞。引數 <code class="language-plaintext highlighter-rouge">a</code> 和 <code class="language-plaintext highlighter-rouge">c</code> 是可選的，可以省略。引數 <code class="language-plaintext highlighter-rouge">b</code> 和 <code class="language-plaintext highlighter-rouge">d</code> 是必需的，呼叫時必須傳遞。在這裡請注意，是否必需和是否可空無關。你可以寫出可空型別的必需命名引數，以及非空型別的可選命名引數（如果它們包含了預設值）。</p>
+
+
+
+<p>無論是否為空安全，這都是另一個讓 Dart 變得更好的特性之一。它讓這門語言看起來更為完整。</p>
+
+
+
+<h3 id="abstract-fields">
+<a class="anchor" href="#abstract-fields" aria-hidden="true"><span class="octicon octicon-link"></span></a>抽象欄位</h3>
+
+
+
+<p>Dart 有一項好用的功能，即其擁有 <a href="https://en.wikipedia.org/wiki/Uniform_access_principle">統一存取原則</a>。意思是欄位和拆分的 getter 和 setter 沒有區別。這是 Dart 中一個類別的「屬性」是否進行計算和儲存的實現細節。因為這項功能的存在，當你在定義抽象類別的介面時，會經常使用欄位宣告的形式：</p>
+
+
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Cup</span> <span class="p">{</span>
+  <span class="n">Beverage</span> <span class="n">contents</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>使用者應只能實現這個類，而不能對其進行擴充。這樣的欄位定義陳述式只是一對 getter 和 setter 的簡寫形式：</p>
+
+
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Cup</span> <span class="p">{</span>
+  <span class="n">Beverage</span> <span class="kd">get</span> <span class="n">contents</span><span class="p">;</span>
+  <span class="kd">set</span> <span class="n">contents</span><span class="p">(</span><span class="n">Beverage</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>但是 Dart 並不 <strong>瞭解</strong> 這個類是否會被用於具體型別的定義。它會認為 <code class="language-plaintext highlighter-rouge">contents</code> 是一個真實定義存在的欄位。所以，該欄位是非空型別卻沒有進行初始化，你會在編譯時看到一個編譯錯誤，屬實不幸。</p>
+
+
+
+<p>解決這個問題的其中一種方法是像第二種範例那樣，顯式宣告抽象的 getter 和 setter。但這樣寫起來過於冗長，所以隨著空安全的推出，我們一併增加了顯式宣告抽象欄位的支援：</p>
+
+
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Cup</span> <span class="p">{</span>
+  <span class="kd">abstract</span> <span class="n">Beverage</span> <span class="n">contents</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>這段程式碼與第二種範例行為一致。它用非常簡潔的方式聲明瞭指定名稱和型別抽象 getter 和 setter。</p>
+
+
+
+<h3 id="working-with-nullable-fields">
+<a class="anchor" href="#working-with-nullable-fields" aria-hidden="true"><span class="octicon octicon-link"></span></a>與可空欄位共舞</h3>
+
+
+
+<p>新引入的特性處理了非常多常見的行為模式，並且讓大部分處理 <code class="language-plaintext highlighter-rouge">null</code> 的工作不再那麼痛苦。即便如此，根據我們的經驗之談，處理可空的欄位仍然是較為困難的。在你能使用 <code class="language-plaintext highlighter-rouge">late</code> 和非空型別的情況下，已經相當穩妥。但在很多場景裡，你仍然需要 <strong>檢查</strong> 欄位是否有值，這些情況下，欄位會是可空的，你也能觀測到 <code class="language-plaintext highlighter-rouge">null</code> 的存在。</p>
+
+
+
+<p>以下這段程式碼，你可能會認為可以這麼寫：</p>
+
+
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Using null safety, incorrectly:</span>
+<span class="kd">class</span> <span class="nc">Coffee</span> <span class="p">{</span>
+  <span class="kt">String</span><span class="o">?</span> <span class="n">_temperature</span><span class="p">;</span>
+
+  <span class="kt">void</span> <span class="n">heat</span><span class="p">()</span> <span class="p">{</span> <span class="n">_temperature</span> <span class="o">=</span> <span class="s">'hot'</span><span class="p">;</span> <span class="p">}</span>
+  <span class="kt">void</span> <span class="n">chill</span><span class="p">()</span> <span class="p">{</span> <span class="n">_temperature</span> <span class="o">=</span> <span class="s">'iced'</span><span class="p">;</span> <span class="p">}</span>
+
+  <span class="kt">void</span> <span class="n">checkTemp</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">_temperature</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">print</span><span class="p">(</span><span class="s">'Ready to serve '</span> <span class="o">+</span> <span class="n">_temperature</span> <span class="o">+</span> <span class="s">'!'</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="kt">String</span> <span class="n">serve</span><span class="p">()</span> <span class="o">=</span><span class="p">&gt;</span> <span class="n">_temperature</span><span class="o">!</span> <span class="o">+</span> <span class="s">' coffee'</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>在 <code class="language-plaintext highlighter-rouge">checkTemp()</code> 中，我們檢查了 <code class="language-plaintext highlighter-rouge">_temperature</code> 是否為 <code class="language-plaintext highlighter-rouge">null</code>。如果不為空，我們會存取並對它呼叫 <code class="language-plaintext highlighter-rouge">+</code>。很遺憾，這樣做是不被允許的。基於流程分析的型別提升並不適用於欄位，因為靜態分析不能 <strong>證明</strong> 這個欄位的值在你判斷後和使用前沒有發生變化。（某些極端場景中，欄位本身可能會被子類別的 getter 重寫，從而在第二次呼叫時返回 <code class="language-plaintext highlighter-rouge">null</code>。）</p>
+
+
+
+<p>因為程式碼的健全性也是我們在乎的指標，所以欄位的型別不會被提升，且上面的方法也無法編譯。這其實不太舒服。在這樣的簡單例子中，最好的辦法是在使用欄位時加上 <code class="language-plaintext highlighter-rouge">!</code>。它看起來是多餘的，但是目前的 Dart 需要這樣的操作。</p>
+
+
+
+<p>還有一種可以解決這類情況的方法，就是先將欄位複製為一個區域變數，然後再使用它：</p>
+
+
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Using null safety:</span>
+<span class="kt">void</span> <span class="nf">checkTemp</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="n">temperature</span> <span class="o">=</span> <span class="n">_temperature</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">temperature</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">print</span><span class="p">(</span><span class="s">'Ready to serve '</span> <span class="o">+</span> <span class="n">temperature</span> <span class="o">+</span> <span class="s">'!'</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>對於區域變數而言，型別提升是有效的，所以它會正常執行。如果你需要 <strong>更改</strong> 它的值，記得要儲存回原有的欄位，不要只更新了你的區域變數。</p>
+
+
+
+<p>想要了解更多關於如何處理型別提升問題的方法，檢視
+<a href="/tools/non-promotion-reasons">處理型別提升的失敗情況</a>。</p>
+
+
+
+<h3 id="nullability-and-generics">
+<a class="anchor" href="#nullability-and-generics" aria-hidden="true"><span class="octicon octicon-link"></span></a>可空性和泛型</h3>
+
+
+
+<p>與現今主流的靜態型別語言一樣，Dart 也有泛型類和泛型方法。它們在與可空性的互動上，會有一些反直覺的地方，可一旦你想清楚了其中隱含的設計意圖，就會理解它們的合理性。首先，“這個型別是否是可空？”已經不再是一個簡單的是非問題。讓我們來考慮以下的情況：</p>
+
+
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Using null safety:</span>
+<span class="kd">class</span> <span class="nc">Box</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span> <span class="p">{</span>
+  <span class="kd">final</span> <span class="n">T</span> <span class="n">object</span><span class="p">;</span>
+  <span class="n">Box</span><span class="p">(</span><span class="k">this</span><span class="o">.</span><span class="na">object</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">Box</span><span class="p">&lt;</span><span class="kt">String</span><span class="p">&gt;(</span><span class="s">'a string'</span><span class="p">);</span>
+  <span class="n">Box</span><span class="p">&lt;</span><span class="kt">int</span><span class="o">?</span><span class="p">&gt;(</span><span class="kc">null</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>在 <code class="language-plaintext highlighter-rouge">Box</code> 的定義中，<code class="language-plaintext highlighter-rouge">T</code> 是可空還是非空的型別？正如你所看到的那樣，它可以透過任意一種型別來進行例項化。答案是：<code class="language-plaintext highlighter-rouge">T</code> 是一個 <strong>潛在的可空型別</strong>。在泛型類或泛型方法的主體中，一個潛在的可空型別包含了可空型別 <strong>以及</strong> 非空型別的所有限制。</p>
+
+
+
+<p>前者意味著除了在 Object 上定義的少數方法以外，不能呼叫其他的任何方法。後者意味著這個型別的任何欄位或變數都需要在使用前被初始化。這就會讓型別引數非常難處理。</p>
+
+
+
+<p>實際上，有一些模式已經在這麼處理了。比如一個類別似集合的類在例項化時，型別引數可以使用任何型別。你只需要在使用例項時，用合適的方式處理型別相關的約束即可。而在像此處的例子一樣的大部分場景中，這樣做意味著每當你需要使用型別引數的型別的值時，都可以確保你能存取這個值。幸運的是，類似集合的類很少直接在其元素上呼叫方法。</p>
+
+
+
+<p>在你不需要存取值的時候，你可以將型別引數變為可空：</p>
+
+
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Using null safety:</span>
+<span class="kd">class</span> <span class="nc">Box</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span> <span class="p">{</span>
+  <span class="n">T</span><span class="o">?</span> <span class="n">object</span><span class="p">;</span>
+  <span class="n">Box</span><span class="o">.</span><span class="na">empty</span><span class="p">();</span>
+  <span class="n">Box</span><span class="o">.</span><span class="na">full</span><span class="p">(</span><span class="k">this</span><span class="o">.</span><span class="na">object</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>注意此處對於 <code class="language-plaintext highlighter-rouge">object</code> 宣告的 <code class="language-plaintext highlighter-rouge">?</code>。現在這個欄位是一個顯式的可空型別，所以它可以是未被初始化的。</p>
+
+
+
+<p>當你將型別引數像此處一樣變為可空型別時，你可能需要強制將它轉換為非空型別。正確的做法是明確地使用 <code class="language-plaintext highlighter-rouge">as T</code> 進行轉換，<strong>而不是</strong> 使用 <code class="language-plaintext highlighter-rouge">!</code> 運運算元。</p>
+
+
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Using null safety:</span>
+<span class="kd">class</span> <span class="nc">Box</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span> <span class="p">{</span>
+  <span class="n">T</span><span class="o">?</span> <span class="n">object</span><span class="p">;</span>
+  <span class="n">Box</span><span class="o">.</span><span class="na">empty</span><span class="p">();</span>
+  <span class="n">Box</span><span class="o">.</span><span class="na">full</span><span class="p">(</span><span class="k">this</span><span class="o">.</span><span class="na">object</span><span class="p">);</span>
+
+  <span class="n">T</span> <span class="n">unbox</span><span class="p">()</span> <span class="o">=</span><span class="p">&gt;</span> <span class="n">object</span> <span class="k">as</span> <span class="n">T</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>如果值為 <code class="language-plaintext highlighter-rouge">null</code>，使用 <code class="language-plaintext highlighter-rouge">!</code> 運運算元 <strong>一定</strong> 會丟擲例外。但是如果型別引數已被宣告為一個可空的型別，那麼 <code class="language-plaintext highlighter-rouge">null</code> 對於 <code class="language-plaintext highlighter-rouge">T</code> 就是一個完全有效的值：</p>
+
+
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Using null safety:</span>
+<span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="n">box</span> <span class="o">=</span> <span class="n">Box</span><span class="p">&lt;</span><span class="kt">int</span><span class="o">?</span><span class="p">&gt;</span><span class="o">.</span><span class="na">full</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
+  <span class="n">print</span><span class="p">(</span><span class="n">box</span><span class="o">.</span><span class="na">unbox</span><span class="p">());</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>這段程式碼可以正常執行，完全歸功於使用了 <code class="language-plaintext highlighter-rouge">as T</code>，而如果使用 <code class="language-plaintext highlighter-rouge">!</code> 就會丟擲例外。</p>
+
+
+
+<p>其他的泛型也存在一些限制可用型別引數類別的型別約束：</p>
+
+
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Using null safety:</span>
+<span class="kd">class</span> <span class="nc">Interval</span><span class="p">&lt;</span><span class="n">T</span> <span class="kd">extends</span> <span class="kt">num</span><span class="p">&gt;</span> <span class="p">{</span>
+  <span class="n">T</span> <span class="n">min</span><span class="p">,</span> <span class="n">max</span><span class="p">;</span>
+
+  <span class="n">Interval</span><span class="p">(</span><span class="k">this</span><span class="o">.</span><span class="na">min</span><span class="p">,</span> <span class="k">this</span><span class="o">.</span><span class="na">max</span><span class="p">);</span>
+
+  <span class="kt">bool</span> <span class="kd">get</span> <span class="n">isEmpty</span> <span class="o">=</span><span class="p">&gt;</span> <span class="n">max</span> <span class="p">&lt;</span><span class="o">=</span> <span class="n">min</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>如果型別的約束是非空的，那麼型別引數也是非空的。這就意味著你會受到非空型別的一些限制，即必須要初始化欄位和變數。範例中的類必須要有建構函式來對欄位進行初始化。</p>
+
+
+
+<p>這些限制同時也帶來了一些好處，你可以呼叫型別引數繼承自其型別約束的任何方法。當然，非空的型別約束會阻止 <strong>使用者</strong> 用可空的型別引數對泛型進行例項化。對於大部分類來說，這也是合理的限制。</p>
+
+
+
+<p>你也可以使用可空的<strong>型別約束</strong>：</p>
+
+
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Using null safety:</span>
+<span class="kd">class</span> <span class="nc">Interval</span><span class="p">&lt;</span><span class="n">T</span> <span class="kd">extends</span> <span class="kt">num</span><span class="o">?</span><span class="p">&gt;</span> <span class="p">{</span>
+  <span class="n">T</span> <span class="n">min</span><span class="p">,</span> <span class="n">max</span><span class="p">;</span>
+
+  <span class="n">Interval</span><span class="p">(</span><span class="k">this</span><span class="o">.</span><span class="na">min</span><span class="p">,</span> <span class="k">this</span><span class="o">.</span><span class="na">max</span><span class="p">);</span>
+
+  <span class="kt">bool</span> <span class="kd">get</span> <span class="n">isEmpty</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="n">localMin</span> <span class="o">=</span> <span class="n">min</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="n">localMax</span> <span class="o">=</span> <span class="n">max</span><span class="p">;</span>
+
+    <span class="c1">// No min or max means an open-ended interval.</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">localMin</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">localMax</span> <span class="o">==</span> <span class="kc">null</span><span class="p">)</span> <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">localMax</span> <span class="p">&lt;</span><span class="o">=</span> <span class="n">localMin</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>這意味著在類別的主體中，你擁有了將型別引數作為可空型別來處理的靈活性，但你也受到了可空性的限制——除非你先處理了可空狀態，否則你無法呼叫變數的任何方法。在此處的例子中，我們將欄位複製至區域變數，並且檢查了它們是否為 <code class="language-plaintext highlighter-rouge">null</code>，所以在我們呼叫 <code class="language-plaintext highlighter-rouge">&lt;=</code> 前，流程分析將它們提升成了非空型別。</p>
+
+
+
+<p>請注意，可空的型別約束並不會阻止使用者使用非空型別對類進行例項化。一個可空的型別約束意味著型別引數 <strong>可以</strong> 為空，而不是 <strong>必須</strong> 為空。（實際上，如果你沒有寫上 <code class="language-plaintext highlighter-rouge">extends</code> 陳述式，型別引數的預設型別約束是可空的 <code class="language-plaintext highlighter-rouge">Object?</code>。）你沒有辦法宣告一個 <strong>必需的</strong> 可空型別引數。如果你希望確保型別引數一定是可空且以 <code class="language-plaintext highlighter-rouge">null</code> 隱含初始化，你可以在類別的主體中使用 <code class="language-plaintext highlighter-rouge">T?</code>。</p>
+
+
+
+<h2 id="core-library-changes">
+<a class="anchor" href="#core-library-changes" aria-hidden="true"><span class="octicon octicon-link"></span></a>核心函式庫的改動</h2>
+
+
+
+<p>我們在語言上還有一些其他微小的細節調整。例如沒有使用 <code class="language-plaintext highlighter-rouge">on</code> 的 <code class="language-plaintext highlighter-rouge">catch</code> 現在返回的預設型別是 <code class="language-plaintext highlighter-rouge">Object</code> 而不是 <code class="language-plaintext highlighter-rouge">dynamic</code>。同時，switch 陳述式中的條件貫穿分析也使用了新的流程分析。</p>
+
+
+
+<p>剩餘的重要改動，都存在於核心函式庫中。在我們開始這次的空安全大冒險之前，我們曾經擔心過，為了讓核心函式庫用上空安全，也許我們要對現有的語言系統做出大規模的破壞性改動。而結果並沒有想象中的那麼可怕。儘管確實 <strong>有</strong> 一些重大的變化，但在大部分情況下，遷移進行得十分順利。大多數的核心庫要麼不接受 <code class="language-plaintext highlighter-rouge">null</code> ，從而自然地使用了非空的型別，要麼接受了 <code class="language-plaintext highlighter-rouge">null</code>，並且優雅地處理了可空型別。</p>
+
+
+
+<p>不過，這裡還有一些比較重要的變動細節：</p>
+
+
+
+<h3 id="the-map-index-operator-is-nullable">
+<a class="anchor" href="#the-map-index-operator-is-nullable" aria-hidden="true"><span class="octicon octicon-link"></span></a>Map 的索引運運算元是可空的</h3>
+
+
+
+<p>這其實算不上一個改動，但你應該瞭解一下。
+Map 類別的 <code class="language-plaintext highlighter-rouge">[]</code> 運運算元會在鍵值不存在時返回 <code class="language-plaintext highlighter-rouge">null</code>。這就暗示了運運算元的返回型別必須是可空的 <code class="language-plaintext highlighter-rouge">V?</code> 而不是 <code class="language-plaintext highlighter-rouge">V</code>。</p>
+
+
+
+<p>我們本可以在鍵值不存在時丟擲例外，並且將返回型別改為更易使用的非空型別。但是，透過索引運運算元判斷 <code class="language-plaintext highlighter-rouge">null</code> 來確認鍵值是否存在，是一個非常常見的操作，經過我們的分析，大約有一半的操作是這樣的用途。如果破壞了這些程式碼，會直接摧毀 Dart 的生態系統。</p>
+
+
+
+<p>實際上，執行時的行為還是一樣的，因此返回型別必須是可空的。這意味著你無法在 Map 查詢時立馬使用查詢的結果：</p>
+
+
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Using null safety, incorrectly:</span>
+<span class="kd">var</span> <span class="n">map</span> <span class="o">=</span> <span class="p">{</span><span class="s">'key'</span><span class="o">:</span> <span class="s">'value'</span><span class="p">};</span>
+<span class="n">print</span><span class="p">(</span><span class="n">map</span><span class="p">[</span><span class="s">'key'</span><span class="p">]</span><span class="o">.</span><span class="na">length</span><span class="p">);</span> <span class="c1">// Error.</span>
+</code></pre></div></div>
+
+<p>這段程式碼會在 <code class="language-plaintext highlighter-rouge">.length</code> 的呼叫處丟擲一個編譯例外，因為你嘗試呼叫可空的字串。在你已經 <strong>確定</strong> 鍵值存在的情況下，你可以給型別檢查器上一個 <code class="language-plaintext highlighter-rouge">!</code>：</p>
+
+
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Using null safety:</span>
+<span class="kd">var</span> <span class="n">map</span> <span class="o">=</span> <span class="p">{</span><span class="s">'key'</span><span class="o">:</span> <span class="s">'value'</span><span class="p">};</span>
+<span class="n">print</span><span class="p">(</span><span class="n">map</span><span class="p">[</span><span class="s">'key'</span><span class="p">]</span><span class="o">!.</span><span class="na">length</span><span class="p">);</span> <span class="c1">// OK.</span>
+</code></pre></div></div>
+
+<p>我們曾經考慮過為 Map 增加另一個方法，幫助你辦到這件事：查詢鍵值，如果沒找到則丟擲例外，否則返回一個非空值。但是我們應該怎麼稱呼它？任何名字都不如一個 <code class="language-plaintext highlighter-rouge">!</code> 來的簡短，也沒有任何一個方法的名字會比一個 <code class="language-plaintext highlighter-rouge">!</code> 的呼叫語義更清晰。所以，在 Map 查詢一個已知存在的元素的方法是 <code class="language-plaintext highlighter-rouge">[]!</code>。相信你會慢慢習慣的。</p>
+
+
+
+<h3 id="no-unnamed-list-constructor">
+<a class="anchor" href="#no-unnamed-list-constructor" aria-hidden="true"><span class="octicon octicon-link"></span></a>去除 List 的非命名構造</h3>
+
+
+
+<p><code class="language-plaintext highlighter-rouge">List</code> 的非命名建構函式會建立一個給定大小的列表，但是並沒有為任何元素進行初始化。如果你建立了一個非空型別的列表，接著訪問了其中一個元素，這將會是巨大的漏洞。</p>
+
+
+
+<p>為了避免這樣的情況發生，我們將這個建構函式完全移除了。在空安全的程式碼中，就算是一個可空的型別，呼叫 <code class="language-plaintext highlighter-rouge">List()</code> 都會丟擲錯誤。聽起來有點嚇人，但在實際開發中，大部分的程式碼都透過字面量、<code class="language-plaintext highlighter-rouge">List.filled()</code>、<code class="language-plaintext highlighter-rouge">List.generate()</code> 或是透過其他集合轉換來建立列表。為了一些極端情況，比如你需要建立某個型別的一個空的列表，我們新增了 <code class="language-plaintext highlighter-rouge">List.empty()</code> 構造。</p>
+
+
+
+<p>在 Dart 中，建立一個完全未初始化的列表，總是感覺不太對勁，以前是，現在更是。如果你的程式碼因為這項改動而被影響了，你隨時可以透過其他方法來產生一個列表。</p>
+
+
+
+<h3 id="cannot-set-a-larger-length-on-non-nullable-lists">
+<a class="anchor" href="#cannot-set-a-larger-length-on-non-nullable-lists" aria-hidden="true"><span class="octicon octicon-link"></span></a>不能對非空的列表設定更大的長度</h3>
+
+
+
+<p><code class="language-plaintext highlighter-rouge">List</code> 的 <code class="language-plaintext highlighter-rouge">length</code> getter 也有一個對應的 setter，這一點鮮為人知。你可以對列表設定一個較短的長度，從而截斷它。你也可以對列表設定一個 <strong>更長的</strong> 長度，從而使用未初始化的元素填充它。</p>
+
+
+
+<p>如果你對一個非空的列表做了這樣的操作，在存取未初始化的元素時，就與空安全的健全性發生了衝突。為了防止意外發生，現在對一個非空型別的陣列呼叫 <code class="language-plaintext highlighter-rouge">length</code> setter，
+<strong>並且</strong> 準備設定一個 <strong>更長的</strong> 長度時，會在執行時丟擲一個例外。你仍然可以對任何型別的列表進行截斷，也可以對一個可空型別的列表進行填充。</p>
+
+
+
+<p>如果你自訂了列表的型別，例如繼承了 <code class="language-plaintext highlighter-rouge">ListBase</code> 或者混入了 <code class="language-plaintext highlighter-rouge">ListMixin</code>，那麼這項改動可能會造成較大的影響。以上的兩種型別都提供了 <code class="language-plaintext highlighter-rouge">insert()</code> 的實現，透過設定長度，為插入的元素提供空間。在空安全中這樣做可能會出現錯誤，所以我們將它們的 <code class="language-plaintext highlighter-rouge">insert()</code> 實現改為了 <code class="language-plaintext highlighter-rouge">add()</code>。現在你自訂的列表應該繼承 <code class="language-plaintext highlighter-rouge">add()</code> 方法。</p>
+
+
+
+<h3 id="cannot-access-iteratorcurrent-before-or-after-iteration">
+<a class="anchor" href="#cannot-access-iteratorcurrent-before-or-after-iteration" aria-hidden="true"><span class="octicon octicon-link"></span></a>在迭代前後不能存取 Iterator.current</h3>
+
+
+
+<p><code class="language-plaintext highlighter-rouge">Iterable</code> 是一個可變的“遊標”類，用於遍歷 <code class="language-plaintext highlighter-rouge">Iterable</code> 型別的元素。在存取任何元素之前，你都需要呼叫 <code class="language-plaintext highlighter-rouge">moveNext()</code> 來跳到第一個元素。當方法返回了 <code class="language-plaintext highlighter-rouge">false</code> 時，意味著你到達了終點，已經沒有更多元素了。</p>
+
+
+
+<p>在以前，在首次呼叫 <code class="language-plaintext highlighter-rouge">moveNext()</code> 前，或者在迭代結束後，呼叫 <code class="language-plaintext highlighter-rouge">current</code> 會返回 <code class="language-plaintext highlighter-rouge">null</code>。有了空安全，就要求 <code class="language-plaintext highlighter-rouge">current</code> 的返回型別是 <code class="language-plaintext highlighter-rouge">E?</code> 而不是 <code class="language-plaintext highlighter-rouge">E</code>。這樣的返回型別意味著在執行時，所有元素的存取前都需要檢查是否為 <code class="language-plaintext highlighter-rouge">null</code>。</p>
+
+
+
+<p>鑑於目前幾乎沒有人會以這種錯誤的方式訪問當前元素，這些檢查其實毫無用處。所以我們將 <code class="language-plaintext highlighter-rouge">current</code> 的返回型別確定為 <code class="language-plaintext highlighter-rouge">E</code>。由於迭代前後 <strong>有可能</strong> 會有一個對應型別的值出現，當你在不應該呼叫它的時候呼叫迭代器時，我們讓迭代器的行為保持為未定義。對於 <code class="language-plaintext highlighter-rouge">Iterator</code> 的大部分實現都將丟擲 <code class="language-plaintext highlighter-rouge">StateError</code> 例外。</p>
+
+
+
+<h2 id="summary">
+<a class="anchor" href="#summary" aria-hidden="true"><span class="octicon octicon-link"></span></a>總結</h2>
+
+
+
+<p>這是一場非常詳盡的空安全旅途，途中走遍了所有語言和庫的變更。這其中的內容真的很多，但是這也是一項非常大的語言變更。更重要的是，我們希望 Dart 仍然讓你感到好用且具備一致性。所以不僅型別系統需要作出變動，一些可用性的特性也同時圍繞著一起改變。我們不希望空安全僅僅是一個簡陋的語法附加特性。</p>
+
+
+
+<p>你需要掌握的核心要點有：</p>
+
+
+
+<ul>
+  <li>
+    <p>型別預設是非空的，可以新增 <code class="language-plaintext highlighter-rouge">?</code> 變為可空的。</p>
+
+    
+  </li>
+  <li>
+    <p>可選引數必須是可空的或者包含預設值的。你可以使用 <code class="language-plaintext highlighter-rouge">required</code> 來建構一個非可選命名引數。非空的全域變數和靜態欄位必須在宣告時被初始化。例項的非空欄位必須在構造體開始執行前被初始化。</p>
+
+    
+  </li>
+  <li>
+    <p>如果接收者為 <code class="language-plaintext highlighter-rouge">null</code>，那麼在其避空運算子之後的鏈式方法呼叫都會被截斷。我們引入了新的空判斷級聯運運算元 (<code class="language-plaintext highlighter-rouge">?..</code>) 及索引運運算元 (<code class="language-plaintext highlighter-rouge">?[]</code>)。字尾空斷言“重點”運運算元 (<code class="language-plaintext highlighter-rouge">!</code>) 可以將可空的操作物件轉換為對應的非空型別。</p>
+
+    
+  </li>
+  <li>
+    <p>新的流程分析，讓你更安全地將可空的區域變數和引數，轉變為可用的非空型別。它同時還對型別提升、遺漏的返回、不可達的程式碼以及變數的初始化，有著更為智慧的規則。</p>
+
+    
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">late</code> 修飾符以在執行時每次都進行檢查的高昂代價，讓你在一些原本無法使用的地方，能夠使用非空型別和 <code class="language-plaintext highlighter-rouge">final</code>。它同時提供了對欄位延遲初始化的支援。</p>
+
+    
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">List</code> 類現在不再允許包含未初始化的元素。</p>
+
+    
+  </li>
+</ul>
+
+<p>最後，當你掌握了這篇文章的所有內容，並且將你的程式碼真正帶到空安全的世界中時，你會得到一個健全的、編譯器可以進行最佳化的程式，並且在你的程式碼中，你可以看到每一個執行時可能出錯的地方。希望你的一切努力都是值得的。</p>
+
+
+
+          
+
+        </div>
+      </article>
+    </main>
+    <footer id="page-footer">
+    <div class="footer-section footer-main">
+      <a href="/" class="brand" title="Dart">
+        <img src="/assets/img/shared/dart/logo+text/horizontal/white.svg" alt="Dart" width="164px">
+      </a>
+      <div class="footer-social-links">
+        <a href="https://github.com/doggy8088/dart.tw" target="_blank" rel="noopener" title="GitHub" class="no-automatic-external">
+          <svg>
+            <use href="/assets/img/social/github.svg#github"></use>
+          </svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-section footer-tray">
+      <div class="footer-licenses">
+        參考中文內容需註明本站及連結作為出處，英文內容和範例程式碼均遵從源站授權協議。
+      </div>
+      <div class="footer-utility-links">
+        <ul>
+          <li><a href="/terms" title="使用條款">使用條款</a></li>
+          <li><a href="https://policies.google.com/privacy?hl=zh-TW" target="_blank" rel="noopener" title="隱私政策" class="no-automatic-external">隱私政策</a></li>
+          <li><a href="/security" title="Security philosophy and practices">Dart 程式碼安全說明</a></li>
+          <li><a href="https://flutter.tw/about" target="_blank">關於中文文件</a>
+          </li><li><a href="https://flutter.tw/disclaimer" target="_blank">免責條款</a>
+          </li><li><a href="https://dart.cn/" target="_blank">Dart 簡體中文文檔</a>
+        </li></ul>
+      </div>
+    </div>
+  </footer>
+
+  
+
+<script src="/assets/translator/js/translator.js"></script></body></html>

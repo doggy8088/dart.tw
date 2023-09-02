@@ -1,0 +1,1449 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Language" content="zh-cmn-Hans">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Google Tag Manager -->
+<!--  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':-->
+<!--  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],-->
+<!--  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=-->
+<!--  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);-->
+<!--  })(window,document,'script','dataLayer','GTM-5VSZM5J');</script>-->
+  <!-- End Google Tag Manager -->
+
+  <meta name="description" content="Fetch data over the internet using the http package.">
+  <title>Fetch data from the internet | Dart</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-28P0PYCRZ9"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-28P0PYCRZ9');
+  </script>
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?fa71f2474b82505e00203cf9956cf0bc";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+  <!-- Favicon / Touch Icons -->
+  <link rel="icon" sizes="64x64" href="/assets/shared/dart/icon/64.png">
+  <link href="/assets/img/touch-icon-iphone.png" rel="apple-touch-icon">
+  <link href="/assets/img/touch-icon-ipad.png" rel="apple-touch-icon" sizes="152x152">
+  <link href="/assets/img/touch-icon-iphone-retina.png" rel="apple-touch-icon" sizes="180x180">
+  <link href="/assets/img/touch-icon-ipad-retina.png" rel="apple-touch-icon" sizes="167x167">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@dart_lang">
+  <meta name="twitter:title" content="Fetch data from the internet">
+  <meta name="twitter:description" content="Fetch data over the internet using the http package.">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Fetch data from the internet">
+  <meta property="og:description" content="Fetch data over the internet using the http package.">
+  <meta property="og:url" content="https://dart.tw.gh.miniasp.com/tutorials/server/fetch-data">
+
+  <meta property="og:image" content="https://dart.tw.gh.miniasp.com/assets/shared/dart-logo-for-shares.png?2">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Display:wght@400&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons&amp;display=swap" rel="stylesheet">
+  <script src="https://cdn.staticfile.org/font-awesome/5.15.4/js/all.js" data-auto-replace-svg="nest">
+  </script>
+
+  <link rel="stylesheet" href="/assets/css/main.css?v=1693674404">
+  <script src="https://cdn.staticfile.org/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.staticfile.org/popper.js/1.16.1/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.staticfile.org/bootstrap/4.6.2/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!-- <script src="https://cdn.staticfile.org/js-cookie/3.0.5/js.cookie.min.js"
+          integrity="sha512-nlp9/l96/EpjYBx7EP7pGASVXNe80hGhYAUrjeXnu/fyF5Py0/RXav4BBNs7n5Hx1WFhOEOWSAVjGeC3oKxDVQ=="
+          crossorigin="anonymous"
+          referrerpolicy="no-referrer"></script> -->
+
+  <script src="/assets/js/vendor/code-prettify/prettify.js"></script>
+  <script src="/assets/js/vendor/code-prettify/lang-dart.js"></script>
+  <script src="/assets/js/vendor/code-prettify/lang-yaml.js"></script>
+  <script src="/assets/js/os-tabs.js?v=1693674404"></script>
+  <script src="/assets/js/utilities.js?v=1693674404"></script>
+  <script src="/assets/js/main.js?v=1693674404"></script>
+
+  <script defer="" src="https://dartpad.dev/inject_embed.dart.js"></script>
+  <script>
+
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-122680122-5', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+
+ <link href="/assets/translator/css/translator.css" rel="stylesheet"></head>
+
+  <body class="default show_banner">
+    <section id="cookie-notice">
+  <div class="container">
+    <p>Google uses cookies to deliver its services, to personalize ads, and to 
+      analyze traffic. You can adjust your privacy controls anytime in your 
+      <a href="https://myaccount.google.com/data-and-personalization" target="_blank" rel="noopener" class="no-automatic-external">Google settings</a>. 
+      <a href="https://policies.google.com/technologies/cookies" target="_blank" rel="noopener" class="no-automatic-external">Learn more</a>.
+    </p>
+    <button id="cookie-consent" class="btn btn-primary">Okay</button>
+  </div>
+</section>
+
+    <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=G-28P0PYCRZ9"
+ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+    <header id="page-header" class="site-header">
+  <nav id="mainnav" class="site-header">
+  <div id="menu-toggle"><i class="material-icons">menu</i></div>
+  <a href="/" class="brand" title="Dart">
+    <img src="/assets/img/shared/dart/logo+text/horizontal/white.svg" alt="Dart">
+  </a>
+  <ul class="navbar">
+    <li>
+      <a href="/overview" class="nav-link">概覽</a>
+    </li>
+    <li class="mainnav__get-started">
+      <a href="/guides" class="nav-link
+         active">
+        <span>文件</span>
+      </a>
+    </li>
+    <li>
+      <a href="/community" class="nav-link">社群</a>
+    </li>
+    <li>
+      <a href="/#try-dart" class="nav-link">嘗試 Dart</a>
+    </li>
+    <li>
+      <a href="/get-dart" class="nav-link">獲取 Dart SDK</a>
+    </li>
+    <li class="searchfield">
+      <form action="/search" class="site-header__search form-inline" id="cse-search-box">
+        <input type="hidden" name="cx" value="011220921317074318178:_yy-tmb5t_i">
+        <input type="hidden" name="ie" value="UTF-8">
+        <input type="hidden" name="hl" value="en">
+        <input class="site-header__searchfield form-control search-field" type="search" name="q" id="q" autocomplete="off" placeholder="Search" aria-label="Search">
+      </form>
+    </li>
+  </ul>
+</nav>
+
+  
+</header>
+ <div class="banner">
+  <p class="banner__text">
+    Dart 3 已釋出！帶來了全新的
+    <a href="https://dart.tw.gh.miniasp.com/language/records" class="no-automatic-external">記錄型別 (records)</a>、
+    <a href="https://dart.tw.gh.miniasp.com/language/patterns" class="no-automatic-external">模式匹配 (patterns)</a>
+    以及 <a href="https://dart.tw.gh.miniasp.com/language/class-modifiers" class="no-automatic-external">型別修飾符 (class modifiers)</a>。
+    <br>
+    <!--<a href="https://medium.com/p/53f065a10635" class="no-automatic-external">Check out the blog post</a>!-->
+  </p>
+</div>
+ 
+
+    <div id="sidenav" class="">
+  <form action="/search/" class="site-header__search form-inline">
+    <input class="site-header__searchfield form-control search-field" type="search" name="q" id="q" autocomplete="off" placeholder="Search" aria-label="Search">
+  </form>
+
+  <div class="site-sidebar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a href="/overview" class="nav-link">概覽</a>
+      </li>
+      <li class="nav-item">
+        <a href="/community" class="nav-link">社群</a>
+      </li>
+      <li class="nav-item">
+        <a href="https://dartpad.dev" class="nav-link">嘗試 Dart</a>
+      </li>
+      <li class="nav-item">
+        <a href="/get-dart" class="nav-link">獲取 Dart SDK</a>
+      </li>
+      <li class="nav-item">
+        <a href="/guides" class="nav-link active">文件</a>
+      </li>
+    </ul>
+
+    <ul class="nav flex-column"><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-1" role="button" aria-expanded="false" aria-controls="sidenav-1">範例和課程</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-1">
+        <li class="nav-item">
+    <a class="nav-link" href="/tutorials">語言概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable" data-toggle="collapse" data-target="#sidenav-1-2" href="#sidenav-1-2" role="button" aria-expanded="true" aria-controls="sidenav-1-2">Codelabs
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-1-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/codelabs">Codelabs 列表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/dart-cheatsheet">Dart 速查表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/iterables">可迭代集合</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/async-await">Dart 非同步程式設計</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/null-safety">空安全</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-2" role="button" aria-expanded="false" aria-controls="sidenav-2">Dart 開發語言</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2">
+        <li class="nav-item">
+    <a class="nav-link" href="/language">介紹</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-2" href="#sidenav-2-2" role="button" aria-expanded="false" aria-controls="sidenav-2-2">基礎表示式
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/variables">變數</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/operators">運運算元</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/comments">註釋</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/metadata">註解</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/libraries">庫 &amp; 導庫</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/keywords">關鍵字</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-3" href="#sidenav-2-3" role="button" aria-expanded="false" aria-controls="sidenav-2-3">型別
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-3">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/built-in-types">基本型別</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/records">記錄 (Records)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/collections">集合 (Collections)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/generics">泛型 (Generics)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/typedefs">別名 (Typedefs)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/type-system">型別系統</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-4" href="#sidenav-2-4" role="button" aria-expanded="false" aria-controls="sidenav-2-4">模式匹配
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-4">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/patterns">概覽 &amp; 用法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/pattern-types">模式匹配型別</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/language/functions">函式方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-6" href="#sidenav-2-6" role="button" aria-expanded="false" aria-controls="sidenav-2-6">控制流
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-6">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/loops">迴圈</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/branches">分支</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/language/error-handling">錯誤處理</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-8" href="#sidenav-2-8" role="button" aria-expanded="false" aria-controls="sidenav-2-8">類 &amp; 物件
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-8">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/classes">類</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/constructors">構造方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/methods">成員方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/extend">繼承</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/mixins">混入 (Mixin)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/enums">列舉</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/extension-methods">擴充方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/callable-objects">可呼叫的物件</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-9" href="#sidenav-2-9" role="button" aria-expanded="false" aria-controls="sidenav-2-9">型別修飾符
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-9">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/class-modifiers">概覽 &amp; 用法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/class-modifiers-for-apis">API 維護者應該用的型別修飾符</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/modifier-reference">速查表</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-10" href="#sidenav-2-10" role="button" aria-expanded="false" aria-controls="sidenav-2-10">併發
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-10">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/async">非同步支援</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/concurrency">Isolates</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-11" href="#sidenav-2-11" role="button" aria-expanded="false" aria-controls="sidenav-2-11">Null safety
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-11">
+      <li class="nav-item">
+    <a class="nav-link" href="/null-safety">健全的空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/migration-guide">遷移到空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/understanding-null-safety">深入理解空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/unsound-null-safety">非健全的空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/faq">空安全常見問題和解答</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-3" role="button" aria-expanded="false" aria-controls="sidenav-3">高效指南 (Effective Dart)</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-3">
+        <li class="nav-item">
+    <a class="nav-link" href="/effective-dart">概述</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/style">程式碼風格</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/documentation">文件</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/usage">用法範例</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/design">API 設計</a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-4" role="button" aria-expanded="false" aria-controls="sidenav-4">核心函式庫</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-4">
+        <li class="nav-item">
+    <a class="nav-link" href="/guides/libraries">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/library-tour">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-4-3" href="#sidenav-4-3" role="button" aria-expanded="false" aria-controls="sidenav-4-3">介紹文章
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-4-3">
+      <li class="nav-item">
+    <a class="nav-link" href="/articles/libraries/creating-streams">建立 stream</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-5" role="button" aria-expanded="false" aria-controls="sidenav-5">Packages</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-5">
+        <li class="nav-item">
+    <a class="nav-link" href="/guides/packages">如何使用 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/useful-libraries">常用 package 介紹</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/create-packages">建立 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/publishing">釋出 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/writing-package-pages">設定 package 介紹頁</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-5-6" href="#sidenav-5-6" role="button" aria-expanded="false" aria-controls="sidenav-5-6">Package 參考資料
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-5-6">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/pub/dependencies">依賴</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/glossary">術語表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/package-layout">Package 檔案結構</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/environment-variables">設定環境變數</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/pubspec">Pubspec 檔案</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/troubleshoot">問題排查</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/verified-publishers">釋出者認證</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/versioning">版本管理</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link active" data-toggle="collapse" href="#sidenav-6" role="button" aria-expanded="true" aria-controls="sidenav-6">開發文件</a>
+
+      <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-6">
+        <li class="nav-item">
+    <a class="nav-link" href="/codelabs/async-await">Futures、async 和 await</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/language/streams">Streams 介紹</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/json">使用 JSON</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/numbers">Dart 中的數字</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-5" href="#sidenav-6-5" role="button" aria-expanded="false" aria-controls="sidenav-6-5">與其他語言進行互動呼叫
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-5">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/c-interop">與 C 互調</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/objective-c-interop">與 Objective-C 和 Swift 互調</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/java-interop">與 Java 和 Kotlin 互調</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/web/js-interop">與 JavaScript 互調</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/guides/google-apis">Google APIs</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/multiplatform-apps">跨平臺應用</a>
+  </li><li class="nav-item">
+    <a class="nav-link active collapsable" data-toggle="collapse" data-target="#sidenav-6-8" href="#sidenav-6-8" role="button" aria-expanded="true" aria-controls="sidenav-6-8">命令列和伺服器端應用
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-6-8">
+      <li class="nav-item">
+    <a class="nav-link" href="/server">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/get-started">起步課程</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/cmdline">命令列應用</a>
+  </li><li class="nav-item">
+    <a class="nav-link active" href="/tutorials/server/fetch-data">從網路上獲取資料</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/httpserver">編寫 HTTP 伺服器端應用</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/server/libraries">庫和 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/server/google-cloud">Google Cloud</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-9" href="#sidenav-6-9" role="button" aria-expanded="false" aria-controls="sidenav-6-9">網頁端 (Web) 應用
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-9">
+      <li class="nav-item">
+    <a class="nav-link" href="/web">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/get-started">開始使用</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-9-3" href="#sidenav-6-9-3" role="button" aria-expanded="false" aria-controls="sidenav-6-9-3">底層 Web 程式設計
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-9-3">
+      <li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/low-level-html/connect-dart-html">Dart 與 HTML 關聯</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/low-level-html/add-elements">向 DOM 新增元素</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/low-level-html/remove-elements">移除 DOM 元素</a>
+  </li>
+  </ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/web/deployment">部署</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/web/libraries">常用 Web 函式庫和 package</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/guides/environment-declarations">環境變數宣告</a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-7" role="button" aria-expanded="false" aria-controls="sidenav-7">開發工具和使用技巧</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7">
+        <li class="nav-item">
+    <a class="nav-link" href="/tools">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-2" href="#sidenav-7-2" role="button" aria-expanded="false" aria-controls="sidenav-7-2">編輯器和除錯工具
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/jetbrains-plugin">使用 IntelliJ 和 Android Studio</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/vs-code">使用 VS Code</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/dart-devtools">Dart 開發者工具</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-2-4" href="#sidenav-7-2-4" role="button" aria-expanded="false" aria-controls="sidenav-7-2-4">線上執行 Dart 程式碼
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-2-4">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/dartpad">Overview</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dartpad/dartpad-best-practices">DartPad 課程</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dartpad/troubleshoot">DartPad 疑難解答</a>
+  </li>
+  </ul>
+  </li>
+</ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-3" href="#sidenav-7-3" role="button" aria-expanded="false" aria-controls="sidenav-7-3">命令列工具
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-3">
+      <li class="nav-item">
+    <a class="nav-link collapsable" data-toggle="collapse" data-target="#sidenav-7-3-1" href="#sidenav-7-3-1" role="button" aria-expanded="true" aria-controls="sidenav-7-3-1">Dart SDK
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-7-3-1">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/sdk">概覽</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-tool">dart 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-analyze">dart analyze 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-compile">dart compile 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-create">dart create 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-doc">dart doc 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-fix">dart fix 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-format">dart format 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-info">dart info 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/pub/cmd">dart pub 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-run">dart run 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-test">dart test 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dartaotruntime">dartaotruntime 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/experiment-flags">實驗性命令標記</a>
+  </li>
+  </ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable" data-toggle="collapse" data-target="#sidenav-7-3-2" href="#sidenav-7-3-2" role="button" aria-expanded="true" aria-controls="sidenav-7-3-2">其他的命令列工具
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-7-3-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/build_runner">build_runner 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/webdev">webdev 命令</a>
+  </li>
+  </ul>
+  </li>
+</ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-4" href="#sidenav-7-4" role="button" aria-expanded="false" aria-controls="sidenav-7-4">原始碼管理
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-4">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/language/formatting">程式碼格式化</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/private-files">不應提交的內容</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-5" href="#sidenav-7-5" role="button" aria-expanded="false" aria-controls="sidenav-7-5">靜態分析
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-5">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/analysis">自訂靜態分析</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/sound-problems">修復常見的型別問題</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/diagnostic-messages">診斷訊息</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/linter-rules">Linter 規則</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-6" href="#sidenav-7-6" role="button" aria-expanded="false" aria-controls="sidenav-7-6">測試和調優
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-6">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/testing">測試</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/web/debugging">除錯 Web 應用</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-8" role="button" aria-expanded="false" aria-controls="sidenav-8">資源</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-8">
+        <li class="nav-item">
+    <a class="nav-link" href="/resources/faq">常見問題</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/evolution">版本演變</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/spec">語言規範</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/resources/dart-3-migration">Dart 3 遷移指南</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-8-5" href="#sidenav-8-5" role="button" aria-expanded="false" aria-controls="sidenav-8-5">從其他平台轉向 Dart
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-8-5">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/language/coming-from/js-to-dart">從 JavaScript 到 Dart</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/coming-from/swift-to-dart">從 Swift 到 Dart</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/resources/glossary">詞彙表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/resources/books">書籍資源</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/resources/videos">影片資源</a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link " data-toggle="collapse" href="#sidenav-9" role="button" aria-expanded="true" aria-controls="sidenav-9">相關站點</a>
+
+      <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-9">
+        <li class="nav-item">
+    <a class="nav-link" href="https://api.dart.dev" target="_blank" rel="noopener">API 文件<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://medium.com/dartlang" target="_blank" rel="noopener">Dart 團隊官方部落格<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://dartpad.dev" target="_blank" rel="noopener">DartPad (線上編輯器)<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://flutter.tw" target="_blank" rel="noopener">Flutter<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://pub.dev" target="_blank" rel="noopener">Package 網站<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-10" role="button" aria-expanded="false" aria-controls="sidenav-10">關於 Dart 中文文件</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-10">
+        <li class="nav-item">
+    <a class="nav-link" href="https://flutter.tw/about/docs-cn" target="_blank" rel="noopener">關於本站<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://flutter.tw/disclaimer" target="_blank" rel="noopener">免責條款 (Disclaimer)<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li>
+</ul>
+    </li></ul>
+
+  </div>
+</div>
+
+    <main id="page-content">
+      
+
+
+
+
+
+
+
+<div id="site-toc--side" class="site-toc ">
+  <header class="site-toc__title">
+    目錄
+    
+  </header>
+  <ul id="toc" class="section-nav">
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#background-concepts">Background concepts</a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#json">JSON</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#http-requests">HTTP requests</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#uris-and-urls">URIs and URLs</a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#retrieve-the-necessary-dependencies">Retrieve the necessary dependencies</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#build-a-url">Build a URL</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#make-a-network-request">Make a network request</a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#make-multiple-requests">Make multiple requests</a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#decode-the-retrieved-data">Decode the retrieved data</a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#create-a-structured-class-to-store-the-data">Create a structured class to store the data</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#encode-the-data-into-your-class">Encode the data into your class</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#convert-the-response-to-an-object-of-your-structured-class">Convert the response to an object of your structured class</a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#utilize-the-converted-data">Utilize the converted data</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#what-next">What next?</a></li>
+</ul>
+  
+</div>
+
+
+      <article>
+        <div class="content">
+          
+
+          <div id="site-content-title">
+            <div id="page-github-links" class="btn-group" aria-label="Page GitHub links" role="group">
+  <a href="https://github.com/doggy8088/dart.tw/tree/master/src/_tutorials/server/fetch-data.md" class="btn no-automatic-external" title="View page source" target="_blank" rel="noopener">
+    <i class="material-icons">description</i>
+  </a>
+  <a href="https://github.com/doggy8088/dart.tw/issues/new?template=1_page_issue.yml&amp;title=[PAGE ISSUE]: 'Fetch data from the internet'&amp;page-url=https://dart.tw.gh.miniasp.com/tutorials/server/fetch-data&amp;page-source=https://github.com/doggy8088/dart.tw/tree/master/src/_tutorials/server/fetch-data.md" class="btn no-automatic-external" title="Report an issue with this page" target="_blank" rel="noopener">
+    <i class="material-icons">bug_report</i>
+  </a>
+</div>
+
+            
+            <h1 id="fetch-data-from-the-internet">Fetch data from the internet</h1>
+            </div>
+          
+
+
+
+
+
+
+
+<div id="site-toc--inline" class="site-toc toc-collapsible toc-collapsed">
+  <header class="site-toc__title">
+    目錄
+    
+      <span class="site-toc--inline__toggle toc-toggle-down"><i class="material-icons">keyboard_arrow_down</i></span>
+      <span class="site-toc--inline__toggle toc-toggle-up"><i class="material-icons">keyboard_arrow_up</i></span>
+    
+  </header>
+  <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#background-concepts">Background concepts</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#json">JSON</a></li>
+<li class="toc-entry toc-h3"><a href="#http-requests">HTTP requests</a></li>
+<li class="toc-entry toc-h3"><a href="#uris-and-urls">URIs and URLs</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#retrieve-the-necessary-dependencies">Retrieve the necessary dependencies</a></li>
+<li class="toc-entry toc-h2"><a href="#build-a-url">Build a URL</a></li>
+<li class="toc-entry toc-h2"><a href="#make-a-network-request">Make a network request</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#make-multiple-requests">Make multiple requests</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#decode-the-retrieved-data">Decode the retrieved data</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#create-a-structured-class-to-store-the-data">Create a structured class to store the data</a></li>
+<li class="toc-entry toc-h3"><a href="#encode-the-data-into-your-class">Encode the data into your class</a></li>
+<li class="toc-entry toc-h3"><a href="#convert-the-response-to-an-object-of-your-structured-class">Convert the response to an object of your structured class</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#utilize-the-converted-data">Utilize the converted data</a></li>
+<li class="toc-entry toc-h2"><a href="#what-next">What next?</a></li>
+</ul>
+  
+    <span class="site-toc--inline__toggle toc-toggle-more-items"><i class="material-icons">more_horiz</i></span>
+  
+</div>
+
+
+          
+<div class="mini-toc">
+  <h4 class="no_toc" id="你將會學習">你將會學習:</h4>
+  <ul>
+    <li>The basics of what HTTP requests and URIs are and what they are used for.</li>
+    <li>Making HTTP requests using <code class="language-plaintext highlighter-rouge">package:http</code>.</li>
+    <li>Decoding JSON strings into Dart objects with <code class="language-plaintext highlighter-rouge">dart:convert</code>.</li>
+    <li>Converting JSON objects into class-based structures.</li>
+  </ul>
+</div>
+
+<p>Most applications require some form of communication or
+data retrieval from the internet.
+Many apps do so through HTTP requests,
+which are sent from a client to a server
+to perform a specific action for a resource
+identified through a <a href="https://wikipedia.org/wiki/Uniform_Resource_Identifier">URI</a> (Uniform Resource Identifier).</p>
+
+<p>Data communicated over HTTP can technically be in any form,
+but using <a href="https://www.json.org/">JSON</a> (JavaScript Object Notation)
+is a popular choice due to its human-readability
+and language independent nature.
+The Dart SDK and ecosystem also have extensive support for JSON
+with multiple options to best meet your app’s requirements.</p>
+
+<p>In this tutorial,
+you will learn more about HTTP requests, URIs, and JSON.
+Then you will learn how to use <a href="https://pub.dev/packages/http"><code class="language-plaintext highlighter-rouge">package:http</code></a>
+as well as Dart’s JSON support in the <a href="https://api.dart.dev/stable/dart-convert/dart-convert-library.html"><code class="language-plaintext highlighter-rouge">dart:convert</code></a> library
+to fetch, decode, then use JSON-formatted data
+retrieved from an HTTP server.</p>
+
+<h2 id="background-concepts">
+<a class="anchor" href="#background-concepts" aria-hidden="true"><span class="octicon octicon-link"></span></a>Background concepts</h2>
+
+<p>The following sections provide some extra background and information
+around the technologies and concepts used in the tutorial
+to facilitate fetching data from the server.
+To skip directly to the tutorial content,
+see <a href="#retrieve-the-necessary-dependencies">Retrieve the necessary dependencies</a>.</p>
+
+<h3 id="json">
+<a class="anchor" href="#json" aria-hidden="true"><span class="octicon octicon-link"></span></a>JSON</h3>
+
+<p>JSON (JavaScript Object Notation) is a data-interchange format
+that has become ubiquitous across
+application development and client-server communication.
+It is lightweight but also easy for
+humans to read and write due to being text based.
+With JSON, various data types and simple data structures
+such as lists and maps can be serialized and represented by strings.</p>
+
+<p>Most languages have many implementations and
+parsers have become extremely fast,
+so you don’t need to worry about interoperability or performance.
+For more information about the JSON format, see <a href="https://www.json.org/">Introducing JSON</a>.
+To learn more about working with JSON in Dart,
+see the <a href="/guides/json">Using JSON</a> guide.</p>
+
+<h3 id="http-requests">
+<a class="anchor" href="#http-requests" aria-hidden="true"><span class="octicon octicon-link"></span></a>HTTP requests</h3>
+
+<p>HTTP (Hypertext Transfer Protocol) is a stateless protocol
+designed for transmitting documents,
+originally between web clients and web servers.
+You interacted with the protocol to load this page,
+as your browser uses an HTTP <code class="language-plaintext highlighter-rouge">GET</code> request
+to retrieve the contents of a page from a web server.
+Since its introduction, use of the HTTP protocol and its various versions
+have expanded to applications outside the web as well,
+essentially wherever communication from a client to a server is needed.</p>
+
+<p>HTTP requests sent from the client to communicate with the server
+are composed of multiple components.
+HTTP libraries, such as <code class="language-plaintext highlighter-rouge">package:http</code>, allow you
+to specify the following kinds of communication:</p>
+
+<ul>
+  <li>An HTTP method defining the desired action,
+such as <code class="language-plaintext highlighter-rouge">GET</code> to retrieve data or <code class="language-plaintext highlighter-rouge">POST</code> to submit new data.</li>
+  <li>The location of the resource through a URI.</li>
+  <li>The version of HTTP being used.</li>
+  <li>Headers that provide extra information to the server.</li>
+  <li>An optional body, so the request can send data to the server,
+not just retrieve it.</li>
+</ul>
+
+<p>To learn more about the HTTP protocol,
+check out <a href="https://developer.mozilla.org/docs/Web/HTTP/Overview">An overview of HTTP</a> on the mdn web docs.</p>
+
+<h3 id="uris-and-urls">
+<a class="anchor" href="#uris-and-urls" aria-hidden="true"><span class="octicon octicon-link"></span></a>URIs and URLs</h3>
+
+<p>To make an HTTP request,
+you need to provide a <a href="https://wikipedia.org/wiki/Uniform_Resource_Identifier">URI</a> (Uniform Resource Identifier) to the resource.
+A URI is a character string that uniquely identifies a resource.
+A URL (Uniform Resource Locator) is a specific kind of URI
+that also provides the location of the resource.
+URLs for resources on the web contain three pieces of information.
+For this current page, the URL is composed of:</p>
+
+<ul>
+  <li>The scheme used for determining the protocol used: <code class="language-plaintext highlighter-rouge">https</code>
+</li>
+  <li>The authority or hostname of the server: <code class="language-plaintext highlighter-rouge">dart.dev</code>
+</li>
+  <li>The path to the resource: <code class="language-plaintext highlighter-rouge">/tutorials/server/fetch-data.html</code>
+</li>
+</ul>
+
+<p>There are other optional parameters as well
+that aren’t used by the current page:</p>
+
+<ul>
+  <li>Parameters to customize extra behavior: <code class="language-plaintext highlighter-rouge">?key1=value1&amp;key2=value2</code>
+</li>
+  <li>An anchor, that isn’t sent to the server,
+which points to a specific location in the resource: <code class="language-plaintext highlighter-rouge">#uris</code>
+</li>
+</ul>
+
+<p>To learn more about URLs,
+see <a href="https://developer.mozilla.org/docs/Learn/Common_questions/What_is_a_URL">What is a URL?</a> on the mdn web docs.</p>
+
+<h2 id="retrieve-the-necessary-dependencies">
+<a class="anchor" href="#retrieve-the-necessary-dependencies" aria-hidden="true"><span class="octicon octicon-link"></span></a>Retrieve the necessary dependencies</h2>
+
+<p>You can directly use <code class="language-plaintext highlighter-rouge">dart:io</code> or <code class="language-plaintext highlighter-rouge">dart:html</code> to make HTTP requests,
+however those libraries are platform dependent.
+<code class="language-plaintext highlighter-rouge">package:http</code> provides a cross-platform library
+for making composable HTTP requests,
+with optional fine-grained control.</p>
+
+<p>To add a dependency on <code class="language-plaintext highlighter-rouge">package:http</code>,
+run the following <a href="/tools/pub/cmd/pub-add"><code class="language-plaintext highlighter-rouge">dart pub add</code></a> command
+from the top of your repo:</p>
+
+<div class="language-terminal highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>dart pub add http
+</code></pre></div></div>
+
+<p>To use <code class="language-plaintext highlighter-rouge">package:http</code> in your code,
+import it and optionally <a href="/language/libraries#specifying-a-library-prefix">specify a library prefix</a>:</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">import 'package:http/http.dart' as http;</code></pre></div>
+</div>
+
+<p>To learn more specifics about <code class="language-plaintext highlighter-rouge">package:http</code>,
+see its <a href="https://pub.dev/packages/http">page on the pub.dev site</a>
+and its <a href="https://pub.dev/documentation/http">API documentation</a>.</p>
+
+<h2 id="build-a-url">
+<a class="anchor" href="#build-a-url" aria-hidden="true"><span class="octicon octicon-link"></span></a>Build a URL</h2>
+
+<p>As previously mentioned,
+to make an HTTP request,
+you first need a URL that identifies
+the resource being requested
+or endpoint being accessed.</p>
+
+<p>In Dart, URLs are represented through <a href="https://api.dart.dev/dart-core/Uri-class.html"><code class="language-plaintext highlighter-rouge">Uri</code></a> objects.
+There are many ways to build an <code class="language-plaintext highlighter-rouge">Uri</code>,
+but due to its flexibility,
+parsing a string with <code class="language-plaintext highlighter-rouge">Uri.parse</code> to
+create one is a common solution.</p>
+
+<p>The following snippet shows two ways
+to create a <code class="language-plaintext highlighter-rouge">Uri</code> object
+pointing to mock JSON-formatted information
+about <code class="language-plaintext highlighter-rouge">package:http</code> hosted on this site:</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">// Parse the entire URI, including the scheme
+Uri.parse('https://dart.dev/f/packages/http.json');
+
+// Specifically create a URI with the https scheme
+Uri.https('dart.dev', '/f/packages/http.json');</code></pre></div>
+</div>
+
+<p>To learn about other ways of building and interacting with URIs,
+see the <a href="/guides/libraries/library-tour#uris">library tour’s discussion about URIs</a>.</p>
+
+<h2 id="make-a-network-request">
+<a class="anchor" href="#make-a-network-request" aria-hidden="true"><span class="octicon octicon-link"></span></a>Make a network request</h2>
+
+<p>If you just need to quickly fetch a string representation
+of a requested resource,
+you can use the top-level <a href="https://pub.dev/documentation/http/latest/http/read.html"><code class="language-plaintext highlighter-rouge">read</code></a>
+function found in <code class="language-plaintext highlighter-rouge">package:http</code>
+that returns a <code class="language-plaintext highlighter-rouge">Future&lt;String&gt;</code> or throws
+a <a href="https://pub.dev/documentation/http/latest/http/ClientException-class.html"><code class="language-plaintext highlighter-rouge">ClientException</code></a> if the request wasn’t successful.
+The following example uses <code class="language-plaintext highlighter-rouge">read</code> to
+retrieve the mock JSON-formatted information
+about <code class="language-plaintext highlighter-rouge">package:http</code> as a string,
+then prints it out:</p>
+
+<aside class="alert alert-info" role="alert">
+  <p><i class="material-icons" aria-hidden="true">info</i> <strong>備註:</strong>
+  Many functions in <code class="language-plaintext highlighter-rouge">package:http</code>, including <code class="language-plaintext highlighter-rouge">read</code>,
+  access the network and perform potentially time-consuming operations,
+  therefore they do so asynchronously and return a <a href="https://api.dart.dev/stable/dart-async/Future-class.html"><code class="language-plaintext highlighter-rouge">Future</code></a>.
+  If you haven’t encountered futures yet,
+  you can learn about them—as well as the <code class="language-plaintext highlighter-rouge">async</code> and <code class="language-plaintext highlighter-rouge">await</code> keywords—in the
+  <a href="/codelabs/async-await">asynchronous programming codelab</a>.</p>
+</aside>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">void main() async {
+  final httpPackageUrl = Uri.https('dart.dev', '/f/packages/http.json');
+  final httpPackageInfo = await <span class="highlight">http.read</span>(httpPackageUrl);
+  print(httpPackageInfo);
+}</code></pre></div>
+</div>
+
+<p>This results in the following JSON-formatted output,
+which can also be seen in your browser at
+<a href="/f/packages/http.json">https://dart.tw.gh.miniasp.com/f/packages/http.json</a>.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"latestVersion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.13.5"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"A composable, multi-platform, Future-based API for HTTP requests."</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"publisher"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dart.dev"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"repository"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://github.com/dart-lang/http"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Note the structure of the data
+(in this case a map),
+as you will need it when decoding the JSON later on.</p>
+
+<p>If you need other information from the response,
+such as the <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status">status code</a> or the <a href="https://developer.mozilla.org/docs/Web/HTTP/Headers">headers</a>,
+you can instead use the top-level <a href="https://pub.dev/documentation/http/latest/http/get.html"><code class="language-plaintext highlighter-rouge">get</code></a> function
+that returns a <code class="language-plaintext highlighter-rouge">Future</code> with a <a href="https://pub.dev/documentation/http/latest/http/Response-class.html"><code class="language-plaintext highlighter-rouge">Response</code></a>.</p>
+
+<p>The following snippet uses <code class="language-plaintext highlighter-rouge">get</code> to get the whole response
+in order to exit early if the request was not successful,
+which is indicated with a status code of <strong>200</strong>:</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">void main() async {
+  final httpPackageUrl = Uri.https('dart.dev', '/f/packages/http.json');
+  final httpPackageResponse = await http.get(httpPackageUrl);
+  if (httpPackageResponse.statusCode != 200) {
+    print('Failed to retrieve the http package!');
+    return;
+  }
+  print(httpPackageResponse.body);
+}</code></pre></div>
+</div>
+
+<p>There are many other status codes besides <strong>200</strong>
+and your app might want to handle them differently.
+To learn more about what different status codes mean,
+see <a href="https://developer.mozilla.org/docs/Web/HTTP/Status">HTTP response status codes</a> on the mdn web docs.</p>
+
+<p>Some server requests require more information,
+such as authentication or user-agent information;
+in this case you might need to include <a href="https://developer.mozilla.org/docs/Web/HTTP/Headers">HTTP headers</a>.
+You can specify headers by passing in a <code class="language-plaintext highlighter-rouge">Map&lt;String, String&gt;</code>
+of the key-value pairs as the <code class="language-plaintext highlighter-rouge">headers</code> optional named parameter:</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">await http.get(Uri.https('dart.dev', '/f/packages/http.json'),
+    headers: {'User-Agent': '&lt;product name&gt;/&lt;product-version&gt;'});</code></pre></div>
+</div>
+
+<h3 id="make-multiple-requests">
+<a class="anchor" href="#make-multiple-requests" aria-hidden="true"><span class="octicon octicon-link"></span></a>Make multiple requests</h3>
+
+<p>If you’re making multiple requests to the same server,
+you can instead keep a persistent connection
+through a <a href="https://pub.dev/documentation/http/latest/http/Client-class.html"><code class="language-plaintext highlighter-rouge">Client</code></a>,
+which has similar methods to the top-level ones.
+Just make sure to clean up with
+the <a href="https://pub.dev/documentation/http/latest/http/Client/close.html"><code class="language-plaintext highlighter-rouge">close</code></a> method when done:</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">void main() async {
+  final httpPackageUrl = Uri.https('dart.dev', '/f/packages/http.json');
+  final client = <span class="highlight">http.Client()</span>;
+  try {
+    final httpPackageInfo = await client.read(httpPackageUrl);
+    print(httpPackageInfo);
+  } finally {
+    <span class="highlight">client.close()</span>;
+  }
+}</code></pre></div>
+</div>
+
+<p>To enable the client to retry failed requests,
+import <code class="language-plaintext highlighter-rouge">package:http/retry.dart</code> and
+wrap your created <code class="language-plaintext highlighter-rouge">Client</code> in a <a href="https://pub.dev/documentation/http/latest/retry/RetryClient-class.html"><code class="language-plaintext highlighter-rouge">RetryClient</code></a>:</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">import 'package:http/http.dart' as http;
+<span class="highlight">import 'package:http/retry.dart';</span>
+
+void main() async {
+  final httpPackageUrl = Uri.https('dart.dev', '/f/packages/http.json');
+  final client = <span class="highlight">RetryClient(http.Client())</span>;
+  try {
+    final httpPackageInfo = await client.read(httpPackageUrl);
+    print(httpPackageInfo);
+  } finally {
+    client.close();
+  }
+}</code></pre></div>
+</div>
+
+<p>The <code class="language-plaintext highlighter-rouge">RetryClient</code> has a default behavior for how many
+times to retry and how long to wait between each request,
+but its behavior can be modified through parameters
+to the <a href="https://pub.dev/documentation/http/latest/retry/RetryClient/RetryClient.html"><code class="language-plaintext highlighter-rouge">RetryClient()</code></a>
+or <a href="https://pub.dev/documentation/http/latest/retry/RetryClient/RetryClient.withDelays.html"><code class="language-plaintext highlighter-rouge">RetryClient.withDelays()</code></a> constructors.</p>
+
+<p><code class="language-plaintext highlighter-rouge">package:http</code> has much more functionality and customization,
+so make sure to check out its <a href="https://pub.dev/packages/http">page on the pub.dev site</a>
+and its <a href="https://pub.dev/documentation/http">API documentation</a>.</p>
+
+<h2 id="decode-the-retrieved-data">
+<a class="anchor" href="#decode-the-retrieved-data" aria-hidden="true"><span class="octicon octicon-link"></span></a>Decode the retrieved data</h2>
+
+<p>While you now have made a network request
+and retrieved the returned data as string,
+accessing specific portions of information
+from a string can be a challenge.</p>
+
+<p>Since the data is already in a JSON format,
+you can use Dart’s built-in <a href="https://api.dart.dev/stable/dart-convert/JsonCodec/decode.html"><code class="language-plaintext highlighter-rouge">json.decode</code></a> function
+in the <code class="language-plaintext highlighter-rouge">dart:convert</code> library
+to convert the raw string into
+a JSON representation using Dart objects.
+In this case, the JSON data is represented in a map structure
+and, in JSON, map keys are always strings,
+so you can cast the result of <code class="language-plaintext highlighter-rouge">json.decode</code> to a <code class="language-plaintext highlighter-rouge">Map&lt;String, dynamic&gt;</code>:</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart"><span class="highlight">import 'dart:convert';</span>
+
+import 'package:http/http.dart' as http;
+
+void main() async {
+  final httpPackageUrl = Uri.https('dart.dev', '/f/packages/http.json');
+  final httpPackageInfo = await http.read(httpPackageUrl);
+  final httpPackageJson = <span class="highlight">json.decode(httpPackageInfo) as Map&lt;String, dynamic&gt;</span>;
+  print(httpPackageJson);
+}</code></pre></div>
+</div>
+
+<h3 id="create-a-structured-class-to-store-the-data">
+<a class="anchor" href="#create-a-structured-class-to-store-the-data" aria-hidden="true"><span class="octicon octicon-link"></span></a>Create a structured class to store the data</h3>
+
+<p>To provide the decoded JSON with more structure,
+making it easier to work with,
+create a class that can store the
+retrieved data using specific types depending
+on the schema of your data.</p>
+
+<p>The following snippet shows a class-based representation
+that can store the package information returned
+from the mock JSON file you requested.
+This structure assumes all fields except the <code class="language-plaintext highlighter-rouge">repository</code>
+are required and provided every time.</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">class PackageInfo {
+  final String name;
+  final String latestVersion;
+  final String description;
+  final String publisher;
+  final Uri? repository;
+
+  PackageInfo({
+    required this.name,
+    required this.latestVersion,
+    required this.description,
+    required this.publisher,
+    this.repository,
+  });
+}</code></pre></div>
+</div>
+
+<h3 id="encode-the-data-into-your-class">
+<a class="anchor" href="#encode-the-data-into-your-class" aria-hidden="true"><span class="octicon octicon-link"></span></a>Encode the data into your class</h3>
+
+<p>Now that you have a class to store your data in,
+you need to add a mechanism to convert
+the decoded JSON into a <code class="language-plaintext highlighter-rouge">PackageInfo</code> object.</p>
+
+<p>Convert the decoded JSON
+by manually writing a <code class="language-plaintext highlighter-rouge">fromJson</code> method
+matching the earlier JSON format,
+casting types as necessary
+and handling the optional <code class="language-plaintext highlighter-rouge">repository</code> field:</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">class PackageInfo {
+  // ···
+
+  factory PackageInfo.fromJson(Map&lt;String, dynamic&gt; json) {
+    final repository = json['repository'] as String?;
+
+    return PackageInfo(
+      name: json['name'] as String,
+      latestVersion: json['latestVersion'] as String,
+      description: json['description'] as String,
+      publisher: json['publisher'] as String,
+      repository: repository != null ? Uri.tryParse(repository) : null,
+    );
+  }
+}</code></pre></div>
+</div>
+
+<p>A handwritten method, such as in the previous example,
+is often sufficient for relatively simple JSON structures,
+but there are more flexible options as well.
+To learn more about JSON serialization and deserialization,
+including automatic generation of the conversion logic,
+see the <a href="/guides/json">Using JSON</a> guide.</p>
+
+<h3 id="convert-the-response-to-an-object-of-your-structured-class">
+<a class="anchor" href="#convert-the-response-to-an-object-of-your-structured-class" aria-hidden="true"><span class="octicon octicon-link"></span></a>Convert the response to an object of your structured class</h3>
+
+<p>Now you have a class to store your data
+and a way to convert the decoded JSON object
+into an object of that type.
+Next, you can write a function that
+pulls everything together:</p>
+
+<ol>
+  <li>Create your <code class="language-plaintext highlighter-rouge">URI</code> based off a passed-in package name.</li>
+  <li>Use <code class="language-plaintext highlighter-rouge">http.get</code> to retrieve the data for that package.</li>
+  <li>If the request didn’t succeed, throw an <code class="language-plaintext highlighter-rouge">Exception</code>
+or preferably your own custom <code class="language-plaintext highlighter-rouge">Exception</code> subclass.</li>
+  <li>If the request succeeded, use <code class="language-plaintext highlighter-rouge">json.decode</code> to
+decode the response body into a JSON string.</li>
+  <li>Converted the decoded JSON string into a <code class="language-plaintext highlighter-rouge">PackageInfo</code> object
+using the <code class="language-plaintext highlighter-rouge">PackageInfo.fromJson</code> factory constructor you created.</li>
+</ol>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">Future&lt;PackageInfo&gt; getPackage(String packageName) async {
+  final packageUrl = Uri.https('dart.dev', '/f/packages/$packageName.json');
+  final packageResponse = await http.get(packageUrl);
+
+  // If the request didn't succeed, throw an exception
+  if (packageResponse.statusCode != 200) {
+    throw PackageRetrievalException(
+      packageName: packageName,
+      statusCode: packageResponse.statusCode,
+    );
+  }
+
+  final packageJson = json.decode(packageResponse.body) as Map&lt;String, dynamic&gt;;
+
+  return PackageInfo.fromJson(packageJson);
+}
+
+class PackageRetrievalException implements Exception {
+  final String packageName;
+  final int? statusCode;
+
+  PackageRetrievalException({required this.packageName, this.statusCode});
+}</code></pre></div>
+</div>
+
+<h2 id="utilize-the-converted-data">
+<a class="anchor" href="#utilize-the-converted-data" aria-hidden="true"><span class="octicon octicon-link"></span></a>Utilize the converted data</h2>
+
+<p>Now that you’ve retrieved data and
+converted it to a more easily accessible format,
+you can use it however you’d like.
+Some possibilities include
+outputting information to a CLI, or
+displaying it in a <a href="/web">web</a> or <a href="https://flutter.tw">Flutter</a> app.</p>
+
+<p>Here is complete, runnable example
+that requests, decodes, then displays
+the mock information about the <code class="language-plaintext highlighter-rouge">http</code> and <code class="language-plaintext highlighter-rouge">path</code> packages:</p>
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart:run-dartpad:height-600px:ga_id-fetch-data-complete prettyprint lang-dart">import 'dart:convert';
+
+import 'package:http/http.dart' as http;
+
+void main() async {
+  await printPackageInformation('http');
+  print('');
+  await printPackageInformation('path');
+}
+
+Future&lt;void&gt; printPackageInformation(String packageName) async {
+  final PackageInfo packageInfo;
+
+  try {
+    packageInfo = await getPackage(packageName);
+  } on PackageRetrievalException catch (e) {
+    print(e);
+    return;
+  }
+
+  print('Information about the $packageName package:');
+  print('Latest version: ${packageInfo.latestVersion}');
+  print('Description: ${packageInfo.description}');
+  print('Publisher: ${packageInfo.publisher}');
+
+  final repository = packageInfo.repository;
+  if (repository != null) {
+    print('Repository: $repository');
+  }
+}
+
+Future&lt;PackageInfo&gt; getPackage(String packageName) async {
+  final packageUrl = Uri.https('dart.dev', '/f/packages/$packageName.json');
+  final packageResponse = await http.get(packageUrl);
+
+  // If the request didn't succeed, throw an exception
+  if (packageResponse.statusCode != 200) {
+    throw PackageRetrievalException(
+      packageName: packageName,
+      statusCode: packageResponse.statusCode,
+    );
+  }
+
+  final packageJson = json.decode(packageResponse.body) as Map&lt;String, dynamic&gt;;
+
+  return PackageInfo.fromJson(packageJson);
+}
+
+class PackageInfo {
+  final String name;
+  final String latestVersion;
+  final String description;
+  final String publisher;
+  final Uri? repository;
+
+  PackageInfo({
+    required this.name,
+    required this.latestVersion,
+    required this.description,
+    required this.publisher,
+    this.repository,
+  });
+
+  factory PackageInfo.fromJson(Map&lt;String, dynamic&gt; json) {
+    final repository = json['repository'] as String?;
+
+    return PackageInfo(
+      name: json['name'] as String,
+      latestVersion: json['latestVersion'] as String,
+      description: json['description'] as String,
+      publisher: json['publisher'] as String,
+      repository: repository != null ? Uri.tryParse(repository) : null,
+    );
+  }
+}
+
+class PackageRetrievalException implements Exception {
+  final String packageName;
+  final int? statusCode;
+
+  PackageRetrievalException({required this.packageName, this.statusCode});
+
+  @override
+  String toString() {
+    final buf = StringBuffer();
+    buf.write('Failed to retrieve package:$packageName information');
+
+    if (statusCode != null) {
+      buf.write(' with a status code of $statusCode');
+    }
+
+    buf.write('!');
+    return buf.toString();
+  }
+}</code></pre></div>
+</div>
+
+<aside class="alert alert-info" role="alert">
+  <p><img src="/assets/img/shared/flutter/icon/64.png" width="24" alt="Flutter logo"> <strong>與 Flutter 相關的備註:</strong>
+  For another example that covers fetching then displaying data in Flutter,
+  see the <a href="https://flutter.tw/cookbook/networking/fetch-data">Fetching data from the internet</a> Flutter recipe.</p>
+</aside>
+
+<h2 id="what-next">
+<a class="anchor" href="#what-next" aria-hidden="true"><span class="octicon octicon-link"></span></a>What next?</h2>
+
+<p>Now that you have retrieved, parsed, and used
+data from the internet,
+consider learning more about <a href="/language/concurrency">Concurrency in Dart</a>.
+If your data is large and complex,
+you can move retrieval and decoding
+to another <a href="/language/concurrency#how-isolates-work">isolate</a> as a background worker
+to prevent your interface from becoming unresponsive.</p>
+
+
+          
+
+        </div>
+      </article>
+    </main>
+    <footer id="page-footer">
+    <div class="footer-section footer-main">
+      <a href="/" class="brand" title="Dart">
+        <img src="/assets/img/shared/dart/logo+text/horizontal/white.svg" alt="Dart" width="164px">
+      </a>
+      <div class="footer-social-links">
+        <a href="https://github.com/doggy8088/dart.tw" target="_blank" rel="noopener" title="GitHub" class="no-automatic-external">
+          <svg>
+            <use href="/assets/img/social/github.svg#github"></use>
+          </svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-section footer-tray">
+      <div class="footer-licenses">
+        參考中文內容需註明本站及連結作為出處，英文內容和範例程式碼均遵從源站授權協議。
+      </div>
+      <div class="footer-utility-links">
+        <ul>
+          <li><a href="/terms" title="使用條款">使用條款</a></li>
+          <li><a href="https://policies.google.com/privacy?hl=zh-TW" target="_blank" rel="noopener" title="隱私政策" class="no-automatic-external">隱私政策</a></li>
+          <li><a href="/security" title="Security philosophy and practices">Dart 程式碼安全說明</a></li>
+          <li><a href="https://flutter.tw/about" target="_blank">關於中文文件</a>
+          </li><li><a href="https://flutter.tw/disclaimer" target="_blank">免責條款</a>
+          </li><li><a href="https://dart.cn/" target="_blank">Dart 簡體中文文檔</a>
+        </li></ul>
+      </div>
+    </div>
+  </footer>
+
+  
+
+<script src="/assets/translator/js/translator.js"></script></body></html>

@@ -1,0 +1,2879 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Language" content="zh-cmn-Hans">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Google Tag Manager -->
+<!--  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':-->
+<!--  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],-->
+<!--  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=-->
+<!--  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);-->
+<!--  })(window,document,'script','dataLayer','GTM-5VSZM5J');</script>-->
+  <!-- End Google Tag Manager -->
+
+  <meta name="description" content="庫的 API 設計。">
+  <title>高效 Dart 語言指南：API 設計 | Dart</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-28P0PYCRZ9"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-28P0PYCRZ9');
+  </script>
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?fa71f2474b82505e00203cf9956cf0bc";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+  <!-- Favicon / Touch Icons -->
+  <link rel="icon" sizes="64x64" href="/assets/shared/dart/icon/64.png">
+  <link href="/assets/img/touch-icon-iphone.png" rel="apple-touch-icon">
+  <link href="/assets/img/touch-icon-ipad.png" rel="apple-touch-icon" sizes="152x152">
+  <link href="/assets/img/touch-icon-iphone-retina.png" rel="apple-touch-icon" sizes="180x180">
+  <link href="/assets/img/touch-icon-ipad-retina.png" rel="apple-touch-icon" sizes="167x167">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@dart_lang">
+  <meta name="twitter:title" content="高效 Dart 語言指南：API 設計">
+  <meta name="twitter:description" content="庫的 API 設計。">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="高效 Dart 語言指南：API 設計">
+  <meta property="og:description" content="庫的 API 設計。">
+  <meta property="og:url" content="https://dart.tw.gh.miniasp.com/effective-dart/design.html">
+
+  <meta property="og:image" content="https://dart.tw.gh.miniasp.com/assets/shared/dart-logo-for-shares.png?2">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Display:wght@400&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons&amp;display=swap" rel="stylesheet">
+  <script src="https://cdn.staticfile.org/font-awesome/5.15.4/js/all.js" data-auto-replace-svg="nest">
+  </script>
+
+  <link rel="stylesheet" href="/assets/css/main.css?v=1693674404">
+  <script src="https://cdn.staticfile.org/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.staticfile.org/popper.js/1.16.1/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.staticfile.org/bootstrap/4.6.2/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!-- <script src="https://cdn.staticfile.org/js-cookie/3.0.5/js.cookie.min.js"
+          integrity="sha512-nlp9/l96/EpjYBx7EP7pGASVXNe80hGhYAUrjeXnu/fyF5Py0/RXav4BBNs7n5Hx1WFhOEOWSAVjGeC3oKxDVQ=="
+          crossorigin="anonymous"
+          referrerpolicy="no-referrer"></script> -->
+
+  <script src="/assets/js/vendor/code-prettify/prettify.js"></script>
+  <script src="/assets/js/vendor/code-prettify/lang-dart.js"></script>
+  <script src="/assets/js/vendor/code-prettify/lang-yaml.js"></script>
+  <script src="/assets/js/os-tabs.js?v=1693674404"></script>
+  <script src="/assets/js/utilities.js?v=1693674404"></script>
+  <script src="/assets/js/main.js?v=1693674404"></script>
+
+  <script>
+
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-122680122-5', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+
+ <link href="/assets/translator/css/translator.css" rel="stylesheet"></head>
+
+  <body class="default show_banner">
+    <section id="cookie-notice">
+  <div class="container">
+    <p>Google uses cookies to deliver its services, to personalize ads, and to 
+      analyze traffic. You can adjust your privacy controls anytime in your 
+      <a href="https://myaccount.google.com/data-and-personalization" target="_blank" rel="noopener" class="no-automatic-external">Google settings</a>. 
+      <a href="https://policies.google.com/technologies/cookies" target="_blank" rel="noopener" class="no-automatic-external">Learn more</a>.
+    </p>
+    <button id="cookie-consent" class="btn btn-primary">Okay</button>
+  </div>
+</section>
+
+    <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=G-28P0PYCRZ9"
+ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+    <header id="page-header" class="site-header">
+  <nav id="mainnav" class="site-header">
+  <div id="menu-toggle"><i class="material-icons">menu</i></div>
+  <a href="/" class="brand" title="Dart">
+    <img src="/assets/img/shared/dart/logo+text/horizontal/white.svg" alt="Dart">
+  </a>
+  <ul class="navbar">
+    <li>
+      <a href="/overview" class="nav-link">概覽</a>
+    </li>
+    <li class="mainnav__get-started">
+      <a href="/guides" class="nav-link
+        ">
+        <span>文件</span>
+      </a>
+    </li>
+    <li>
+      <a href="/community" class="nav-link">社群</a>
+    </li>
+    <li>
+      <a href="/#try-dart" class="nav-link">嘗試 Dart</a>
+    </li>
+    <li>
+      <a href="/get-dart" class="nav-link">獲取 Dart SDK</a>
+    </li>
+    <li class="searchfield">
+      <form action="/search" class="site-header__search form-inline" id="cse-search-box">
+        <input type="hidden" name="cx" value="011220921317074318178:_yy-tmb5t_i">
+        <input type="hidden" name="ie" value="UTF-8">
+        <input type="hidden" name="hl" value="en">
+        <input class="site-header__searchfield form-control search-field" type="search" name="q" id="q" autocomplete="off" placeholder="Search" aria-label="Search">
+      </form>
+    </li>
+  </ul>
+</nav>
+
+  
+</header>
+ <div class="banner">
+  <p class="banner__text">
+    Dart 3 已釋出！帶來了全新的
+    <a href="https://dart.tw.gh.miniasp.com/language/records" class="no-automatic-external">記錄型別 (records)</a>、
+    <a href="https://dart.tw.gh.miniasp.com/language/patterns" class="no-automatic-external">模式匹配 (patterns)</a>
+    以及 <a href="https://dart.tw.gh.miniasp.com/language/class-modifiers" class="no-automatic-external">型別修飾符 (class modifiers)</a>。
+    <br>
+    <!--<a href="https://medium.com/p/53f065a10635" class="no-automatic-external">Check out the blog post</a>!-->
+  </p>
+</div>
+ 
+
+    <div id="sidenav" class="">
+  <form action="/search/" class="site-header__search form-inline">
+    <input class="site-header__searchfield form-control search-field" type="search" name="q" id="q" autocomplete="off" placeholder="Search" aria-label="Search">
+  </form>
+
+  <div class="site-sidebar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a href="/overview" class="nav-link">概覽</a>
+      </li>
+      <li class="nav-item">
+        <a href="/community" class="nav-link">社群</a>
+      </li>
+      <li class="nav-item">
+        <a href="https://dartpad.dev" class="nav-link">嘗試 Dart</a>
+      </li>
+      <li class="nav-item">
+        <a href="/get-dart" class="nav-link">獲取 Dart SDK</a>
+      </li>
+      <li class="nav-item">
+        <a href="/guides" class="nav-link">文件</a>
+      </li>
+    </ul>
+
+    <ul class="nav flex-column"><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-1" role="button" aria-expanded="false" aria-controls="sidenav-1">範例和課程</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-1">
+        <li class="nav-item">
+    <a class="nav-link" href="/tutorials">語言概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable" data-toggle="collapse" data-target="#sidenav-1-2" href="#sidenav-1-2" role="button" aria-expanded="true" aria-controls="sidenav-1-2">Codelabs
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-1-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/codelabs">Codelabs 列表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/dart-cheatsheet">Dart 速查表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/iterables">可迭代集合</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/async-await">Dart 非同步程式設計</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/null-safety">空安全</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-2" role="button" aria-expanded="false" aria-controls="sidenav-2">Dart 開發語言</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2">
+        <li class="nav-item">
+    <a class="nav-link" href="/language">介紹</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-2" href="#sidenav-2-2" role="button" aria-expanded="false" aria-controls="sidenav-2-2">基礎表示式
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/variables">變數</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/operators">運運算元</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/comments">註釋</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/metadata">註解</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/libraries">庫 &amp; 導庫</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/keywords">關鍵字</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-3" href="#sidenav-2-3" role="button" aria-expanded="false" aria-controls="sidenav-2-3">型別
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-3">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/built-in-types">基本型別</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/records">記錄 (Records)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/collections">集合 (Collections)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/generics">泛型 (Generics)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/typedefs">別名 (Typedefs)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/type-system">型別系統</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-4" href="#sidenav-2-4" role="button" aria-expanded="false" aria-controls="sidenav-2-4">模式匹配
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-4">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/patterns">概覽 &amp; 用法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/pattern-types">模式匹配型別</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/language/functions">函式方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-6" href="#sidenav-2-6" role="button" aria-expanded="false" aria-controls="sidenav-2-6">控制流
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-6">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/loops">迴圈</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/branches">分支</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/language/error-handling">錯誤處理</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-8" href="#sidenav-2-8" role="button" aria-expanded="false" aria-controls="sidenav-2-8">類 &amp; 物件
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-8">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/classes">類</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/constructors">構造方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/methods">成員方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/extend">繼承</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/mixins">混入 (Mixin)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/enums">列舉</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/extension-methods">擴充方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/callable-objects">可呼叫的物件</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-9" href="#sidenav-2-9" role="button" aria-expanded="false" aria-controls="sidenav-2-9">型別修飾符
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-9">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/class-modifiers">概覽 &amp; 用法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/class-modifiers-for-apis">API 維護者應該用的型別修飾符</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/modifier-reference">速查表</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-10" href="#sidenav-2-10" role="button" aria-expanded="false" aria-controls="sidenav-2-10">併發
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-10">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/async">非同步支援</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/concurrency">Isolates</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-11" href="#sidenav-2-11" role="button" aria-expanded="false" aria-controls="sidenav-2-11">Null safety
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-11">
+      <li class="nav-item">
+    <a class="nav-link" href="/null-safety">健全的空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/migration-guide">遷移到空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/understanding-null-safety">深入理解空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/unsound-null-safety">非健全的空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/faq">空安全常見問題和解答</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link active" data-toggle="collapse" href="#sidenav-3" role="button" aria-expanded="true" aria-controls="sidenav-3">高效指南 (Effective Dart)</a>
+
+      <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-3">
+        <li class="nav-item">
+    <a class="nav-link" href="/effective-dart">概述</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/style">程式碼風格</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/documentation">文件</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/usage">用法範例</a>
+  </li><li class="nav-item">
+    <a class="nav-link active" href="/effective-dart/design">API 設計</a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-4" role="button" aria-expanded="false" aria-controls="sidenav-4">核心函式庫</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-4">
+        <li class="nav-item">
+    <a class="nav-link" href="/guides/libraries">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/library-tour">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-4-3" href="#sidenav-4-3" role="button" aria-expanded="false" aria-controls="sidenav-4-3">介紹文章
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-4-3">
+      <li class="nav-item">
+    <a class="nav-link" href="/articles/libraries/creating-streams">建立 stream</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-5" role="button" aria-expanded="false" aria-controls="sidenav-5">Packages</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-5">
+        <li class="nav-item">
+    <a class="nav-link" href="/guides/packages">如何使用 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/useful-libraries">常用 package 介紹</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/create-packages">建立 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/publishing">釋出 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/writing-package-pages">設定 package 介紹頁</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-5-6" href="#sidenav-5-6" role="button" aria-expanded="false" aria-controls="sidenav-5-6">Package 參考資料
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-5-6">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/pub/dependencies">依賴</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/glossary">術語表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/package-layout">Package 檔案結構</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/environment-variables">設定環境變數</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/pubspec">Pubspec 檔案</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/troubleshoot">問題排查</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/verified-publishers">釋出者認證</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/versioning">版本管理</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-6" role="button" aria-expanded="false" aria-controls="sidenav-6">開發文件</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6">
+        <li class="nav-item">
+    <a class="nav-link" href="/codelabs/async-await">Futures、async 和 await</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/language/streams">Streams 介紹</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/json">使用 JSON</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/numbers">Dart 中的數字</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-5" href="#sidenav-6-5" role="button" aria-expanded="false" aria-controls="sidenav-6-5">與其他語言進行互動呼叫
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-5">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/c-interop">與 C 互調</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/objective-c-interop">與 Objective-C 和 Swift 互調</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/java-interop">與 Java 和 Kotlin 互調</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/web/js-interop">與 JavaScript 互調</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/guides/google-apis">Google APIs</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/multiplatform-apps">跨平臺應用</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-8" href="#sidenav-6-8" role="button" aria-expanded="false" aria-controls="sidenav-6-8">命令列和伺服器端應用
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-8">
+      <li class="nav-item">
+    <a class="nav-link" href="/server">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/get-started">起步課程</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/cmdline">命令列應用</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/fetch-data">從網路上獲取資料</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/httpserver">編寫 HTTP 伺服器端應用</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/server/libraries">庫和 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/server/google-cloud">Google Cloud</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-9" href="#sidenav-6-9" role="button" aria-expanded="false" aria-controls="sidenav-6-9">網頁端 (Web) 應用
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-9">
+      <li class="nav-item">
+    <a class="nav-link" href="/web">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/get-started">開始使用</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-9-3" href="#sidenav-6-9-3" role="button" aria-expanded="false" aria-controls="sidenav-6-9-3">底層 Web 程式設計
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-9-3">
+      <li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/low-level-html/connect-dart-html">Dart 與 HTML 關聯</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/low-level-html/add-elements">向 DOM 新增元素</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/low-level-html/remove-elements">移除 DOM 元素</a>
+  </li>
+  </ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/web/deployment">部署</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/web/libraries">常用 Web 函式庫和 package</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/guides/environment-declarations">環境變數宣告</a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-7" role="button" aria-expanded="false" aria-controls="sidenav-7">開發工具和使用技巧</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7">
+        <li class="nav-item">
+    <a class="nav-link" href="/tools">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-2" href="#sidenav-7-2" role="button" aria-expanded="false" aria-controls="sidenav-7-2">編輯器和除錯工具
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/jetbrains-plugin">使用 IntelliJ 和 Android Studio</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/vs-code">使用 VS Code</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/dart-devtools">Dart 開發者工具</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-2-4" href="#sidenav-7-2-4" role="button" aria-expanded="false" aria-controls="sidenav-7-2-4">線上執行 Dart 程式碼
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-2-4">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/dartpad">Overview</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dartpad/dartpad-best-practices">DartPad 課程</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dartpad/troubleshoot">DartPad 疑難解答</a>
+  </li>
+  </ul>
+  </li>
+</ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-3" href="#sidenav-7-3" role="button" aria-expanded="false" aria-controls="sidenav-7-3">命令列工具
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-3">
+      <li class="nav-item">
+    <a class="nav-link collapsable" data-toggle="collapse" data-target="#sidenav-7-3-1" href="#sidenav-7-3-1" role="button" aria-expanded="true" aria-controls="sidenav-7-3-1">Dart SDK
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-7-3-1">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/sdk">概覽</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-tool">dart 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-analyze">dart analyze 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-compile">dart compile 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-create">dart create 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-doc">dart doc 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-fix">dart fix 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-format">dart format 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-info">dart info 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/pub/cmd">dart pub 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-run">dart run 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-test">dart test 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dartaotruntime">dartaotruntime 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/experiment-flags">實驗性命令標記</a>
+  </li>
+  </ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable" data-toggle="collapse" data-target="#sidenav-7-3-2" href="#sidenav-7-3-2" role="button" aria-expanded="true" aria-controls="sidenav-7-3-2">其他的命令列工具
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-7-3-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/build_runner">build_runner 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/webdev">webdev 命令</a>
+  </li>
+  </ul>
+  </li>
+</ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-4" href="#sidenav-7-4" role="button" aria-expanded="false" aria-controls="sidenav-7-4">原始碼管理
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-4">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/language/formatting">程式碼格式化</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/private-files">不應提交的內容</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-5" href="#sidenav-7-5" role="button" aria-expanded="false" aria-controls="sidenav-7-5">靜態分析
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-5">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/analysis">自訂靜態分析</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/sound-problems">修復常見的型別問題</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/diagnostic-messages">診斷訊息</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/linter-rules">Linter 規則</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-6" href="#sidenav-7-6" role="button" aria-expanded="false" aria-controls="sidenav-7-6">測試和調優
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-6">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/testing">測試</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/web/debugging">除錯 Web 應用</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-8" role="button" aria-expanded="false" aria-controls="sidenav-8">資源</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-8">
+        <li class="nav-item">
+    <a class="nav-link" href="/resources/faq">常見問題</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/evolution">版本演變</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/spec">語言規範</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/resources/dart-3-migration">Dart 3 遷移指南</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-8-5" href="#sidenav-8-5" role="button" aria-expanded="false" aria-controls="sidenav-8-5">從其他平台轉向 Dart
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-8-5">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/language/coming-from/js-to-dart">從 JavaScript 到 Dart</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/coming-from/swift-to-dart">從 Swift 到 Dart</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/resources/glossary">詞彙表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/resources/books">書籍資源</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/resources/videos">影片資源</a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link " data-toggle="collapse" href="#sidenav-9" role="button" aria-expanded="true" aria-controls="sidenav-9">相關站點</a>
+
+      <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-9">
+        <li class="nav-item">
+    <a class="nav-link" href="https://api.dart.dev" target="_blank" rel="noopener">API 文件<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://medium.com/dartlang" target="_blank" rel="noopener">Dart 團隊官方部落格<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://dartpad.dev" target="_blank" rel="noopener">DartPad (線上編輯器)<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://flutter.tw" target="_blank" rel="noopener">Flutter<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://pub.dev" target="_blank" rel="noopener">Package 網站<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-10" role="button" aria-expanded="false" aria-controls="sidenav-10">關於 Dart 中文文件</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-10">
+        <li class="nav-item">
+    <a class="nav-link" href="https://flutter.tw/about/docs-cn" target="_blank" rel="noopener">關於本站<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://flutter.tw/disclaimer" target="_blank" rel="noopener">免責條款 (Disclaimer)<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li>
+</ul>
+    </li></ul>
+
+  </div>
+</div>
+
+    <main id="page-content">
+      
+
+
+
+
+
+
+
+<div id="site-toc--side" class="site-toc ">
+  <header class="site-toc__title">
+    目錄
+    
+  </header>
+  <ul id="toc" class="section-nav">
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#names"><p>命名</p></a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#do-use-terms-consistently"><p>要使用一致的術語。</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#avoid-abbreviations"><p>避免縮寫。</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#prefer-putting-the-most-descriptive-noun-last"><p>推薦把最具描述性的名詞放到最後。</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#consider-making-the-code-read-like-a-sentence"><p>考慮儘量讓程式碼看起來像普通的句子。</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#prefer-a-noun-phrase-for-a-non-boolean-property-or-variable"><p>推薦使用名詞短語來命名不是布林型別的變數和屬性。</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#prefer-a-non-imperative-verb-phrase-for-a-boolean-property-or-variable"><p>推薦使用非命令式動詞短語命名布林型別的變數和屬性。</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#consider-omitting-the-verb-for-a-named-boolean-parameter"><p>考慮省略命名布林引數的動詞。</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#prefer-the-positive-name-for-a-boolean-property-or-variable"><p>考慮為布林屬性或變數取“肯定”含義的名字。</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#prefer-an-imperative-verb-phrase-for-a-function-or-method-whose-main-purpose-is-a-side-effect"><p>推薦使用命令式動詞短語來命名帶有副作用的函式或者方法。</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#prefer-a-noun-phrase-or-non-imperative-verb-phrase-for-a-function-or-method-if-returning-a-value-is-its-primary-purpose"><p>考慮使用名詞短語或者非命令式動詞短語命名返回資料為主要功能的方法或者函式。</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#consider-an-imperative-verb-phrase-for-a-function-or-method-if-you-want-to-draw-attention-to-the-work-it-performs"><p>考慮使用命令式動詞短語命名一個函式或方法，若果你希望它的執行能被重視。</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#avoid-starting-a-method-name-with-get"><p>避免在方法命名中使用 get 開頭。</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#prefer-naming-a-method-to___-if-it-copies-the-objects-state-to-a-new-object"><p>推薦使用 to___() 來命名把物件的狀態轉換到一個新的物件的函式。</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#prefer-naming-a-method-as___-if-it-returns-a-different-representation-backed-by-the-original-object"><p>推薦使用 as___() 來命名把原來物件轉換為另外一種表現形式的函式。</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#avoid-describing-the-parameters-in-the-functions-or-methods-name"><p>避免在方法或者函式名稱中描述引數。</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#do-follow-existing-mnemonic-conventions-when-naming-type-parameters"><p>要在命名引數時，遵循現有的助記符約定。</p></a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#libraries"><p>庫</p></a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#prefer-making-declarations-private"><p>推薦使用私有宣告。</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#consider-declaring-multiple-classes-in-the-same-library"><p>考慮宣告多個類在一個函式庫中。</p></a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#classes-and-mixins"><p>類</p></a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#avoid-defining-a-one-member-abstract-class-when-a-simple-function-will-do"><p>避免避免為了使用一個簡單的函式而去定義一個單一成員的抽象類別</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#avoid-defining-a-class-that-contains-only-static-members"><p>避免定義僅包含靜態成員的類別。</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#avoid-extending-a-class-that-isnt-intended-to-be-subclassed"><p>避免整合一個不期望被整合的類別。</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#do-document-if-your-class-supports-being-extended"><p>要把能夠繼承的說明新增到文件中，如果這個類可以繼承。</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#avoid-implementing-a-class-that-isnt-intended-to-be-an-interface"><p>避免去實現一個不期望成為介面的類（該類不想作為介面被實現）。</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#do-document-if-your-class-supports-being-used-as-an-interface"><p>要對支援介面的類在文件註明</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#do-use-mixin-to-define-a-mixin-type"><p>要對支援 mixin 的類在文件註明</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#avoid-mixing-in-a-class-that-isnt-intended-to-be-a-mixin"><p>避免去 mixin 一個不期望被 mixin 的類</p></a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#constructors"><p>建構函式</p></a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#consider-making-your-constructor-const-if-the-class-supports-it"><p>考慮在類支援的情況下，指定建構函式為  const。</p></a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#members"><p>成員</p></a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#prefer-making-fields-and-top-level-variables-final"><p>推薦指定欄位或最上層變數為 final 。</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#do-use-getters-for-operations-that-conceptually-access-properties"><p>要對概念上是存取的屬性使用 getter 方法。</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#do-use-setters-for-operations-that-conceptually-change-properties"><p>要對概念上是修改的屬性使用 setter 方法。</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#dont-define-a-setter-without-a-corresponding-getter"><p>不要在沒有對應的 getter 的情況下定義 setter。</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#avoid-using-runtime-type-tests-to-fake-overloading">AVOID using runtime type tests to fake overloading</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#avoid-public-late-final-fields-without-initializers">AVOID public late final fields without initializers</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#avoid-returning-nullable-future-stream-and-collection-types">AVOID returning nullable Future, Stream, and collection types</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#avoid-returning-this-from-methods-just-to-enable-a-fluent-interface"><p>避免為了書寫流暢，而從方法中返回 this 。</p></a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#types"><p>型別</p></a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#do-type-annotate-variables-without-initializers">DO type annotate variables without initializers</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#do-type-annotate-fields-and-top-level-variables-if-the-type-isnt-obvious"><p>推薦為型別不明顯的公共欄位和公共最上層變數指定型別註解。</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#dont-redundantly-type-annotate-initialized-local-variables"><p>避免為初始化的區域變數新增冗餘地型別註解。</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#do-annotate-return-types-on-function-declarations">DO annotate return types on function declarations</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#do-annotate-parameter-types-on-function-declarations">DO annotate parameter types on function declarations</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#dont-annotate-inferred-parameter-types-on-function-expressions"><p>避免在函式表示式上註解推斷的引數型別。</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#dont-type-annotate-initializing-formals">DON’T type annotate initializing formals</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#do-write-type-arguments-on-generic-invocations-that-arent-inferred">DO write type arguments on generic invocations that aren’t inferred</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#dont-write-type-arguments-on-generic-invocations-that-are-inferred">DON’T write type arguments on generic invocations that are inferred</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#avoid-writing-incomplete-generic-types">AVOID writing incomplete generic types</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#do-annotate-with-dynamic-instead-of-letting-inference-fail"><p>推薦使用 dynamic 註解替換推斷失敗的情況。</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#prefer-signatures-in-function-type-annotations"><p>推薦使 function 型別註解的特徵更明顯</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#dont-specify-a-return-type-for-a-setter"><p>不要為 setter 方法指定返回型別。</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#dont-use-the-legacy-typedef-syntax"><p>不要使用棄用的 typedef 語法。</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#prefer-inline-function-types-over-typedefs"><p>推薦優先使用行內函數型別，而後是 typedef。</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#prefer-using-function-type-syntax-for-parameters"><p>考慮在引數上使用函式型別語法。</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#avoid-using-dynamic-unless-you-want-to-disable-static-checking"><p>避免使用 dynamic 除非你希望禁用靜態檢查</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#do-use-futurevoid-as-the-return-type-of-asynchronous-members-that-do-not-produce-values"><p>要使用 Future&lt;void&gt; 作為無法回值非同步成員的返回型別。</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#avoid-using-futureort-as-a-return-type"><p>避免使用 FutureOr&lt;T&gt; 作為返回型別。</p></a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#parameters"><p>引數</p></a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#avoid-positional-boolean-parameters"><p>避免布林型別的位置引數。</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#avoid-optional-positional-parameters-if-the-user-may-want-to-omit-earlier-parameters"><p>避免在呼叫者需要省略前面引數的方法中，使用位置可選引數。</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#avoid-mandatory-parameters-that-accept-a-special-no-argument-value"><p>避免強制引數去接受一個特定表示”空引數”的值。</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#do-use-inclusive-start-and-exclusive-end-parameters-to-accept-a-range"><p>要使用開始為閉區間，結束為開區間的半開半閉區間作為接受範圍。</p></a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#equality"><p>相等</p></a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#do-override-hashcode-if-you-override-"><p>要對重寫 == 運運算元的類，重寫 hashCode 方法。</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#do-make-your--operator-obey-the-mathematical-rules-of-equality"><p>要讓 == 運運算元的相等遵守數學規則。</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#avoid-defining-custom-equality-for-mutable-classes"><p>避免為可變類自訂相等。</p></a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#dont-make-the-parameter-to--nullable"><p>不要使用 == 運運算元與可空值比較。</p></a></li>
+</ul>
+</li>
+</ul>
+  
+</div>
+
+
+      <article>
+        <div class="content">
+          
+<nav id="subnav">
+  <ul>
+    <li class="previous">
+      
+        <a href="/effective-dart/usage">⟨&nbsp;&nbsp;用法範例</a>
+      
+    </li>
+    <li class="next">
+      
+    </li>
+  </ul>
+</nav>
+
+
+          <div id="site-content-title">
+            <div id="page-github-links" class="btn-group" aria-label="Page GitHub links" role="group">
+  <a href="https://github.com/doggy8088/dart.tw/tree/master/src/effective-dart/design.md" class="btn no-automatic-external" title="View page source" target="_blank" rel="noopener">
+    <i class="material-icons">description</i>
+  </a>
+  <a href="https://github.com/doggy8088/dart.tw/issues/new?template=1_page_issue.yml&amp;title=[PAGE ISSUE]: '高效 Dart 語言指南：API 設計'&amp;page-url=https://dart.tw.gh.miniasp.com/effective-dart/design.html&amp;page-source=https://github.com/doggy8088/dart.tw/tree/master/src/effective-dart/design.md" class="btn no-automatic-external" title="Report an issue with this page" target="_blank" rel="noopener">
+    <i class="material-icons">bug_report</i>
+  </a>
+</div>
+
+            
+            <h1 id="高效-dart-語言指南api-設計">高效 Dart 語言指南：API 設計</h1>
+            </div>
+          
+
+
+
+
+
+
+
+<div id="site-toc--inline" class="site-toc toc-collapsible toc-collapsed">
+  <header class="site-toc__title">
+    目錄
+    
+      <span class="site-toc--inline__toggle toc-toggle-down"><i class="material-icons">keyboard_arrow_down</i></span>
+      <span class="site-toc--inline__toggle toc-toggle-up"><i class="material-icons">keyboard_arrow_up</i></span>
+    
+  </header>
+  <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#names"><p>命名</p></a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#do-use-terms-consistently"><p>要使用一致的術語。</p></a></li>
+<li class="toc-entry toc-h3"><a href="#avoid-abbreviations"><p>避免縮寫。</p></a></li>
+<li class="toc-entry toc-h3"><a href="#prefer-putting-the-most-descriptive-noun-last"><p>推薦把最具描述性的名詞放到最後。</p></a></li>
+<li class="toc-entry toc-h3"><a href="#consider-making-the-code-read-like-a-sentence"><p>考慮儘量讓程式碼看起來像普通的句子。</p></a></li>
+<li class="toc-entry toc-h3"><a href="#prefer-a-noun-phrase-for-a-non-boolean-property-or-variable"><p>推薦使用名詞短語來命名不是布林型別的變數和屬性。</p></a></li>
+<li class="toc-entry toc-h3"><a href="#prefer-a-non-imperative-verb-phrase-for-a-boolean-property-or-variable"><p>推薦使用非命令式動詞短語命名布林型別的變數和屬性。</p></a></li>
+<li class="toc-entry toc-h3"><a href="#consider-omitting-the-verb-for-a-named-boolean-parameter"><p>考慮省略命名布林引數的動詞。</p></a></li>
+<li class="toc-entry toc-h3"><a href="#prefer-the-positive-name-for-a-boolean-property-or-variable"><p>考慮為布林屬性或變數取“肯定”含義的名字。</p></a></li>
+<li class="toc-entry toc-h3"><a href="#prefer-an-imperative-verb-phrase-for-a-function-or-method-whose-main-purpose-is-a-side-effect"><p>推薦使用命令式動詞短語來命名帶有副作用的函式或者方法。</p></a></li>
+<li class="toc-entry toc-h3"><a href="#prefer-a-noun-phrase-or-non-imperative-verb-phrase-for-a-function-or-method-if-returning-a-value-is-its-primary-purpose"><p>考慮使用名詞短語或者非命令式動詞短語命名返回資料為主要功能的方法或者函式。</p></a></li>
+<li class="toc-entry toc-h3"><a href="#consider-an-imperative-verb-phrase-for-a-function-or-method-if-you-want-to-draw-attention-to-the-work-it-performs"><p>考慮使用命令式動詞短語命名一個函式或方法，若果你希望它的執行能被重視。</p></a></li>
+<li class="toc-entry toc-h3"><a href="#avoid-starting-a-method-name-with-get"><p>避免在方法命名中使用 get 開頭。</p></a></li>
+<li class="toc-entry toc-h3"><a href="#prefer-naming-a-method-to___-if-it-copies-the-objects-state-to-a-new-object"><p>推薦使用 to___() 來命名把物件的狀態轉換到一個新的物件的函式。</p></a></li>
+<li class="toc-entry toc-h3"><a href="#prefer-naming-a-method-as___-if-it-returns-a-different-representation-backed-by-the-original-object"><p>推薦使用 as___() 來命名把原來物件轉換為另外一種表現形式的函式。</p></a></li>
+<li class="toc-entry toc-h3"><a href="#avoid-describing-the-parameters-in-the-functions-or-methods-name"><p>避免在方法或者函式名稱中描述引數。</p></a></li>
+<li class="toc-entry toc-h3"><a href="#do-follow-existing-mnemonic-conventions-when-naming-type-parameters"><p>要在命名引數時，遵循現有的助記符約定。</p></a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#libraries"><p>庫</p></a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#prefer-making-declarations-private"><p>推薦使用私有宣告。</p></a></li>
+<li class="toc-entry toc-h3"><a href="#consider-declaring-multiple-classes-in-the-same-library"><p>考慮宣告多個類在一個函式庫中。</p></a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#classes-and-mixins"><p>類</p></a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#avoid-defining-a-one-member-abstract-class-when-a-simple-function-will-do"><p>避免避免為了使用一個簡單的函式而去定義一個單一成員的抽象類別</p></a></li>
+<li class="toc-entry toc-h3"><a href="#avoid-defining-a-class-that-contains-only-static-members"><p>避免定義僅包含靜態成員的類別。</p></a></li>
+<li class="toc-entry toc-h3"><a href="#avoid-extending-a-class-that-isnt-intended-to-be-subclassed"><p>避免整合一個不期望被整合的類別。</p></a></li>
+<li class="toc-entry toc-h3"><a href="#do-document-if-your-class-supports-being-extended"><p>要把能夠繼承的說明新增到文件中，如果這個類可以繼承。</p></a></li>
+<li class="toc-entry toc-h3"><a href="#avoid-implementing-a-class-that-isnt-intended-to-be-an-interface"><p>避免去實現一個不期望成為介面的類（該類不想作為介面被實現）。</p></a></li>
+<li class="toc-entry toc-h3"><a href="#do-document-if-your-class-supports-being-used-as-an-interface"><p>要對支援介面的類在文件註明</p></a></li>
+<li class="toc-entry toc-h3"><a href="#do-use-mixin-to-define-a-mixin-type"><p>要對支援 mixin 的類在文件註明</p></a></li>
+<li class="toc-entry toc-h3"><a href="#avoid-mixing-in-a-class-that-isnt-intended-to-be-a-mixin"><p>避免去 mixin 一個不期望被 mixin 的類</p></a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#constructors"><p>建構函式</p></a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#consider-making-your-constructor-const-if-the-class-supports-it"><p>考慮在類支援的情況下，指定建構函式為  const。</p></a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#members"><p>成員</p></a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#prefer-making-fields-and-top-level-variables-final"><p>推薦指定欄位或最上層變數為 final 。</p></a></li>
+<li class="toc-entry toc-h3"><a href="#do-use-getters-for-operations-that-conceptually-access-properties"><p>要對概念上是存取的屬性使用 getter 方法。</p></a></li>
+<li class="toc-entry toc-h3"><a href="#do-use-setters-for-operations-that-conceptually-change-properties"><p>要對概念上是修改的屬性使用 setter 方法。</p></a></li>
+<li class="toc-entry toc-h3"><a href="#dont-define-a-setter-without-a-corresponding-getter"><p>不要在沒有對應的 getter 的情況下定義 setter。</p></a></li>
+<li class="toc-entry toc-h3"><a href="#avoid-using-runtime-type-tests-to-fake-overloading">AVOID using runtime type tests to fake overloading</a></li>
+<li class="toc-entry toc-h3"><a href="#avoid-public-late-final-fields-without-initializers">AVOID public late final fields without initializers</a></li>
+<li class="toc-entry toc-h3"><a href="#avoid-returning-nullable-future-stream-and-collection-types">AVOID returning nullable Future, Stream, and collection types</a></li>
+<li class="toc-entry toc-h3"><a href="#avoid-returning-this-from-methods-just-to-enable-a-fluent-interface"><p>避免為了書寫流暢，而從方法中返回 this 。</p></a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#types"><p>型別</p></a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#do-type-annotate-variables-without-initializers">DO type annotate variables without initializers</a></li>
+<li class="toc-entry toc-h3"><a href="#do-type-annotate-fields-and-top-level-variables-if-the-type-isnt-obvious"><p>推薦為型別不明顯的公共欄位和公共最上層變數指定型別註解。</p></a></li>
+<li class="toc-entry toc-h3"><a href="#dont-redundantly-type-annotate-initialized-local-variables"><p>避免為初始化的區域變數新增冗餘地型別註解。</p></a></li>
+<li class="toc-entry toc-h3"><a href="#do-annotate-return-types-on-function-declarations">DO annotate return types on function declarations</a></li>
+<li class="toc-entry toc-h3"><a href="#do-annotate-parameter-types-on-function-declarations">DO annotate parameter types on function declarations</a></li>
+<li class="toc-entry toc-h3"><a href="#dont-annotate-inferred-parameter-types-on-function-expressions"><p>避免在函式表示式上註解推斷的引數型別。</p></a></li>
+<li class="toc-entry toc-h3"><a href="#dont-type-annotate-initializing-formals">DON’T type annotate initializing formals</a></li>
+<li class="toc-entry toc-h3"><a href="#do-write-type-arguments-on-generic-invocations-that-arent-inferred">DO write type arguments on generic invocations that aren’t inferred</a></li>
+<li class="toc-entry toc-h3"><a href="#dont-write-type-arguments-on-generic-invocations-that-are-inferred">DON’T write type arguments on generic invocations that are inferred</a></li>
+<li class="toc-entry toc-h3"><a href="#avoid-writing-incomplete-generic-types">AVOID writing incomplete generic types</a></li>
+<li class="toc-entry toc-h3"><a href="#do-annotate-with-dynamic-instead-of-letting-inference-fail"><p>推薦使用 dynamic 註解替換推斷失敗的情況。</p></a></li>
+<li class="toc-entry toc-h3"><a href="#prefer-signatures-in-function-type-annotations"><p>推薦使 function 型別註解的特徵更明顯</p></a></li>
+<li class="toc-entry toc-h3"><a href="#dont-specify-a-return-type-for-a-setter"><p>不要為 setter 方法指定返回型別。</p></a></li>
+<li class="toc-entry toc-h3"><a href="#dont-use-the-legacy-typedef-syntax"><p>不要使用棄用的 typedef 語法。</p></a></li>
+<li class="toc-entry toc-h3"><a href="#prefer-inline-function-types-over-typedefs"><p>推薦優先使用行內函數型別，而後是 typedef。</p></a></li>
+<li class="toc-entry toc-h3"><a href="#prefer-using-function-type-syntax-for-parameters"><p>考慮在引數上使用函式型別語法。</p></a></li>
+<li class="toc-entry toc-h3"><a href="#avoid-using-dynamic-unless-you-want-to-disable-static-checking"><p>避免使用 dynamic 除非你希望禁用靜態檢查</p></a></li>
+<li class="toc-entry toc-h3"><a href="#do-use-futurevoid-as-the-return-type-of-asynchronous-members-that-do-not-produce-values"><p>要使用 Future&lt;void&gt; 作為無法回值非同步成員的返回型別。</p></a></li>
+<li class="toc-entry toc-h3"><a href="#avoid-using-futureort-as-a-return-type"><p>避免使用 FutureOr&lt;T&gt; 作為返回型別。</p></a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#parameters"><p>引數</p></a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#avoid-positional-boolean-parameters"><p>避免布林型別的位置引數。</p></a></li>
+<li class="toc-entry toc-h3"><a href="#avoid-optional-positional-parameters-if-the-user-may-want-to-omit-earlier-parameters"><p>避免在呼叫者需要省略前面引數的方法中，使用位置可選引數。</p></a></li>
+<li class="toc-entry toc-h3"><a href="#avoid-mandatory-parameters-that-accept-a-special-no-argument-value"><p>避免強制引數去接受一個特定表示”空引數”的值。</p></a></li>
+<li class="toc-entry toc-h3"><a href="#do-use-inclusive-start-and-exclusive-end-parameters-to-accept-a-range"><p>要使用開始為閉區間，結束為開區間的半開半閉區間作為接受範圍。</p></a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#equality"><p>相等</p></a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#do-override-hashcode-if-you-override-"><p>要對重寫 == 運運算元的類，重寫 hashCode 方法。</p></a></li>
+<li class="toc-entry toc-h3"><a href="#do-make-your--operator-obey-the-mathematical-rules-of-equality"><p>要讓 == 運運算元的相等遵守數學規則。</p></a></li>
+<li class="toc-entry toc-h3"><a href="#avoid-defining-custom-equality-for-mutable-classes"><p>避免為可變類自訂相等。</p></a></li>
+<li class="toc-entry toc-h3"><a href="#dont-make-the-parameter-to--nullable"><p>不要使用 == 運運算元與可空值比較。</p></a></li>
+</ul>
+</li>
+</ul>
+  
+    <span class="site-toc--inline__toggle toc-toggle-more-items"><i class="material-icons">more_horiz</i></span>
+  
+</div>
+
+
+          
+<p>下面給出的準則用於指導為庫編寫一致的、可用的 API。</p>
+
+
+
+<h2 id="names">
+<a class="anchor" href="#names" aria-hidden="true"><span class="octicon octicon-link"></span></a>命名</h2>
+
+
+
+<p>命名是編寫可讀，可維護程式碼的重要部分。以下最佳實踐可幫助你實現這個目標。</p>
+
+
+
+<h3 id="do-use-terms-consistently">
+<a class="anchor" href="#do-use-terms-consistently" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>要</strong> 使用一致的術語。</h3>
+
+
+
+<p>在你的程式碼中，同樣的東西要使用同樣的名字。如果之前已經存在的 API 之外命名，並且使用者已經熟知，那麼請繼續使用這個命名。</p>
+
+
+
+<pre class="prettyprint lang-dart good"><code>pageCount         // A field.
+updatePageCount() // Consistent with pageCount.
+toSomething()     // Consistent with Iterable's toList().
+asSomething()     // Consistent with List's asMap().
+Point             // A familiar concept.</code></pre>
+
+<pre class="prettyprint lang-dart bad"><code>renumberPages()      // Confusingly different from pageCount.
+convertToSomething() // Inconsistent with toX() precedent.
+wrappedAsSomething() // Inconsistent with asX() precedent.
+Cartesian            // Unfamiliar to most users.</code></pre>
+
+<p>總的目的是充分利用使用者已經知道的內容。這裡包括他們所瞭解的問題領域，所熟悉的核心庫，以及你自己 API 那部分。基於以上這些內容，他們在使用之前，不需要學習大量的新知識。</p>
+
+
+
+<h3 id="avoid-abbreviations">
+<a class="anchor" href="#avoid-abbreviations" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>避免</strong> 縮寫。</h3>
+
+
+
+<p>只使用廣為人知的縮寫，對於特有領域的縮寫，請避免使用。如果要使用，請 <a href="/effective-dart/style#identifiers">正確的指定首字母大小寫</a>。</p>
+
+
+
+<pre class="prettyprint lang-dart good"><code>pageCount
+buildRectangles
+IOStream
+HttpRequest</code></pre>
+
+<pre class="prettyprint lang-dart bad"><code>numPages    // "Num" is an abbreviation of "number (of)".
+buildRects
+InputOutputStream
+HypertextTransferProtocolRequest</code></pre>
+
+<h3 id="prefer-putting-the-most-descriptive-noun-last">
+<a class="anchor" href="#prefer-putting-the-most-descriptive-noun-last" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>推薦</strong> 把最具描述性的名詞放到最後。</h3>
+
+
+
+<p>最後一個詞應該是最具描述性的東西。你可以在其前面新增其他單詞，例如形容詞，以進一步描述該事物。</p>
+
+
+
+<pre class="prettyprint lang-dart good"><code>pageCount             // A count (of pages).
+ConversionSink        // A sink for doing conversions.
+ChunkedConversionSink // A ConversionSink that's chunked.
+CssFontFaceRule       // A rule for font faces in CSS.</code></pre>
+
+<pre class="prettyprint lang-dart bad"><code>numPages                  // Not a collection of pages.
+CanvasRenderingContext2D  // Not a "2D".
+RuleFontFaceCss           // Not a CSS.</code></pre>
+
+<h3 id="consider-making-the-code-read-like-a-sentence">
+<a class="anchor" href="#consider-making-the-code-read-like-a-sentence" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>考慮</strong> 儘量讓程式碼看起來像普通的句子。</h3>
+
+
+
+<p>當你不知道如何命名 API 的時候，使用你的 API 編寫些程式碼，試著讓程式碼看起來像普通的句子。</p>
+
+
+
+<pre class="prettyprint lang-dart good"><code>// "If errors is empty..."
+if (errors.isEmpty) ...
+
+// "Hey, subscription, cancel!"
+subscription.cancel();
+
+// "Get the monsters where the monster has claws."
+monsters.where((monster) =&gt; monster.hasClaws);</code></pre>
+
+<pre class="prettyprint lang-dart bad"><code>// Telling errors to empty itself, or asking if it is?
+if (errors.empty) ...
+
+// Toggle what? To what?
+subscription.toggle();
+
+// Filter the monsters with claws *out* or include *only* those?
+monsters.filter((monster) =&gt; monster.hasClaws);</code></pre>
+
+<p>嘗試著使用你自己的 API，並且閱讀寫出來的程式碼，可以幫助你為 API 命名，但是不要過於冗餘。新增文章和其他詞性以強制名字讀起來就像語法正確的句子一樣，是沒用的。</p>
+
+
+
+<pre class="prettyprint lang-dart bad"><code>if (theCollectionOfErrors.isEmpty) ...
+
+monsters.producesANewSequenceWhereEach((monster) =&gt; monster.hasClaws);</code></pre>
+
+<h3 id="prefer-a-noun-phrase-for-a-non-boolean-property-or-variable">
+<a class="anchor" href="#prefer-a-noun-phrase-for-a-non-boolean-property-or-variable" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>推薦</strong> 使用名詞短語來命名不是布林型別的變數和屬性。</h3>
+
+
+
+<p>讀者關注屬性是<em>什麼</em>。如果使用者更關心<em>如何</em>確定一個屬性，則很可能應該是一個使用動詞短語命名函式。</p>
+
+
+
+<pre class="prettyprint lang-dart good"><code>list.length
+context.lineWidth
+quest.rampagingSwampBeast</code></pre>
+
+<pre class="prettyprint lang-dart bad"><code>list.deleteItems</code></pre>
+
+<h3 id="prefer-a-non-imperative-verb-phrase-for-a-boolean-property-or-variable">
+<a class="anchor" href="#prefer-a-non-imperative-verb-phrase-for-a-boolean-property-or-variable" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>推薦</strong> 使用非命令式動詞短語命名布林型別的變數和屬性。</h3>
+
+
+
+<p>布林名稱通常用在控制陳述式中當做條件，因此你要應該讓這個名字在控制陳述式中讀起來語感很好。比較下面的兩個：</p>
+
+
+
+<pre class="prettyprint lang-dart"><code>if (window.closeable) ...  // Adjective.
+if (window.canClose) ...   // Verb.</code></pre>
+
+<p>好的名字往往以某一種動詞作為開頭：</p>
+
+
+
+<ul>
+  <li>
+    <p>“to be” 形式： <code class="language-plaintext highlighter-rouge">isEnabled</code>， <code class="language-plaintext highlighter-rouge">wasShown</code>， <code class="language-plaintext highlighter-rouge">willFire</code>。就目前來看，這些時做常見的。</p>
+
+    
+  </li>
+  <li>
+    <p>一個 <a href="https://en.wikipedia.org/wiki/Auxiliary_verb">輔助動詞</a>: <code class="language-plaintext highlighter-rouge">hasElements</code>， <code class="language-plaintext highlighter-rouge">canClose</code>，
+<code class="language-plaintext highlighter-rouge">shouldConsume</code>， <code class="language-plaintext highlighter-rouge">mustSave</code>。</p>
+
+    
+  </li>
+  <li>
+    <p>一個主動動詞： <code class="language-plaintext highlighter-rouge">ignoresInput</code>， <code class="language-plaintext highlighter-rouge">wroteFile</code>。因為經常引起歧義，所以這種形式比較少見。
+<code class="language-plaintext highlighter-rouge">loggedResult</code> 是一個不好的命名，因為它的意思可能是：
+“whether or not a result was logged” 或者 “the result that was logged”。
+<code class="language-plaintext highlighter-rouge">closingConnection</code> 的意思可能是：
+“whether the connection is closing” 或者 “the connection that is closing”。
+<em>只有</em> 當名字可以預期的時候才使用主動動詞。</p>
+
+    
+  </li>
+</ul>
+
+<p>可以使用命令式動詞來區分佈爾變數名字和函式名字。一個布林變數的名字不應該看起來像一個命令，告訴這個物件做什麼事情。原因在於存取一個變數的屬性並沒有修改物件的狀態。（如果這個屬性<em>確實</em>修改了物件的狀態，則它應該是一個函式。）</p>
+
+
+
+<pre class="prettyprint lang-dart good"><code>isEmpty
+hasElements
+canClose
+closesWindow
+canShowPopup
+hasShownPopup</code></pre>
+
+<pre class="prettyprint lang-dart bad"><code>empty         // Adjective or verb?
+withElements  // Sounds like it might hold elements.
+closeable     // Sounds like an interface.
+              // "canClose" reads better as a sentence.
+closingWindow // Returns a bool or a window?
+showPopup     // Sounds like it shows the popup.</code></pre>
+
+<h3 id="consider-omitting-the-verb-for-a-named-boolean-parameter">
+<a class="anchor" href="#consider-omitting-the-verb-for-a-named-boolean-parameter" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>考慮</strong> 省略命名布林<em>引數</em>的動詞。</h3>
+
+
+
+<p>提煉於上一條規則。對於命名布林引數，沒有動詞的名稱通常看起來更加舒服。</p>
+
+
+
+<pre class="prettyprint lang-dart good"><code>Isolate.spawn(entryPoint, message, paused: false);
+var copy = List.from(elements, growable: true);
+var regExp = RegExp(pattern, caseSensitive: false);</code></pre>
+
+<h3 id="prefer-the-positive-name-for-a-boolean-property-or-variable">
+<a class="anchor" href="#prefer-the-positive-name-for-a-boolean-property-or-variable" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>考慮</strong> 為布林屬性或變數取“肯定”含義的名字。</h3>
+
+
+
+<p>大多數布林值名稱具有概念形式上的“肯定”和“否定”，前者感覺更像是基本描述，後者是對基本描述的否定，例如：
+“open” 和 “closed”， “enabled” 和 “disabled”，等等。通常後者的名稱字面上有個字首，用來否定前者：
+“visible” 和 “<em>in</em>-visible”，
+“connected” 和 “<em>dis</em>-connected”，
+“zero” 和 “<em>non</em>-zero”。</p>
+
+
+
+<p>當選擇 <code class="language-plaintext highlighter-rouge">true</code> 代表兩種情況中的其中一種情況在布林的兩種情況中，當選擇 <code class="language-plaintext highlighter-rouge">true</code> 代表其中一種情況，或使用這種情況作為屬性名稱時，更傾向使用“肯定”或基本描述的方式。布林成員通常巢狀(Nesting)在邏輯表示式中，包括否定運算子。如果屬性本身讀起來想是個“否定”的，這將讓讀者耗費更多精力去閱讀雙重否定及理解程式碼的含義。</p>
+
+
+
+<pre class="prettyprint lang-dart good"><code>if (socket.isConnected &amp;&amp; database.hasData) {
+  socket.write(database.read());
+}</code></pre>
+
+<pre class="prettyprint lang-dart bad"><code>if (!socket.isDisconnected &amp;&amp; !database.isEmpty) {
+  socket.write(database.read());
+}</code></pre>
+
+<p>對於一些屬性，沒有明顯的“肯定”形式。文件已經重新整理 “saved” 到磁碟，或者 “<em>un</em>-changed”？文件還未屬性 “<em>un</em>-saved” 到磁碟，或者 “changed”？在模稜兩可的情況下，傾向於選擇不太可能被使用者否定或較短的名字。</p>
+
+
+
+<p><strong>例外:</strong>  “否定”使用者絕大多數用到的形式。選擇「肯定」方式，將會迫使在他們到處使用 <code class="language-plaintext highlighter-rouge">!</code> 對屬性進行取反操作。這樣相反，屬性應該使用「否定」形式進行命名。</p>
+
+
+
+<h3 id="prefer-an-imperative-verb-phrase-for-a-function-or-method-whose-main-purpose-is-a-side-effect">
+<a class="anchor" href="#prefer-an-imperative-verb-phrase-for-a-function-or-method-whose-main-purpose-is-a-side-effect" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>推薦</strong> 使用命令式動詞短語來命名帶有副作用的函式或者方法。</h3>
+
+
+
+<p>函式通常返回一個結果給呼叫者，並且執行一些任務或者帶有副作用。在像 Dart 這種命令式語言中，呼叫函式通常為了實現其副作用：可能改變了物件的內部狀態、產生一些輸出內容、或者和外部世界溝通等。</p>
+
+
+
+<p>這種型別的成員應該使用命令式動詞短語來命名，強調該成員所執行的任務。</p>
+
+
+
+<pre class="prettyprint lang-dart good"><code>list.add('element');
+queue.removeFirst();
+window.refresh();</code></pre>
+
+<p>這樣，呼叫的方法讀起來會讓人覺得是一個執行命令。</p>
+
+
+
+<h3 id="prefer-a-noun-phrase-or-non-imperative-verb-phrase-for-a-function-or-method-if-returning-a-value-is-its-primary-purpose">
+<a class="anchor" href="#prefer-a-noun-phrase-or-non-imperative-verb-phrase-for-a-function-or-method-if-returning-a-value-is-its-primary-purpose" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>考慮</strong> 使用名詞短語或者非命令式動詞短語命名返回資料為主要功能的方法或者函式。</h3>
+
+
+
+<p>雖然這些函式可能也有副作用，但是其主要目的是返回一個數據給呼叫者。如果該函式無需引數通常應該是一個 getter 。有時候獲取一個屬性則需要一些引數，比如，
+<code class="language-plaintext highlighter-rouge">elementAt()</code> 從集合中返回一個數據，但是需要一個指定返回那個資料的引數。</p>
+
+
+
+<p>在<em>語法</em>上看這是一個函式，其實<em>嚴格來說</em>其返回的是集合中的一個屬性，應該使用一個能夠表示該函式返回的是<em>什麼</em>的詞語來命名。</p>
+
+
+
+<pre class="prettyprint lang-dart good"><code>var element = list.elementAt(3);
+var first = list.firstWhere(test);
+var char = string.codeUnitAt(4);</code></pre>
+
+<p>這條規則比前一條要寬鬆一些。有時候一些函式沒有副作用，但仍然使用一個動詞短語來命名，例如：
+<code class="language-plaintext highlighter-rouge">list.take()</code> 或者 <code class="language-plaintext highlighter-rouge">string.split()</code>。</p>
+
+
+
+<h3 id="consider-an-imperative-verb-phrase-for-a-function-or-method-if-you-want-to-draw-attention-to-the-work-it-performs">
+<a class="anchor" href="#consider-an-imperative-verb-phrase-for-a-function-or-method-if-you-want-to-draw-attention-to-the-work-it-performs" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>考慮</strong> 使用命令式動詞短語命名一個函式或方法，若果你希望它的執行能被重視。</h3>
+
+
+
+<p>當一個成員產生的結果沒有額外的影響，它通常應該使用一個 getter 或者一個名詞短語描述來命名，用於描述它返回的結果。但是，有時候執行產生的結果很重要。它可能容易導致執行時故障，或者使用重量級的資源（例如，網路或檔案 I/O）。在這種情況下，你希望呼叫者考慮成員在進行的工作，這時，為成員提供描述該工作的動詞短語。</p>
+
+
+
+<pre class="prettyprint lang-dart good"><code>var table = database.downloadData();
+var packageVersions = packageGraph.solveConstraints();</code></pre>
+
+<p>但請注意，此準則比前兩個更寬鬆。操作執行工作的實現細節通常與呼叫這無關，並且效能和健壯性是隨時間經常改變的。大多數情況下，根據成員為呼叫者做了“什麼”來命名，而不是“如何”做。</p>
+
+
+
+<h3 id="avoid-starting-a-method-name-with-get">
+<a class="anchor" href="#avoid-starting-a-method-name-with-get" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>避免</strong> 在方法命名中使用 <code class="language-plaintext highlighter-rouge">get</code> 開頭。</h3>
+
+
+
+<p>在大多數情況下，getter 方法名稱中應該移除 <code class="language-plaintext highlighter-rouge">get</code> 。例如，定義一個名為 <code class="language-plaintext highlighter-rouge">breakfastOrder</code> 的 getter 方法，來替代名為 <code class="language-plaintext highlighter-rouge">getBreakfastOrder()</code> 的方法。</p>
+
+
+
+<p>即使成員因為需要傳入引數或者 getter 不適用，而需要透過方法來實現，也應該避免使用 <code class="language-plaintext highlighter-rouge">get</code> 開頭。與之前的準則一樣：</p>
+
+
+
+<ul>
+  <li>
+    <p>如果呼叫者主要關心的是方法的返回值，只需刪除 <code class="language-plaintext highlighter-rouge">get</code> 並使用 <a href="#prefer-a-noun-phrase-or-non-imperative-verb-phrase-for-a-function-or-method-if-returning-a-value-is-its-primary-purpose">名詞短語</a> 命名，如 <code class="language-plaintext highlighter-rouge">breakfastOrder()</code> 。</p>
+
+    
+  </li>
+  <li>
+    <p>如果呼叫者關心的是正在完成的工作，請使用 <a href="#consider-an-imperative-verb-phrase-for-a-function-or-method-if-you-want-to-draw-attention-to-the-work-it-performs">動名詞短語</a> 命名，這種情況下應該選擇一個更能準確描述工作的動名詞，而不是使用 <code class="language-plaintext highlighter-rouge">get</code> 命名，如 <code class="language-plaintext highlighter-rouge">create</code>， <code class="language-plaintext highlighter-rouge">download</code>， <code class="language-plaintext highlighter-rouge">fetch</code>， <code class="language-plaintext highlighter-rouge">calculate</code>， <code class="language-plaintext highlighter-rouge">request</code>， <code class="language-plaintext highlighter-rouge">aggregate</code>，等等。</p>
+
+    
+  </li>
+</ul>
+
+<h3 id="prefer-naming-a-method-to___-if-it-copies-the-objects-state-to-a-new-object">
+<a class="anchor" href="#prefer-naming-a-method-to___-if-it-copies-the-objects-state-to-a-new-object" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>推薦</strong> 使用 <code class="language-plaintext highlighter-rouge">to___()</code> 來命名把物件的狀態轉換到一個新的物件的函式。</h3>
+
+
+
+<p class="linter-rule">Linter rule: <a href="/tools/linter-rules/use_to_and_as_if_applicable">use_to_and_as_if_applicable</a></p>
+
+<p>一個轉換函式返回一個新的物件，裡面包含一些原物件的狀態，但通常新物件的形式或表現方式與原物件不同。核心函式庫有一個約定，這些型別結果的方法名應該以 <code class="language-plaintext highlighter-rouge">to</code> 作為開頭。</p>
+
+
+
+<p>如果要定義一個轉換函式，遵循該約定是非常有益的。</p>
+
+
+
+<pre class="prettyprint lang-dart good"><code>list.toSet();
+stackTrace.toString();
+dateTime.toLocal();</code></pre>
+
+<h3 id="prefer-naming-a-method-as___-if-it-returns-a-different-representation-backed-by-the-original-object">
+<a class="anchor" href="#prefer-naming-a-method-as___-if-it-returns-a-different-representation-backed-by-the-original-object" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>推薦</strong> 使用 <code class="language-plaintext highlighter-rouge">as___()</code> 來命名把原來物件轉換為另外一種表現形式的函式。</h3>
+
+
+
+<p class="linter-rule">Linter rule: <a href="/tools/linter-rules/use_to_and_as_if_applicable">use_to_and_as_if_applicable</a></p>
+
+<p>轉換函式提供的是“快照功能”。返回的物件有自己的資料副本，修改原來物件的資料不會改變返回的物件中的資料。另外一種函式返回的是同一份資料的另外一種表現形式，返回的是一個新的物件，但是其內部參考的資料和原來物件參考的資料一樣。修改原來物件中的資料，新返回的物件中的資料也一起被修改。</p>
+
+
+
+<p>這種函式在核心庫中被命名為 <code class="language-plaintext highlighter-rouge">as___()</code>。</p>
+
+
+
+<pre class="prettyprint lang-dart good"><code>var map = table.asMap();
+var list = bytes.asFloat32List();
+var future = subscription.asFuture();</code></pre>
+
+<h3 id="avoid-describing-the-parameters-in-the-functions-or-methods-name">
+<a class="anchor" href="#avoid-describing-the-parameters-in-the-functions-or-methods-name" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>避免</strong> 在方法或者函式名稱中描述引數。</h3>
+
+
+
+<p>在呼叫程式碼的時候可以看到引數，所以無需再次顯示引數了。</p>
+
+
+
+<pre class="prettyprint lang-dart good"><code>list.add(element);
+map.remove(key);</code></pre>
+
+<pre class="prettyprint lang-dart bad"><code>list.addElement(element)
+map.removeKey(key)</code></pre>
+
+<p>但是，對於具有多個類似的函式的時候，使用引數名字可以消除歧義，這個時候應該帶有引數名字：</p>
+
+
+
+<pre class="prettyprint lang-dart good"><code>map.containsKey(key);
+map.containsValue(value);</code></pre>
+
+<h3 id="do-follow-existing-mnemonic-conventions-when-naming-type-parameters">
+<a class="anchor" href="#do-follow-existing-mnemonic-conventions-when-naming-type-parameters" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>要</strong> 在命名引數時，遵循現有的助記符約定。</h3>
+
+
+
+<p>單字母命名沒有直接的啟發性，但是幾乎所有通用型別都使用時情況就不一樣了。幸運的是，它們大多數以一致的助記方式在使用，這些約定如下：</p>
+
+
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">E</code> 用於集合中的 <strong>元素</strong> 型別:</p>
+
+    
+
+    <pre class="prettyprint lang-dart good"><code>class IterableBase&lt;E&gt; {}
+class List&lt;E&gt; {}
+class HashSet&lt;E&gt; {}
+class RedBlackTree&lt;E&gt; {}</code></pre>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">K</code> 和 <code class="language-plaintext highlighter-rouge">V</code> 分別用於關聯集合中的 <strong>key</strong> 和 <strong>value</strong> 型別：</p>
+
+    
+
+    <pre class="prettyprint lang-dart good"><code>class Map&lt;K, V&gt; {}
+class Multimap&lt;K, V&gt; {}
+class MapEntry&lt;K, V&gt; {}</code></pre>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">R</code> 用於函式或類方法的 <strong>返回值</strong> 型別。這種情況並不常見，但有時會出現在typedef中，或實現存取者模式的類中：</p>
+
+    
+
+    <pre class="prettyprint lang-dart good"><code>abstract class ExpressionVisitor&lt;R&gt; {
+  R visitBinary(BinaryExpression node);
+  R visitLiteral(LiteralExpression node);
+  R visitUnary(UnaryExpression node);
+}</code></pre>
+  </li>
+  <li>
+    <p>除此以外，對於具有單個型別引數的泛型，如果助記符能在周圍型別中明顯表達泛型含義，請使用<code class="language-plaintext highlighter-rouge">T</code>，<code class="language-plaintext highlighter-rouge">S</code> 和 <code class="language-plaintext highlighter-rouge">U</code> 。這裡允許多個字母巢狀(Nesting)且不會與周圍命名產生歧義。例如：</p>
+
+    
+
+    <pre class="prettyprint lang-dart good"><code>class Future&lt;T&gt; {
+  Future&lt;S&gt; then&lt;S&gt;(FutureOr&lt;S&gt; onValue(T value)) =&gt; ...
+}</code></pre>
+
+    <p>這裡，通常 <code class="language-plaintext highlighter-rouge">then&lt;S&gt;()</code> 方法使用 <code class="language-plaintext highlighter-rouge">S</code> 避免 <code class="language-plaintext highlighter-rouge">Future&lt;T&gt;</code> 中的 <code class="language-plaintext highlighter-rouge">T</code> 產生歧義。</p>
+
+    
+  </li>
+</ul>
+
+<p>如果上述情況都不合適，則可以使用另一個單字母助記符名稱或描述性的名稱：</p>
+
+
+
+<pre class="prettyprint lang-dart good"><code>class Graph&lt;N, E&gt; {
+  final List&lt;N&gt; nodes = [];
+  final List&lt;E&gt; edges = [];
+}
+
+class Graph&lt;Node, Edge&gt; {
+  final List&lt;Node&gt; nodes = [];
+  final List&lt;Edge&gt; edges = [];
+}</code></pre>
+
+<p>在實踐中，以上的約定涵蓋了大多數引數型別。</p>
+
+
+
+<h2 id="libraries">
+<a class="anchor" href="#libraries" aria-hidden="true"><span class="octicon octicon-link"></span></a>庫</h2>
+
+
+
+<p>以 ( <code class="language-plaintext highlighter-rouge">_</code> ) 開頭的成員只能在其庫的內部被存取，是庫的私有成員。這是 Dart 語言的內建特性，不僅僅是慣例。</p>
+
+
+
+<h3 id="prefer-making-declarations-private">
+<a class="anchor" href="#prefer-making-declarations-private" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>推薦</strong> 使用私有宣告。</h3>
+
+
+
+<p>庫中的公開宣告—最上層定義或者在類中定義—是一種訊號，表示其他庫可以並應該存取這些成員。同時公開宣告也是一種你的函式庫需要實現的契約，當使用這些成員的時候，應該實現其宣稱的功能。</p>
+
+
+
+<p>如果某個成員你不希望公開，則在成員名字之前新增一個 <code class="language-plaintext highlighter-rouge">_</code> 即可。減少公開的介面讓你的函式庫更容易維護，也讓使用者更加容易掌握你的函式庫如何使用。另外，分析工具還可以分析出沒有用到的私有成員定義，然後告訴你可以刪除這些無用的程式碼。私有成員第三方程式碼無法呼叫而你自己在庫中也沒有使用，所以是無用的程式碼。</p>
+
+
+
+<h3 id="consider-declaring-multiple-classes-in-the-same-library">
+<a class="anchor" href="#consider-declaring-multiple-classes-in-the-same-library" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>考慮</strong> 宣告多個類在一個函式庫中。</h3>
+
+
+
+<p>一些其他語言，比如 Java。將檔案結構和類結構進行捆綁&amp;mdash：每個檔案僅能定義一個最上層類別。
+Dart 沒有這樣的限制。庫與類是相互獨立的。如果多個類，最上層變數，以及函式，他們再邏輯上歸為同一類，那麼將他們包含到單一的函式庫中，這樣做是非常棒的。</p>
+
+
+
+<p>將多個類組織到一個函式庫中，就可以使用一些有用的模式。因為在 Dart 中私有特性是在庫級別上有效，而不是在類級別，基於這個模式你可以定義類似於 C++ 中的 “friend” 類別。所有定義在同一個庫中的類可以互相存取彼此的私有成員，但庫以外的程式碼無法發存取。</p>
+
+
+
+<p>當然，指南並不建議你 <strong>應該</strong> 把所有的類都放在單個巨大的函式庫中，你可以同時在一個函式庫中放置多個類別。</p>
+
+
+
+<h2 id="classes-and-mixins">
+<a class="anchor" href="#classes-and-mixins" aria-hidden="true"><span class="octicon octicon-link"></span></a>類</h2>
+
+
+
+<p>Dart是一種 “純粹的” 物件導向語言，因為所有物件都是類別的例項。但是 Dart 並沒有要求所有程式碼都定義到類中— 類似在面向過程或函式的語言，你可以在 Dart 中定義最上層變數，常量，以及函式。</p>
+
+
+
+<h3 id="avoid-defining-a-one-member-abstract-class-when-a-simple-function-will-do">
+<a class="anchor" href="#avoid-defining-a-one-member-abstract-class-when-a-simple-function-will-do" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>避免</strong> 避免為了使用一個簡單的函式而去定義一個單一成員的抽象類別</h3>
+
+
+
+<p class="linter-rule">Linter rule: <a href="/tools/linter-rules/one_member_abstracts">one_member_abstracts</a></p>
+
+<p>和 Java 不同，Dart 擁有一等公民的函式，閉套件，以及它們簡潔的使用語法。如果你僅僅是需要一個類似於回呼(Callback)的功能，那麼使用函式即可。例如如果你正在定義一個類別，並且它僅擁有一個毫無意義名稱的抽象成員，如 <code class="language-plaintext highlighter-rouge">call</code> 或 <code class="language-plaintext highlighter-rouge">invoke</code> ，那麼這時你很可能只是需要一個函式。</p>
+
+
+
+<pre class="prettyprint lang-dart good"><code>typedef Predicate&lt;E&gt; = bool Function(E element);</code></pre>
+
+<pre class="prettyprint lang-dart bad"><code>abstract class Predicate&lt;E&gt; {
+  bool test(E element);
+}</code></pre>
+
+<h3 id="avoid-defining-a-class-that-contains-only-static-members">
+<a class="anchor" href="#avoid-defining-a-class-that-contains-only-static-members" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>避免</strong> 定義僅包含靜態成員的類別。</h3>
+
+
+
+<p class="linter-rule">Linter rule: <a href="/tools/linter-rules/avoid_classes_with_only_static_members">avoid_classes_with_only_static_members</a></p>
+
+<p>在 Java 和 C# 中，所有的定義<em>必須</em>要在類中。所有常常會看到一些這樣的類，這些類中僅僅放置了些靜態成員。其他類僅用於名稱空間—一種為一堆成員提供共享字首將它們相互關聯或避免名稱衝突的方法。</p>
+
+
+
+<p>Dart 有最上層函式、變數和常量，因此你 <strong>不需要</strong> 僅僅為了定義一些內容而建立一個類別。如果你想要的是一個名稱空間，那麼一個函式庫是更合適的。庫支援匯入時指定字首，以及僅匯入其一部分。這些強大的功能讓呼叫的程式碼可以以最適合的方式處理 <strong>它們的</strong> 名稱衝突。</p>
+
+
+
+<p>如果函式或變數在邏輯上與類無關，那麼應該將其置於最上層。如果擔心名稱衝突，那麼請為其指定更精確的名稱，或將其移動到可以使用字首匯入的單獨庫中。</p>
+
+
+
+<pre class="prettyprint lang-dart good"><code>DateTime mostRecent(List&lt;DateTime&gt; dates) {
+  return dates.reduce((a, b) =&gt; a.isAfter(b) ? a : b);
+}
+
+const _favoriteMammal = 'weasel';</code></pre>
+
+<pre class="prettyprint lang-dart bad"><code>class DateUtils {
+  static DateTime mostRecent(List&lt;DateTime&gt; dates) {
+    return dates.reduce((a, b) =&gt; a.isAfter(b) ? a : b);
+  }
+}
+
+class _Favorites {
+  static const mammal = 'weasel';
+}</code></pre>
+
+<p>通常在 Dart 中，類定義了<em>一類物件</em>。一個類別型，如果型別從來沒有被初始化，那麼這是另一種的程式碼氣息。</p>
+
+
+
+<p>當然，這並不是一條硬性規則。對於常量和類似列舉的型別，將它們組合在一個類別中看起來也是很自然。</p>
+
+
+
+<pre class="prettyprint lang-dart good"><code>class Color {
+  static const red = '#f00';
+  static const green = '#0f0';
+  static const blue = '#00f';
+  static const black = '#000';
+  static const white = '#fff';
+}</code></pre>
+
+<h3 id="avoid-extending-a-class-that-isnt-intended-to-be-subclassed">
+<a class="anchor" href="#avoid-extending-a-class-that-isnt-intended-to-be-subclassed" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>避免</strong> 整合一個不期望被整合的類別。</h3>
+
+
+
+<p>如果一個類別的建構函式從產生建構函式被更改為工廠建構函式，則呼叫該建構函式的任何子類別建構函式都將失敗。此外，如果一個類別改變了它在 <code class="language-plaintext highlighter-rouge">this</code> 上呼叫的自己的方法，那麼覆蓋這些方法並期望他們在某些點被呼叫的子類別再呼叫時會失敗。</p>
+
+
+
+<p>以上兩種情況都意味著一個類別需要考慮是否要允許被子類別化。這種情況可以透過文件註釋來溝通，或者為類提供一個顯示命名，如 <code class="language-plaintext highlighter-rouge">IterableBase</code>。如果該類別的作者不這樣做，最好假設你<em>不</em>能夠繼承這個類別。否則，後續對它的修改可能會破壞你的程式碼。</p>
+
+
+
+<h3 id="do-document-if-your-class-supports-being-extended">
+<a class="anchor" href="#do-document-if-your-class-supports-being-extended" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>要</strong> 把能夠繼承的說明新增到文件中，如果這個類可以繼承。</h3>
+
+
+
+<p>該規則是上條規則的結果。如果允許你的類被子類別化，請在文件中說明情況。使用 <code class="language-plaintext highlighter-rouge">Base</code> 作為類別名稱的字尾，或者在類別的註釋文件中註明。</p>
+
+
+
+<h3 id="avoid-implementing-a-class-that-isnt-intended-to-be-an-interface">
+<a class="anchor" href="#avoid-implementing-a-class-that-isnt-intended-to-be-an-interface" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>避免</strong> 去實現一個不期望成為介面的類（該類不想作為介面被實現）。</h3>
+
+
+
+<p>隱含介面是Dart中的一個強大工具，當一個類別中可以很容易的推斷出一些已經約定的有特徵的實現時，隱含介面可以避免重複定義這個類別的約定。</p>
+
+
+
+<p>但是透過類別的隱含介面實現的新類，新類會與這個類產生非常緊密的耦合。也就是說，對於介面類別的
+<em>任何</em>修改，你實現的新類都會被破壞。例如，向類中新增新成員通常是安全，不會產生破壞性的改變。但是如果你實現了這個類別的介面，那麼現在你的類會產生一個靜態錯誤，因為它缺少了新方法的實現。</p>
+
+
+
+<p>庫的維護人員需要能夠在不破壞使用者程式碼的情況下迭代現有的累。如果把每個類都看待成是暴露給使用者的介面，使用者可以自由的實現，這時修改這些類將變得非常困難。反過來，這個困難將導致你的函式庫迭代緩慢，從而無法適應新的需求。</p>
+
+
+
+<p>為了給你的類別的開發人員提供更多的餘地，避免實現隱含介面，除非那些類明確需要實現。否則，你可能會引入開發者沒有預料到的耦合情況，這樣可能會在沒有意識到的情況下破壞你的程式碼。</p>
+
+
+
+<h3 id="do-document-if-your-class-supports-being-used-as-an-interface">
+<a class="anchor" href="#do-document-if-your-class-supports-being-used-as-an-interface" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>要</strong> 對支援介面的類在文件註明</h3>
+
+
+
+<p>如果你的類可以被用作介面，那麼將這個情況註明到類別的文件中。</p>
+
+
+
+<h3 id="do-use-mixin-to-define-a-mixin-type">
+<a class="anchor" href="#do-use-mixin-to-define-a-mixin-type" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>要</strong> 對支援 mixin 的類在文件註明</h3>
+
+
+
+<p class="linter-rule">Linter rule: <a href="/tools/linter-rules/prefer_mixin">prefer_mixin</a></p>
+
+<p>Dart originally didn’t have a separate syntax for declaring a class intended to
+be mixed in to other classes. Instead, any class that met certain restrictions
+(no non-default constructor, no superclass, etc.) could be used as a mixin. This
+was confusing because the author of the class might not have intended it to be
+mixed in.</p>
+
+<p>Dart 2.1.0 added a <code class="language-plaintext highlighter-rouge">mixin</code> keyword for explicitly declaring a mixin. Types
+created using that can <em>only</em> be used as mixins, and the language also ensures
+that your mixin stays within the restrictions. When defining a new type that you
+intend to be used as a mixin, use this syntax.</p>
+
+<pre class="prettyprint lang-dart good"><code>mixin ClickableMixin implements Control {
+  bool _isDown = false;
+
+  void click();
+
+  void mouseDown() {
+    _isDown = true;
+  }
+
+  void mouseUp() {
+    if (_isDown) click();
+    _isDown = false;
+  }
+}</code></pre>
+
+<p>You might still encounter older code using <code class="language-plaintext highlighter-rouge">class</code> to define mixins, but the new
+syntax is preferred.</p>
+
+<h3 id="avoid-mixing-in-a-class-that-isnt-intended-to-be-a-mixin">
+<a class="anchor" href="#avoid-mixing-in-a-class-that-isnt-intended-to-be-a-mixin" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>避免</strong> 去 mixin 一個不期望被 mixin 的類</h3>
+
+
+
+<p class="linter-rule">Linter rule: <a href="/tools/linter-rules/prefer_mixin">prefer_mixin</a></p>
+
+<p>For compatibility, Dart still allows you to mix in classes that aren’t defined
+using <code class="language-plaintext highlighter-rouge">mixin</code>. However, that’s risky. If the author of the class doesn’t intend
+the class to be used as a mixin, they might change the class in a way that
+breaks the mixin restrictions. For example, if they add a constructor, your
+class will break.</p>
+
+<p>If the class doesn’t have a doc comment or an obvious name like <code class="language-plaintext highlighter-rouge">IterableMixin</code>,
+assume you cannot mix in the class if it isn’t declared using <code class="language-plaintext highlighter-rouge">mixin</code>.</p>
+
+<h2 id="constructors">
+<a class="anchor" href="#constructors" aria-hidden="true"><span class="octicon octicon-link"></span></a>建構函式</h2>
+
+
+
+<p>透過宣告與類具有相同名稱的函式以及附加可選的識別符號來建立 Dart 建構函式。後者附加標示符的建構函式被稱為<em>命名建構函式</em>。</p>
+
+
+
+<h3 id="consider-making-your-constructor-const-if-the-class-supports-it">
+<a class="anchor" href="#consider-making-your-constructor-const-if-the-class-supports-it" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>考慮</strong> 在類支援的情況下，指定建構函式為  <code class="language-plaintext highlighter-rouge">const</code>。</h3>
+
+
+
+<p>如果一個類別，它所有的欄位都是 final ，並且構造函數出了初始化他們之外沒有任何其他操作，那麼可以將其作為 <code class="language-plaintext highlighter-rouge">const</code> 建構函式。這樣就能夠允許使用者在需要常量的位置建立類別的例項—一些大型的常量，switch case 陳述式，預設引數中，以及其他的情況。</p>
+
+
+
+<p>如果沒有顯示的指定為 <code class="language-plaintext highlighter-rouge">const</code> 建構函式，那麼就無法實現上述目的。</p>
+
+
+
+<p>但需要注意的是，建構函式被指定為 <code class="language-plaintext highlighter-rouge">const</code> ，那它就是公共 API 的一中承諾。如果後面將建構函式更改為非 <code class="language-plaintext highlighter-rouge">const</code> ，那麼在常量表達式中呼叫它的程式碼就會被破壞。如果不想做出這樣的承諾，那麼就不要指定它為 <code class="language-plaintext highlighter-rouge">const</code> 建構函式。在實際運用中，
+<code class="language-plaintext highlighter-rouge">const</code> 建構函式對於簡單的，不可變的資料記錄類是非常有用的。</p>
+
+
+
+<h2 id="members">
+<a class="anchor" href="#members" aria-hidden="true"><span class="octicon octicon-link"></span></a>成員</h2>
+
+
+
+<p>成員屬於物件，成員可以是方法或例項變數。</p>
+
+
+
+<h3 id="prefer-making-fields-and-top-level-variables-final">
+<a class="anchor" href="#prefer-making-fields-and-top-level-variables-final" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>推薦</strong> 指定欄位或最上層變數為 <code class="language-plaintext highlighter-rouge">final</code> 。</h3>
+
+
+
+<p class="linter-rule">Linter rule: <a href="/tools/linter-rules/prefer_final_fields">prefer_final_fields</a></p>
+
+<p>狀態 <strong>不可變</strong>—隨著時間推移狀態不發生變化—有益於程式設計師推理。類和庫中可變狀態量越少，類和庫越容易維護。</p>
+
+
+
+<p>當然，可變資料是非常有用的。但是，如果並不需要可變資料，應該儘可能預設指定欄位和最上層變數為 <code class="language-plaintext highlighter-rouge">final</code> 。</p>
+
+
+
+<p>有時例項的某些欄位在被初始化後不會再變化，但只能在例項被構造後才能被初始化。例如，某些欄位可能需要參考 <code class="language-plaintext highlighter-rouge">this</code>。在這種情況下，請考慮將其宣告為 <code class="language-plaintext highlighter-rouge">late final</code> 形式。當這樣聲明後，您也許可以 <a href="/effective-dart/usage#do-initialize-fields-at-their-declaration-when-possible">在宣告時完成初始化</a>。</p>
+
+
+
+<h3 id="do-use-getters-for-operations-that-conceptually-access-properties">
+<a class="anchor" href="#do-use-getters-for-operations-that-conceptually-access-properties" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>要</strong> 對概念上是存取的屬性使用 getter 方法。</h3>
+
+
+
+<p>判定一個成員應該是一個 getter 而不是一個方法是一件具有挑戰性的事情。它雖然微妙，但對於好的
+API 設計是非常重要的，也導致本規則會很長。其他的一些語言文化中迴避了getter。他們只有在幾乎類似於欄位存取的時候才會使用—它僅僅是根據物件的狀態進行微小的計算。任何比這更復雜或重量級的東西得到帶有 <code class="language-plaintext highlighter-rouge">()</code> 的名字後面，給出一種”計算的操作在這！”訊號。因為 <code class="language-plaintext highlighter-rouge">.</code> 後面只跟名稱意味著是”欄位”。</p>
+
+
+
+<p>Dart 與他們 <em>不</em> 同。在 Dart 中，所有點名稱都可以是進行計算的成員呼叫。欄位是特殊的—
+欄位的 getter 的實現是有語言提供的。換句話說，在 Dart 中，getter 不是”存取特別慢的欄位”；欄位是”存取特別快的 getter “。</p>
+
+
+
+<p>即便如此，選擇 getter 而不是方法對於呼叫者來說是一個重要訊號。訊號大致的意思成員的操作
+“類似於欄位”。至少原則上可以這麼認為，只要呼叫者清楚，這個操作<em>可以</em>使用欄位來實現。這意味著：</p>
+
+
+
+<ul>
+  <li>
+    <p><strong>操作返回一個結果但不接受任何引數。</strong></p>
+
+    
+  </li>
+  <li>
+    <p><strong>呼叫者主要關係結果。</strong> 如果希望呼叫者關係操作產生結果的方式多於產生的結果，那麼為操作提供一個方法，使用描述工作的動詞作為方法的名稱。</p>
+
+    
+
+    <p>這並<em>不</em>意味著操作必須特別快才能成為 getter 方法。
+<code class="language-plaintext highlighter-rouge">IterableBase.length</code> 複雜度是 <code class="language-plaintext highlighter-rouge">O(n)</code>，是可以的。使用 getter 方法進行重要計算是沒問題的。但是如果它做了 <strong>超</strong> 大量的工作，你可能需要透過一個描述其功能的動詞的方法來引起使用者的注意。</p>
+
+    
+
+    <pre class="prettyprint lang-dart bad"><code>connection.nextIncomingMessage; // Does network I/O.
+expression.normalForm; // Could be exponential to calculate.</code></pre>
+  </li>
+  <li>
+    <p><strong>操作不會產生使用者可見的副作用。</strong> 在程式中存取一個實際的欄位不會改變物件或者其他的狀態。操作不會產生輸出，寫入檔案等。同樣 getter 方法也一樣。</p>
+
+    
+
+    <p>注意關鍵字”使用者可見”。只要呼叫者不<em>關心</em>這些副作用。getter 方法可以修改隱藏狀態或產生帶外副作用。 getter 方法可以惰性計算和儲存他們的結果，寫入快取， log 等。這樣是沒有問題的。</p>
+
+    
+
+    <pre class="prettyprint lang-dart bad"><code>stdout.newline; // Produces output.
+list.clear; // Modifies object.</code></pre>
+  </li>
+  <li>
+    <p>注意關鍵字”使用者可見”。只要呼叫者不<em>關心</em>這些副作用。getter 方法可以修改隱藏狀態或產生帶外副作用。 getter 方法可以惰性計算和儲存他們的結果，寫入快取， log 等。這樣是沒有問題的。</p>
+
+    
+
+    <p>這裡”相同的結果”並不意味著 getter 方法必須一定要在每次呼叫成功後都返回相同的物件。如果按這樣的要求會迫使很過 getter 方法需要進行脆弱的快取 (brittle caching) ，這樣就否定了使用 getter 的全部意義。常見的非常好的範例是，每次呼叫一個 getter 方法返回一個新的 
+future 或 list。重點在於， future 完成後返回相同的值，list 包含了相同的元素。</p>
+
+    
+
+    <p>換句話說，<em>呼叫者關係的</em>是結果值應該相等。</p>
+
+    
+
+    <pre class="prettyprint lang-dart bad"><code>DateTime.now; // New result each time.</code></pre>
+  </li>
+  <li>
+    <p><strong>結果物件不用公開所有原始物件的狀態。</strong> 一個欄位僅公開物件的一部分。如果操作返回的結果公開了原始物件的整個狀態，那麼把該操作作為 <a href="#prefer-naming-a-method-to___-if-it-copies-the-objects-state-to-a-new-object"><code class="language-plaintext highlighter-rouge">to___()</code></a> 或 <a href="#prefer-naming-a-method-as___-if-it-returns-a-different-representation-backed-by-the-original-object"><code class="language-plaintext highlighter-rouge">as___()</code></a> 方法可能會更好。</p>
+
+    
+  </li>
+</ul>
+
+<p>如果操作符合上述描述，那麼它應該是一個 getter 方法。看似滿足這一系列要求的成員並不多，但實際上會超出你的想象。許多操作只是對某些狀態進行一些計算，其中大多數能夠，並且也應該作為 getter 方法。</p>
+
+
+
+<pre class="prettyprint lang-dart good"><code>rectangle.area;
+collection.isEmpty;
+button.canShow;
+dataSet.minimumValue;</code></pre>
+
+<h3 id="do-use-setters-for-operations-that-conceptually-change-properties">
+<a class="anchor" href="#do-use-setters-for-operations-that-conceptually-change-properties" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>要</strong> 對概念上是修改的屬性使用 setter 方法。</h3>
+
+
+
+<p class="linter-rule">Linter rule: <a href="/tools/linter-rules/use_setters_to_change_properties">use_setters_to_change_properties</a></p>
+
+<p>判定一個成員應該是一個 setter 而不是一個方法與 getter 的判定一樣。兩者的操作都應該是
+“類似於欄位”的操作。</p>
+
+
+
+<p>對於 setter 方法，”類似於欄位”意味著：</p>
+
+
+
+<ul>
+  <li>
+    <p><strong>操作只有一個引數，不會返回結果。</strong></p>
+
+    
+  </li>
+  <li>
+    <p><strong>操作會更改物件中的某些狀態。</strong></p>
+
+    
+  </li>
+  <li>
+    <p><strong>操作是<em>冪等</em>的。</strong> 使用相同的值呼叫相同的 setter 兩次，就呼叫者而言，第二次不應該執行任何操作。在內部，也許你會得到一些無效的快取或者多次的日誌記錄。沒關係，從呼叫者的角度來看，第二次呼叫似乎沒做任何事情。</p>
+
+    
+  </li>
+</ul>
+
+<pre class="prettyprint lang-dart good"><code>rectangle.width = 3;
+button.visible = false;</code></pre>
+
+<h3 id="dont-define-a-setter-without-a-corresponding-getter">
+<a class="anchor" href="#dont-define-a-setter-without-a-corresponding-getter" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>不要</strong> 在沒有對應的 getter 的情況下定義 setter。</h3>
+
+
+
+<p class="linter-rule">Linter rule: <a href="/tools/linter-rules/avoid_setters_without_getters">avoid_setters_without_getters</a></p>
+
+<p>使用者將 getter 和 setter 視為一個物件的可見屬性。一個 “dropbox” 屬性可以被寫入但無法讀取，會令人感到困惑。並且也混淆了他們對屬性如何工作的直觀理解。例如，沒有 getter 的 setter 
+意味著你可以使用 <code class="language-plaintext highlighter-rouge">=</code> 來修改它，但卻不能使用 <code class="language-plaintext highlighter-rouge">+=</code> 。</p>
+
+
+
+<p>本規則意義並 <strong>不是</strong> 說，你需要先新增一個 getter 才被允許新增 setter ，物件通常不應該暴露出多餘的狀態。如果某個物件的某個狀態可以修改但不能以相同的方式存取，請改用方法實現。</p>
+
+
+
+<h3 id="avoid-using-runtime-type-tests-to-fake-overloading">
+<a class="anchor" href="#avoid-using-runtime-type-tests-to-fake-overloading" aria-hidden="true"><span class="octicon octicon-link"></span></a>AVOID using runtime type tests to fake overloading</h3>
+
+<p>It’s common for an API to support similar operations
+on different types of parameters.
+To emphasize the similarity, some languages support <em>overloading</em>,
+which lets you define multiple methods
+that have the same name but different parameter lists.
+At compile time, the compiler looks at the actual argument types to determine
+which method to call.</p>
+
+<p>Dart doesn’t have overloading.
+You can define an API that looks like overloading
+by defining a single method and then using <code class="language-plaintext highlighter-rouge">is</code> type tests
+inside the body to look at the runtime types of the arguments and perform the
+appropriate behavior.
+However, faking overloading this way turns a <em>compile time</em> method selection
+into a choice that happens at <em>runtime</em>.</p>
+
+<p>If callers usually know which type they have
+and which specific operation they want,
+it’s better to define separate methods with different names
+to let callers select the right operation.
+This gives better static type checking and faster performance
+since it avoids any runtime type tests.</p>
+
+<p>However, if users might have an object of an unknown type
+and <em>want</em> the API to internally use <code class="language-plaintext highlighter-rouge">is</code> to pick the right operation,
+then a single method where the parameter is a supertype
+of all of the supported types might be reasonable.</p>
+
+<h3 id="avoid-public-late-final-fields-without-initializers">
+<a class="anchor" href="#avoid-public-late-final-fields-without-initializers" aria-hidden="true"><span class="octicon octicon-link"></span></a>AVOID public <code class="language-plaintext highlighter-rouge">late final</code> fields without initializers</h3>
+
+<p>Unlike other <code class="language-plaintext highlighter-rouge">final</code> fields, a <code class="language-plaintext highlighter-rouge">late final</code> field without an initializer <em>does</em>
+define a setter. If that field is public, then the setter is public. This is
+rarely what you want. Fields are usually marked <code class="language-plaintext highlighter-rouge">late</code> so that they can be
+initialized <em>internally</em> at some point in the instance’s lifetime, often inside
+the constructor body.</p>
+
+<p>Unless you <em>do</em> want users to call the setter, it’s better to pick one of the
+following solutions:</p>
+
+<ul>
+  <li>Don’t use <code class="language-plaintext highlighter-rouge">late</code>.</li>
+  <li>Use a factory constructor to compute the <code class="language-plaintext highlighter-rouge">final</code> field values.</li>
+  <li>Use <code class="language-plaintext highlighter-rouge">late</code>, but initialize the <code class="language-plaintext highlighter-rouge">late</code> field at its declaration.</li>
+  <li>Use <code class="language-plaintext highlighter-rouge">late</code>, but make the <code class="language-plaintext highlighter-rouge">late</code> field private and define a public getter for it.</li>
+</ul>
+
+<h3 id="avoid-returning-nullable-future-stream-and-collection-types">
+<a class="anchor" href="#avoid-returning-nullable-future-stream-and-collection-types" aria-hidden="true"><span class="octicon octicon-link"></span></a>AVOID returning nullable <code class="language-plaintext highlighter-rouge">Future</code>, <code class="language-plaintext highlighter-rouge">Stream</code>, and collection types</h3>
+
+<p>When an API returns a container type, it has two ways to indicate the absence of
+data: It can return an empty container or it can return <code class="language-plaintext highlighter-rouge">null</code>. Users generally
+assume and prefer that you use an empty container to indicate “no data”. That
+way, they have a real object that they can call methods on like <code class="language-plaintext highlighter-rouge">isEmpty</code>.</p>
+
+<p>To indicate that your API has no data to provide, prefer returning an empty
+collection, a non-nullable future of a nullable type, or a stream that doesn’t
+emit any values.</p>
+
+<p>如果確實有成員可能返回 <code class="language-plaintext highlighter-rouge">null</code> 的型別，請在文件中註明，以及在什麼情況下回返回 <code class="language-plaintext highlighter-rouge">null</code>。</p>
+
+
+
+<h3 id="avoid-returning-this-from-methods-just-to-enable-a-fluent-interface">
+<a class="anchor" href="#avoid-returning-this-from-methods-just-to-enable-a-fluent-interface" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>避免</strong> 為了書寫流暢，而從方法中返回 <code class="language-plaintext highlighter-rouge">this</code> 。</h3>
+
+
+
+<p class="linter-rule">Linter rule: <a href="/tools/linter-rules/avoid_returning_this">avoid_returning_this</a></p>
+
+<p>方法級聯是連結方法呼叫的更好的解決方式。</p>
+
+
+
+<pre class="prettyprint lang-dart good"><code>var buffer = StringBuffer()
+  ..write('one')
+  ..write('two')
+  ..write('three');</code></pre>
+
+<pre class="prettyprint lang-dart bad"><code>var buffer = StringBuffer()
+    .write('one')
+    .write('two')
+    .write('three');</code></pre>
+
+<h2 id="types">
+<a class="anchor" href="#types" aria-hidden="true"><span class="octicon octicon-link"></span></a>型別</h2>
+
+
+
+<p>程式中的型別用於約束流入程式碼各位置的 <strong>值</strong> 的不同型別。型別會出現在兩種位置：宣告中的 **型別註解 (type annotations) ** 和
+**泛型呼叫 (generic invocations) ** 的型別引數。</p>
+
+
+
+<p>當你想到 <strong>靜態型別</strong> 時，通常會聯想到型別註解。型別註解可以用於為變數，引數，欄位，或者返回值宣告型別。在下面的範例中，<code class="language-plaintext highlighter-rouge">bool</code> 和 <code class="language-plaintext highlighter-rouge">String</code> 是型別註解。他們位於程式碼靜態宣告結構的前面，並且他們不會在執行時”執行”。</p>
+
+
+<pre class="prettyprint lang-dart"><code>bool isEmpty(String parameter) {
+  bool result = parameter.isEmpty;
+  return result;
+}</code></pre>
+
+<p>泛型呼叫可以是一個字面量集合的定義，一個泛型類建構函式的呼叫，或者一個泛型方法的呼叫。在下面的範例中，<code class="language-plaintext highlighter-rouge">num</code> 和 <code class="language-plaintext highlighter-rouge">int</code> 都是泛型呼叫的型別引數。雖然它們是型別，但是它們也是第一類實體，在執行時會被提升並傳遞給呼叫。</p>
+
+
+<pre class="prettyprint lang-dart"><code>var lists = &lt;num&gt;[1, 2];
+lists.addAll(List&lt;num&gt;.filled(3, 4));
+lists.cast&lt;int&gt;();</code></pre>
+
+<p>這裡再強調一下”泛型呼叫”，因為型別引數 <strong>也</strong> 可以出現在型別註解中：</p>
+
+
+<pre class="prettyprint lang-dart"><code>List&lt;int&gt; ints = [1, 2];</code></pre>
+
+<p>這裡，<code class="language-plaintext highlighter-rouge">int</code> 是一個類別型引數，但它出現在了型別註解中，而不是泛型呼叫。通常來說不需要擔心這種情況，但在幾個地方，對於型別的運用是泛型呼叫而不是型別註解有不同的指導。</p>
+
+
+
+<h4 id="type-inference">Type inference</h4>
+
+<p>Type annotations are optional in Dart.
+If you omit one, Dart tries to infer a type
+based on the nearby context. Sometimes it doesn’t have enough information to
+infer a complete type. When that happens, Dart sometimes reports an error, but
+usually silently fills in any missing parts with <code class="language-plaintext highlighter-rouge">dynamic</code>. The implicit
+<code class="language-plaintext highlighter-rouge">dynamic</code> leads to code that <em>looks</em> inferred and safe, but actually disables
+type checking completely. The rules below avoid that by requiring types when
+inference fails.</p>
+
+<p>在大多數地方，Dart 允許省略型別註解並根據附近的上下文提供推斷型別，或預設指定為 <code class="language-plaintext highlighter-rouge">dynamic</code> 
+型別。Dart 同時具有型別推斷和 <code class="language-plaintext highlighter-rouge">dynamic</code> 型別的情況，導致對程式碼中 “untyped” 的含義產生一些混淆。意思就是不<em>寫</em>型別就是動態型別嗎？為避免這種混淆，應該避免說 “untyped” ，而是使用以下術語：</p>
+
+
+
+<ul>
+  <li>
+    <p>如果程式碼是<em>型別註解</em>，則在程式碼中顯式寫入型別。</p>
+
+    
+  </li>
+  <li>
+    <p>如果程式碼的型別是<em>推斷</em>的，則不必寫型別註解，Dart 會自己會找出它的型別。規則不考慮推斷可能會失敗的情況，在一些地方，推理失敗會產生一個靜態錯誤。在其他情況下，Dart 使用 <code class="language-plaintext highlighter-rouge">dynamic</code>
+作為備選型別。</p>
+
+    
+  </li>
+  <li>
+    <p>如果程式碼是<em>動態型別</em>，那麼它的靜態型別就是特殊的 <code class="language-plaintext highlighter-rouge">dynamic</code> 型別。程式碼可以明確地註解為 
+<code class="language-plaintext highlighter-rouge">dynamic</code> 型別，也可以由 Dart 進行推斷。</p>
+
+    
+  </li>
+</ul>
+
+<p>換句話說，對於程式碼的型別是 <code class="language-plaintext highlighter-rouge">dynamic</code> 型別還是其他型別，在型別註解或型別推斷中是正交的。</p>
+
+
+
+<p>Inference is a powerful tool to spare you the effort of writing and reading
+types that are obvious or uninteresting. It keeps the reader’s attention focused
+on the behavior of the code itself. Explicit types are also a key part of
+robust, maintainable code. They define the static shape of an API and create
+boundaries to document and enforce what kinds of values are allowed to reach
+different parts of the program.</p>
+
+<p>Of course, inference isn’t magic. Sometimes inference succeeds and selects a
+type, but it’s not the type you want. The common case is inferring an overly
+precise type from a variable’s initializer when you intend to assign values of
+other types to the variable later. In those cases, you have to write the type
+explicitly.</p>
+
+<p>The guidelines here strike the best balance we’ve found between brevity and
+control, flexibility and safety. There are specific guidelines to cover all the
+various cases, but the rough summary is:</p>
+
+<ul>
+  <li>
+    <p>Do annotate when inference doesn’t have enough context, even when <code class="language-plaintext highlighter-rouge">dynamic</code>
+is the type you want.</p>
+  </li>
+  <li>
+    <p>Don’t annotate locals and generic invocations unless you need to.</p>
+  </li>
+  <li>
+    <p>Prefer annotating top-level variables and fields unless the initializer
+makes the type obvious.</p>
+  </li>
+</ul>
+
+<h3 id="do-type-annotate-variables-without-initializers">
+<a class="anchor" href="#do-type-annotate-variables-without-initializers" aria-hidden="true"><span class="octicon octicon-link"></span></a>DO type annotate variables without initializers</h3>
+
+<p class="linter-rule">Linter rule: <a href="/tools/linter-rules/prefer_typing_uninitialized_variables">prefer_typing_uninitialized_variables</a></p>
+
+<p>The type of a variable—top-level, local, static field, or instance
+field—can often be inferred from its initializer. However, if there is no
+initializer, inference fails.</p>
+
+<pre class="prettyprint lang-dart good"><code>List&lt;AstNode&gt; parameters;
+if (node is Constructor) {
+  parameters = node.signature;
+} else if (node is Method) {
+  parameters = node.parameters;
+}</code></pre>
+
+<pre class="prettyprint lang-dart bad"><code>var parameters;
+if (node is Constructor) {
+  parameters = node.signature;
+} else if (node is Method) {
+  parameters = node.parameters;
+}</code></pre>
+
+<p>其餘指南涵蓋了和型別有關的其他具體問題。</p>
+
+<h3 id="do-type-annotate-fields-and-top-level-variables-if-the-type-isnt-obvious">
+<a class="anchor" href="#do-type-annotate-fields-and-top-level-variables-if-the-type-isnt-obvious" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>推薦</strong> 為型別不明顯的公共欄位和公共最上層變數指定型別註解。</h3>
+
+
+
+<p class="linter-rule">Linter rule: <a href="/tools/linter-rules/type_annotate_public_apis">type_annotate_public_apis</a></p>
+
+<p>型別註解是關於如何使用庫的重要文件。它們在程式的區域之間形成邊界以隔離型別錯誤來源。思考下面程式碼：</p>
+
+
+
+<pre class="prettyprint lang-dart bad"><code>install(id, destination) =&gt; ...</code></pre>
+
+<p>在這裡，無法判斷：這個 <code class="language-plaintext highlighter-rouge">id</code> 是什麼，一個字串？<code class="language-plaintext highlighter-rouge">destination</code> 又是什麼，一個字串還是一個 
+<code class="language-plaintext highlighter-rouge">File</code> 物件？方法是同步的還是非同步的？下面的例項會清晰很多：</p>
+
+
+
+<pre class="prettyprint lang-dart good"><code>Future&lt;bool&gt; install(PackageId id, String destination) =&gt; ...</code></pre>
+
+<p>但在一些情況下，型別非常明顯，根本沒有指明型別的必要：</p>
+
+
+
+<pre class="prettyprint lang-dart good"><code>const screenWidth = 640; // Inferred as int.</code></pre>
+
+<p>這裡的”明顯”並沒有精確的定義，下面這些可以作為很好的參考：</p>
+
+
+
+<ul>
+  <li>
+    <p>字面量。</p>
+
+    
+  </li>
+  <li>
+    <p>建構函式呼叫。</p>
+
+    
+  </li>
+  <li>
+    <p>參考的其他型別明確的常量。</p>
+
+    
+  </li>
+  <li>
+    <p>數字和字串的簡單表示式。</p>
+
+    
+  </li>
+  <li>
+    <p>讀者熟悉的工廠方法，如 <code class="language-plaintext highlighter-rouge">int.parse()</code>， <code class="language-plaintext highlighter-rouge">Future.wait()</code> 等。</p>
+
+    
+  </li>
+</ul>
+
+<p>如果你認為初始化表示式—無論是什麼表示式—足夠清晰，那麼可以省略它的註解。但是如果你認為註解有助於使程式碼更清晰，那麼你應該加上這個註解。</p>
+
+
+
+<p>如有疑問，請新增型別註解。即使型別很明顯，但可能任然希望明確的註解。如果推斷型別依賴於其他庫中的值或宣告，可能需要添加註解的宣告。這樣自己的API就不會因為其他庫的修改而被悄無聲息的改變了型別。</p>
+
+
+
+<p>這條規則同時適用於公有和私有宣告。就像 API 裡的型別註釋可以更好幫助程式碼的 <strong>使用者</strong>，私有成員上的型別可以幫助 <strong>維護者</strong>。</p>
+
+
+
+<h3 id="dont-redundantly-type-annotate-initialized-local-variables">
+<a class="anchor" href="#dont-redundantly-type-annotate-initialized-local-variables" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>避免</strong> 為初始化的區域變數新增冗餘地型別註解。</h3>
+
+
+
+<p class="linter-rule">Linter rule: <a href="/tools/linter-rules/omit_local_variable_types">omit_local_variable_types</a></p>
+
+<p>區域變數，特別是現代的函式往往很少，範圍也很小。省略區域變數型別會將讀者的注意力集中在變數的 <strong>名稱</strong> 及初始化值上。</p>
+
+
+
+<pre class="prettyprint lang-dart good"><code>List&lt;List&lt;Ingredient&gt;&gt; possibleDesserts(Set&lt;Ingredient&gt; pantry) {
+  var desserts = &lt;List&lt;Ingredient&gt;&gt;[];
+  for (final recipe in cookbook) {
+    if (pantry.containsAll(recipe)) {
+      desserts.add(recipe);
+    }
+  }
+
+  return desserts;
+}</code></pre>
+
+<pre class="prettyprint lang-dart bad"><code>List&lt;List&lt;Ingredient&gt;&gt; possibleDesserts(Set&lt;Ingredient&gt; pantry) {
+  List&lt;List&lt;Ingredient&gt;&gt; desserts = &lt;List&lt;Ingredient&gt;&gt;[];
+  for (final List&lt;Ingredient&gt; recipe in cookbook) {
+    if (pantry.containsAll(recipe)) {
+      desserts.add(recipe);
+    }
+  }
+
+  return desserts;
+}</code></pre>
+
+<p>Sometimes the inferred type is not the type you want the variable to have. For
+example, you may intend to assign values of other types later. In that case,
+annotate the variable with the type you want.</p>
+
+<pre class="prettyprint lang-dart good"><code>Widget build(BuildContext context) {
+  <span class="highlight">Widget</span> result = Text('You won!');
+  if (applyPadding) {
+    result = Padding(padding: EdgeInsets.all(8.0), child: result);
+  }
+  return result;
+}</code></pre>
+
+<h3 id="do-annotate-return-types-on-function-declarations">
+<a class="anchor" href="#do-annotate-return-types-on-function-declarations" aria-hidden="true"><span class="octicon octicon-link"></span></a>DO annotate return types on function declarations</h3>
+
+<p>如果區域變數沒有初始值設定項，那麼就無法判斷它的型別了。這種情況下，最好是為變數加上型別註解。否則，你的到的會是一個 <code class="language-plaintext highlighter-rouge">dynamic</code> 型別，並失去靜態型別的好處。</p>
+
+
+
+<pre class="prettyprint lang-dart good"><code>String makeGreeting(String who) {
+  return 'Hello, $who!';
+}</code></pre>
+
+<pre class="prettyprint lang-dart bad"><code>makeGreeting(String who) {
+  return 'Hello, $who!';
+}</code></pre>
+
+<p>Note that this guideline only applies to <em>named</em> function declarations:
+top-level functions, methods, and local functions. Anonymous function
+expressions infer a return type from their body. In fact, the syntax doesn’t
+even allow a return type annotation.</p>
+
+<h3 id="do-annotate-parameter-types-on-function-declarations">
+<a class="anchor" href="#do-annotate-parameter-types-on-function-declarations" aria-hidden="true"><span class="octicon octicon-link"></span></a>DO annotate parameter types on function declarations</h3>
+
+<p>A function’s parameter list determines its boundary to the outside world.
+Annotating parameter types makes that boundary well defined.
+Note that even though default parameter values look like variable initializers,
+Dart doesn’t infer an optional parameter’s type from its default value.</p>
+
+<pre class="prettyprint lang-dart good"><code>void sayRepeatedly(String message, {int count = 2}) {
+  for (var i = 0; i &lt; count; i++) {
+    print(message);
+  }
+}</code></pre>
+
+<pre class="prettyprint lang-dart bad"><code>void sayRepeatedly(message, {count = 2}) {
+  for (var i = 0; i &lt; count; i++) {
+    print(message);
+  }
+}</code></pre>
+
+<p><strong>Exception:</strong> Function expressions and initializing formals have
+different type annotation conventions, as described in the next two guidelines.</p>
+
+<h3 id="dont-annotate-inferred-parameter-types-on-function-expressions">
+<a class="anchor" href="#dont-annotate-inferred-parameter-types-on-function-expressions" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>避免</strong> 在函式表示式上註解推斷的引數型別。</h3>
+
+
+
+<p class="linter-rule">Linter rule: <a href="/tools/linter-rules/avoid_types_on_closure_parameters">avoid_types_on_closure_parameters</a></p>
+
+<p>匿名函式幾乎都是作為一個回呼(Callback)引數型別立即傳遞給一個方法。當在型別化上下文中建立函式表示式時，Dart 會嘗試根據預期型別來推斷函式的引數型別。</p>
+
+
+
+<p>例如，當為 <code class="language-plaintext highlighter-rouge">Iterable.map()</code> 傳遞一個函式表示式時，函式的引數型別會根據 <code class="language-plaintext highlighter-rouge">map()</code> 回呼(Callback)中所期望的型別進行推斷。</p>
+
+
+
+<pre class="prettyprint lang-dart good"><code>var names = people.map((person) =&gt; person.name);</code></pre>
+
+<pre class="prettyprint lang-dart bad"><code>var names = people.map((Person person) =&gt; person.name);</code></pre>
+
+<p>If the language is able to infer the type you want for a parameter in a function
+expression, then don’t annotate. In rare cases, the surrounding
+context isn’t precise enough to provide a type for one or more of the
+function’s parameters. In those cases, you may need to annotate.
+(If the function isn’t used immediately, it’s usually better to
+<a href="usage#do-use-a-function-declaration-to-bind-a-function-to-a-name">make it a named declaration</a>.)</p>
+
+<h3 id="dont-type-annotate-initializing-formals">
+<a class="anchor" href="#dont-type-annotate-initializing-formals" aria-hidden="true"><span class="octicon octicon-link"></span></a>DON’T type annotate initializing formals</h3>
+
+<p class="linter-rule">Linter rule: <a href="/tools/linter-rules/type_init_formals">type_init_formals</a></p>
+
+<p>If a constructor parameter is using <code class="language-plaintext highlighter-rouge">this.</code> to initialize a field, 
+or <code class="language-plaintext highlighter-rouge">super.</code> to forward a super parameter, 
+then the type of the parameter
+is inferred to have the same type as 
+the field or super-constructor parameter respectively.</p>
+
+<pre class="prettyprint lang-dart good"><code>class Point {
+  double x, y;
+  Point(this.x, this.y);
+}
+
+class MyWidget extends StatelessWidget {
+  MyWidget({super.key});
+}</code></pre>
+
+<pre class="prettyprint lang-dart bad"><code>class Point {
+  double x, y;
+  Point(double this.x, double this.y);
+}
+
+class MyWidget extends StatelessWidget {
+  MyWidget({Key? super.key});
+}</code></pre>
+
+<h3 id="do-write-type-arguments-on-generic-invocations-that-arent-inferred">
+<a class="anchor" href="#do-write-type-arguments-on-generic-invocations-that-arent-inferred" aria-hidden="true"><span class="octicon octicon-link"></span></a>DO write type arguments on generic invocations that aren’t inferred</h3>
+
+<p>在其他情況下，如果沒有足夠的資訊來推斷型別時，應該為引數新增型別註解：</p>
+
+
+
+<pre class="prettyprint lang-dart good"><code>var playerScores = &lt;String, int&gt;{};
+final events = StreamController&lt;Event&gt;();</code></pre>
+
+<pre class="prettyprint lang-dart bad"><code>var playerScores = {};
+final events = StreamController();</code></pre>
+
+<p>Sometimes the invocation occurs as the initializer to a variable declaration. If
+the variable is <em>not</em> local, then instead of writing the type argument list on the
+invocation itself, you may put a type annotation on the declaration:</p>
+
+<pre class="prettyprint lang-dart good"><code>class Downloader {
+  final Completer&lt;String&gt; response = Completer();
+}</code></pre>
+
+<pre class="prettyprint lang-dart bad"><code>class Downloader {
+  final response = Completer();
+}</code></pre>
+
+<p>在這裡，由於變數沒有型別註解，因此沒有足夠的上下文來確定建立的 <code class="language-plaintext highlighter-rouge">Set</code> 是什麼型別，因此應該顯式的提供引數型別。</p>
+
+
+
+<h3 id="dont-write-type-arguments-on-generic-invocations-that-are-inferred">
+<a class="anchor" href="#dont-write-type-arguments-on-generic-invocations-that-are-inferred" aria-hidden="true"><span class="octicon octicon-link"></span></a>DON’T write type arguments on generic invocations that are inferred</h3>
+
+<p>This is the converse of the previous rule. If an invocation’s type argument list
+<em>is</em> correctly inferred with the types you want, then omit the types and let
+Dart do the work for you.</p>
+
+<pre class="prettyprint lang-dart good"><code>class Downloader {
+  final Completer&lt;String&gt; response = Completer();
+}</code></pre>
+
+<pre class="prettyprint lang-dart bad"><code>class Downloader {
+  final Completer&lt;String&gt; response = Completer&lt;String&gt;();
+}</code></pre>
+
+<p>Here, the type annotation on the field provides a surrounding context to infer
+the type argument of constructor call in the initializer.</p>
+
+<pre class="prettyprint lang-dart good"><code>var items = Future.value([1, 2, 3]);</code></pre>
+
+<pre class="prettyprint lang-dart bad"><code>var items = Future&lt;List&lt;int&gt;&gt;.value(&lt;int&gt;[1, 2, 3]);</code></pre>
+
+<p>Here, the types of the collection and instance can be inferred bottom-up from
+their elements and arguments.</p>
+
+<h3 id="avoid-writing-incomplete-generic-types">
+<a class="anchor" href="#avoid-writing-incomplete-generic-types" aria-hidden="true"><span class="octicon octicon-link"></span></a>AVOID writing incomplete generic types</h3>
+
+<p>The goal of writing a type annotation or type argument is to pin down a complete
+type. However, if you write the name of a generic type but omit its type
+arguments, you haven’t fully specified the type. In Java, these are called “raw
+types”. For example:</p>
+
+<pre class="prettyprint lang-dart bad"><code><span class="highlight">List</span> numbers = [1, 2, 3];
+var completer = Completer&lt;<span class="highlight">Map</span>&gt;();</code></pre>
+
+<p>Here, <code class="language-plaintext highlighter-rouge">numbers</code> has a type annotation, but the annotation doesn’t provide a type
+argument to the generic <code class="language-plaintext highlighter-rouge">List</code>. Likewise, the <code class="language-plaintext highlighter-rouge">Map</code> type argument to <code class="language-plaintext highlighter-rouge">Completer</code>
+isn’t fully specified. In cases like this, Dart will <em>not</em> try to “fill in” the
+rest of the type for you using the surrounding context. Instead, it silently
+fills in any missing type arguments with <code class="language-plaintext highlighter-rouge">dynamic</code> (or the bound if the
+class has one). That’s rarely what you want.</p>
+
+<p>Instead, if you’re writing a generic type either in a type annotation or as a type
+argument inside some invocation, make sure to write a complete type:</p>
+
+<pre class="prettyprint lang-dart good"><code>List&lt;num&gt; numbers = [1, 2, 3];
+var completer = Completer&lt;Map&lt;String, int&gt;&gt;();</code></pre>
+
+<h3 id="do-annotate-with-dynamic-instead-of-letting-inference-fail">
+<a class="anchor" href="#do-annotate-with-dynamic-instead-of-letting-inference-fail" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>推薦</strong> 使用 <code class="language-plaintext highlighter-rouge">dynamic</code> 註解替換推斷失敗的情況。</h3>
+
+
+
+<p>When inference doesn’t fill in a type, it usually defaults to <code class="language-plaintext highlighter-rouge">dynamic</code>. If
+<code class="language-plaintext highlighter-rouge">dynamic</code> is the type you want, this is technically the most terse way to get
+it. However, it’s not the most <em>clear</em> way. A casual reader of your code who
+sees that an annotation is missing has no way of knowing if you intended it to be
+<code class="language-plaintext highlighter-rouge">dynamic</code>, expected inference to fill in some other type, or simply forgot to
+write the annotation.</p>
+
+<p>When <code class="language-plaintext highlighter-rouge">dynamic</code> is the type you want, write that explicitly to make your intent
+clear and highlight that this code has less static safety.</p>
+
+<pre class="prettyprint lang-dart good"><code>dynamic mergeJson(dynamic original, dynamic changes) =&gt; ...</code></pre>
+
+<pre class="prettyprint lang-dart bad"><code>mergeJson(original, changes) =&gt; ...</code></pre>
+
+<p>Note that it’s OK to omit the type when Dart <em>successfully</em> infers <code class="language-plaintext highlighter-rouge">dynamic</code>.</p>
+
+<pre class="prettyprint lang-dart good"><code>Map&lt;String, dynamic&gt; readJson() =&gt; ...
+
+void printUsers() {
+  var json = readJson();
+  var users = json['users'];
+  print(users);
+}</code></pre>
+
+<p>Here, Dart infers <code class="language-plaintext highlighter-rouge">Map&lt;String, dynamic&gt;</code> for <code class="language-plaintext highlighter-rouge">json</code> and then from that infers
+<code class="language-plaintext highlighter-rouge">dynamic</code> for <code class="language-plaintext highlighter-rouge">users</code>. It’s fine to leave <code class="language-plaintext highlighter-rouge">users</code> without a type annotation. The
+distinction is a little subtle. It’s OK to allow inference to <em>propagate</em>
+<code class="language-plaintext highlighter-rouge">dynamic</code> through your code from a <code class="language-plaintext highlighter-rouge">dynamic</code> type annotation somewhere else, but
+you don’t want it to inject a <code class="language-plaintext highlighter-rouge">dynamic</code> type annotation in a place where your
+code did not specify one.</p>
+
+<aside class="alert alert-info" role="alert">
+  <p><i class="material-icons" aria-hidden="true">info</i></p>
+
+  <p>在 Dart 2 之前，本規則恰恰是相反的：<strong>不要</strong> 為隱性型別的成員指定 <code class="language-plaintext highlighter-rouge">dynamic</code> 註解。基於強型別系統和型別推斷，現在的開發者更希望 Dart 的行為類似於推斷的靜態型別語言。基於這種心理模型，我們發現程式碼區域慢慢地失去了靜態型別所具有的安全及效能。</p>
+
+  
+
+</aside>
+
+<p><strong>Exception</strong>: Type annotations on unused parameters (<code class="language-plaintext highlighter-rouge">_</code>) can be omitted.</p>
+
+<h3 id="prefer-signatures-in-function-type-annotations">
+<a class="anchor" href="#prefer-signatures-in-function-type-annotations" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>推薦</strong> 使 function 型別註解的特徵更明顯</h3>
+
+
+
+<p>成員型別註解識別符號只有 <code class="language-plaintext highlighter-rouge">Function</code> ，註解識別符號不包括任何返回值型別或引數型別，請參考專門的 <a href="https://api.dart.dev/stable/dart-core/Function-class.html">Function</a> 型別說明。使用 <code class="language-plaintext highlighter-rouge">Function</code> 型別要稍微比使用 <code class="language-plaintext highlighter-rouge">dynamic</code> 更好些。如果要使用 <code class="language-plaintext highlighter-rouge">Function</code> 來進行型別註解，註解型別應該包含函式的所有引數及返回值型別。</p>
+
+
+
+<pre class="prettyprint lang-dart good"><code>bool isValid(String value, <span class="highlight">bool Function(String)</span> test) =&gt; ...</code></pre>
+
+<pre class="prettyprint lang-dart bad"><code>bool isValid(String value, <span class="highlight">Function</span> test) =&gt; ...</code></pre>
+
+<p>此條規則有個例外，如果期望一個類別型能夠表示多種函式型別的集合。例如，我們希望接受的可能是一個引數的函式，也可能是兩個引數的函式。由於 Dart 沒有集合型別，所以沒有辦法為類似成員精確的指定型別，這個時候通常只能使用 <code class="language-plaintext highlighter-rouge">dynamic</code>。但這裡使用 <code class="language-plaintext highlighter-rouge">Function</code> 要稍微比使用 <code class="language-plaintext highlighter-rouge">dynamic</code> 更有幫助些：</p>
+
+
+
+<pre class="prettyprint lang-dart good"><code>void handleError(<span class="highlight">void Function()</span> operation, <span class="highlight">Function</span> errorHandler) {
+  try {
+    operation();
+  } catch (err, stack) {
+    if (errorHandler is <span class="highlight">Function(Object)</span>) {
+      errorHandler(err);
+    } else if (errorHandler is <span class="highlight">Function(Object, StackTrace)</span>) {
+      errorHandler(err, stack);
+    } else {
+      throw ArgumentError('errorHandler has wrong signature.');
+    }
+  }
+}</code></pre>
+
+<h3 id="dont-specify-a-return-type-for-a-setter">
+<a class="anchor" href="#dont-specify-a-return-type-for-a-setter" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>不要</strong> 為 setter 方法指定返回型別。</h3>
+
+
+
+<p class="linter-rule">Linter rule: <a href="/tools/linter-rules/avoid_return_types_on_setters">avoid_return_types_on_setters</a></p>
+
+<p>在 Dart 中，setter 永遠返回 <code class="language-plaintext highlighter-rouge">void</code> 。為 setter 指定型別沒有意義。</p>
+
+
+
+<pre class="prettyprint lang-dart bad"><code>void set foo(Foo value) { ... }</code></pre>
+
+<pre class="prettyprint lang-dart good"><code>set foo(Foo value) { ... }</code></pre>
+
+<h3 id="dont-use-the-legacy-typedef-syntax">
+<a class="anchor" href="#dont-use-the-legacy-typedef-syntax" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>不要</strong> 使用棄用的 typedef 語法。</h3>
+
+
+
+<p class="linter-rule">Linter rule: <a href="/tools/linter-rules/prefer_generic_function_type_aliases">prefer_generic_function_type_aliases</a></p>
+
+<p>Dart 有兩種為函式型別定義命名 typedef 註解語法。原始語法如下：</p>
+
+
+
+<pre class="prettyprint lang-dart bad"><code>typedef int Comparison&lt;T&gt;(T a, T b);</code></pre>
+
+<p>該語法有幾個問題：</p>
+
+
+
+<ul>
+  <li>
+    <p>無法為一個<em>泛型</em>函式型別指定名稱。在上面的例子中，typedef 自己就是泛型。如果在程式碼中去參考 <code class="language-plaintext highlighter-rouge">Comparison</code> 卻不指定引數型別，那麼你會隱含的得到一個 <code class="language-plaintext highlighter-rouge">int Function(dynamic, dynamic)</code>
+型別的函式，<em>而不是</em> <code class="language-plaintext highlighter-rouge">int Function&lt;T&gt;(T, T)</code> 。在實際應用中雖然不常用，但是在極少數情況下是很重要的。</p>
+
+    
+  </li>
+  <li>
+    <p>引數中的單個識別符號會被認為是引數名稱，而不是引數型別。參考下面程式碼：</p>
+
+    
+
+    <pre class="prettyprint lang-dart bad"><code>typedef bool TestNumber(num);</code></pre>
+
+    <p>大多數使用者希望這是一個接受 <code class="language-plaintext highlighter-rouge">num</code> 返回 <code class="language-plaintext highlighter-rouge">bool</code> 的函式型別。但它實際上是一個接受<em>任何</em>
+物件（<code class="language-plaintext highlighter-rouge">dynamic</code>）返回 <code class="language-plaintext highlighter-rouge">bool</code> 的型別。 “num” 是引數<em>名稱</em>（它除了被用在 typedef 的宣告程式碼中，再也沒有其他作用）。這個錯誤在 Dart 中存在了很長時間。</p>
+
+    
+  </li>
+</ul>
+
+<p>新語法如下所示：</p>
+
+
+
+<pre class="prettyprint lang-dart good"><code>typedef Comparison&lt;T&gt; = int Function(T, T);</code></pre>
+
+<p>如果想在方法中包含引數名稱，可以這樣做：</p>
+
+
+
+<pre class="prettyprint lang-dart good"><code>typedef Comparison&lt;T&gt; = int Function(T a, T b);</code></pre>
+
+<p>新語法可以表達舊語法所表達的任何內容，並且避免了單個識別符號會被認為是引數型別的常見錯誤。同一個函式型別語法（typedef 中 <code class="language-plaintext highlighter-rouge">=</code> 之後的部分）允許出現在任何型別註解可以能出現的地方。這樣在程式的任何位置，我們都可以以一致的方式來書寫函式型別。</p>
+
+
+
+<p>為了避免對已有程式碼產生破壞， typedef 的舊語法依舊支援。但已被棄用。</p>
+
+
+
+<h3 id="prefer-inline-function-types-over-typedefs">
+<a class="anchor" href="#prefer-inline-function-types-over-typedefs" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>推薦</strong> 優先使用行內函數型別，而後是 typedef。</h3>
+
+
+
+<p class="linter-rule">Linter rule: <a href="/tools/linter-rules/avoid_private_typedef_functions">avoid_private_typedef_functions</a></p>
+
+<p>在 Dart 1 中，如果要在欄位，變數或泛型引數中使用函式型別，首選需要使用 typedef 定義這個型別。
+Dart 2 中任何使用型別註解的地方都可以使用函式型別宣告語法：</p>
+
+
+
+<pre class="prettyprint lang-dart good"><code>class FilteredObservable {
+  final <span class="highlight">bool Function(Event)</span> _predicate;
+  final List&lt;<span class="highlight">void Function(Event)</span>&gt; _observers;
+
+  FilteredObservable(this._predicate, this._observers);
+
+  <span class="highlight">void Function(Event)</span>? notify(Event event) {
+    if (!_predicate(event)) return null;
+
+    <span class="highlight">void Function(Event)</span>? last;
+    for (final observer in _observers) {
+      observer(event);
+      last = observer;
+    }
+
+    return last;
+  }
+}</code></pre>
+
+<p>如果函式型別特別長或經常使用，那麼還是有必要使用 typedef 進行定義。但在大多數情況下，使用者更希望知道函式使用時的真實型別，這樣函式型別語法使它們清晰。</p>
+
+
+
+<h3 id="prefer-using-function-type-syntax-for-parameters">
+<a class="anchor" href="#prefer-using-function-type-syntax-for-parameters" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>考慮</strong> 在引數上使用函式型別語法。</h3>
+
+
+
+<p class="linter-rule">Linter rule: <a href="/tools/linter-rules/use_function_type_syntax_for_parameters">use_function_type_syntax_for_parameters</a></p>
+
+<p>在定義引數為函式型別時，Dart 具有特殊的語法。與 C 類似，使用引數名稱作為函式引數的函式名：</p>
+
+
+<pre class="prettyprint lang-dart"><code>Iterable&lt;T&gt; where(bool predicate(T element)) =&gt; ...</code></pre>
+
+<p>在 Dart 2 新增函式型別語法之前，如果希望不透過 typedef 使用函式引數型別，上例是唯一的方法。如今 Dart 已經可以為函式提供泛型註解，那麼也可以將泛型註解用於函式型別引數中：</p>
+
+
+
+<pre class="prettyprint lang-dart good"><code>Iterable&lt;T&gt; where(bool Function(T) predicate) =&gt; ...</code></pre>
+
+<p>雖然新語法稍微冗長一點，但是你必須使用新語法才能與其他位置的型別註解的語法保持一致。</p>
+
+
+
+<h3 id="avoid-using-dynamic-unless-you-want-to-disable-static-checking">
+<a class="anchor" href="#avoid-using-dynamic-unless-you-want-to-disable-static-checking" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>避免</strong> 使用 <code class="language-plaintext highlighter-rouge">dynamic</code> 除非你希望禁用靜態檢查</h3>
+
+
+
+<p>某些操作適用於任何物件。例如，<code class="language-plaintext highlighter-rouge">log()</code> 方法可以接受任何物件，並呼叫物件上的 <code class="language-plaintext highlighter-rouge">toString()</code> 方法。在 Dart 中兩種型別可以表示所有型別：<code class="language-plaintext highlighter-rouge">Object</code> 和 <code class="language-plaintext highlighter-rouge">dynamic</code> 。但是，他們傳達的意義並不相同。和 Java 或 C# 類似，要表示成員型別為所有物件，使用 <code class="language-plaintext highlighter-rouge">Object</code> 進行註解。</p>
+
+
+
+<p><code class="language-plaintext highlighter-rouge">dynamic</code> 這個型別不僅接受所有物件，也允許所有 <em>operations</em>。在編譯時任何成員對 <code class="language-plaintext highlighter-rouge">dynamic</code> 型別值存取是允許的，但在執行時可能會引發例外。如果你可以承擔風險來達到靈活性，<code class="language-plaintext highlighter-rouge">dynamic</code> 型別是你不錯的選擇。</p>
+
+
+
+<p>除此之外，我們建議你使用 <code class="language-plaintext highlighter-rouge">Object?</code> 或者 <code class="language-plaintext highlighter-rouge">Object</code>，並使用 <code class="language-plaintext highlighter-rouge">is</code> 來檢查和進行型別升級，以確保在執行時存取判斷這個值支援您要存取的成員。</p>
+
+
+
+<pre class="prettyprint lang-dart good"><code>/// Returns a Boolean representation for [arg], which must
+/// be a String or bool.
+bool convertToBool(Object arg) {
+  if (arg is bool) return arg;
+  if (arg is String) return arg.toLowerCase() == 'true';
+  throw ArgumentError('Cannot convert $arg to a bool.');
+}</code></pre>
+
+<p>這個規則的主要例外是，與已經使用 <code class="language-plaintext highlighter-rouge">dynamic</code> 的型別，特別是通用類進行操作的時候。比如，JSON 物件有 <code class="language-plaintext highlighter-rouge">Map&lt;String, dynamic&gt;</code> 型別，而且程式碼需要接受相同的型別。即便如此，在呼叫和使用這些 API 的時候，將型別轉換成一個更精確的型別之後再去呼叫成員會更好。</p>
+
+
+
+<h3 id="do-use-futurevoid-as-the-return-type-of-asynchronous-members-that-do-not-produce-values">
+<a class="anchor" href="#do-use-futurevoid-as-the-return-type-of-asynchronous-members-that-do-not-produce-values" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>要</strong> 使用 <code class="language-plaintext highlighter-rouge">Future&lt;void&gt;</code> 作為無法回值非同步成員的返回型別。</h3>
+
+
+
+<p>對於不返回值得同步函式，要使用 <code class="language-plaintext highlighter-rouge">void</code> 作為返回型別。對於需要等待的，但無返回值的非同步方法方法，使用 <code class="language-plaintext highlighter-rouge">Future&lt;void&gt;</code> 作為返回值型別。</p>
+
+
+
+<p>你可能會見到使用 <code class="language-plaintext highlighter-rouge">Future</code> 或 <code class="language-plaintext highlighter-rouge">Future&lt;Null&gt;</code> 作為返回值型別，這是因為舊版本的 Dart 不允許
+<code class="language-plaintext highlighter-rouge">void</code> 作為型別引數。既然現在允許了，那麼就應該使用新的方式。使用新的方式能夠更直接地匹配那些已經指定了型別的同步函式，並在函式體中為呼叫者提供更好的錯誤檢查。</p>
+
+
+
+<p>對於一些非同步函式，這些非同步函式不會返回有用的值，而且不需要等待非同步執行結束或不需要處理錯誤結果。那麼使用 <code class="language-plaintext highlighter-rouge">void</code> 作為這些非同步函式的返回型別。</p>
+
+
+
+<h3 id="avoid-using-futureort-as-a-return-type">
+<a class="anchor" href="#avoid-using-futureort-as-a-return-type" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>避免</strong> 使用 <code class="language-plaintext highlighter-rouge">FutureOr&lt;T&gt;</code> 作為返回型別。</h3>
+
+
+
+<p>如果一個方法接受了一個 <code class="language-plaintext highlighter-rouge">FutureOr&lt;int&gt;</code> 引數，那麼 <a href="https://en.wikipedia.org/wiki/Robustness_principle">引數接受的類型範圍就會變大</a> 。使用者可以使用 <code class="language-plaintext highlighter-rouge">int</code> 或者 <code class="language-plaintext highlighter-rouge">Future&lt;int&gt;</code> 來呼叫這個方法，所以呼叫這個方法時就不用把 <code class="language-plaintext highlighter-rouge">int</code> 包裝到一個
+<code class="language-plaintext highlighter-rouge">Future</code> 中再傳到方法中。而在方法中這個引數一定會進行被解開封裝處理。</p>
+
+
+
+<p>如果是<em>返回</em>一個 <code class="language-plaintext highlighter-rouge">FutureOr&lt;int&gt;</code> 型別的值，那麼方法呼叫者在做任何有意義的操作之前，需要檢查返回值是一個 <code class="language-plaintext highlighter-rouge">int</code> 還是 <code class="language-plaintext highlighter-rouge">Future&lt;int&gt;</code> （或者呼叫者僅 <code class="language-plaintext highlighter-rouge">await</code> 得到一個值，卻把它當做了 
+<code class="language-plaintext highlighter-rouge">Future</code> ）。返回值使用 <code class="language-plaintext highlighter-rouge">Future&lt;int&gt;</code> ，型別就清晰了。一個函式要麼一直非同步，要麼一直是同步，這樣才能夠讓呼叫者更容易理解，否則這個函式很難被正確的使用。</p>
+
+
+
+<pre class="prettyprint lang-dart good"><code>Future&lt;int&gt; triple(FutureOr&lt;int&gt; value) async =&gt; (await value) * 3;</code></pre>
+
+<pre class="prettyprint lang-dart bad"><code>FutureOr&lt;int&gt; triple(FutureOr&lt;int&gt; value) {
+  if (value is int) return value * 3;
+  return value.then((v) =&gt; v * 3);
+}</code></pre>
+
+<p>對這條規則更準確的描述是，<strong>僅在 <a href="https://en.wikipedia.org/wiki/Covariance_and_contravariance_(computer_science)">逆變</a> 位置使用 <code class="language-plaintext highlighter-rouge">FutureOr&lt;T&gt;</code></strong>。引數是逆變 (contravariant) ，返回型別是協變 (covariant) 。在巢狀(Nesting)函式型別中，描述是相反的—如果一個引數自身就是函式引數型別，那麼此時回呼(Callback)函式的返回型別處於逆變位置，回呼(Callback)函式的引數是協變。這意味著回呼(Callback)中的函式型別可以返回 <code class="language-plaintext highlighter-rouge">FutureOr&lt;T&gt;</code> ：</p>
+
+
+
+<pre class="prettyprint lang-dart good"><code>Stream&lt;S&gt; asyncMap&lt;T, S&gt;(
+    Iterable&lt;T&gt; iterable, <span class="highlight">FutureOr&lt;S&gt;</span> Function(T) callback) async* {
+  for (final element in iterable) {
+    yield await callback(element);
+  }
+}</code></pre>
+
+<h2 id="parameters">
+<a class="anchor" href="#parameters" aria-hidden="true"><span class="octicon octicon-link"></span></a>引數</h2>
+
+
+
+<p>在 Dart 中，可選引數可以是位置引數，也可以是命名引數，但不能兩者都是。</p>
+
+
+
+<h3 id="avoid-positional-boolean-parameters">
+<a class="anchor" href="#avoid-positional-boolean-parameters" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>避免</strong> 布林型別的位置引數。</h3>
+
+
+
+<p class="linter-rule">Linter rule: <a href="/tools/linter-rules/avoid_positional_boolean_parameters">avoid_positional_boolean_parameters</a></p>
+
+<p>與其他型別不同，布林值通常以字面量方式使用。數字值的通常可以包含在命名的常量裡，但對於布林值通常喜歡直接傳 <code class="language-plaintext highlighter-rouge">true</code> 和 <code class="language-plaintext highlighter-rouge">false</code> 。如果不清楚布林值的含義，這樣會造成呼叫者的程式碼不可讀：</p>
+
+
+
+<pre class="prettyprint lang-dart bad"><code>new Task(true);
+new Task(false);
+new ListBox(false, true, true);
+new Button(false);</code></pre>
+
+<p>這裡，應該考慮使用命名引數，命名建構函式或命名常量來闡明呼叫所執行的操作。</p>
+
+
+
+<pre class="prettyprint lang-dart good"><code>Task.oneShot();
+Task.repeating();
+ListBox(scroll: true, showScrollbars: true);
+Button(ButtonState.enabled);</code></pre>
+
+<p>請注意，這並不適用於 setter ，因為 setter 的名稱能夠清楚的闡明值得含義：</p>
+
+
+
+<pre class="prettyprint lang-dart good"><code>listBox.canScroll = true;
+button.isEnabled = false;</code></pre>
+
+<h3 id="avoid-optional-positional-parameters-if-the-user-may-want-to-omit-earlier-parameters">
+<a class="anchor" href="#avoid-optional-positional-parameters-if-the-user-may-want-to-omit-earlier-parameters" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>避免</strong> 在呼叫者需要省略前面引數的方法中，使用位置可選引數。</h3>
+
+
+
+<p>可選的位置引數應該具有邏輯性，前面引數應該比後面的引數使用更頻繁。呼叫者不需要刻意的跳過或省略前面的一個引數而為後面的引數賦值。如果需要省略前面引數，這種情況最好使用命名可選引數。</p>
+
+
+
+<pre class="prettyprint lang-dart good"><code>String.fromCharCodes(Iterable&lt;int&gt; charCodes, [int start = 0, int? end]);
+
+DateTime(int year,
+    [int month = 1,
+    int day = 1,
+    int hour = 0,
+    int minute = 0,
+    int second = 0,
+    int millisecond = 0,
+    int microsecond = 0]);
+
+Duration(
+    {int days = 0,
+    int hours = 0,
+    int minutes = 0,
+    int seconds = 0,
+    int milliseconds = 0,
+    int microseconds = 0});</code></pre>
+
+<h3 id="avoid-mandatory-parameters-that-accept-a-special-no-argument-value">
+<a class="anchor" href="#avoid-mandatory-parameters-that-accept-a-special-no-argument-value" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>避免</strong> 強制引數去接受一個特定表示”空引數”的值。</h3>
+
+
+
+<p>如果呼叫者在邏輯上省略了引數，那麼建議使用可選引數的方式讓這些引數能夠實際性的被省略，而不是強制讓呼叫者去為他們傳入 <code class="language-plaintext highlighter-rouge">null</code>，或者空字串，或者是一些其他特殊的值來表示該引數”不需要傳值”。</p>
+
+
+
+<p>省略引數更加簡潔，也有助於防止在呼叫者偶然地將 <code class="language-plaintext highlighter-rouge">null</code> 作為實際值傳遞到方法中而引起 bug。</p>
+
+
+
+<pre class="prettyprint lang-dart good"><code>var rest = string.substring(start);</code></pre>
+
+<pre class="prettyprint lang-dart bad"><code>var rest = string.substring(start, null);</code></pre>
+
+<h3 id="do-use-inclusive-start-and-exclusive-end-parameters-to-accept-a-range">
+<a class="anchor" href="#do-use-inclusive-start-and-exclusive-end-parameters-to-accept-a-range" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>要</strong> 使用開始為閉區間，結束為開區間的半開半閉區間作為接受範圍。</h3>
+
+
+
+<p>如果定義一個方法或函式來讓呼叫者能夠從某個整數索引序列中選擇一系列元素或項，開始索引指向的元素為選取的第一個元素，結束索引（可以為可選引數）指向元素的上一個元素為獲取的最後一個元素。</p>
+
+
+
+<p>這種方式與核心函式庫一致。</p>
+
+
+
+<pre class="prettyprint lang-dart good"><code>[0, 1, 2, 3].sublist(1, 3) // [1, 2]
+'abcd'.substring(1, 3) // 'bc'</code></pre>
+
+<p>在這裡保持一致尤為重要，因為這些引數通常是未命名引數。如果你的 API 中第二個引數使用了長度值，而不是結束索引，那麼在呼叫端是無法區分兩者之間的差異的。</p>
+
+
+
+<h2 id="equality">
+<a class="anchor" href="#equality" aria-hidden="true"><span class="octicon octicon-link"></span></a>相等</h2>
+
+
+
+<p>可能為類實現自訂相等的判定是比較棘手事情。使用者對於物件的判等情況有著很深的直覺，同時像雜湊表這樣的集合型別擁有一些細微的規則，包含在這些集合中的元素需要遵循這些規則。</p>
+
+
+
+<h3 id="do-override-hashcode-if-you-override-">
+<a class="anchor" href="#do-override-hashcode-if-you-override-" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>要</strong> 對重寫 <code class="language-plaintext highlighter-rouge">==</code> 運運算元的類，重寫 <code class="language-plaintext highlighter-rouge">hashCode</code> 方法。</h3>
+
+
+
+<p class="linter-rule">Linter rule: <a href="/tools/linter-rules/hash_and_equals">hash_and_equals</a></p>
+
+<p>預設的雜湊實現為物件提供了一個<em>身份</em>雜湊—如果兩個物件是完全相同的，那麼它們通常具有相同的雜湊值。同樣，<code class="language-plaintext highlighter-rouge">==</code> 的預設行為是比較兩個物件的身份雜湊。</p>
+
+
+
+<p>如果你重寫 <code class="language-plaintext highlighter-rouge">==</code> ，就意味著你可能有不同的物件要讓你的類認為是”相等的”。<strong>任何兩個物件要相等就必須必須具有相同的雜湊值。</strong> 否則，這兩個物件就無法被 map 和其他基於雜湊的集合識別為等效物件。</p>
+
+
+
+<h3 id="do-make-your--operator-obey-the-mathematical-rules-of-equality">
+<a class="anchor" href="#do-make-your--operator-obey-the-mathematical-rules-of-equality" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>要</strong> 讓 <code class="language-plaintext highlighter-rouge">==</code> 運運算元的相等遵守數學規則。</h3>
+
+
+
+<p>等價關係應該是：</p>
+
+
+
+<ul>
+  <li>
+    <p><strong>自反性</strong>: <code class="language-plaintext highlighter-rouge">a == a</code> 應該始終返回 <code class="language-plaintext highlighter-rouge">true</code>。</p>
+
+    
+  </li>
+  <li>
+    <p><strong>對稱性</strong>: <code class="language-plaintext highlighter-rouge">a == b</code> 應該與 <code class="language-plaintext highlighter-rouge">b == a</code> 的返回值相同。</p>
+
+    
+  </li>
+  <li>
+    <p><strong>傳遞性</strong>: If <code class="language-plaintext highlighter-rouge">a == b</code> 和 <code class="language-plaintext highlighter-rouge">b == c</code> 都返回 <code class="language-plaintext highlighter-rouge">true</code>，那麼 <code class="language-plaintext highlighter-rouge">a == c</code>
+也應該返回 <code class="language-plaintext highlighter-rouge">true</code> 。</p>
+
+    
+  </li>
+</ul>
+
+<p>Users and code that uses <code class="language-plaintext highlighter-rouge">==</code> expect all of these laws to be followed. If your
+class can’t obey these rules, then <code class="language-plaintext highlighter-rouge">==</code> isn’t the right name for the operation
+you’re trying to express.</p>
+
+<h3 id="avoid-defining-custom-equality-for-mutable-classes">
+<a class="anchor" href="#avoid-defining-custom-equality-for-mutable-classes" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>避免</strong> 為可變類自訂相等。</h3>
+
+
+
+<p class="linter-rule">Linter rule: <a href="/tools/linter-rules/avoid_equals_and_hash_code_on_mutable_classes">avoid_equals_and_hash_code_on_mutable_classes</a></p>
+
+<p>定義 <code class="language-plaintext highlighter-rouge">==</code> 時，必須要定義 <code class="language-plaintext highlighter-rouge">hashCode</code>。兩者都需要考慮物件的欄位。如果這些欄位發生了變化，則意味著物件的雜湊值可能會改變。</p>
+
+
+
+<p>大多數基於雜湊的集合是無法預料元素雜湊值的改變—他們假設元素物件的雜湊值是永遠不變的，如果元素雜湊值發生了改變，可能會出現不可預測的結果</p>
+
+
+
+<h3 id="dont-make-the-parameter-to--nullable">
+<a class="anchor" href="#dont-make-the-parameter-to--nullable" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>不要</strong> 使用 <code class="language-plaintext highlighter-rouge">==</code> 運運算元與可空值比較。</h3>
+
+
+
+<p class="linter-rule">Linter rule: <a href="/tools/linter-rules/avoid_null_checks_in_equality_operators">avoid_null_checks_in_equality_operators</a></p>
+
+<p>Dart 指定此檢查是自動完成的，只有當右側不是 <code class="language-plaintext highlighter-rouge">null</code> 時才呼叫 <code class="language-plaintext highlighter-rouge">==</code> 方法。</p>
+
+
+
+<pre class="prettyprint lang-dart good"><code>class Person {
+  final String name;
+  // ···
+
+  bool operator ==(Object other) =&gt; other is Person &amp;&amp; name == other.name;
+}</code></pre>
+
+<pre class="prettyprint lang-dart bad"><code>class Person {
+  final String name;
+  // ···
+
+  bool operator ==(<span class="highlight">Object?</span> other) =&gt;
+      other != null &amp;&amp; other is Person &amp;&amp; name == other.name;
+}</code></pre>
+
+
+          
+<nav id="subnav">
+  <ul>
+    <li class="previous">
+      
+        <a href="/effective-dart/usage">⟨&nbsp;&nbsp;用法範例</a>
+      
+    </li>
+    <li class="next">
+      
+    </li>
+  </ul>
+</nav>
+
+
+        </div>
+      </article>
+    </main>
+    <footer id="page-footer">
+    <div class="footer-section footer-main">
+      <a href="/" class="brand" title="Dart">
+        <img src="/assets/img/shared/dart/logo+text/horizontal/white.svg" alt="Dart" width="164px">
+      </a>
+      <div class="footer-social-links">
+        <a href="https://github.com/doggy8088/dart.tw" target="_blank" rel="noopener" title="GitHub" class="no-automatic-external">
+          <svg>
+            <use href="/assets/img/social/github.svg#github"></use>
+          </svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-section footer-tray">
+      <div class="footer-licenses">
+        參考中文內容需註明本站及連結作為出處，英文內容和範例程式碼均遵從源站授權協議。
+      </div>
+      <div class="footer-utility-links">
+        <ul>
+          <li><a href="/terms" title="使用條款">使用條款</a></li>
+          <li><a href="https://policies.google.com/privacy?hl=zh-TW" target="_blank" rel="noopener" title="隱私政策" class="no-automatic-external">隱私政策</a></li>
+          <li><a href="/security" title="Security philosophy and practices">Dart 程式碼安全說明</a></li>
+          <li><a href="https://flutter.tw/about" target="_blank">關於中文文件</a>
+          </li><li><a href="https://flutter.tw/disclaimer" target="_blank">免責條款</a>
+          </li><li><a href="https://dart.cn/" target="_blank">Dart 簡體中文文檔</a>
+        </li></ul>
+      </div>
+    </div>
+  </footer>
+
+  
+
+<script src="/assets/translator/js/translator.js"></script></body></html>

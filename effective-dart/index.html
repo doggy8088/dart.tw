@@ -1,0 +1,1319 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Language" content="zh-cmn-Hans">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Google Tag Manager -->
+<!--  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':-->
+<!--  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],-->
+<!--  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=-->
+<!--  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);-->
+<!--  })(window,document,'script','dataLayer','GTM-5VSZM5J');</script>-->
+  <!-- End Google Tag Manager -->
+
+  <meta name="description" content="編寫具有高效、一致性、可維護的 Dart 程式碼。">
+  <title>高效 Dart 語言指南 | Dart</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-28P0PYCRZ9"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-28P0PYCRZ9');
+  </script>
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?fa71f2474b82505e00203cf9956cf0bc";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+  <!-- Favicon / Touch Icons -->
+  <link rel="icon" sizes="64x64" href="/assets/shared/dart/icon/64.png">
+  <link href="/assets/img/touch-icon-iphone.png" rel="apple-touch-icon">
+  <link href="/assets/img/touch-icon-ipad.png" rel="apple-touch-icon" sizes="152x152">
+  <link href="/assets/img/touch-icon-iphone-retina.png" rel="apple-touch-icon" sizes="180x180">
+  <link href="/assets/img/touch-icon-ipad-retina.png" rel="apple-touch-icon" sizes="167x167">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@dart_lang">
+  <meta name="twitter:title" content="高效 Dart 語言指南">
+  <meta name="twitter:description" content="編寫具有高效、一致性、可維護的 Dart 程式碼。">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="高效 Dart 語言指南">
+  <meta property="og:description" content="編寫具有高效、一致性、可維護的 Dart 程式碼。">
+  <meta property="og:url" content="https://dart.tw.gh.miniasp.com/effective-dart/">
+
+  <meta property="og:image" content="https://dart.tw.gh.miniasp.com/assets/shared/dart-logo-for-shares.png?2">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Display:wght@400&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons&amp;display=swap" rel="stylesheet">
+  <script src="https://cdn.staticfile.org/font-awesome/5.15.4/js/all.js" data-auto-replace-svg="nest">
+  </script>
+
+  <link rel="stylesheet" href="/assets/css/main.css?v=1693674404">
+  <script src="https://cdn.staticfile.org/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.staticfile.org/popper.js/1.16.1/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.staticfile.org/bootstrap/4.6.2/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!-- <script src="https://cdn.staticfile.org/js-cookie/3.0.5/js.cookie.min.js"
+          integrity="sha512-nlp9/l96/EpjYBx7EP7pGASVXNe80hGhYAUrjeXnu/fyF5Py0/RXav4BBNs7n5Hx1WFhOEOWSAVjGeC3oKxDVQ=="
+          crossorigin="anonymous"
+          referrerpolicy="no-referrer"></script> -->
+
+  <script src="/assets/js/vendor/code-prettify/prettify.js"></script>
+  <script src="/assets/js/vendor/code-prettify/lang-dart.js"></script>
+  <script src="/assets/js/vendor/code-prettify/lang-yaml.js"></script>
+  <script src="/assets/js/os-tabs.js?v=1693674404"></script>
+  <script src="/assets/js/utilities.js?v=1693674404"></script>
+  <script src="/assets/js/main.js?v=1693674404"></script>
+
+  <script>
+
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-122680122-5', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+
+ <link href="/assets/translator/css/translator.css" rel="stylesheet"></head>
+
+  <body class="default show_banner">
+    <section id="cookie-notice">
+  <div class="container">
+    <p>Google uses cookies to deliver its services, to personalize ads, and to 
+      analyze traffic. You can adjust your privacy controls anytime in your 
+      <a href="https://myaccount.google.com/data-and-personalization" target="_blank" rel="noopener" class="no-automatic-external">Google settings</a>. 
+      <a href="https://policies.google.com/technologies/cookies" target="_blank" rel="noopener" class="no-automatic-external">Learn more</a>.
+    </p>
+    <button id="cookie-consent" class="btn btn-primary">Okay</button>
+  </div>
+</section>
+
+    <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=G-28P0PYCRZ9"
+ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+    <header id="page-header" class="site-header">
+  <nav id="mainnav" class="site-header">
+  <div id="menu-toggle"><i class="material-icons">menu</i></div>
+  <a href="/" class="brand" title="Dart">
+    <img src="/assets/img/shared/dart/logo+text/horizontal/white.svg" alt="Dart">
+  </a>
+  <ul class="navbar">
+    <li>
+      <a href="/overview" class="nav-link">概覽</a>
+    </li>
+    <li class="mainnav__get-started">
+      <a href="/guides" class="nav-link
+        ">
+        <span>文件</span>
+      </a>
+    </li>
+    <li>
+      <a href="/community" class="nav-link">社群</a>
+    </li>
+    <li>
+      <a href="/#try-dart" class="nav-link">嘗試 Dart</a>
+    </li>
+    <li>
+      <a href="/get-dart" class="nav-link">獲取 Dart SDK</a>
+    </li>
+    <li class="searchfield">
+      <form action="/search" class="site-header__search form-inline" id="cse-search-box">
+        <input type="hidden" name="cx" value="011220921317074318178:_yy-tmb5t_i">
+        <input type="hidden" name="ie" value="UTF-8">
+        <input type="hidden" name="hl" value="en">
+        <input class="site-header__searchfield form-control search-field" type="search" name="q" id="q" autocomplete="off" placeholder="Search" aria-label="Search">
+      </form>
+    </li>
+  </ul>
+</nav>
+
+  
+</header>
+ <div class="banner">
+  <p class="banner__text">
+    Dart 3 已釋出！帶來了全新的
+    <a href="https://dart.tw.gh.miniasp.com/language/records" class="no-automatic-external">記錄型別 (records)</a>、
+    <a href="https://dart.tw.gh.miniasp.com/language/patterns" class="no-automatic-external">模式匹配 (patterns)</a>
+    以及 <a href="https://dart.tw.gh.miniasp.com/language/class-modifiers" class="no-automatic-external">型別修飾符 (class modifiers)</a>。
+    <br>
+    <!--<a href="https://medium.com/p/53f065a10635" class="no-automatic-external">Check out the blog post</a>!-->
+  </p>
+</div>
+ 
+
+    <div id="sidenav" class="">
+  <form action="/search/" class="site-header__search form-inline">
+    <input class="site-header__searchfield form-control search-field" type="search" name="q" id="q" autocomplete="off" placeholder="Search" aria-label="Search">
+  </form>
+
+  <div class="site-sidebar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a href="/overview" class="nav-link">概覽</a>
+      </li>
+      <li class="nav-item">
+        <a href="/community" class="nav-link">社群</a>
+      </li>
+      <li class="nav-item">
+        <a href="https://dartpad.dev" class="nav-link">嘗試 Dart</a>
+      </li>
+      <li class="nav-item">
+        <a href="/get-dart" class="nav-link">獲取 Dart SDK</a>
+      </li>
+      <li class="nav-item">
+        <a href="/guides" class="nav-link">文件</a>
+      </li>
+    </ul>
+
+    <ul class="nav flex-column"><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-1" role="button" aria-expanded="false" aria-controls="sidenav-1">範例和課程</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-1">
+        <li class="nav-item">
+    <a class="nav-link" href="/tutorials">語言概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable" data-toggle="collapse" data-target="#sidenav-1-2" href="#sidenav-1-2" role="button" aria-expanded="true" aria-controls="sidenav-1-2">Codelabs
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-1-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/codelabs">Codelabs 列表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/dart-cheatsheet">Dart 速查表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/iterables">可迭代集合</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/async-await">Dart 非同步程式設計</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/null-safety">空安全</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-2" role="button" aria-expanded="false" aria-controls="sidenav-2">Dart 開發語言</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2">
+        <li class="nav-item">
+    <a class="nav-link" href="/language">介紹</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-2" href="#sidenav-2-2" role="button" aria-expanded="false" aria-controls="sidenav-2-2">基礎表示式
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/variables">變數</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/operators">運運算元</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/comments">註釋</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/metadata">註解</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/libraries">庫 &amp; 導庫</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/keywords">關鍵字</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-3" href="#sidenav-2-3" role="button" aria-expanded="false" aria-controls="sidenav-2-3">型別
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-3">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/built-in-types">基本型別</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/records">記錄 (Records)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/collections">集合 (Collections)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/generics">泛型 (Generics)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/typedefs">別名 (Typedefs)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/type-system">型別系統</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-4" href="#sidenav-2-4" role="button" aria-expanded="false" aria-controls="sidenav-2-4">模式匹配
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-4">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/patterns">概覽 &amp; 用法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/pattern-types">模式匹配型別</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/language/functions">函式方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-6" href="#sidenav-2-6" role="button" aria-expanded="false" aria-controls="sidenav-2-6">控制流
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-6">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/loops">迴圈</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/branches">分支</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/language/error-handling">錯誤處理</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-8" href="#sidenav-2-8" role="button" aria-expanded="false" aria-controls="sidenav-2-8">類 &amp; 物件
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-8">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/classes">類</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/constructors">構造方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/methods">成員方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/extend">繼承</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/mixins">混入 (Mixin)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/enums">列舉</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/extension-methods">擴充方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/callable-objects">可呼叫的物件</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-9" href="#sidenav-2-9" role="button" aria-expanded="false" aria-controls="sidenav-2-9">型別修飾符
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-9">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/class-modifiers">概覽 &amp; 用法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/class-modifiers-for-apis">API 維護者應該用的型別修飾符</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/modifier-reference">速查表</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-10" href="#sidenav-2-10" role="button" aria-expanded="false" aria-controls="sidenav-2-10">併發
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-10">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/async">非同步支援</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/concurrency">Isolates</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-11" href="#sidenav-2-11" role="button" aria-expanded="false" aria-controls="sidenav-2-11">Null safety
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-11">
+      <li class="nav-item">
+    <a class="nav-link" href="/null-safety">健全的空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/migration-guide">遷移到空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/understanding-null-safety">深入理解空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/unsound-null-safety">非健全的空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/faq">空安全常見問題和解答</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link active" data-toggle="collapse" href="#sidenav-3" role="button" aria-expanded="true" aria-controls="sidenav-3">高效指南 (Effective Dart)</a>
+
+      <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-3">
+        <li class="nav-item">
+    <a class="nav-link active" href="/effective-dart">概述</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/style">程式碼風格</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/documentation">文件</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/usage">用法範例</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/design">API 設計</a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-4" role="button" aria-expanded="false" aria-controls="sidenav-4">核心函式庫</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-4">
+        <li class="nav-item">
+    <a class="nav-link" href="/guides/libraries">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/library-tour">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-4-3" href="#sidenav-4-3" role="button" aria-expanded="false" aria-controls="sidenav-4-3">介紹文章
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-4-3">
+      <li class="nav-item">
+    <a class="nav-link" href="/articles/libraries/creating-streams">建立 stream</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-5" role="button" aria-expanded="false" aria-controls="sidenav-5">Packages</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-5">
+        <li class="nav-item">
+    <a class="nav-link" href="/guides/packages">如何使用 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/useful-libraries">常用 package 介紹</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/create-packages">建立 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/publishing">釋出 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/writing-package-pages">設定 package 介紹頁</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-5-6" href="#sidenav-5-6" role="button" aria-expanded="false" aria-controls="sidenav-5-6">Package 參考資料
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-5-6">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/pub/dependencies">依賴</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/glossary">術語表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/package-layout">Package 檔案結構</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/environment-variables">設定環境變數</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/pubspec">Pubspec 檔案</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/troubleshoot">問題排查</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/verified-publishers">釋出者認證</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/versioning">版本管理</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-6" role="button" aria-expanded="false" aria-controls="sidenav-6">開發文件</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6">
+        <li class="nav-item">
+    <a class="nav-link" href="/codelabs/async-await">Futures、async 和 await</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/language/streams">Streams 介紹</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/json">使用 JSON</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/numbers">Dart 中的數字</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-5" href="#sidenav-6-5" role="button" aria-expanded="false" aria-controls="sidenav-6-5">與其他語言進行互動呼叫
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-5">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/c-interop">與 C 互調</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/objective-c-interop">與 Objective-C 和 Swift 互調</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/java-interop">與 Java 和 Kotlin 互調</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/web/js-interop">與 JavaScript 互調</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/guides/google-apis">Google APIs</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/multiplatform-apps">跨平臺應用</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-8" href="#sidenav-6-8" role="button" aria-expanded="false" aria-controls="sidenav-6-8">命令列和伺服器端應用
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-8">
+      <li class="nav-item">
+    <a class="nav-link" href="/server">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/get-started">起步課程</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/cmdline">命令列應用</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/fetch-data">從網路上獲取資料</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/httpserver">編寫 HTTP 伺服器端應用</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/server/libraries">庫和 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/server/google-cloud">Google Cloud</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-9" href="#sidenav-6-9" role="button" aria-expanded="false" aria-controls="sidenav-6-9">網頁端 (Web) 應用
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-9">
+      <li class="nav-item">
+    <a class="nav-link" href="/web">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/get-started">開始使用</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-9-3" href="#sidenav-6-9-3" role="button" aria-expanded="false" aria-controls="sidenav-6-9-3">底層 Web 程式設計
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-9-3">
+      <li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/low-level-html/connect-dart-html">Dart 與 HTML 關聯</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/low-level-html/add-elements">向 DOM 新增元素</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/low-level-html/remove-elements">移除 DOM 元素</a>
+  </li>
+  </ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/web/deployment">部署</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/web/libraries">常用 Web 函式庫和 package</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/guides/environment-declarations">環境變數宣告</a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-7" role="button" aria-expanded="false" aria-controls="sidenav-7">開發工具和使用技巧</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7">
+        <li class="nav-item">
+    <a class="nav-link" href="/tools">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-2" href="#sidenav-7-2" role="button" aria-expanded="false" aria-controls="sidenav-7-2">編輯器和除錯工具
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/jetbrains-plugin">使用 IntelliJ 和 Android Studio</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/vs-code">使用 VS Code</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/dart-devtools">Dart 開發者工具</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-2-4" href="#sidenav-7-2-4" role="button" aria-expanded="false" aria-controls="sidenav-7-2-4">線上執行 Dart 程式碼
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-2-4">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/dartpad">Overview</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dartpad/dartpad-best-practices">DartPad 課程</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dartpad/troubleshoot">DartPad 疑難解答</a>
+  </li>
+  </ul>
+  </li>
+</ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-3" href="#sidenav-7-3" role="button" aria-expanded="false" aria-controls="sidenav-7-3">命令列工具
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-3">
+      <li class="nav-item">
+    <a class="nav-link collapsable" data-toggle="collapse" data-target="#sidenav-7-3-1" href="#sidenav-7-3-1" role="button" aria-expanded="true" aria-controls="sidenav-7-3-1">Dart SDK
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-7-3-1">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/sdk">概覽</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-tool">dart 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-analyze">dart analyze 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-compile">dart compile 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-create">dart create 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-doc">dart doc 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-fix">dart fix 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-format">dart format 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-info">dart info 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/pub/cmd">dart pub 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-run">dart run 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-test">dart test 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dartaotruntime">dartaotruntime 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/experiment-flags">實驗性命令標記</a>
+  </li>
+  </ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable" data-toggle="collapse" data-target="#sidenav-7-3-2" href="#sidenav-7-3-2" role="button" aria-expanded="true" aria-controls="sidenav-7-3-2">其他的命令列工具
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-7-3-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/build_runner">build_runner 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/webdev">webdev 命令</a>
+  </li>
+  </ul>
+  </li>
+</ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-4" href="#sidenav-7-4" role="button" aria-expanded="false" aria-controls="sidenav-7-4">原始碼管理
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-4">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/language/formatting">程式碼格式化</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/private-files">不應提交的內容</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-5" href="#sidenav-7-5" role="button" aria-expanded="false" aria-controls="sidenav-7-5">靜態分析
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-5">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/analysis">自訂靜態分析</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/sound-problems">修復常見的型別問題</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/diagnostic-messages">診斷訊息</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/linter-rules">Linter 規則</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-6" href="#sidenav-7-6" role="button" aria-expanded="false" aria-controls="sidenav-7-6">測試和調優
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-6">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/testing">測試</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/web/debugging">除錯 Web 應用</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-8" role="button" aria-expanded="false" aria-controls="sidenav-8">資源</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-8">
+        <li class="nav-item">
+    <a class="nav-link" href="/resources/faq">常見問題</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/evolution">版本演變</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/spec">語言規範</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/resources/dart-3-migration">Dart 3 遷移指南</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-8-5" href="#sidenav-8-5" role="button" aria-expanded="false" aria-controls="sidenav-8-5">從其他平台轉向 Dart
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-8-5">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/language/coming-from/js-to-dart">從 JavaScript 到 Dart</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/coming-from/swift-to-dart">從 Swift 到 Dart</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/resources/glossary">詞彙表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/resources/books">書籍資源</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/resources/videos">影片資源</a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link " data-toggle="collapse" href="#sidenav-9" role="button" aria-expanded="true" aria-controls="sidenav-9">相關站點</a>
+
+      <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-9">
+        <li class="nav-item">
+    <a class="nav-link" href="https://api.dart.dev" target="_blank" rel="noopener">API 文件<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://medium.com/dartlang" target="_blank" rel="noopener">Dart 團隊官方部落格<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://dartpad.dev" target="_blank" rel="noopener">DartPad (線上編輯器)<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://flutter.tw" target="_blank" rel="noopener">Flutter<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://pub.dev" target="_blank" rel="noopener">Package 網站<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-10" role="button" aria-expanded="false" aria-controls="sidenav-10">關於 Dart 中文文件</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-10">
+        <li class="nav-item">
+    <a class="nav-link" href="https://flutter.tw/about/docs-cn" target="_blank" rel="noopener">關於本站<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://flutter.tw/disclaimer" target="_blank" rel="noopener">免責條款 (Disclaimer)<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li>
+</ul>
+    </li></ul>
+
+  </div>
+</div>
+
+    <main id="page-content">
+      
+
+
+
+
+
+
+
+<div id="site-toc--side" class="site-toc ">
+  <header class="site-toc__title">
+    目錄
+    
+  </header>
+  <ul id="toc" class="section-nav">
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#the-guides"><p>指南</p></a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#how-to-read-the-guides"><p>如何閱讀這些指南</p></a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#glossary"><p>術語表</p></a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#summary-of-all-rules"><p>所有準則摘要</p></a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#style">Style</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#documentation">Documentation</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#usage">Usage</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#design">Design</a></li>
+</ul>
+</li>
+</ul>
+  
+</div>
+
+
+      <article>
+        <div class="content">
+          
+<nav id="subnav">
+  <ul>
+    <li class="previous">
+      
+    </li>
+    <li class="next">
+      
+        <a href="/effective-dart/style">程式碼風格&nbsp;&nbsp;⟩</a>
+      
+    </li>
+  </ul>
+</nav>
+
+
+          <div id="site-content-title">
+            <div id="page-github-links" class="btn-group" aria-label="Page GitHub links" role="group">
+  <a href="https://github.com/doggy8088/dart.tw/tree/master/src/effective-dart/index.md" class="btn no-automatic-external" title="View page source" target="_blank" rel="noopener">
+    <i class="material-icons">description</i>
+  </a>
+  <a href="https://github.com/doggy8088/dart.tw/issues/new?template=1_page_issue.yml&amp;title=[PAGE ISSUE]: '高效 Dart 語言指南'&amp;page-url=https://dart.tw.gh.miniasp.com/effective-dart/&amp;page-source=https://github.com/doggy8088/dart.tw/tree/master/src/effective-dart/index.md" class="btn no-automatic-external" title="Report an issue with this page" target="_blank" rel="noopener">
+    <i class="material-icons">bug_report</i>
+  </a>
+</div>
+
+            
+            <h1 id="高效-dart-語言指南">高效 Dart 語言指南</h1>
+            </div>
+          
+
+
+
+
+
+
+
+<div id="site-toc--inline" class="site-toc toc-collapsible toc-collapsed">
+  <header class="site-toc__title">
+    目錄
+    
+      <span class="site-toc--inline__toggle toc-toggle-down"><i class="material-icons">keyboard_arrow_down</i></span>
+      <span class="site-toc--inline__toggle toc-toggle-up"><i class="material-icons">keyboard_arrow_up</i></span>
+    
+  </header>
+  <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#the-guides"><p>指南</p></a></li>
+<li class="toc-entry toc-h2"><a href="#how-to-read-the-guides"><p>如何閱讀這些指南</p></a></li>
+<li class="toc-entry toc-h2"><a href="#glossary"><p>術語表</p></a></li>
+<li class="toc-entry toc-h2"><a href="#summary-of-all-rules"><p>所有準則摘要</p></a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#style">Style</a></li>
+<li class="toc-entry toc-h3"><a href="#documentation">Documentation</a></li>
+<li class="toc-entry toc-h3"><a href="#usage">Usage</a></li>
+<li class="toc-entry toc-h3"><a href="#design">Design</a></li>
+</ul>
+</li>
+</ul>
+  
+    <span class="site-toc--inline__toggle toc-toggle-more-items"><i class="material-icons">more_horiz</i></span>
+  
+</div>
+
+
+          <p>在過去的幾年裡，我們編寫了大量的 Dart 程式碼，並從中收穫了很多經驗和教訓。我們將與你分享這些經驗，這些經驗將有助於你編寫出一致、健壯、高效的程式碼。這裡包含兩主題：</p>
+
+
+
+<ol>
+  <li>
+    <p><strong>保持一致</strong> 當談論到格式、命名以及引數的相關規則時，哪種規則更好，得出的結論通常是主觀且無法達成一致的。但我們知道的是，客觀上保持 <strong>一致</strong> 是非常有益的。</p>
+
+    
+
+    <p>如果兩段程式碼看起來不同，那它們就應該有不同的含義。當一段突出的程式碼吸引到你的注意時，那它就應該有吸引你的理由。</p>
+
+    
+  </li>
+  <li>
+    <p><strong>保持簡潔</strong> Dart 會讓開發者感到很親切，因為它繼承了許多與 C、Java、JavaScript 及其他語言相同的陳述式和表示式語法。我們之所以開發 Dart 語言，是因為這些語言依然有很大的改進的空間。我們提供了很多新的特性，比如字串插值、初始化正規化等，以幫助你更簡單、更輕鬆地表達意圖。</p>
+
+    
+
+    <p>如果有多種方式來描述一件事情，那麼你通常應該選擇其中最簡潔的方式。這並不意味著你要像 <a href="https://en.wikipedia.org/wiki/Code_golf">code golf</a>（程式碼高爾夫挑戰賽）一樣將所有程式碼塞到一行中。而是應該讓程式碼變得 <strong>簡約</strong> 而非 <strong>密集</strong>。</p>
+
+    
+  </li>
+</ol>
+
+<h2 id="the-guides">
+<a class="anchor" href="#the-guides" aria-hidden="true"><span class="octicon octicon-link"></span></a>指南</h2>
+
+
+
+<p>為了便於理解，這裡我們將指南分成了幾個部分：</p>
+
+
+
+<ul>
+  <li>
+    <p><strong><a href="/effective-dart/style">風格指南</a></strong> – 該部分定義了佈局和組織程式碼的規則，或者說是 <a href="/tools/dart-format"><code class="language-plaintext highlighter-rouge">dart format</code></a> 不能為你格式化的那些程式碼的佈局和組織規則。風格指南還為你指定了識別符號的格式，比如：駝峰式大小寫、下劃線的使用等等。</p>
+
+    
+  </li>
+  <li>
+    <p><strong><a href="/effective-dart/documentation">註釋指南</a></strong> – 該部分會告訴你註釋中應該包含哪些內容。包括文件註釋以及常規的普通程式碼註釋。</p>
+
+    
+  </li>
+  <li>
+    <p><strong><a href="/effective-dart/usage">使用指南</a></strong> – 該部分將教你如何充分利用語言特性來實現相關功能。比如你可以在該部分找到如何利用陳述式或表示式來實現某個功能。</p>
+
+    
+  </li>
+  <li>
+    <p><strong><a href="/effective-dart/design">設計指南</a></strong> – 該部分是最易理解但是覆蓋範圍最廣的。其涵蓋了我們所總結的為庫設計一致、可用 API 的經驗。比如這些 API 的型別簽名或宣告的說明則會在這裡找到。</p>
+
+    
+  </li>
+</ul>
+
+<p>有關所有指南的連結，請查閱 <a href="#summary-of-all-rules">概覽</a>。</p>
+
+
+
+<h2 id="how-to-read-the-guides">
+<a class="anchor" href="#how-to-read-the-guides" aria-hidden="true"><span class="octicon octicon-link"></span></a>如何閱讀這些指南</h2>
+
+
+
+<p>每個指南都分為了幾個部分。每個部分包含一些詳細的準則。每條準則都以下面其中的一個詞作為開頭：</p>
+
+
+
+<ul>
+  <li>
+    <p><strong>要</strong>  準則所描述的內容應該始終被遵守。不應該以任何的理由來偏離違背這些準則。</p>
+
+    
+  </li>
+  <li>
+    <p><strong>不要</strong>  準則所描述的內容是相反的：描述的準則不是一個好主意。幸運的是，我們不會像其他語言有那麼多這樣的準則，因為我們沒有太多的歷史包袱。</p>
+
+    
+  </li>
+  <li>
+    <p><strong>推薦</strong> 準則所描述的內容 <strong>應該</strong> 被遵守。但是在有些情況下，可能有更好的或者更合理的做法。請確保在你完全理解準則的情況下，再忽視這些準則。</p>
+
+    
+  </li>
+  <li>
+    <p><strong>避免</strong> 該單詞描述的準則與 “推薦” 描述的準則相反：顯然，這些事不應該做，但不排除在極少數場合下有充分的理由可以做。</p>
+
+    
+  </li>
+  <li>
+    <p><strong>考慮</strong>  準則所描述的內容可以遵守也可以不遵守。取決於具體的情況、習慣做法以及自己的偏好。</p>
+
+    
+  </li>
+</ul>
+
+<p>某些準則描述了規則 <strong>不</strong> 適用的 <strong>例外情況</strong>。當這些例外列出時，也有可能不是詳盡的—你可能還需要對其它的情況作出判斷。</p>
+
+
+
+<p>這聽起來好像有點小題大做。其實並沒有那麼糟糕。大部分的準則都是常識，也符合我們的認知。最終要達到的目標是寫出優雅，可讀，可維護的程式碼。</p>
+
+
+
+<p>Dart 分析器提供了一個 Linter 工具，可以幫助你編寫優秀的、一致性的以及符合各種指南的程式碼。如果存在一個或者多個 <a href="/tools/linter-rules">linter 規則</a>
+來幫助你遵循某個指南準則，那麼這些指南的連結也會有顯示。比如下面的範例：</p>
+
+
+
+<p class="linter-rule">Linter rule: <a href="/tools/linter-rules/unnecessary_getters_setters">unnecessary_getters_setters</a></p>
+
+<p>學習如何使用 linter，請查閱文件
+<a href="/tools/analysis#enabling-linter-rules">啟用 linter 規則</a>，以及可用的各種 <a href="/tools/linter-rules">linter 規則</a>。</p>
+
+
+
+<h2 id="glossary">
+<a class="anchor" href="#glossary" aria-hidden="true"><span class="octicon octicon-link"></span></a>術語表</h2>
+
+
+
+<p>為了使指南保持簡潔，我們使用一些簡寫術語來指代不同的 Dart 結構。</p>
+
+
+
+<ul>
+  <li>
+    <p><strong>庫成員</strong> 表示一個最上層欄位、Getter 或 Setter 方法、或函式。基本而言，任何最上層的東西都不會是一種型別。</p>
+
+    
+  </li>
+  <li>
+    <p><strong>類成員</strong> 表示類內部宣告的建構函式、欄位、Getter 或 Setter 方法、函式或運運算元。類成員可以是例項或靜態的，也可以是抽象或具體的。</p>
+
+    
+  </li>
+  <li>
+    <p><strong>成員</strong> 可以表示是一個函式庫成員或者類成員。</p>
+
+    
+  </li>
+  <li>
+    <p><strong>變數</strong> 通常指的是最上層變數、引數和區域變數。它不包括靜態或例項欄位。</p>
+
+    
+  </li>
+  <li>
+    <p><strong>型別</strong> 表示所有命名型別的宣告：一個類別、typedef 或列舉。</p>
+
+    
+  </li>
+  <li>
+    <p><strong>屬性</strong> 表示最上層變數、Getter 和 Setter 方法（位於類中或最上層，可以是例項或靜態的）或欄位（例項或靜態的）。基本上是任何類似欄位的命名結構都可以稱為屬性。</p>
+
+    
+  </li>
+</ul>
+
+<h2 id="summary-of-all-rules">
+<a class="anchor" href="#summary-of-all-rules" aria-hidden="true"><span class="octicon octicon-link"></span></a>所有準則摘要</h2>
+
+
+
+<div class="effective_dart--summary_column">
+
+  <h3 id="style">
+<a class="anchor" href="#style" aria-hidden="true"><span class="octicon octicon-link"></span></a>Style</h3>
+
+  <p><strong>Identifiers</strong></p>
+
+  <ul>
+    <li><a href="/effective-dart/style#do-name-types-using-uppercamelcase">DO name types using <code>UpperCamelCase</code>.</a></li>
+    <li><a href="/effective-dart/style#do-name-extensions-using-uppercamelcase">DO name extensions using <code>UpperCamelCase</code>.</a></li>
+    <li><a href="/effective-dart/style#do-name-packages-and-file-system-entities-using-lowercase-with-underscores">DO name packages, directories, and source files using <code>lowercase_with_underscores</code>.</a></li>
+    <li><a href="/effective-dart/style#do-name-import-prefixes-using-lowercase_with_underscores">DO name import prefixes using <code>lowercase_with_underscores</code>.</a></li>
+    <li><a href="/effective-dart/style#do-name-other-identifiers-using-lowercamelcase">DO name other identifiers using <code>lowerCamelCase</code>.</a></li>
+    <li><a href="/effective-dart/style#prefer-using-lowercamelcase-for-constant-names">PREFER using <code>lowerCamelCase</code> for constant names.</a></li>
+    <li><a href="/effective-dart/style#do-capitalize-acronyms-and-abbreviations-longer-than-two-letters-like-words">DO capitalize acronyms and abbreviations longer than two letters like words.</a></li>
+    <li><a href="/effective-dart/style#prefer-using-_-__-etc-for-unused-callback-parameters">PREFER using <code>_</code>, <code>__</code>, etc. for unused callback parameters.</a></li>
+    <li><a href="/effective-dart/style#dont-use-a-leading-underscore-for-identifiers-that-arent-private">DON’T use a leading underscore for identifiers that aren’t private.</a></li>
+    <li><a href="/effective-dart/style#dont-use-prefix-letters">DON’T use prefix letters.</a></li>
+    <li><a href="/effective-dart/style#dont-explicitly-name-libraries">DON’T explicitly name libraries.</a></li>
+  </ul>
+
+  <p><strong>Ordering</strong></p>
+
+  <ul>
+    <li><a href="/effective-dart/style#do-place-dart-imports-before-other-imports">DO place <code>dart:</code> imports before other imports.</a></li>
+    <li><a href="/effective-dart/style#do-place-package-imports-before-relative-imports">DO place <code>package:</code> imports before relative imports.</a></li>
+    <li><a href="/effective-dart/style#do-specify-exports-in-a-separate-section-after-all-imports">DO specify exports in a separate section after all imports.</a></li>
+    <li><a href="/effective-dart/style#do-sort-sections-alphabetically">DO sort sections alphabetically.</a></li>
+  </ul>
+
+  <p><strong>Formatting</strong></p>
+
+  <ul>
+    <li><a href="/effective-dart/style#do-format-your-code-using-dart-format">DO format your code using <code>dart format</code>.</a></li>
+    <li><a href="/effective-dart/style#consider-changing-your-code-to-make-it-more-formatter-friendly">CONSIDER changing your code to make it more formatter-friendly.</a></li>
+    <li><a href="/effective-dart/style#avoid-lines-longer-than-80-characters">AVOID lines longer than 80 characters.</a></li>
+    <li><a href="/effective-dart/style#do-use-curly-braces-for-all-flow-control-structures">DO use curly braces for all flow control statements.</a></li>
+  </ul>
+
+</div>
+<div class="effective_dart--summary_column">
+
+  <h3 id="documentation">
+<a class="anchor" href="#documentation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Documentation</h3>
+
+  <p><strong>Comments</strong></p>
+
+  <ul>
+    <li><a href="/effective-dart/documentation#do-format-comments-like-sentences">DO format comments like sentences.</a></li>
+    <li><a href="/effective-dart/documentation#dont-use-block-comments-for-documentation">DON’T use block comments for documentation.</a></li>
+  </ul>
+
+  <p><strong>Doc comments</strong></p>
+
+  <ul>
+    <li><a href="/effective-dart/documentation#do-use--doc-comments-to-document-members-and-types">DO use <code>///</code> doc comments to document members and types.</a></li>
+    <li><a href="/effective-dart/documentation#prefer-writing-doc-comments-for-public-apis">PREFER writing doc comments for public APIs.</a></li>
+    <li><a href="/effective-dart/documentation#consider-writing-a-library-level-doc-comment">CONSIDER writing a library-level doc comment.</a></li>
+    <li><a href="/effective-dart/documentation#consider-writing-doc-comments-for-private-apis">CONSIDER writing doc comments for private APIs.</a></li>
+    <li><a href="/effective-dart/documentation#do-start-doc-comments-with-a-single-sentence-summary">DO start doc comments with a single-sentence summary.</a></li>
+    <li><a href="/effective-dart/documentation#do-separate-the-first-sentence-of-a-doc-comment-into-its-own-paragraph">DO separate the first sentence of a doc comment into its own paragraph.</a></li>
+    <li><a href="/effective-dart/documentation#avoid-redundancy-with-the-surrounding-context">AVOID redundancy with the surrounding context.</a></li>
+    <li><a href="/effective-dart/documentation#prefer-starting-function-or-method-comments-with-third-person-verbs">PREFER starting function or method comments with third-person verbs.</a></li>
+    <li><a href="/effective-dart/documentation#prefer-starting-a-non-boolean-variable-or-property-comment-with-a-noun-phrase">PREFER starting a non-boolean variable or property comment with a noun phrase.</a></li>
+    <li><a href="/effective-dart/documentation#prefer-starting-a-boolean-variable-or-property-comment-with-whether-followed-by-a-noun-or-gerund-phrase">PREFER starting a boolean variable or property comment with "Whether" followed by a noun or gerund phrase.</a></li>
+    <li><a href="/effective-dart/documentation#dont-write-documentation-for-both-the-getter-and-setter-of-a-property">DON’T write documentation for both the getter and setter of a property.</a></li>
+    <li><a href="/effective-dart/documentation#prefer-starting-library-or-type-comments-with-noun-phrases">PREFER starting library or type comments with noun phrases.</a></li>
+    <li><a href="/effective-dart/documentation#consider-including-code-samples-in-doc-comments">CONSIDER including code samples in doc comments.</a></li>
+    <li><a href="/effective-dart/documentation#do-use-square-brackets-in-doc-comments-to-refer-to-in-scope-identifiers">DO use square brackets in doc comments to refer to in-scope identifiers.</a></li>
+    <li><a href="/effective-dart/documentation#do-use-prose-to-explain-parameters-return-values-and-exceptions">DO use prose to explain parameters, return values, and exceptions.</a></li>
+    <li><a href="/effective-dart/documentation#do-put-doc-comments-before-metadata-annotations">DO put doc comments before metadata annotations.</a></li>
+  </ul>
+
+  <p><strong>Markdown</strong></p>
+
+  <ul>
+    <li><a href="/effective-dart/documentation#avoid-using-markdown-excessively">AVOID using markdown excessively.</a></li>
+    <li><a href="/effective-dart/documentation#avoid-using-html-for-formatting">AVOID using HTML for formatting.</a></li>
+    <li><a href="/effective-dart/documentation#prefer-backtick-fences-for-code-blocks">PREFER backtick fences for code blocks.</a></li>
+  </ul>
+
+  <p><strong>Writing</strong></p>
+
+  <ul>
+    <li><a href="/effective-dart/documentation#prefer-brevity">PREFER brevity.</a></li>
+    <li><a href="/effective-dart/documentation#avoid-abbreviations-and-acronyms-unless-they-are-obvious">AVOID abbreviations and acronyms unless they are obvious.</a></li>
+    <li><a href="/effective-dart/documentation#prefer-using-this-instead-of-the-to-refer-to-a-members-instance">PREFER using "this" instead of "the" to refer to a member’s instance.</a></li>
+  </ul>
+
+</div>
+<div style="clear:both"></div>
+<div class="effective_dart--summary_column">
+
+  <h3 id="usage">
+<a class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h3>
+
+  <p><strong>Libraries</strong></p>
+
+  <ul>
+    <li><a href="/effective-dart/usage#do-use-strings-in-part-of-directives">DO use strings in <code>part of</code> directives.</a></li>
+    <li><a href="/effective-dart/usage#dont-import-libraries-that-are-inside-the-src-directory-of-another-package">DON’T import libraries that are inside the <code>src</code> directory of another package.</a></li>
+    <li><a href="/effective-dart/usage#dont-allow-an-import-path-to-reach-into-or-out-of-lib">DON’T allow an import path to reach into or out of <code>lib</code>.</a></li>
+    <li><a href="/effective-dart/usage#prefer-relative-import-paths">PREFER relative import paths.</a></li>
+  </ul>
+
+  <p><strong>Null</strong></p>
+
+  <ul>
+    <li><a href="/effective-dart/usage#dont-explicitly-initialize-variables-to-null">DON’T explicitly initialize variables to <code>null</code>.</a></li>
+    <li><a href="/effective-dart/usage#dont-use-an-explicit-default-value-of-null">DON’T use an explicit default value of <code>null</code>.</a></li>
+    <li><a href="/effective-dart/usage#dont-use-true-or-false-in-equality-operations">DON’T use <code>true</code> or <code>false</code> in equality operations.</a></li>
+    <li><a href="/effective-dart/usage#avoid-late-variables-if-you-need-to-check-whether-they-are-initialized">AVOID <code>late</code> variables if you need to check whether they are initialized.</a></li>
+    <li><a href="/effective-dart/usage#consider-assigning-a-nullable-field-to-a-local-variable-to-enable-type-promotion">CONSIDER assigning a nullable field to a local variable to enable type promotion.</a></li>
+  </ul>
+
+  <p><strong>Strings</strong></p>
+
+  <ul>
+    <li><a href="/effective-dart/usage#do-use-adjacent-strings-to-concatenate-string-literals">DO use adjacent strings to concatenate string literals.</a></li>
+    <li><a href="/effective-dart/usage#prefer-using-interpolation-to-compose-strings-and-values">PREFER using interpolation to compose strings and values.</a></li>
+    <li><a href="/effective-dart/usage#avoid-using-curly-braces-in-interpolation-when-not-needed">AVOID using curly braces in interpolation when not needed.</a></li>
+  </ul>
+
+  <p><strong>Collections</strong></p>
+
+  <ul>
+    <li><a href="/effective-dart/usage#do-use-collection-literals-when-possible">DO use collection literals when possible.</a></li>
+    <li><a href="/effective-dart/usage#dont-use-length-to-see-if-a-collection-is-empty">DON’T use <code>.length</code> to see if a collection is empty.</a></li>
+    <li><a href="/effective-dart/usage#avoid-using-iterableforeach-with-a-function-literal">AVOID using <code>Iterable.forEach()</code> with a function literal.</a></li>
+    <li><a href="/effective-dart/usage#dont-use-listfrom-unless-you-intend-to-change-the-type-of-the-result">DON’T use <code>List.from()</code> unless you intend to change the type of the result.</a></li>
+    <li><a href="/effective-dart/usage#do-use-wheretype-to-filter-a-collection-by-type">DO use <code>whereType()</code> to filter a collection by type.</a></li>
+    <li><a href="/effective-dart/usage#dont-use-cast-when-a-nearby-operation-will-do">DON’T use <code>cast()</code> when a nearby operation will do.</a></li>
+    <li><a href="/effective-dart/usage#avoid-using-cast">AVOID using <code>cast()</code>.</a></li>
+  </ul>
+
+  <p><strong>Functions</strong></p>
+
+  <ul>
+    <li><a href="/effective-dart/usage#do-use-a-function-declaration-to-bind-a-function-to-a-name">DO use a function declaration to bind a function to a name.</a></li>
+    <li><a href="/effective-dart/usage#dont-create-a-lambda-when-a-tear-off-will-do">DON’T create a lambda when a tear-off will do.</a></li>
+    <li><a href="/effective-dart/usage#do-use--to-separate-a-named-parameter-from-its-default-value">DO use <code>=</code> to separate a named parameter from its default value.</a></li>
+  </ul>
+
+  <p><strong>Variables</strong></p>
+
+  <ul>
+    <li><a href="/effective-dart/usage#do-follow-a-consistent-rule-for-var-and-final-on-local-variables">DO follow a consistent rule for <code>var</code> and <code>final</code> on local variables.</a></li>
+    <li><a href="/effective-dart/usage#avoid-storing-what-you-can-calculate">AVOID storing what you can calculate.</a></li>
+  </ul>
+
+  <p><strong>Members</strong></p>
+
+  <ul>
+    <li><a href="/effective-dart/usage#dont-wrap-a-field-in-a-getter-and-setter-unnecessarily">DON’T wrap a field in a getter and setter unnecessarily.</a></li>
+    <li><a href="/effective-dart/usage#prefer-using-a-final-field-to-make-a-read-only-property">PREFER using a <code>final</code> field to make a read-only property.</a></li>
+    <li><a href="/effective-dart/usage#consider-using--for-simple-members">CONSIDER using <code>=&gt;</code> for simple members.</a></li>
+    <li><a href="/effective-dart/usage#dont-use-this-when-not-needed-to-avoid-shadowing">DON’T use <code>this.</code> except to redirect to a named constructor or to avoid shadowing.</a></li>
+    <li><a href="/effective-dart/usage#do-initialize-fields-at-their-declaration-when-possible">DO initialize fields at their declaration when possible.</a></li>
+  </ul>
+
+  <p><strong>Constructors</strong></p>
+
+  <ul>
+    <li><a href="/effective-dart/usage#do-use-initializing-formals-when-possible">DO use initializing formals when possible.</a></li>
+    <li><a href="/effective-dart/usage#dont-use-late-when-a-constructor-initializer-list-will-do">DON’T use <code>late</code> when a constructor initializer list will do.</a></li>
+    <li><a href="/effective-dart/usage#do-use--instead-of--for-empty-constructor-bodies">DO use <code>;</code> instead of <code>{}</code> for empty constructor bodies.</a></li>
+    <li><a href="/effective-dart/usage#dont-use-new">DON’T use <code>new</code>.</a></li>
+    <li><a href="/effective-dart/usage#dont-use-const-redundantly">DON’T use <code>const</code> redundantly.</a></li>
+  </ul>
+
+  <p><strong>Error handling</strong></p>
+
+  <ul>
+    <li><a href="/effective-dart/usage#avoid-catches-without-on-clauses">AVOID catches without <code>on</code> clauses.</a></li>
+    <li><a href="/effective-dart/usage#dont-discard-errors-from-catches-without-on-clauses">DON’T discard errors from catches without <code>on</code> clauses.</a></li>
+    <li><a href="/effective-dart/usage#do-throw-objects-that-implement-error-only-for-programmatic-errors">DO throw objects that implement <code>Error</code> only for programmatic errors.</a></li>
+    <li><a href="/effective-dart/usage#dont-explicitly-catch-error-or-types-that-implement-it">DON’T explicitly catch <code>Error</code> or types that implement it.</a></li>
+    <li><a href="/effective-dart/usage#do-use-rethrow-to-rethrow-a-caught-exception">DO use <code>rethrow</code> to rethrow a caught exception.</a></li>
+  </ul>
+
+  <p><strong>Asynchrony</strong></p>
+
+  <ul>
+    <li><a href="/effective-dart/usage#prefer-asyncawait-over-using-raw-futures">PREFER async/await over using raw futures.</a></li>
+    <li><a href="/effective-dart/usage#dont-use-async-when-it-has-no-useful-effect">DON’T use <code>async</code> when it has no useful effect.</a></li>
+    <li><a href="/effective-dart/usage#consider-using-higher-order-methods-to-transform-a-stream">CONSIDER using higher-order methods to transform a stream.</a></li>
+    <li><a href="/effective-dart/usage#avoid-using-completer-directly">AVOID using Completer directly.</a></li>
+    <li><a href="/effective-dart/usage#do-test-for-futuret-when-disambiguating-a-futureort-whose-type-argument-could-be-object">DO test for <code>Future&lt;T&gt;</code> when disambiguating a <code>FutureOr&lt;T&gt;</code> whose type argument could be <code>Object</code>.</a></li>
+  </ul>
+
+</div>
+<div class="effective_dart--summary_column">
+
+  <h3 id="design">
+<a class="anchor" href="#design" aria-hidden="true"><span class="octicon octicon-link"></span></a>Design</h3>
+
+  <p><strong>Names</strong></p>
+
+  <ul>
+    <li><a href="/effective-dart/design#do-use-terms-consistently">DO use terms consistently.</a></li>
+    <li><a href="/effective-dart/design#avoid-abbreviations">AVOID abbreviations.</a></li>
+    <li><a href="/effective-dart/design#prefer-putting-the-most-descriptive-noun-last">PREFER putting the most descriptive noun last.</a></li>
+    <li><a href="/effective-dart/design#consider-making-the-code-read-like-a-sentence">CONSIDER making the code read like a sentence.</a></li>
+    <li><a href="/effective-dart/design#prefer-a-noun-phrase-for-a-non-boolean-property-or-variable">PREFER a noun phrase for a non-boolean property or variable.</a></li>
+    <li><a href="/effective-dart/design#prefer-a-non-imperative-verb-phrase-for-a-boolean-property-or-variable">PREFER a non-imperative verb phrase for a boolean property or variable.</a></li>
+    <li><a href="/effective-dart/design#consider-omitting-the-verb-for-a-named-boolean-parameter">CONSIDER omitting the verb for a named boolean <em>parameter</em>.</a></li>
+    <li><a href="/effective-dart/design#prefer-the-positive-name-for-a-boolean-property-or-variable">PREFER the "positive" name for a boolean property or variable.</a></li>
+    <li><a href="/effective-dart/design#prefer-an-imperative-verb-phrase-for-a-function-or-method-whose-main-purpose-is-a-side-effect">PREFER an imperative verb phrase for a function or method whose main purpose is a side effect.</a></li>
+    <li><a href="/effective-dart/design#prefer-a-noun-phrase-or-non-imperative-verb-phrase-for-a-function-or-method-if-returning-a-value-is-its-primary-purpose">PREFER a noun phrase or non-imperative verb phrase for a function or method if returning a value is its primary purpose.</a></li>
+    <li><a href="/effective-dart/design#consider-an-imperative-verb-phrase-for-a-function-or-method-if-you-want-to-draw-attention-to-the-work-it-performs">CONSIDER an imperative verb phrase for a function or method if you want to draw attention to the work it performs.</a></li>
+    <li><a href="/effective-dart/design#avoid-starting-a-method-name-with-get">AVOID starting a method name with <code>get</code>.</a></li>
+    <li><a href="/effective-dart/design#prefer-naming-a-method-to___-if-it-copies-the-objects-state-to-a-new-object">PREFER naming a method <code>to___()</code> if it copies the object’s state to a new object.</a></li>
+    <li><a href="/effective-dart/design#prefer-naming-a-method-as___-if-it-returns-a-different-representation-backed-by-the-original-object">PREFER naming a method <code>as___()</code> if it returns a different representation backed by the original object.</a></li>
+    <li><a href="/effective-dart/design#avoid-describing-the-parameters-in-the-functions-or-methods-name">AVOID describing the parameters in the function’s or method’s name.</a></li>
+    <li><a href="/effective-dart/design#do-follow-existing-mnemonic-conventions-when-naming-type-parameters">DO follow existing mnemonic conventions when naming type parameters.</a></li>
+  </ul>
+
+  <p><strong>Libraries</strong></p>
+
+  <ul>
+    <li><a href="/effective-dart/design#prefer-making-declarations-private">PREFER making declarations private.</a></li>
+    <li><a href="/effective-dart/design#consider-declaring-multiple-classes-in-the-same-library">CONSIDER declaring multiple classes in the same library.</a></li>
+  </ul>
+
+  <p><strong>Classes and mixins</strong></p>
+
+  <ul>
+    <li><a href="/effective-dart/design#avoid-defining-a-one-member-abstract-class-when-a-simple-function-will-do">AVOID defining a one-member abstract class when a simple function will do.</a></li>
+    <li><a href="/effective-dart/design#avoid-defining-a-class-that-contains-only-static-members">AVOID defining a class that contains only static members.</a></li>
+    <li><a href="/effective-dart/design#avoid-extending-a-class-that-isnt-intended-to-be-subclassed">AVOID extending a class that isn’t intended to be subclassed.</a></li>
+    <li><a href="/effective-dart/design#do-document-if-your-class-supports-being-extended">DO document if your class supports being extended.</a></li>
+    <li><a href="/effective-dart/design#avoid-implementing-a-class-that-isnt-intended-to-be-an-interface">AVOID implementing a class that isn’t intended to be an interface.</a></li>
+    <li><a href="/effective-dart/design#do-document-if-your-class-supports-being-used-as-an-interface">DO document if your class supports being used as an interface.</a></li>
+    <li><a href="/effective-dart/design#do-use-mixin-to-define-a-mixin-type">DO use <code>mixin</code> to define a mixin type.</a></li>
+    <li><a href="/effective-dart/design#avoid-mixing-in-a-class-that-isnt-intended-to-be-a-mixin">AVOID mixing in a type that isn’t intended to be a mixin.</a></li>
+  </ul>
+
+  <p><strong>Constructors</strong></p>
+
+  <ul>
+    <li><a href="/effective-dart/design#consider-making-your-constructor-const-if-the-class-supports-it">CONSIDER making your constructor <code>const</code> if the class supports it.</a></li>
+  </ul>
+
+  <p><strong>Members</strong></p>
+
+  <ul>
+    <li><a href="/effective-dart/design#prefer-making-fields-and-top-level-variables-final">PREFER making fields and top-level variables <code>final</code>.</a></li>
+    <li><a href="/effective-dart/design#do-use-getters-for-operations-that-conceptually-access-properties">DO use getters for operations that conceptually access properties.</a></li>
+    <li><a href="/effective-dart/design#do-use-setters-for-operations-that-conceptually-change-properties">DO use setters for operations that conceptually change properties.</a></li>
+    <li><a href="/effective-dart/design#dont-define-a-setter-without-a-corresponding-getter">DON’T define a setter without a corresponding getter.</a></li>
+    <li><a href="/effective-dart/design#avoid-using-runtime-type-tests-to-fake-overloading">AVOID using runtime type tests to fake overloading.</a></li>
+    <li><a href="/effective-dart/design#avoid-public-late-final-fields-without-initializers">AVOID public <code>late final</code> fields without initializers.</a></li>
+    <li><a href="/effective-dart/design#avoid-returning-nullable-future-stream-and-collection-types">AVOID returning nullable <code>Future</code>, <code>Stream</code>, and collection types.</a></li>
+    <li><a href="/effective-dart/design#avoid-returning-this-from-methods-just-to-enable-a-fluent-interface">AVOID returning <code>this</code> from methods just to enable a fluent interface.</a></li>
+  </ul>
+
+  <p><strong>Types</strong></p>
+
+  <ul>
+    <li><a href="/effective-dart/design#do-type-annotate-variables-without-initializers">DO type annotate variables without initializers.</a></li>
+    <li><a href="/effective-dart/design#do-type-annotate-fields-and-top-level-variables-if-the-type-isnt-obvious">DO type annotate fields and top-level variables if the type isn’t obvious.</a></li>
+    <li><a href="/effective-dart/design#dont-redundantly-type-annotate-initialized-local-variables">DON’T redundantly type annotate initialized local variables.</a></li>
+    <li><a href="/effective-dart/design#do-annotate-return-types-on-function-declarations">DO annotate return types on function declarations.</a></li>
+    <li><a href="/effective-dart/design#do-annotate-parameter-types-on-function-declarations">DO annotate parameter types on function declarations.</a></li>
+    <li><a href="/effective-dart/design#dont-annotate-inferred-parameter-types-on-function-expressions">DON’T annotate inferred parameter types on function expressions.</a></li>
+    <li><a href="/effective-dart/design#dont-type-annotate-initializing-formals">DON’T type annotate initializing formals.</a></li>
+    <li><a href="/effective-dart/design#do-write-type-arguments-on-generic-invocations-that-arent-inferred">DO write type arguments on generic invocations that aren’t inferred.</a></li>
+    <li><a href="/effective-dart/design#dont-write-type-arguments-on-generic-invocations-that-are-inferred">DON’T write type arguments on generic invocations that are inferred.</a></li>
+    <li><a href="/effective-dart/design#avoid-writing-incomplete-generic-types">AVOID writing incomplete generic types.</a></li>
+    <li><a href="/effective-dart/design#do-annotate-with-dynamic-instead-of-letting-inference-fail">DO annotate with <code>dynamic</code> instead of letting inference fail.</a></li>
+    <li><a href="/effective-dart/design#prefer-signatures-in-function-type-annotations">PREFER signatures in function type annotations.</a></li>
+    <li><a href="/effective-dart/design#dont-specify-a-return-type-for-a-setter">DON’T specify a return type for a setter.</a></li>
+    <li><a href="/effective-dart/design#dont-use-the-legacy-typedef-syntax">DON’T use the legacy typedef syntax.</a></li>
+    <li><a href="/effective-dart/design#prefer-inline-function-types-over-typedefs">PREFER inline function types over typedefs.</a></li>
+    <li><a href="/effective-dart/design#prefer-using-function-type-syntax-for-parameters">PREFER using function type syntax for parameters.</a></li>
+    <li><a href="/effective-dart/design#avoid-using-dynamic-unless-you-want-to-disable-static-checking">AVOID using <code>dynamic</code> unless you want to disable static checking.</a></li>
+    <li><a href="/effective-dart/design#do-use-futurevoid-as-the-return-type-of-asynchronous-members-that-do-not-produce-values">DO use <code>Future&lt;void&gt;</code> as the return type of asynchronous members that do not produce values.</a></li>
+    <li><a href="/effective-dart/design#avoid-using-futureort-as-a-return-type">AVOID using <code>FutureOr&lt;T&gt;</code> as a return type.</a></li>
+  </ul>
+
+  <p><strong>Parameters</strong></p>
+
+  <ul>
+    <li><a href="/effective-dart/design#avoid-positional-boolean-parameters">AVOID positional boolean parameters.</a></li>
+    <li><a href="/effective-dart/design#avoid-optional-positional-parameters-if-the-user-may-want-to-omit-earlier-parameters">AVOID optional positional parameters if the user may want to omit earlier parameters.</a></li>
+    <li><a href="/effective-dart/design#avoid-mandatory-parameters-that-accept-a-special-no-argument-value">AVOID mandatory parameters that accept a special "no argument" value.</a></li>
+    <li><a href="/effective-dart/design#do-use-inclusive-start-and-exclusive-end-parameters-to-accept-a-range">DO use inclusive start and exclusive end parameters to accept a range.</a></li>
+  </ul>
+
+  <p><strong>Equality</strong></p>
+
+  <ul>
+    <li><a href="/effective-dart/design#do-override-hashcode-if-you-override-">DO override <code>hashCode</code> if you override <code>==</code>.</a></li>
+    <li><a href="/effective-dart/design#do-make-your--operator-obey-the-mathematical-rules-of-equality">DO make your <code>==</code> operator obey the mathematical rules of equality.</a></li>
+    <li><a href="/effective-dart/design#avoid-defining-custom-equality-for-mutable-classes">AVOID defining custom equality for mutable classes.</a></li>
+    <li><a href="/effective-dart/design#dont-make-the-parameter-to--nullable">DON’T make the parameter to <code>==</code> nullable.</a></li>
+  </ul>
+
+</div>
+<div style="clear:both"></div>
+
+
+          
+<nav id="subnav">
+  <ul>
+    <li class="previous">
+      
+    </li>
+    <li class="next">
+      
+        <a href="/effective-dart/style">程式碼風格&nbsp;&nbsp;⟩</a>
+      
+    </li>
+  </ul>
+</nav>
+
+
+        </div>
+      </article>
+    </main>
+    <footer id="page-footer">
+    <div class="footer-section footer-main">
+      <a href="/" class="brand" title="Dart">
+        <img src="/assets/img/shared/dart/logo+text/horizontal/white.svg" alt="Dart" width="164px">
+      </a>
+      <div class="footer-social-links">
+        <a href="https://github.com/doggy8088/dart.tw" target="_blank" rel="noopener" title="GitHub" class="no-automatic-external">
+          <svg>
+            <use href="/assets/img/social/github.svg#github"></use>
+          </svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-section footer-tray">
+      <div class="footer-licenses">
+        參考中文內容需註明本站及連結作為出處，英文內容和範例程式碼均遵從源站授權協議。
+      </div>
+      <div class="footer-utility-links">
+        <ul>
+          <li><a href="/terms" title="使用條款">使用條款</a></li>
+          <li><a href="https://policies.google.com/privacy?hl=zh-TW" target="_blank" rel="noopener" title="隱私政策" class="no-automatic-external">隱私政策</a></li>
+          <li><a href="/security" title="Security philosophy and practices">Dart 程式碼安全說明</a></li>
+          <li><a href="https://flutter.tw/about" target="_blank">關於中文文件</a>
+          </li><li><a href="https://flutter.tw/disclaimer" target="_blank">免責條款</a>
+          </li><li><a href="https://dart.cn/" target="_blank">Dart 簡體中文文檔</a>
+        </li></ul>
+      </div>
+    </div>
+  </footer>
+
+  
+
+<script src="/assets/translator/js/translator.js"></script></body></html>

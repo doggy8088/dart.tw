@@ -1,0 +1,3321 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Language" content="zh-cmn-Hans">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Google Tag Manager -->
+<!--  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':-->
+<!--  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],-->
+<!--  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=-->
+<!--  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);-->
+<!--  })(window,document,'script','dataLayer','GTM-5VSZM5J');</script>-->
+  <!-- End Google Tag Manager -->
+
+  <meta name="description" content="用互動的形式學習（或回顧）Dart 的獨特之處。">
+  <title>Dart 速查表 codelab | Dart</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-28P0PYCRZ9"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-28P0PYCRZ9');
+  </script>
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?fa71f2474b82505e00203cf9956cf0bc";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+  <!-- Favicon / Touch Icons -->
+  <link rel="icon" sizes="64x64" href="/assets/shared/dart/icon/64.png">
+  <link href="/assets/img/touch-icon-iphone.png" rel="apple-touch-icon">
+  <link href="/assets/img/touch-icon-ipad.png" rel="apple-touch-icon" sizes="152x152">
+  <link href="/assets/img/touch-icon-iphone-retina.png" rel="apple-touch-icon" sizes="180x180">
+  <link href="/assets/img/touch-icon-ipad-retina.png" rel="apple-touch-icon" sizes="167x167">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@dart_lang">
+  <meta name="twitter:title" content="Dart 速查表 codelab">
+  <meta name="twitter:description" content="用互動的形式學習（或回顧）Dart 的獨特之處。">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Dart 速查表 codelab">
+  <meta property="og:description" content="用互動的形式學習（或回顧）Dart 的獨特之處。">
+  <meta property="og:url" content="https://dart.tw.gh.miniasp.com/codelabs/dart-cheatsheet.html">
+
+  <meta property="og:image" content="https://dart.tw.gh.miniasp.com/assets/shared/dart-logo-for-shares.png?2">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Display:wght@400&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons&amp;display=swap" rel="stylesheet">
+  <script src="https://cdn.staticfile.org/font-awesome/5.15.4/js/all.js" data-auto-replace-svg="nest">
+  </script>
+
+  <link rel="stylesheet" href="/assets/css/main.css?v=1693674404">
+  <script src="https://cdn.staticfile.org/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.staticfile.org/popper.js/1.16.1/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.staticfile.org/bootstrap/4.6.2/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!-- <script src="https://cdn.staticfile.org/js-cookie/3.0.5/js.cookie.min.js"
+          integrity="sha512-nlp9/l96/EpjYBx7EP7pGASVXNe80hGhYAUrjeXnu/fyF5Py0/RXav4BBNs7n5Hx1WFhOEOWSAVjGeC3oKxDVQ=="
+          crossorigin="anonymous"
+          referrerpolicy="no-referrer"></script> -->
+
+  <script src="/assets/js/vendor/code-prettify/prettify.js"></script>
+  <script src="/assets/js/vendor/code-prettify/lang-dart.js"></script>
+  <script src="/assets/js/vendor/code-prettify/lang-yaml.js"></script>
+  <script src="/assets/js/os-tabs.js?v=1693674404"></script>
+  <script src="/assets/js/utilities.js?v=1693674404"></script>
+  <script src="/assets/js/main.js?v=1693674404"></script>
+
+  <script defer="" src="https://dartpad.dev/inject_embed.dart.js"></script>
+  <script>
+
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-122680122-5', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+
+ <link href="/assets/translator/css/translator.css" rel="stylesheet"></head>
+
+  <body class="default show_banner">
+    <section id="cookie-notice">
+  <div class="container">
+    <p>Google uses cookies to deliver its services, to personalize ads, and to 
+      analyze traffic. You can adjust your privacy controls anytime in your 
+      <a href="https://myaccount.google.com/data-and-personalization" target="_blank" rel="noopener" class="no-automatic-external">Google settings</a>. 
+      <a href="https://policies.google.com/technologies/cookies" target="_blank" rel="noopener" class="no-automatic-external">Learn more</a>.
+    </p>
+    <button id="cookie-consent" class="btn btn-primary">Okay</button>
+  </div>
+</section>
+
+    <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=G-28P0PYCRZ9"
+ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+    <header id="page-header" class="site-header">
+  <nav id="mainnav" class="site-header">
+  <div id="menu-toggle"><i class="material-icons">menu</i></div>
+  <a href="/" class="brand" title="Dart">
+    <img src="/assets/img/shared/dart/logo+text/horizontal/white.svg" alt="Dart">
+  </a>
+  <ul class="navbar">
+    <li>
+      <a href="/overview" class="nav-link">概覽</a>
+    </li>
+    <li class="mainnav__get-started">
+      <a href="/guides" class="nav-link
+         active">
+        <span>文件</span>
+      </a>
+    </li>
+    <li>
+      <a href="/community" class="nav-link">社群</a>
+    </li>
+    <li>
+      <a href="/#try-dart" class="nav-link">嘗試 Dart</a>
+    </li>
+    <li>
+      <a href="/get-dart" class="nav-link">獲取 Dart SDK</a>
+    </li>
+    <li class="searchfield">
+      <form action="/search" class="site-header__search form-inline" id="cse-search-box">
+        <input type="hidden" name="cx" value="011220921317074318178:_yy-tmb5t_i">
+        <input type="hidden" name="ie" value="UTF-8">
+        <input type="hidden" name="hl" value="en">
+        <input class="site-header__searchfield form-control search-field" type="search" name="q" id="q" autocomplete="off" placeholder="Search" aria-label="Search">
+      </form>
+    </li>
+  </ul>
+</nav>
+
+  
+</header>
+ <div class="banner">
+  <p class="banner__text">
+    Dart 3 已釋出！帶來了全新的
+    <a href="https://dart.tw.gh.miniasp.com/language/records" class="no-automatic-external">記錄型別 (records)</a>、
+    <a href="https://dart.tw.gh.miniasp.com/language/patterns" class="no-automatic-external">模式匹配 (patterns)</a>
+    以及 <a href="https://dart.tw.gh.miniasp.com/language/class-modifiers" class="no-automatic-external">型別修飾符 (class modifiers)</a>。
+    <br>
+    <!--<a href="https://medium.com/p/53f065a10635" class="no-automatic-external">Check out the blog post</a>!-->
+  </p>
+</div>
+ 
+
+    <div id="sidenav" class="">
+  <form action="/search/" class="site-header__search form-inline">
+    <input class="site-header__searchfield form-control search-field" type="search" name="q" id="q" autocomplete="off" placeholder="Search" aria-label="Search">
+  </form>
+
+  <div class="site-sidebar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a href="/overview" class="nav-link">概覽</a>
+      </li>
+      <li class="nav-item">
+        <a href="/community" class="nav-link">社群</a>
+      </li>
+      <li class="nav-item">
+        <a href="https://dartpad.dev" class="nav-link">嘗試 Dart</a>
+      </li>
+      <li class="nav-item">
+        <a href="/get-dart" class="nav-link">獲取 Dart SDK</a>
+      </li>
+      <li class="nav-item">
+        <a href="/guides" class="nav-link active">文件</a>
+      </li>
+    </ul>
+
+    <ul class="nav flex-column"><li class="nav-item">
+      <a class="nav-link active" data-toggle="collapse" href="#sidenav-1" role="button" aria-expanded="true" aria-controls="sidenav-1">範例和課程</a>
+
+      <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-1">
+        <li class="nav-item">
+    <a class="nav-link" href="/tutorials">語言概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link active collapsable" data-toggle="collapse" data-target="#sidenav-1-2" href="#sidenav-1-2" role="button" aria-expanded="true" aria-controls="sidenav-1-2">Codelabs
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-1-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/codelabs">Codelabs 列表</a>
+  </li><li class="nav-item">
+    <a class="nav-link active" href="/codelabs/dart-cheatsheet">Dart 速查表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/iterables">可迭代集合</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/async-await">Dart 非同步程式設計</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/null-safety">空安全</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-2" role="button" aria-expanded="false" aria-controls="sidenav-2">Dart 開發語言</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2">
+        <li class="nav-item">
+    <a class="nav-link" href="/language">介紹</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-2" href="#sidenav-2-2" role="button" aria-expanded="false" aria-controls="sidenav-2-2">基礎表示式
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/variables">變數</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/operators">運運算元</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/comments">註釋</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/metadata">註解</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/libraries">庫 &amp; 導庫</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/keywords">關鍵字</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-3" href="#sidenav-2-3" role="button" aria-expanded="false" aria-controls="sidenav-2-3">型別
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-3">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/built-in-types">基本型別</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/records">記錄 (Records)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/collections">集合 (Collections)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/generics">泛型 (Generics)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/typedefs">別名 (Typedefs)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/type-system">型別系統</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-4" href="#sidenav-2-4" role="button" aria-expanded="false" aria-controls="sidenav-2-4">模式匹配
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-4">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/patterns">概覽 &amp; 用法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/pattern-types">模式匹配型別</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/language/functions">函式方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-6" href="#sidenav-2-6" role="button" aria-expanded="false" aria-controls="sidenav-2-6">控制流
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-6">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/loops">迴圈</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/branches">分支</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/language/error-handling">錯誤處理</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-8" href="#sidenav-2-8" role="button" aria-expanded="false" aria-controls="sidenav-2-8">類 &amp; 物件
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-8">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/classes">類</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/constructors">構造方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/methods">成員方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/extend">繼承</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/mixins">混入 (Mixin)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/enums">列舉</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/extension-methods">擴充方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/callable-objects">可呼叫的物件</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-9" href="#sidenav-2-9" role="button" aria-expanded="false" aria-controls="sidenav-2-9">型別修飾符
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-9">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/class-modifiers">概覽 &amp; 用法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/class-modifiers-for-apis">API 維護者應該用的型別修飾符</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/modifier-reference">速查表</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-10" href="#sidenav-2-10" role="button" aria-expanded="false" aria-controls="sidenav-2-10">併發
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-10">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/async">非同步支援</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/concurrency">Isolates</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-11" href="#sidenav-2-11" role="button" aria-expanded="false" aria-controls="sidenav-2-11">Null safety
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-11">
+      <li class="nav-item">
+    <a class="nav-link" href="/null-safety">健全的空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/migration-guide">遷移到空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/understanding-null-safety">深入理解空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/unsound-null-safety">非健全的空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/faq">空安全常見問題和解答</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-3" role="button" aria-expanded="false" aria-controls="sidenav-3">高效指南 (Effective Dart)</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-3">
+        <li class="nav-item">
+    <a class="nav-link" href="/effective-dart">概述</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/style">程式碼風格</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/documentation">文件</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/usage">用法範例</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/design">API 設計</a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-4" role="button" aria-expanded="false" aria-controls="sidenav-4">核心函式庫</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-4">
+        <li class="nav-item">
+    <a class="nav-link" href="/guides/libraries">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/library-tour">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-4-3" href="#sidenav-4-3" role="button" aria-expanded="false" aria-controls="sidenav-4-3">介紹文章
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-4-3">
+      <li class="nav-item">
+    <a class="nav-link" href="/articles/libraries/creating-streams">建立 stream</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-5" role="button" aria-expanded="false" aria-controls="sidenav-5">Packages</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-5">
+        <li class="nav-item">
+    <a class="nav-link" href="/guides/packages">如何使用 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/useful-libraries">常用 package 介紹</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/create-packages">建立 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/publishing">釋出 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/writing-package-pages">設定 package 介紹頁</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-5-6" href="#sidenav-5-6" role="button" aria-expanded="false" aria-controls="sidenav-5-6">Package 參考資料
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-5-6">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/pub/dependencies">依賴</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/glossary">術語表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/package-layout">Package 檔案結構</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/environment-variables">設定環境變數</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/pubspec">Pubspec 檔案</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/troubleshoot">問題排查</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/verified-publishers">釋出者認證</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/versioning">版本管理</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-6" role="button" aria-expanded="false" aria-controls="sidenav-6">開發文件</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6">
+        <li class="nav-item">
+    <a class="nav-link" href="/codelabs/async-await">Futures、async 和 await</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/language/streams">Streams 介紹</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/json">使用 JSON</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/numbers">Dart 中的數字</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-5" href="#sidenav-6-5" role="button" aria-expanded="false" aria-controls="sidenav-6-5">與其他語言進行互動呼叫
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-5">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/c-interop">與 C 互調</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/objective-c-interop">與 Objective-C 和 Swift 互調</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/java-interop">與 Java 和 Kotlin 互調</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/web/js-interop">與 JavaScript 互調</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/guides/google-apis">Google APIs</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/multiplatform-apps">跨平臺應用</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-8" href="#sidenav-6-8" role="button" aria-expanded="false" aria-controls="sidenav-6-8">命令列和伺服器端應用
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-8">
+      <li class="nav-item">
+    <a class="nav-link" href="/server">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/get-started">起步課程</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/cmdline">命令列應用</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/fetch-data">從網路上獲取資料</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/httpserver">編寫 HTTP 伺服器端應用</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/server/libraries">庫和 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/server/google-cloud">Google Cloud</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-9" href="#sidenav-6-9" role="button" aria-expanded="false" aria-controls="sidenav-6-9">網頁端 (Web) 應用
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-9">
+      <li class="nav-item">
+    <a class="nav-link" href="/web">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/get-started">開始使用</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-9-3" href="#sidenav-6-9-3" role="button" aria-expanded="false" aria-controls="sidenav-6-9-3">底層 Web 程式設計
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-9-3">
+      <li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/low-level-html/connect-dart-html">Dart 與 HTML 關聯</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/low-level-html/add-elements">向 DOM 新增元素</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/low-level-html/remove-elements">移除 DOM 元素</a>
+  </li>
+  </ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/web/deployment">部署</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/web/libraries">常用 Web 函式庫和 package</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/guides/environment-declarations">環境變數宣告</a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-7" role="button" aria-expanded="false" aria-controls="sidenav-7">開發工具和使用技巧</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7">
+        <li class="nav-item">
+    <a class="nav-link" href="/tools">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-2" href="#sidenav-7-2" role="button" aria-expanded="false" aria-controls="sidenav-7-2">編輯器和除錯工具
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/jetbrains-plugin">使用 IntelliJ 和 Android Studio</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/vs-code">使用 VS Code</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/dart-devtools">Dart 開發者工具</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-2-4" href="#sidenav-7-2-4" role="button" aria-expanded="false" aria-controls="sidenav-7-2-4">線上執行 Dart 程式碼
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-2-4">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/dartpad">Overview</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dartpad/dartpad-best-practices">DartPad 課程</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dartpad/troubleshoot">DartPad 疑難解答</a>
+  </li>
+  </ul>
+  </li>
+</ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-3" href="#sidenav-7-3" role="button" aria-expanded="false" aria-controls="sidenav-7-3">命令列工具
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-3">
+      <li class="nav-item">
+    <a class="nav-link collapsable" data-toggle="collapse" data-target="#sidenav-7-3-1" href="#sidenav-7-3-1" role="button" aria-expanded="true" aria-controls="sidenav-7-3-1">Dart SDK
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-7-3-1">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/sdk">概覽</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-tool">dart 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-analyze">dart analyze 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-compile">dart compile 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-create">dart create 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-doc">dart doc 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-fix">dart fix 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-format">dart format 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-info">dart info 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/pub/cmd">dart pub 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-run">dart run 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-test">dart test 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dartaotruntime">dartaotruntime 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/experiment-flags">實驗性命令標記</a>
+  </li>
+  </ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable" data-toggle="collapse" data-target="#sidenav-7-3-2" href="#sidenav-7-3-2" role="button" aria-expanded="true" aria-controls="sidenav-7-3-2">其他的命令列工具
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-7-3-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/build_runner">build_runner 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/webdev">webdev 命令</a>
+  </li>
+  </ul>
+  </li>
+</ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-4" href="#sidenav-7-4" role="button" aria-expanded="false" aria-controls="sidenav-7-4">原始碼管理
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-4">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/language/formatting">程式碼格式化</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/private-files">不應提交的內容</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-5" href="#sidenav-7-5" role="button" aria-expanded="false" aria-controls="sidenav-7-5">靜態分析
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-5">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/analysis">自訂靜態分析</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/sound-problems">修復常見的型別問題</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/diagnostic-messages">診斷訊息</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/linter-rules">Linter 規則</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-6" href="#sidenav-7-6" role="button" aria-expanded="false" aria-controls="sidenav-7-6">測試和調優
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-6">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/testing">測試</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/web/debugging">除錯 Web 應用</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-8" role="button" aria-expanded="false" aria-controls="sidenav-8">資源</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-8">
+        <li class="nav-item">
+    <a class="nav-link" href="/resources/faq">常見問題</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/evolution">版本演變</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/spec">語言規範</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/resources/dart-3-migration">Dart 3 遷移指南</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-8-5" href="#sidenav-8-5" role="button" aria-expanded="false" aria-controls="sidenav-8-5">從其他平台轉向 Dart
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-8-5">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/language/coming-from/js-to-dart">從 JavaScript 到 Dart</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/coming-from/swift-to-dart">從 Swift 到 Dart</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/resources/glossary">詞彙表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/resources/books">書籍資源</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/resources/videos">影片資源</a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link " data-toggle="collapse" href="#sidenav-9" role="button" aria-expanded="true" aria-controls="sidenav-9">相關站點</a>
+
+      <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-9">
+        <li class="nav-item">
+    <a class="nav-link" href="https://api.dart.dev" target="_blank" rel="noopener">API 文件<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://medium.com/dartlang" target="_blank" rel="noopener">Dart 團隊官方部落格<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://dartpad.dev" target="_blank" rel="noopener">DartPad (線上編輯器)<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://flutter.tw" target="_blank" rel="noopener">Flutter<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://pub.dev" target="_blank" rel="noopener">Package 網站<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-10" role="button" aria-expanded="false" aria-controls="sidenav-10">關於 Dart 中文文件</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-10">
+        <li class="nav-item">
+    <a class="nav-link" href="https://flutter.tw/about/docs-cn" target="_blank" rel="noopener">關於本站<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://flutter.tw/disclaimer" target="_blank" rel="noopener">免責條款 (Disclaimer)<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li>
+</ul>
+    </li></ul>
+
+  </div>
+</div>
+
+    <main id="page-content">
+      
+
+
+
+
+
+
+
+<div id="site-toc--side" class="site-toc ">
+  <header class="site-toc__title">
+    目錄
+    
+  </header>
+  <ul id="toc" class="section-nav">
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#string-interpolation"><p>字串插值</p></a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#程式碼範例">程式碼範例</a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#nullable-variables"><p>可空的變數</p></a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#程式碼範例-1">程式碼範例</a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#null-aware-operators"><p>避空運算子</p></a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#程式碼範例-2">程式碼範例</a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#conditional-property-access"><p>條件屬性存取</p></a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#程式碼範例-3">程式碼範例</a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#collection-literals"><p>集合字面量 (Collection literals)</p></a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#程式碼範例-4">程式碼範例</a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#arrow-syntax"><p>箭頭語法</p></a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#程式碼範例-5">程式碼範例</a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#cascades"><p>級聯</p></a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#程式碼範例-6">程式碼範例</a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#getters-and-setters">Getters and setters</a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#程式碼範例-7">程式碼範例</a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#optional-positional-parameters"><p>可選位置引數</p></a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#程式碼範例-8">程式碼範例</a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#named-parameters"><p>命名引數</p></a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#程式碼範例-9">程式碼範例</a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#exceptions"><p>例外</p></a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#程式碼範例-10">程式碼範例</a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#using-this-in-a-constructor"><p>在構造方法中使用 this</p></a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#程式碼範例-11">程式碼範例</a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#initializer-lists">Initializer lists</a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#程式碼範例-12">程式碼範例</a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#named-constructors"><p>命名構造方法</p></a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#程式碼範例-13">程式碼範例</a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#factory-constructors"><p>工廠構造方法</p></a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#程式碼範例-14">程式碼範例</a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#redirecting-constructors"><p>重新導向構造方法</p></a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#程式碼範例-15">程式碼範例</a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#const-constructors"><p>Const 構造方法</p></a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#程式碼範例-16">程式碼範例</a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#whats-next"><p>下一步是什麼？</p></a></li>
+</ul>
+  
+</div>
+
+
+      <article>
+        <div class="content">
+          
+
+          <div id="site-content-title">
+            <div id="page-github-links" class="btn-group" aria-label="Page GitHub links" role="group">
+  <a href="https://github.com/doggy8088/dart.tw/tree/master/src/codelabs/dart-cheatsheet.md" class="btn no-automatic-external" title="View page source" target="_blank" rel="noopener">
+    <i class="material-icons">description</i>
+  </a>
+  <a href="https://github.com/doggy8088/dart.tw/issues/new?template=1_page_issue.yml&amp;title=[PAGE ISSUE]: 'Dart 速查表 codelab'&amp;page-url=https://dart.tw.gh.miniasp.com/codelabs/dart-cheatsheet.html&amp;page-source=https://github.com/doggy8088/dart.tw/tree/master/src/codelabs/dart-cheatsheet.md" class="btn no-automatic-external" title="Report an issue with this page" target="_blank" rel="noopener">
+    <i class="material-icons">bug_report</i>
+  </a>
+</div>
+
+            
+            <h1 id="dart-速查表-codelab">Dart 速查表 codelab</h1>
+            </div>
+          
+
+
+
+
+
+
+
+<div id="site-toc--inline" class="site-toc toc-collapsible toc-collapsed">
+  <header class="site-toc__title">
+    目錄
+    
+      <span class="site-toc--inline__toggle toc-toggle-down"><i class="material-icons">keyboard_arrow_down</i></span>
+      <span class="site-toc--inline__toggle toc-toggle-up"><i class="material-icons">keyboard_arrow_up</i></span>
+    
+  </header>
+  <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#string-interpolation"><p>字串插值</p></a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#程式碼範例">程式碼範例</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#nullable-variables"><p>可空的變數</p></a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#程式碼範例-1">程式碼範例</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#null-aware-operators"><p>避空運算子</p></a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#程式碼範例-2">程式碼範例</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#conditional-property-access"><p>條件屬性存取</p></a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#程式碼範例-3">程式碼範例</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#collection-literals"><p>集合字面量 (Collection literals)</p></a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#程式碼範例-4">程式碼範例</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#arrow-syntax"><p>箭頭語法</p></a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#程式碼範例-5">程式碼範例</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#cascades"><p>級聯</p></a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#程式碼範例-6">程式碼範例</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#getters-and-setters">Getters and setters</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#程式碼範例-7">程式碼範例</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#optional-positional-parameters"><p>可選位置引數</p></a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#程式碼範例-8">程式碼範例</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#named-parameters"><p>命名引數</p></a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#程式碼範例-9">程式碼範例</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#exceptions"><p>例外</p></a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#程式碼範例-10">程式碼範例</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#using-this-in-a-constructor"><p>在構造方法中使用 this</p></a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#程式碼範例-11">程式碼範例</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#initializer-lists">Initializer lists</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#程式碼範例-12">程式碼範例</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#named-constructors"><p>命名構造方法</p></a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#程式碼範例-13">程式碼範例</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#factory-constructors"><p>工廠構造方法</p></a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#程式碼範例-14">程式碼範例</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#redirecting-constructors"><p>重新導向構造方法</p></a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#程式碼範例-15">程式碼範例</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#const-constructors"><p>Const 構造方法</p></a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#程式碼範例-16">程式碼範例</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#whats-next"><p>下一步是什麼？</p></a></li>
+</ul>
+  
+    <span class="site-toc--inline__toggle toc-toggle-more-items"><i class="material-icons">more_horiz</i></span>
+  
+</div>
+
+
+          
+<p>Dart 語言旨在讓從其他程式語言轉來的開發者們能夠輕鬆學習，但也有它的獨特之處。本篇將基於谷歌工程師編寫的
+<a href="/guides/language/cheatsheet">Dart 語言速查表</a>
+為你介紹一些最重要的語言特性。</p>
+
+
+
+<p>在這篇 codelab 中的嵌入式編輯器已經完成了部分程式碼片段。你可以在這些編輯器上將程式碼補充完整，然後點選 <strong>Run (執行)</strong> 按鈕進行測試。如果你需要幫助，請點選 <strong>Hint (提示)</strong> 按鈕。要執行程式碼格式化 (<a href="/tools/dart-format">dart format</a>)，點選 <strong>Format (格式化)</strong> 按鈕，<strong>Reset (重置)</strong> 按鈕將會清除你的操作，並把編輯器恢復到初始狀態。</p>
+
+
+
+<aside class="alert alert-info" role="alert">
+  <p><i class="material-icons" aria-hidden="true">info</i> <strong>備註:</strong></p>
+
+  <p>本頁面內嵌了一些 DartPads 做例子展示，</p>
+
+  
+
+  <p>如果你只看到了空白的框框（而沒有任何內容），請查閱
+<a href="/tools/dartpad/troubleshoot">DartPad 常見問題頁面</a>。</p>
+
+  
+
+</aside>
+
+<h2 id="string-interpolation">
+<a class="anchor" href="#string-interpolation" aria-hidden="true"><span class="octicon octicon-link"></span></a>字串插值</h2>
+
+
+
+<p>為了將表示式的值放在字串中，請使用 <code class="language-plaintext highlighter-rouge">${expression}</code>。若表示式為單個識別符號，則可以省略 <code class="language-plaintext highlighter-rouge">{}</code>。</p>
+
+
+
+<p>下面是一些使用字串插值的例子：</p>
+
+
+
+<table>
+  <thead>
+    <tr>
+      <th><nt-wrapper>字串</nt-wrapper></th>
+      <th>&nbsp;</th>
+      <th><nt-wrapper>結果</nt-wrapper></th>
+    </tr>
+  </thead>
+  <tbody>
+    
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">'${3 + 2}'</code></td>
+      <td>&nbsp;</td>
+      <td><code class="language-plaintext highlighter-rouge">'5'</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">'${"word".toUpperCase()}'</code></td>
+      <td>&nbsp;</td>
+      <td><code class="language-plaintext highlighter-rouge">'WORD'</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">'$myObject'</code></td>
+      <td>&nbsp;</td>
+      <td><nt-wrapper>
+<code class="language-plaintext highlighter-rouge">myObject.toString()</code> 的值</nt-wrapper></td>
+    </tr>
+    
+  </tbody>
+</table>
+
+<h3 class="no_toc" id="code-example">Code example</h3>
+
+<h3 id="程式碼範例">
+<a class="anchor" href="#%E7%A8%8B%E5%BC%8F%E7%A2%BC%E7%AF%84%E4%BE%8B" aria-hidden="true"><span class="octicon octicon-link"></span></a>程式碼範例</h3>
+
+<p>下面的方法接收兩個整型變數作為引數，然後讓它返回一個包含以空格分隔的整數的字串。例如，<code class="language-plaintext highlighter-rouge">stringify(2, 3)</code> 應該返回 <code class="language-plaintext highlighter-rouge">'2 3'</code>。</p>
+
+
+
+<pre><code class="language-dart:run-dartpad:ga_id-string_interpolation">{$ begin main.dart $}
+String stringify(int x, int y) {
+  TODO('Return a formatted string here');
+}
+{$ end main.dart $}
+{$ begin solution.dart $}
+String stringify(int x, int y) {
+  return '$x $y';
+}
+{$ end solution.dart $}
+{$ begin test.dart $}
+
+void main() {
+  try {
+    final str = stringify(2, 3); 
+
+    if (str == '2 3') {
+      _result(true);
+    } else if (str == '23') {
+      _result(false, ['Test failed. It looks like you forgot the space!']);
+    } else {
+      _result(false, ['That\'s not quite right. Keep trying!']);
+    }
+  } on UnimplementedError {
+    _result(false, ['Test failed. Did you implement the method?']);
+  } catch (e) {
+    _result(false, ['Tried calling stringify(2, 3), but received an exception: ${e.runtimeType}']);
+  }
+}
+{$ end test.dart $}
+{$ begin hint.txt $}
+Both x and y are simple values,
+and Dart's string interpolation will handle
+converting them to string representations.
+All you need to do is use the $ operator to
+reference them inside single quotes, with a space in between.
+{$ end hint.txt $}
+</code></pre>
+
+<h2 id="nullable-variables">
+<a class="anchor" href="#nullable-variables" aria-hidden="true"><span class="octicon octicon-link"></span></a>可空的變數</h2>
+
+
+
+<p>Dart 要求使用健全的空安全，這意味著除非變數顯式宣告為可空型別，否則它們將不能為空。換句話說，型別預設是不可為空的。</p>
+
+
+
+<p>舉個例子，下面的程式碼在空安全下是有錯誤的，因為 <code class="language-plaintext highlighter-rouge">int</code> 型別的變數不能為 <code class="language-plaintext highlighter-rouge">null</code>：</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">int a = <span class="highlight">null</span>; // INVALID.</code></pre></div>
+</div>
+
+<p>你可以透過在型別後新增 <code class="language-plaintext highlighter-rouge">?</code> 來表示該型別可空：</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart"><span class="highlight">int?</span> a = null; // Valid.</code></pre></div>
+</div>
+
+<p>在所有 Dart 版本中，<code class="language-plaintext highlighter-rouge">null</code> 在未初始化的變數裡都是預設值，所以你可以這樣簡化你的程式碼：</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">int? a; // The initial value of a is null.</code></pre></div>
+</div>
+
+<p>想了解更多有關 Dart 的空安全的內容，請閱讀 <a href="/null-safety">健全的空安全</a>。</p>
+
+
+
+<h3 class="no_toc" id="code-example-1">Code example</h3>
+
+<h3 id="程式碼範例-1">
+<a class="anchor" href="#%E7%A8%8B%E5%BC%8F%E7%A2%BC%E7%AF%84%E4%BE%8B-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>程式碼範例</h3>
+
+<p>試著定義以下兩種變數：</p>
+
+
+
+<ul>
+  <li>
+    <p>一個可空的 <code class="language-plaintext highlighter-rouge">String</code>，名為 <code class="language-plaintext highlighter-rouge">name</code>，值為 <code class="language-plaintext highlighter-rouge">'Jane'</code>。</p>
+
+    
+  </li>
+  <li>
+    <p>一個可空的 <code class="language-plaintext highlighter-rouge">String</code>，名為 <code class="language-plaintext highlighter-rouge">address</code>，值為 <code class="language-plaintext highlighter-rouge">null</code>。</p>
+
+    
+  </li>
+</ul>
+
+<p>可以忽略以下程式碼一開始在 DartPad 中的錯誤。</p>
+
+
+
+<pre><code class="language-dart:run-dartpad:ga_id-nullable_variables">{$ begin main.dart $}
+// Declare the two variables here
+{$ end main.dart $}
+{$ begin solution.dart $}
+String? name = 'Jane';
+String? address;
+{$ end solution.dart $}
+{$ begin test.dart $}
+
+void main() {
+  try {
+    if (name == 'Jane' &amp;&amp; address == null) {
+      // verify that "name" is nullable
+      name = null;
+      _result(true);
+    } else {
+      _result(false, ['That\'s not quite right. Keep trying!']);
+    }
+  } catch (e) {
+    _result(false, ['Tried calling stringify(2, 3), but received an exception: ${e.runtimeType}']);
+  }
+}
+{$ end test.dart $}
+{$ begin hint.txt $}
+Declare the two variables as "String" followed by "?".
+Then, assign "Jane" to "name"
+and leave "address" uninitialized.
+{$ end hint.txt $}
+</code></pre>
+
+<h2 id="null-aware-operators">
+<a class="anchor" href="#null-aware-operators" aria-hidden="true"><span class="octicon octicon-link"></span></a>避空運算子</h2>
+
+
+
+<p>Dart 提供了一系列方便的運算子用於處理可能會為空值的變數。其中一個是 <code class="language-plaintext highlighter-rouge">??=</code> 賦值運算子，僅當該變數為空值時才為其賦值：</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">int? a; // = null
+a ??= 3;
+print(a); // &lt;-- Prints 3.
+
+a ??= 5;
+print(a); // &lt;-- Still prints 3.</code></pre></div>
+</div>
+
+<p>另外一個避空運算子是 <code class="language-plaintext highlighter-rouge">??</code>，如果該運算子左邊的表示式返回的是空值，則會計算並返回右邊的表示式。</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">print(1 ?? 3); // &lt;-- Prints 1.
+print(null ?? 12); // &lt;-- Prints 12.</code></pre></div>
+</div>
+
+<h3 class="no_toc" id="code-example-2">Code example</h3>
+
+<h3 id="程式碼範例-2">
+<a class="anchor" href="#%E7%A8%8B%E5%BC%8F%E7%A2%BC%E7%AF%84%E4%BE%8B-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>程式碼範例</h3>
+
+<p>嘗試在下面的程式碼片段中交替使用 <code class="language-plaintext highlighter-rouge">??=</code> 和 <code class="language-plaintext highlighter-rouge">??</code> 運運算元，實現期望的需求。</p>
+
+
+
+<p>可以忽略以下程式碼一開始在 DartPad 中的錯誤。</p>
+
+
+
+<pre><code class="language-dart:run-dartpad:height-255px:ga_id-null_aware">{$ begin main.dart $}
+String? foo = 'a string';
+String? bar; // = null
+
+// Substitute an operator that makes 'a string' be assigned to baz.
+String? baz = foo /* TODO */ bar;
+
+void updateSomeVars() {
+  // Substitute an operator that makes 'a string' be assigned to bar.
+  bar /* TODO */ 'a string';
+}
+{$ end main.dart $}
+{$ begin solution.dart $}
+String? foo = 'a string';
+String? bar; // = null
+
+// Substitute an operator that makes 'a string' be assigned to baz.
+String? baz = foo ?? bar;
+
+void updateSomeVars() {
+  // Substitute an operator that makes 'a string' be assigned to bar.
+  bar ??= 'a string';
+}
+{$ end solution.dart $}
+{$ begin test.dart $}
+void main() {
+  final errs = &lt;String&gt;[];
+  
+  try {
+    updateSomeVars();
+    
+    if (foo != 'a string') {
+      errs.add('Looks like foo somehow ended up with the wrong value.');
+    } else if (bar != 'a string') {
+      errs.add('Looks like bar ended up with the wrong value.');
+    } else if (baz != 'a string') {
+      errs.add('Looks like baz ended up with the wrong value.');
+    }
+  } catch (e) {
+    errs.add('Tried calling updateSomeVars and received an exception: ${e.runtimeType}.');
+  }
+  
+  if (errs.isEmpty) {
+   _result(true);
+  } else {
+    _result(false, errs);
+  }
+}
+{$ end test.dart $}
+{$ begin hint.txt $}
+All you need to do in this exercise is
+replace the TODO comments with either ?? or ??=.
+Read the codelab text to make sure you understand both,
+and then give it a try.
+{$ end hint.txt $}
+</code></pre>
+
+<h2 id="conditional-property-access">
+<a class="anchor" href="#conditional-property-access" aria-hidden="true"><span class="octicon octicon-link"></span></a>條件屬性存取</h2>
+
+
+
+<p>要保護可能會為空的屬性的正常存取，請在點（<code class="language-plaintext highlighter-rouge">.</code>）之前加一個問號（<code class="language-plaintext highlighter-rouge">?</code>）。</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">myObject?.someProperty</code></pre></div>
+</div>
+
+<p>上述程式碼等效於以下內容：</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">(myObject != null) ? myObject.someProperty : null</code></pre></div>
+</div>
+
+<p>你可以在一個表示式中連續使用多個 <code class="language-plaintext highlighter-rouge">?.</code>：</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">myObject?.someProperty?.someMethod()</code></pre></div>
+</div>
+
+<p>如果 <code class="language-plaintext highlighter-rouge">myObject</code> 或 <code class="language-plaintext highlighter-rouge">myObject.someProperty</code> 為空，則前面的程式碼返回 null（並不再呼叫 <code class="language-plaintext highlighter-rouge">someMethod</code>）。</p>
+
+
+
+<h3 class="no_toc" id="code-example-3">Code example</h3>
+
+<h3 id="程式碼範例-3">
+<a class="anchor" href="#%E7%A8%8B%E5%BC%8F%E7%A2%BC%E7%AF%84%E4%BE%8B-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>程式碼範例</h3>
+
+<p>嘗試使用條件屬性存取來完成下面的程式碼片段。</p>
+
+
+
+<pre><code class="language-dart:run-dartpad:ga_id-conditional-property_access">{$ begin main.dart $}
+// This method should return the uppercase version of `str`
+// or null if `str` is null.
+String? upperCaseIt(String? str) {
+  // Try conditionally accessing the `toUpperCase` method here.
+}
+{$ end main.dart $}
+{$ begin solution.dart $}
+// This method should return the uppercase version of `str`
+// or null if `str` is null.
+String? upperCaseIt(String? str) {
+  return str?.toUpperCase();
+}
+{$ end solution.dart $}
+{$ begin test.dart $}
+void main() {
+  final errs = &lt;String&gt;[];
+  
+  try {
+    String? one = upperCaseIt(null);
+
+    if (one != null) {
+      errs.add('Looks like you\'re not returning null for null inputs.');
+    }
+  } catch (e) {
+    errs.add('Tried calling upperCaseIt(null) and got an exception: ${e.runtimeType}.');
+  }
+  
+  try {
+    String? two = upperCaseIt('asdf');
+
+    if (two == null) {
+      errs.add('Looks like you\'re returning null even when str has a value.');
+    } else if (two != 'ASDF') {
+      errs.add('Tried upperCaseIt(\'asdf\'), but didn\'t get \'ASDF\' in response.');
+    }
+  } catch (e) {
+    errs.add('Tried calling upperCaseIt(\'asdf\') and got an exception: ${e.runtimeType}.');
+  }
+  
+  if (errs.isEmpty) {
+   _result(true);
+  } else {
+   _result(false, errs);
+  }  
+}
+{$ end test.dart $}
+{$ begin hint.txt $}
+If this exercise wanted you to conditionally lowercase a string,
+you could do it like this: str?.toLowerCase()
+{$ end hint.txt $}
+</code></pre>
+
+<h2 id="collection-literals">
+<a class="anchor" href="#collection-literals" aria-hidden="true"><span class="octicon octicon-link"></span></a>集合字面量 (Collection literals)</h2>
+
+
+
+<p>Dart 內建了對 list、map 以及 set 的支援。你可以透過字面量直接建立它們：</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">final aListOfStrings = ['one', 'two', 'three'];
+final aSetOfStrings = {'one', 'two', 'three'};
+final aMapOfStringsToInts = {
+  'one': 1,
+  'two': 2,
+  'three': 3,
+};</code></pre></div>
+</div>
+
+<p>Dart 的型別推斷可以自動幫你分配這些變數的型別。在這個例子中，推斷型別是 <code class="language-plaintext highlighter-rouge">List&lt;String&gt;</code>、<code class="language-plaintext highlighter-rouge">Set&lt;String&gt;</code>和 <code class="language-plaintext highlighter-rouge">Map&lt;String, int&gt;</code>。</p>
+
+
+
+<p>你也可以手動指定型別：</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">final aListOfInts = &lt;int&gt;[];
+final aSetOfInts = &lt;int&gt;{};
+final aMapOfIntToDouble = &lt;int, double&gt;{};</code></pre></div>
+</div>
+
+<p>在使用子類別型的內容初始化列表，但仍希望列表為 <code class="language-plaintext highlighter-rouge">List &lt;BaseType&gt;</code> 時，指定其型別很方便：</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">final aListOfBaseType = &lt;BaseType&gt;[SubType(), SubType()];</code></pre></div>
+</div>
+
+<h3 class="no_toc" id="code-example-4">Code example</h3>
+
+<h3 id="程式碼範例-4">
+<a class="anchor" href="#%E7%A8%8B%E5%BC%8F%E7%A2%BC%E7%AF%84%E4%BE%8B-4" aria-hidden="true"><span class="octicon octicon-link"></span></a>程式碼範例</h3>
+
+<p>嘗試將以下變數設定為指定的值。替換當前的 null 值。</p>
+
+
+
+<pre><code class="language-dart:run-dartpad:height-400px:ga_id-collection_literals">{$ begin main.dart $}
+// Assign this a list containing 'a', 'b', and 'c' in that order:
+final aListOfStrings = null;
+
+// Assign this a set containing 3, 4, and 5:
+final aSetOfInts = null;
+
+// Assign this a map of String to int so that aMapOfStringsToInts['myKey'] returns 12:
+final aMapOfStringsToInts = null;
+
+// Assign this an empty List&lt;double&gt;:
+final anEmptyListOfDouble = null;
+
+// Assign this an empty Set&lt;String&gt;:
+final anEmptySetOfString = null;
+
+// Assign this an empty Map of double to int:
+final anEmptyMapOfDoublesToInts = null;
+{$ end main.dart $}
+{$ begin solution.dart $}
+// Assign this a list containing 'a', 'b', and 'c' in that order:
+final aListOfStrings = ['a', 'b', 'c'];
+
+// Assign this a set containing 3, 4, and 5:
+final aSetOfInts = {3, 4, 5};
+
+// Assign this a map of String to int so that aMapOfStringsToInts['myKey'] returns 12:
+final aMapOfStringsToInts = {'myKey': 12};
+
+// Assign this an empty List&lt;double&gt;:
+final anEmptyListOfDouble = &lt;double&gt;[];
+
+// Assign this an empty Set&lt;String&gt;:
+final anEmptySetOfString = &lt;String&gt;{};
+
+// Assign this an empty Map of double to int:
+final anEmptyMapOfDoublesToInts = &lt;double, int&gt;{};
+{$ end solution.dart $}
+{$ begin test.dart $}
+void main() {
+  final errs = &lt;String&gt;[];
+  
+  if (aListOfStrings is! List&lt;String&gt;) {
+    errs.add('aListOfStrings should have the type List&lt;String&gt;.');
+  } else if (aListOfStrings.length != 3) {
+    errs.add('aListOfStrings has ${aListOfStrings.length} items in it, rather than the expected 3.');
+  } else if (aListOfStrings[0] != 'a' || aListOfStrings[1] != 'b' || aListOfStrings[2] != 'c') {
+    errs.add('aListOfStrings doesn\'t contain the correct values (\'a\', \'b\', \'c\').');
+  }
+
+  if (aSetOfInts is! Set&lt;int&gt;) {
+    errs.add('aSetOfInts should have the type Set&lt;int&gt;.');
+  } else if (aSetOfInts.length != 3) {
+    errs.add('aSetOfInts has ${aSetOfInts.length} items in it, rather than the expected 3.');
+  } else if (!aSetOfInts.contains(3) || !aSetOfInts.contains(4) || !aSetOfInts.contains(5)) {
+    errs.add('aSetOfInts doesn\'t contain the correct values (3, 4, 5).');
+  }
+
+  if (aMapOfStringsToInts is! Map&lt;String, int&gt;) {
+    errs.add('aMapOfStringsToInts should have the type Map&lt;String, int&gt;.');
+  } else if (aMapOfStringsToInts['myKey'] != 12) {
+    errs.add('aMapOfStringsToInts doesn\'t contain the correct values (\'myKey\': 12).');
+  }
+
+  if (anEmptyListOfDouble is! List&lt;double&gt;) {
+    errs.add('anEmptyListOfDouble should have the type List&lt;double&gt;.');
+  } else if (anEmptyListOfDouble.isNotEmpty) {
+    errs.add('anEmptyListOfDouble should be empty.');
+  }
+
+  if (anEmptySetOfString is! Set&lt;String&gt;) {
+    errs.add('anEmptySetOfString should have the type Set&lt;String&gt;.');
+  } else if (anEmptySetOfString.isNotEmpty) {
+    errs.add('anEmptySetOfString should be empty.');
+  }
+
+  if (anEmptyMapOfDoublesToInts is! Map&lt;double, int&gt;) {
+    errs.add('anEmptyMapOfDoublesToInts should have the type Map&lt;double, int&gt;.');
+  } else if (anEmptyMapOfDoublesToInts.isNotEmpty) {
+    errs.add('anEmptyMapOfDoublesToInts should be empty.');
+  }
+
+  if (errs.isEmpty) {
+    _result(true);
+  } else {
+    _result(false, errs);
+  }
+}
+{$ end test.dart $}
+{$ begin hint.txt $}
+This exercise is fairly straightforward.
+Just add a list, set, or map literal after each equals sign.
+See the codelab text for the correct syntax to use.
+{$ end hint.txt $}
+</code></pre>
+
+<h2 id="arrow-syntax">
+<a class="anchor" href="#arrow-syntax" aria-hidden="true"><span class="octicon octicon-link"></span></a>箭頭語法</h2>
+
+
+
+<p>你也許已經在 Dart 程式碼中見到過 <code class="language-plaintext highlighter-rouge">=&gt;</code> 符號。這種箭頭語法是一種定義函式的方法，該函式將在其右側執行表示式並返回其值。</p>
+
+
+
+<p>例如，考慮呼叫這個 <code class="language-plaintext highlighter-rouge">List</code> 類中的 <code class="language-plaintext highlighter-rouge">any</code> 方法：</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">bool hasEmpty = aListOfStrings.any((s) {
+  return s.isEmpty;
+});</code></pre></div>
+</div>
+
+<p>這裡是一個更簡單的程式碼實現：</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">bool hasEmpty = aListOfStrings.any((s) =&gt; s.isEmpty);</code></pre></div>
+</div>
+
+<h3 class="no_toc" id="code-example-5">Code example</h3>
+
+<h3 id="程式碼範例-5">
+<a class="anchor" href="#%E7%A8%8B%E5%BC%8F%E7%A2%BC%E7%AF%84%E4%BE%8B-5" aria-hidden="true"><span class="octicon octicon-link"></span></a>程式碼範例</h3>
+
+<p>嘗試使用箭頭語法完成下面陳述式：</p>
+
+
+
+<pre><code class="language-dart:run-dartpad:height-345px:ga_id-arrow_syntax">{$ begin main.dart $}
+class MyClass {
+  int value1 = 2;
+  int value2 = 3;
+  int value3 = 5;
+  
+  // Returns the product of the above values:
+  int get product =&gt; TODO();
+  
+  // Adds 1 to value1:
+  void incrementValue1() =&gt; TODO();
+  
+  // Returns a string containing each item in the
+  // list, separated by commas (e.g. 'a,b,c'): 
+  String joinWithCommas(List&lt;String&gt; strings) =&gt; TODO();
+}
+{$ end main.dart $}
+{$ begin solution.dart $}
+class MyClass {
+  int value1 = 2;
+  int value2 = 3;
+  int value3 = 5;
+
+  // Returns the product of the above values:
+  int get product =&gt; value1 * value2 * value3;
+  
+  // Adds 1 to value1:
+  void incrementValue1() =&gt; value1++; 
+  
+  // Returns a string containing each item in the
+  // list, separated by commas (e.g. 'a,b,c'): 
+  String joinWithCommas(List&lt;String&gt; strings) =&gt; strings.join(',');
+}
+{$ end solution.dart $}
+{$ begin test.dart $}
+void main() {
+  final obj = MyClass();
+  final errs = &lt;String&gt;[];
+  
+  try {
+    final product = obj.product;
+    
+    if (product != 30) {
+      errs.add('The product property returned $product instead of the expected value (30).'); 
+    } 
+  } on UnimplementedError {
+    _result(false, ['Tried to use MyClass.product but failed. Did you implement the method?']);
+    return;
+  } catch (e) {
+    _result(false, ['Tried to use MyClass.product, but encountered an exception: ${e.runtimeType}.']);
+    return;
+  }
+
+  try {
+    obj.incrementValue1();
+    
+    if (obj.value1 != 3) {
+      errs.add('After calling incrementValue, value1 was ${obj.value1} instead of the expected value (3).'); 
+    } 
+  } on UnimplementedError {
+    _result(false, ['Tried to use MyClass.incrementValue1 but failed. Did you implement the method?']);
+    return;
+  } catch (e) {
+    _result(false, ['Tried to use MyClass.incrementValue1, but encountered an exception: ${e.runtimeType}.']);
+    return;
+  }
+
+  try {
+    final joined = obj.joinWithCommas(['one', 'two', 'three']);
+    
+    if (joined != 'one,two,three') {
+      errs.add('Tried calling joinWithCommas([\'one\', \'two\', \'three\']) and received $joined instead of the expected value (\'one,two,three\').'); 
+    } 
+  } on UnimplementedError {
+    _result(false, ['Tried to use MyClass.joinWithCommas but failed. Did you implement the method?']);
+    return;
+  } catch (e) {
+    _result(false, ['Tried to use MyClass.joinWithCommas, but encountered an exception: ${e.runtimeType}.']);
+    return;
+  }
+
+  if (errs.isEmpty) {
+    _result(true);
+  } else {
+    _result(false, errs);
+  }
+}
+{$ end test.dart $}
+{$ begin hint.txt $}
+For the product, you can just multiply the three values together.
+For incrementValue1, you can use the increment operator (++).
+For joinWithCommas, try using the join method found in the List class.
+{$ end hint.txt $}
+</code></pre>
+
+<h2 id="cascades">
+<a class="anchor" href="#cascades" aria-hidden="true"><span class="octicon octicon-link"></span></a>級聯</h2>
+
+
+
+<p>要對同一物件執行一系列操作，請使用級聯（<code class="language-plaintext highlighter-rouge">..</code>）。我們都看到過這樣的表示式：</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">myObject.someMethod()</code></pre></div>
+</div>
+
+<p>它在 <code class="language-plaintext highlighter-rouge">myObject</code> 上呼叫 <code class="language-plaintext highlighter-rouge">someMethod</code> 方法，而表示式的結果是 <code class="language-plaintext highlighter-rouge">someMethod</code> 的返回值。</p>
+
+
+
+<p>下面是一個使用級連語法的相同表示式：</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">myObject..someMethod()</code></pre></div>
+</div>
+
+<p>Although it still invokes <code class="language-plaintext highlighter-rouge">someMethod()</code> on <code class="language-plaintext highlighter-rouge">myObject</code>, the result
+of the expression <strong>isn’t</strong> the return value—it’s a reference to <code class="language-plaintext highlighter-rouge">myObject</code>!</p>
+
+<p>雖然它仍然在 <code class="language-plaintext highlighter-rouge">myObject</code> 上呼叫了 <code class="language-plaintext highlighter-rouge">someMethod</code>，但表示式的結果卻<strong>不是</strong>該方法返回值，而是是 <code class="language-plaintext highlighter-rouge">myObject</code> 物件的參考！使用級聯，你可以將需要單獨操作的陳述式連結在一起。例如，下方的程式碼使用了空判斷呼叫符 (<code class="language-plaintext highlighter-rouge">?.</code>) 在 <code class="language-plaintext highlighter-rouge">button</code> 不為 <code class="language-plaintext highlighter-rouge">null</code> 時獲取屬性：</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">var button = querySelector('#confirm');
+button?.text = 'Confirm';
+button?.classes.add('important');
+button?.onClick.listen((e) =&gt; window.alert('Confirmed!'));
+button?.scrollIntoView();</code></pre></div>
+</div>
+
+<p>現在你可以在第一個級聯位置，使用 <strong>空判斷</strong> 級聯運運算元 (<code class="language-plaintext highlighter-rouge">?..</code>)，它可以確保級聯操作均在例項不為 <code class="language-plaintext highlighter-rouge">null</code> 時執行。使用空判斷級聯後，你也不再需要 <code class="language-plaintext highlighter-rouge">button</code> 變量了：</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">querySelector('#confirm')
+  ?..text = 'Confirm'
+  ..classes.add('important')
+  ..onClick.listen((e) =&gt; window.alert('Confirmed!'))
+  ..scrollIntoView();</code></pre></div>
+</div>
+
+<h3 class="no_toc" id="code-example-6">Code example</h3>
+
+<h3 id="程式碼範例-6">
+<a class="anchor" href="#%E7%A8%8B%E5%BC%8F%E7%A2%BC%E7%AF%84%E4%BE%8B-6" aria-hidden="true"><span class="octicon octicon-link"></span></a>程式碼範例</h3>
+
+<p>使用級聯建立一個陳述式，分別將 <code class="language-plaintext highlighter-rouge">BigObject</code> 的 <code class="language-plaintext highlighter-rouge">anInt</code> 屬性設為 <code class="language-plaintext highlighter-rouge">1</code>、<code class="language-plaintext highlighter-rouge">aString</code> 
+屬性設為 <code class="language-plaintext highlighter-rouge">String!</code>、<code class="language-plaintext highlighter-rouge">aList</code> 屬性設定為
+<code class="language-plaintext highlighter-rouge">[3.0]</code> 然後呼叫 <code class="language-plaintext highlighter-rouge">allDone()</code>。</p>
+
+
+
+<pre><code class="language-dart:run-dartpad:height-345px:ga_id-cascades">{$ begin main.dart $}
+class BigObject {
+  int anInt = 0;
+  String aString = '';
+  List&lt;double&gt; aList = [];
+  bool _done = false;
+  
+  void allDone() {
+    _done = true;
+  }
+}
+
+BigObject fillBigObject(BigObject obj) {
+  // Create a single statement that will update and return obj:
+  return TODO('obj..');
+}
+{$ end main.dart $}
+{$ begin solution.dart $}
+class BigObject {
+  int anInt = 0;
+  String aString = '';
+  List&lt;double&gt; aList = [];
+  bool _done = false;
+  
+  void allDone() {
+    _done = true;
+  }
+}
+
+BigObject fillBigObject(BigObject obj) {
+  return obj
+    ..anInt = 1
+    ..aString = 'String!'
+    ..aList.add(3)
+    ..allDone();
+}
+{$ end solution.dart $}
+{$ begin test.dart $}
+void main() {
+  BigObject obj;
+
+  try {
+    obj = fillBigObject(BigObject());
+  } on UnimplementedError {
+    _result(false, ['Tried to call fillBigObject but failed. Did you implement the method?']);
+    return;
+  } catch (e) {
+    _result(false, [
+      'Caught an exception of type ${e.runtimeType} while running fillBigObject'
+    ]);
+    return;
+  }
+
+  final errs = &lt;String&gt;[];
+
+  if (obj.anInt != 1) {
+    errs.add(
+        'The value of anInt was ${obj.anInt} rather than the expected (1).');
+  }
+
+  if (obj.aString != 'String!') {
+    errs.add(
+        'The value of aString was \'${obj.aString}\' rather than the expected (\'String!\').');
+  }
+
+  if (obj.aList.length != 1) {
+    errs.add(
+        'The length of aList was ${obj.aList.length} rather than the expected value (1).');
+  } else {
+    if (obj.aList[0] != 3.0) {
+      errs.add(
+          'The value found in aList was ${obj.aList[0]} rather than the expected (3.0).');
+    }
+  }
+  
+  if (!obj._done) {
+    errs.add('It looks like allDone() wasn\'t called.');
+  }
+
+  if (errs.isEmpty) {
+    _result(true);
+  } else {
+    _result(false, errs);
+  }
+}
+{$ end test.dart $}
+{$ begin hint.txt $}
+The best solution for this exercise starts with obj.. and
+has four assignment operations chained together.
+Try starting with `return obj..anInt = 1`,
+then add another cascade (..) and start the next assignment.
+{$ end hint.txt $}
+</code></pre>
+
+<h2 id="getters-and-setters">
+<a class="anchor" href="#getters-and-setters" aria-hidden="true"><span class="octicon octicon-link"></span></a>Getters and setters</h2>
+
+<p>任何需要對屬性進行更多控制而不是允許簡單欄位存取的時候，你都可以自訂 getter 和 setter。</p>
+
+
+
+<p>例如，你可以用來確保屬性值合法：</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">class MyClass {
+  int _aProperty = 0;
+
+  int get aProperty =&gt; _aProperty;
+
+  set aProperty(int value) {
+    if (value &gt;= 0) {
+      _aProperty = value;
+    }
+  }
+}</code></pre></div>
+</div>
+
+<p>你還可以使用 getter 來定義計算屬性：</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">class MyClass {
+  final List&lt;int&gt; _values = [];
+
+  void addValue(int value) {
+    _values.add(value);
+  }
+
+  // A computed property.
+  int get count {
+    return _values.length;
+  }
+}</code></pre></div>
+</div>
+
+<h3 class="no_toc" id="code-example-7">Code example</h3>
+
+<h3 id="程式碼範例-7">
+<a class="anchor" href="#%E7%A8%8B%E5%BC%8F%E7%A2%BC%E7%AF%84%E4%BE%8B-7" aria-hidden="true"><span class="octicon octicon-link"></span></a>程式碼範例</h3>
+
+<p>想象你有一個購物車類，其中有一個私有的 <code class="language-plaintext highlighter-rouge">List&lt;double&gt;</code> 型別的 prices 屬性。新增以下內容：</p>
+
+
+
+<ul>
+  <li>
+    <p>一個名為 <code class="language-plaintext highlighter-rouge">total</code> 的 getter，用於返回總價格。</p>
+
+    
+  </li>
+  <li>
+    <p>只要新列表不包含任何負價格，
+setter 就會用新的列表替換列表（在這種情況下，setter 應該丟擲 <code class="language-plaintext highlighter-rouge">InvalidPriceException</code>）。</p>
+
+    
+  </li>
+</ul>
+
+<p>可以忽略以下程式碼一開始在 DartPad 中的錯誤。</p>
+
+
+
+<pre><code class="language-dart:run-dartpad:height-240px:ga_id-getters_setters">{$ begin main.dart $}
+class InvalidPriceException {}
+
+class ShoppingCart {
+  List&lt;double&gt; _prices = [];
+  
+  // Add a "total" getter here:
+
+  // Add a "prices" setter here:
+}
+{$ end main.dart $}
+{$ begin solution.dart $}
+class InvalidPriceException {}
+
+class ShoppingCart {
+  List&lt;double&gt; _prices = [];
+  
+  double get total =&gt; _prices.fold(0, (e, t) =&gt; e + t);
+  
+  set prices(List&lt;double&gt; value) {
+    if (value.any((p) =&gt; p &lt; 0)) {
+      throw InvalidPriceException();
+    }
+    
+    _prices = value;
+  }
+}
+{$ end solution.dart $}
+{$ begin test.dart $}
+void main() {
+  var foundException = false;
+  
+  try {
+    final cart = ShoppingCart();
+    cart.prices = [12.0, 12.0, -23.0];
+  } on InvalidPriceException {
+    foundException = true;
+  } catch (e) {
+    _result(false, ['Tried setting a negative price and received a ${e.runtimeType} instead of an InvalidPriceException.']);
+    return;
+  }
+  
+  if (!foundException) {
+    _result(false, ['Tried setting a negative price and didn\'t get an InvalidPriceException.']);
+    return;
+  }
+  
+  final secondCart = ShoppingCart();
+  
+  try {
+    secondCart.prices = [1.0, 2.0, 3.0];
+  } catch(e) {
+    _result(false, ['Tried setting prices with a valid list, but received an exception: ${e.runtimeType}.']);
+    return;
+  }
+  
+  if (secondCart._prices.length != 3) {
+    _result(false, ['Tried setting prices with a list of three values, but _prices ended up having length ${secondCart._prices.length}.']);
+    return;
+  }
+
+  if (secondCart._prices[0] != 1.0 || secondCart._prices[1] != 2.0 || secondCart._prices[2] != 3.0) {
+    final vals = secondCart._prices.map((p) =&gt; p.toString()).join(', ');
+    _result(false, ['Tried setting prices with a list of three values (1, 2, 3), but incorrect ones ended up in the price list ($vals) .']);
+    return;
+  }
+  
+  var sum = 0.0;
+  
+  try {
+    sum = secondCart.total;
+  } catch (e) {
+    _result(false, ['Tried to get total, but received an exception: ${e.runtimeType}.']);
+    return;
+  }
+  
+  if (sum != 6.0) {
+    _result(false, ['After setting prices to (1, 2, 3), total returned $sum instead of 6.']);
+    return;
+  }
+  
+  _result(true);
+}
+{$ end test.dart $}
+{$ begin hint.txt $}
+Two functions are handy for this exercise. 
+One is `fold`, which can reduce a list to a single value
+(try it to calculate the total).
+The other is `any`, which can check each item in a list
+with a function you give it
+(try using it to check if there are any negative prices in the prices setter).
+{$ end hint.txt $}
+</code></pre>
+
+<h2 id="optional-positional-parameters">
+<a class="anchor" href="#optional-positional-parameters" aria-hidden="true"><span class="octicon octicon-link"></span></a>可選位置引數</h2>
+
+
+
+<p>Dart 有兩種傳參方法：位置引數和命名引數。位置引數你可能會比較熟悉：</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">int sumUp(int a, int b, int c) {
+  return a + b + c;
+}
+// ···
+  int total = sumUp(1, 2, 3);</code></pre></div>
+</div>
+
+<p>在 Dart 裡，你可以將這些引數包裹在方括號中，使其變成可選位置引數：</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">int sumUpToFive(int a, [int? b, int? c, int? d, int? e]) {
+  int sum = a;
+  if (b != null) sum += b;
+  if (c != null) sum += c;
+  if (d != null) sum += d;
+  if (e != null) sum += e;
+  return sum;
+}
+// ···
+  int total = sumUpToFive(1, 2);
+  int otherTotal = sumUpToFive(1, 2, 3, 4, 5);</code></pre></div>
+</div>
+
+<p>可選位置引數永遠放在方法引數列表的最後。除非你給它們提供一個預設值，否則預設為 null:</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">int sumUpToFive(int a, [int b = 2, int c = 3, int d = 4, int e = 5]) {
+// ···
+}
+// ···
+  int newTotal = sumUpToFive(1);
+  print(newTotal); // &lt;-- prints 15</code></pre></div>
+</div>
+
+<h3 class="no_toc" id="code-example-8">Code example</h3>
+
+<h3 id="程式碼範例-8">
+<a class="anchor" href="#%E7%A8%8B%E5%BC%8F%E7%A2%BC%E7%AF%84%E4%BE%8B-8" aria-hidden="true"><span class="octicon octicon-link"></span></a>程式碼範例</h3>
+
+<p>實現一個名為 <code class="language-plaintext highlighter-rouge">joinWithCommas</code> 的方法，它接收一至五個整數，然後返回由逗號分隔的包含這些數字的字串。以下是方法呼叫和返回值的一些範例：</p>
+
+
+
+<table>
+  <thead>
+    <tr>
+      <th>
+<t>方法呼叫</t>
+</th>
+      <th>&nbsp;</th>
+      <th>
+<t>返回值</t>
+</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">joinWithCommas(1)</code></td>
+      <td>&nbsp;</td>
+      <td><code class="language-plaintext highlighter-rouge">'1'</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">joinWithCommas(1, 2, 3)</code></td>
+      <td>&nbsp;</td>
+      <td><code class="language-plaintext highlighter-rouge">'1,2,3'</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">joinWithCommas(1, 1, 1, 1, 1)</code></td>
+      <td>&nbsp;</td>
+      <td><code class="language-plaintext highlighter-rouge">'1,1,1,1,1'</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br></p>
+
+<pre><code class="language-dart:run-dartpad:ga_id-optional_positional_parameters">{$ begin main.dart $}
+String joinWithCommas(int a, [int? b, int? c, int? d, int? e]) {
+  return TODO();
+}
+{$ end main.dart $}
+{$ begin solution.dart $}
+String joinWithCommas(int a, [int? b, int? c, int? d, int? e]) {
+  var total = '$a';
+  if (b != null) total = '$total,$b';
+  if (c != null) total = '$total,$c';
+  if (d != null) total = '$total,$d';
+  if (e != null) total = '$total,$e';
+  return total;
+}
+{$ end solution.dart $}
+{$ begin test.dart $}
+void main() {
+  final errs = &lt;String&gt;[];
+  
+  try {
+    final value = joinWithCommas(1);
+    
+    if (value != '1') {
+      errs.add('Tried calling joinWithCommas(1) and got $value instead of the expected (\'1\').'); 
+    } 
+  } on UnimplementedError {
+    _result(false, ['Tried to call joinWithCommas but failed. Did you implement the method?']);
+    return;
+  } catch (e) {
+    _result(false, ['Tried calling joinWithCommas(1), but encountered an exception: ${e.runtimeType}.']);
+    return;
+  }
+
+  try {
+    final value = joinWithCommas(1, 2, 3);
+    
+    if (value != '1,2,3') {
+      errs.add('Tried calling joinWithCommas(1, 2, 3) and got $value instead of the expected (\'1,2,3\').'); 
+    } 
+  } on UnimplementedError {
+    _result(false, ['Tried to call joinWithCommas but failed. Did you implement the method?']);
+    return;
+  } catch (e) {
+    _result(false, ['Tried calling joinWithCommas(1, 2 ,3), but encountered an exception: ${e.runtimeType}.']);
+    return;
+  }
+
+  try {
+    final value = joinWithCommas(1, 2, 3, 4, 5);
+    
+    if (value != '1,2,3,4,5') {
+      errs.add('Tried calling joinWithCommas(1, 2, 3, 4, 5) and got $value instead of the expected (\'1,2,3,4,5\').'); 
+    } 
+  } on UnimplementedError {
+    _result(false, ['Tried to call joinWithCommas but failed. Did you implement the method?']);
+    return;
+  } catch (e) {
+    _result(false, ['Tried calling stringify(1, 2, 3, 4 ,5), but encountered an exception: ${e.runtimeType}.']);
+    return;
+  }
+
+  if (errs.isEmpty) {
+    _result(true);
+  } else {
+    _result(false, errs);
+  }
+}
+{$ end test.dart $}
+{$ begin hint.txt $}
+The b, c, d, and e parameters are null if they aren't provided by caller.
+The important thing, then, is to check whether those arguments are null
+before you add them to the final string.
+{$ end hint.txt $}
+</code></pre>
+
+<p><a id="optional-named-parameters"></a></p>
+<h2 id="named-parameters">
+<a class="anchor" href="#named-parameters" aria-hidden="true"><span class="octicon octicon-link"></span></a>命名引數</h2>
+
+
+
+<p>你可以在引數列表的靠後位置使用花括號 (<code class="language-plaintext highlighter-rouge">{}</code>) 來定義命名引數。</p>
+
+
+
+<p>除非顯式使用 <code class="language-plaintext highlighter-rouge">required</code> 進行標記，否則命名引數預設是可選的。</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">void printName(String firstName, String lastName, {String? middleName}) {
+  print('$firstName ${middleName ?? ''} $lastName');
+}
+// ···
+  printName('Dash', 'Dartisan');
+  printName('John', 'Smith', middleName: 'Who');
+  // Named arguments can be placed anywhere in the argument list
+  printName('John', middleName: 'Who', 'Smith');</code></pre></div>
+</div>
+
+<p>正如你所料，這些引數預設為 null，但你也可以為其提供預設值。</p>
+
+
+
+<p>如果一個引數的型別是非空的，那麼你必須要提供一個預設值（如下方程式碼所示），或者將其標記為 <code class="language-plaintext highlighter-rouge">required</code>（如 <a href="#using-this-in-a-constructor">構造部分</a>所示）。</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">void printName(String firstName, String lastName, {String middleName<span class="highlight"> = ''</span>}) {
+  print('$firstName $middleName $lastName');
+}</code></pre></div>
+</div>
+
+<p>一個方法不能同時使用可選位置引數和可選命名引數。</p>
+
+
+
+<h3 class="no_toc" id="code-example-9">Code example</h3>
+
+<h3 id="程式碼範例-9">
+<a class="anchor" href="#%E7%A8%8B%E5%BC%8F%E7%A2%BC%E7%AF%84%E4%BE%8B-9" aria-hidden="true"><span class="octicon octicon-link"></span></a>程式碼範例</h3>
+
+<p>向 <code class="language-plaintext highlighter-rouge">MyDataObject</code> 類新增一個 <code class="language-plaintext highlighter-rouge">copyWith()</code> 例項方法，它應該包含三個可空的命名引數。</p>
+
+
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">int? newInt</code></li>
+  <li><code class="language-plaintext highlighter-rouge">String? newString</code></li>
+  <li><code class="language-plaintext highlighter-rouge">double? newDouble</code></li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">copyWith</code> 方法應該根據當前例項返回一個新的
+<code class="language-plaintext highlighter-rouge">MyDataObject</code> 並將前面引數（如果有的話）的資料複製到物件的屬性中。例如，如果 <code class="language-plaintext highlighter-rouge">newInt</code> 不為空，則將其值複製到 <code class="language-plaintext highlighter-rouge">anInt</code> 中。</p>
+
+
+
+<p>可以忽略以下程式碼一開始在 DartPad 中的錯誤。</p>
+
+
+
+<pre><code class="language-dart:run-dartpad:height-310px:ga_id-optional_named_parameters">{$ begin main.dart $}
+class MyDataObject {
+  final int anInt;
+  final String aString;
+  final double aDouble;
+
+  MyDataObject({
+     this.anInt = 1,
+     this.aString = 'Old!',
+     this.aDouble = 2.0,
+  });
+
+  // Add your copyWith method here:
+}
+{$ end main.dart $}
+{$ begin solution.dart $}
+class MyDataObject {
+  final int anInt;
+  final String aString;
+  final double aDouble;
+
+  MyDataObject({
+     this.anInt = 1,
+     this.aString = 'Old!',
+     this.aDouble = 2.0,
+  });
+
+  MyDataObject copyWith({int? newInt, String? newString, double? newDouble}) {
+    return MyDataObject(
+      anInt: newInt ?? this.anInt,
+      aString: newString ?? this.aString,
+      aDouble: newDouble ?? this.aDouble,
+    );
+  }
+}
+{$ end solution.dart $}
+{$ begin test.dart $}
+void main() {
+  final source = MyDataObject();
+  final errs = &lt;String&gt;[];
+  
+  try {
+    final copy = source.copyWith(newInt: 12, newString: 'New!', newDouble: 3.0);
+    
+    if (copy.anInt != 12) {
+      errs.add('Called copyWith(newInt: 12, newString: \'New!\', newDouble: 3.0), and the new object\'s anInt was ${copy.anInt} rather than the expected value (12).');
+    }
+    
+    if (copy.aString != 'New!') {
+      errs.add('Called copyWith(newInt: 12, newString: \'New!\', newDouble: 3.0), and the new object\'s aString was ${copy.aString} rather than the expected value (\'New!\').');
+    }
+    
+    if (copy.aDouble != 3) {
+      errs.add('Called copyWith(newInt: 12, newString: \'New!\', newDouble: 3.0), and the new object\'s aDouble was ${copy.aDouble} rather than the expected value (3).');
+    }
+  } catch (e) {
+    _result(false, ['Called copyWith(newInt: 12, newString: \'New!\', newDouble: 3.0) and got an exception: ${e.runtimeType}']);
+  }
+  
+  try {
+    final copy = source.copyWith();
+    
+    if (copy.anInt != 1) {
+      errs.add('Called copyWith(), and the new object\'s anInt was ${copy.anInt} rather than the expected value (1).');
+    }
+    
+    if (copy.aString != 'Old!') {
+      errs.add('Called copyWith(), and the new object\'s aString was ${copy.aString} rather than the expected value (\'Old!\').');
+    }
+    
+    if (copy.aDouble != 2) {
+      errs.add('Called copyWith(), and the new object\'s aDouble was ${copy.aDouble} rather than the expected value (2).');
+    }
+  } catch (e) {
+    _result(false, ['Called copyWith() and got an exception: ${e.runtimeType}']);
+  }
+  
+  if (errs.isEmpty) {
+    _result(true);
+  } else {
+    _result(false, errs);
+  }
+}
+{$ end test.dart $}
+{$ begin hint.txt $}
+The copyWith method shows up in a lot of classes and libraries.
+Yours should do a few things:
+use optional named parameters,
+create a new instance of MyDataObject,
+and use the data from the parameters to fill it
+(or the data from the current instance if the parameters are null).
+This is a chance to get more practice with the ?? operator!
+{$ end hint.txt $}
+</code></pre>
+
+<h2 id="exceptions">
+<a class="anchor" href="#exceptions" aria-hidden="true"><span class="octicon octicon-link"></span></a>例外</h2>
+
+
+
+<p>Dart 程式碼可以丟擲和捕獲例外。與 Java 相比，Dart 的所有例外都是 unchecked exception。方法不會宣告它們可能丟擲的例外，你也不需要捕獲任何例外。</p>
+
+
+
+<p>雖然 Dart 提供了 Exception 和 Error 型別，但是你可以丟擲任何非空物件：</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">throw Exception('Something bad happened.');
+throw 'Waaaaaaah!';</code></pre></div>
+</div>
+
+<p>使用 <code class="language-plaintext highlighter-rouge">try</code>、<code class="language-plaintext highlighter-rouge">on</code> 以及 <code class="language-plaintext highlighter-rouge">catch</code> 關鍵字來處理例外：</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">try {
+  breedMoreLlamas();
+} on OutOfLlamasException {
+  // A specific exception
+  buyMoreLlamas();
+} on Exception catch (e) {
+  // Anything else that is an exception
+  print('Unknown exception: $e');
+} catch (e) {
+  // No specified type, handles all
+  print('Something really unknown: $e');
+}</code></pre></div>
+</div>
+
+<p>The <code class="language-plaintext highlighter-rouge">try</code> keyword works as it does in most other languages.
+Use the <code class="language-plaintext highlighter-rouge">on</code> keyword to filter for specific exceptions by type,
+and the <code class="language-plaintext highlighter-rouge">catch</code> keyword to get a reference to the exception object.</p>
+
+<p>如果你無法完全處理該例外，請使用 <code class="language-plaintext highlighter-rouge">rethrow</code> 關鍵字再次丟擲例外：</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">try {
+  breedMoreLlamas();
+} catch (e) {
+  print('I was just trying to breed llamas!');
+  rethrow;
+}</code></pre></div>
+</div>
+
+<p>要執行一段無論是否丟擲例外都會執行的程式碼，請使用 <code class="language-plaintext highlighter-rouge">finally</code>：</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">try {
+  breedMoreLlamas();
+} catch (e) {
+  // ... handle exception ...
+} finally {
+  // Always clean up, even if an exception is thrown.
+  cleanLlamaStalls();
+}</code></pre></div>
+</div>
+
+<h3 class="no_toc" id="code-example-10">Code example</h3>
+
+<h3 id="程式碼範例-10">
+<a class="anchor" href="#%E7%A8%8B%E5%BC%8F%E7%A2%BC%E7%AF%84%E4%BE%8B-10" aria-hidden="true"><span class="octicon octicon-link"></span></a>程式碼範例</h3>
+
+<p>在下面實現 <code class="language-plaintext highlighter-rouge">tryFunction()</code> 方法。它應該會執行一個不可靠的方法，然後做以下操作：</p>
+
+
+
+<ul>
+  <li>
+    <p>如果 <code class="language-plaintext highlighter-rouge">untrustworthy()</code> 丟擲了 <code class="language-plaintext highlighter-rouge">ExceptionWithMessage</code>，則呼叫 <code class="language-plaintext highlighter-rouge">logger.logException</code> 並傳入使用例外型別和訊息（嘗試使用 <code class="language-plaintext highlighter-rouge">on</code> 和 <code class="language-plaintext highlighter-rouge">catch</code>）。</p>
+
+    
+  </li>
+  <li>
+    <p>如果 <code class="language-plaintext highlighter-rouge">untrustworthy()</code> 丟擲了一個 <code class="language-plaintext highlighter-rouge">Exception</code>，則呼叫 <code class="language-plaintext highlighter-rouge">logger.logException</code> 並傳入使用例外型別（這次請嘗試使用 <code class="language-plaintext highlighter-rouge">on</code>）。</p>
+
+    
+  </li>
+  <li>
+    <p>如果 <code class="language-plaintext highlighter-rouge">untrustworthy()</code> 丟擲了其他物件，請不要捕獲該例外。</p>
+
+    
+  </li>
+  <li>
+    <p>捕獲並處理完所有內容後，呼叫 <code class="language-plaintext highlighter-rouge">logger.doneLogging</code>（嘗試使用 <code class="language-plaintext highlighter-rouge">finally</code>）。</p>
+
+    
+  </li>
+</ul>
+
+<pre><code class="language-dart:run-dartpad:height-420px:ga_id-exceptions">{$ begin main.dart $}
+typedef VoidFunction = void Function();
+
+class ExceptionWithMessage {
+  final String message;
+  const ExceptionWithMessage(this.message);
+}
+
+// Call logException to log an exception, and doneLogging when finished.
+abstract class Logger {
+  void logException(Type t, [String? msg]);
+  void doneLogging();
+}
+
+void tryFunction(VoidFunction untrustworthy, Logger logger) {
+  // Invoking this method might cause an exception. Catch and handle
+  // them using try-on-catch-finally.
+  untrustworthy();
+}
+{$ end main.dart $}
+{$ begin solution.dart $}
+typedef VoidFunction = void Function();
+
+class ExceptionWithMessage {
+  final String message;
+  const ExceptionWithMessage(this.message);
+}
+
+abstract class Logger {
+  void logException(Type t, [String? msg]);
+  void doneLogging();
+}
+
+void tryFunction(VoidFunction untrustworthy, Logger logger) {
+  try {
+    untrustworthy();
+  } on ExceptionWithMessage catch (e) {
+    logger.logException(e.runtimeType, e.message);
+  } on Exception {
+    logger.logException(Exception);
+  } finally {
+    logger.doneLogging();
+  }
+}
+{$ end solution.dart $}
+{$ begin test.dart $}
+class MyLogger extends Logger {
+  Type? lastType;
+  String lastMessage = '';
+  bool done = false;
+  
+  void logException(Type t, [String? message]) {
+    lastType = t;
+    lastMessage = message ?? lastMessage;
+  }
+  
+  void doneLogging() =&gt; done = true;  
+}
+
+void main() {
+  final errs = &lt;String&gt;[];
+  var logger = MyLogger();
+  
+  try {
+    tryFunction(() =&gt; throw Exception(), logger);
+  
+    if ('${logger.lastType}' != 'Exception' &amp;&amp; '${logger.lastType}' != '_Exception') {
+      errs.add('Untrustworthy threw an Exception, but a different type was logged: ${logger.lastType}.');
+    }
+    
+    if (logger.lastMessage != '') {
+      errs.add('Untrustworthy threw an Exception with no message, but a message was logged anyway: \'${logger.lastMessage}\'.');
+    }
+    
+    if (!logger.done) {
+      errs.add('Untrustworthy threw an Exception, and doneLogging() wasn\'t called afterward.');
+    }
+  } catch (e) {
+    _result(false, ['Untrustworthy threw an exception, and an exception of type ${e.runtimeType} was unhandled by tryFunction.']);
+  }
+  
+  logger = MyLogger();
+  
+  try {
+    tryFunction(() =&gt; throw ExceptionWithMessage('Hey!'), logger);
+  
+    if (logger.lastType != ExceptionWithMessage) {
+      errs.add('Untrustworthy threw an ExceptionWithMessage(\'Hey!\'), but a different type was logged: ${logger.lastType}.');
+    }
+    
+    if (logger.lastMessage != 'Hey!') {
+      errs.add('Untrustworthy threw an ExceptionWithMessage(\'Hey!\'), but a different message was logged: \'${logger.lastMessage}\'.');
+    }
+    
+    if (!logger.done) {
+      errs.add('Untrustworthy threw an ExceptionWithMessage(\'Hey!\'), and doneLogging() wasn\'t called afterward.');
+    }
+  } catch (e) {
+    _result(false, ['Untrustworthy threw an ExceptionWithMessage(\'Hey!\'), and an exception of type ${e.runtimeType} was unhandled by tryFunction.']);
+  }
+  
+  logger = MyLogger();
+  bool caughtStringException = false;
+
+  try {
+    tryFunction(() =&gt; throw 'A String', logger);
+  } on String {
+    caughtStringException = true;
+  }
+
+  if (!caughtStringException) {
+    errs.add('Untrustworthy threw a string, and it was incorrectly handled inside tryFunction().');
+  }
+  
+  logger = MyLogger();
+  
+  try {
+    tryFunction(() {}, logger);
+  
+    if (logger.lastType != null) {
+      errs.add('Untrustworthy didn\'t throw an Exception, but one was logged anyway: ${logger.lastType}.');
+    }
+    
+    if (logger.lastMessage != '') {
+      errs.add('Untrustworthy didn\'t throw an Exception with no message, but a message was logged anyway: \'${logger.lastMessage}\'.');
+    }
+    
+    if (!logger.done) {
+      errs.add('Untrustworthy didn\'t throw an Exception, but doneLogging() wasn\'t called afterward.');
+    }
+  } catch (e) {
+    _result(false, ['Untrustworthy didn\'t throw an exception, but an exception of type ${e.runtimeType} was unhandled by tryFunction anyway.']);
+  }
+  
+  if (errs.isEmpty) {
+    _result(true);
+  } else {
+    _result(false, errs);
+  }
+}
+{$ end test.dart $}
+{$ begin hint.txt $}
+This exercise looks tricky, but it's really one big `try` statement.
+Just call `untrustworthy` inside the `try`, and
+then use `on`, `catch`, and `finally` to catch exceptions and
+call methods on the logger.
+{$ end hint.txt $}
+</code></pre>
+
+<h2 id="using-this-in-a-constructor">
+<a class="anchor" href="#using-this-in-a-constructor" aria-hidden="true"><span class="octicon octicon-link"></span></a>在構造方法中使用 <code class="language-plaintext highlighter-rouge">this</code>
+</h2>
+
+
+
+<p>Dart 提供了一個方便的快捷方式，用於為構造方法中的屬性賦值：在宣告構造方法時使用 <code class="language-plaintext highlighter-rouge">this.propertyName</code>。</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">class MyColor {
+  int red;
+  int green;
+  int blue;
+
+  MyColor(this.red, this.green, this.blue);
+}
+
+final color = MyColor(80, 80, 128);</code></pre></div>
+</div>
+
+<p>此技巧同樣也適用於命名引數。屬性名為引數的名稱：</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">class MyColor {
+  ...
+
+  MyColor({required this.red, required this.green, required this.blue});
+}
+
+final color = MyColor(red: 80, green: 80, blue: 80);</code></pre></div>
+</div>
+
+<p>在上面的程式碼中，<code class="language-plaintext highlighter-rouge">red</code>、<code class="language-plaintext highlighter-rouge">green</code> 和 <code class="language-plaintext highlighter-rouge">blue</code> 被標記為 <code class="language-plaintext highlighter-rouge">required</code>，因為這些 <code class="language-plaintext highlighter-rouge">int</code> 數值不能為空。如果你指定了預設值，你可以忽略 <code class="language-plaintext highlighter-rouge">required</code>。</p><p>對於可選引數，預設值為期望值：</p>
+
+
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">MyColor([this.red = 0, this.green = 0, this.blue = 0]);
+// or
+MyColor({this.red = 0, this.green = 0, this.blue = 0});</code></pre></div>
+</div>
+
+<h3 class="no_toc" id="code-example-11">Code example</h3>
+
+<h3 id="程式碼範例-11">
+<a class="anchor" href="#%E7%A8%8B%E5%BC%8F%E7%A2%BC%E7%AF%84%E4%BE%8B-11" aria-hidden="true"><span class="octicon octicon-link"></span></a>程式碼範例</h3>
+
+<p>使用 <code class="language-plaintext highlighter-rouge">this</code> 語法向 <code class="language-plaintext highlighter-rouge">MyClass</code> 新增一行構造方法，並接收和分配全部（三個）屬性。</p>
+
+
+
+<p>可以忽略以下程式碼一開始在 DartPad 中的錯誤。</p>
+
+
+
+<pre><code class="language-dart:run-dartpad:ga_id-this_constructor">{$ begin main.dart $}
+class MyClass {
+  final int anInt;
+  final String aString;
+  final double aDouble;
+  
+  // Create a constructor here.
+}
+{$ end main.dart $}
+{$ begin solution.dart $}
+class MyClass {
+  final int anInt;
+  final String aString;
+  final double aDouble;
+  
+  MyClass(this.anInt, this.aString, this.aDouble);
+}
+{$ end solution.dart $}
+{$ begin test.dart $}
+void main() {
+  final errs = &lt;String&gt;[];
+  
+  try {
+    final obj = MyClass(1, 'two', 3);
+    
+    if (obj.anInt != 1) {
+      errs.add('Called MyClass(1, \'two\', 3) and got an object with anInt of ${obj.anInt} instead of the expected value (1).');
+    }
+
+    if (obj.anInt != 1) {
+      errs.add('Called MyClass(1, \'two\', 3) and got an object with aString of \'${obj.aString}\' instead of the expected value (\'two\').');
+    }
+
+    if (obj.anInt != 1) {
+      errs.add('Called MyClass(1, \'two\', 3) and got an object with aDouble of ${obj.aDouble} instead of the expected value (3).');
+    }
+  } catch (e) {
+    _result(false, ['Called MyClass(1, \'two\', 3) and got an exception of type ${e.runtimeType}.']);
+  }
+  
+  if (errs.isEmpty) {
+    _result(true);
+  } else {
+    _result(false, errs);
+  }
+}
+{$ end test.dart $}
+{$ begin hint.txt $}
+This exercise has a one-line solution.
+Just declare the constructor with
+`this.anInt`, `this.aString`, and `this.aDouble`
+as its parameters in that order.
+{$ end hint.txt $}
+</code></pre>
+
+<h2 id="initializer-lists">
+<a class="anchor" href="#initializer-lists" aria-hidden="true"><span class="octicon octicon-link"></span></a>Initializer lists</h2>
+
+<p>有時，當你在實現建構函式時，您需要在建構函式體執行之前進行一些初始化。例如，final 修飾的欄位必須在建構函式體執行之前賦值。在初始化列表中執行此操作，該列表位於建構函式的簽名與其函式體之間：</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">Point.fromJson(Map&lt;String, double&gt; json)
+    : x = json['x']!,
+      y = json['y']! {
+  print('In Point.fromJson(): ($x, $y)');
+}</code></pre></div>
+</div>
+
+<p>初始化列表也是放置斷言的便利位置，它僅會在開發期間執行：</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">NonNegativePoint(this.x, this.y)
+    : assert(x &gt;= 0),
+      assert(y &gt;= 0) {
+  print('I just made a NonNegativePoint: ($x, $y)');
+}</code></pre></div>
+</div>
+
+<h3 class="no_toc" id="code-example-12">Code example</h3>
+
+<h3 id="程式碼範例-12">
+<a class="anchor" href="#%E7%A8%8B%E5%BC%8F%E7%A2%BC%E7%AF%84%E4%BE%8B-12" aria-hidden="true"><span class="octicon octicon-link"></span></a>程式碼範例</h3>
+
+<p>完成下面的 <code class="language-plaintext highlighter-rouge">FirstTwoLetters</code> 的建構函式。使用的初始化列表將 <code class="language-plaintext highlighter-rouge">word</code> 的前兩個字元分配給 <code class="language-plaintext highlighter-rouge">letterOne</code> 和 <code class="language-plaintext highlighter-rouge">LetterTwo</code> 屬性。要獲得額外的信用，請新增一個 <code class="language-plaintext highlighter-rouge">斷言</code> 以捕獲少於兩個字元的單詞。</p>
+
+
+
+<p>可以忽略以下程式碼一開始在 DartPad 中的錯誤。</p>
+
+
+
+<pre><code class="language-dart:run-dartpad:ga_id-initializer_lists">{$ begin main.dart $}
+class FirstTwoLetters {
+  final String letterOne;
+  final String letterTwo;
+
+  // Create a constructor with an initializer list here:
+  FirstTwoLetters(String word)
+    ...
+}
+{$ end main.dart $}
+{$ begin solution.dart $}
+class FirstTwoLetters {
+  final String letterOne;
+  final String letterTwo;
+
+  FirstTwoLetters(String word)
+      : assert(word.length &gt;= 2),
+        letterOne = word[0],
+        letterTwo = word[1];
+}
+{$ end solution.dart $}
+{$ begin test.dart $}
+void main() {
+  final errs = &lt;String&gt;[];
+
+  try {
+    final result = FirstTwoLetters('My String');
+    
+    if (result.letterOne != 'M') {
+      errs.add('Called FirstTwoLetters(\'My String\') and got an object with letterOne equal to \'${result.letterOne}\' instead of the expected value (\'M\').');
+    }
+
+    if (result.letterTwo != 'y') {
+      errs.add('Called FirstTwoLetters(\'My String\') and got an object with letterTwo equal to \'${result.letterTwo}\' instead of the expected value (\'y\').');
+    }
+  } catch (e) {
+    errs.add('Called FirstTwoLetters(\'My String\') and got an exception of type ${e.runtimeType}.');
+  }
+
+  bool caughtException = false;
+  
+  try {
+    FirstTwoLetters('');
+  } catch (e) {
+    caughtException = true;
+  }
+  
+  if (!caughtException) {
+    errs.add('Called FirstTwoLetters(\'\') and didn\'t get an exception from the failed assertion.');
+  }
+  
+  if (errs.isEmpty) {
+    _result(true);
+  } else {
+    _result(false, errs);
+  }
+}
+{$ end test.dart $}
+{$ begin hint.txt $}
+Two assignments need to happen:
+letterOne should be word[0], and letterTwo should be word[1].
+{$ end hint.txt $}
+</code></pre>
+
+<h2 id="named-constructors">
+<a class="anchor" href="#named-constructors" aria-hidden="true"><span class="octicon octicon-link"></span></a>命名構造方法</h2>
+
+
+
+<p>為了允許一個類別具有多個構造方法，
+Dart 支援命名構造方法：</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">class Point {
+  double x, y;
+
+  Point(this.x, this.y);
+
+  Point.origin()
+      : x = 0,
+        y = 0;
+}</code></pre></div>
+</div>
+
+<p>為了使用命名構造方法，請使用全名呼叫它：</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">final myPoint = Point.origin();</code></pre></div>
+</div>
+
+<h3 class="no_toc" id="code-example-13">Code example</h3>
+
+<h3 id="程式碼範例-13">
+<a class="anchor" href="#%E7%A8%8B%E5%BC%8F%E7%A2%BC%E7%AF%84%E4%BE%8B-13" aria-hidden="true"><span class="octicon octicon-link"></span></a>程式碼範例</h3>
+
+<p>給 <code class="language-plaintext highlighter-rouge">Color</code> 類新增一個叫做 <code class="language-plaintext highlighter-rouge">Color.black</code> 的方法，它將會把三個屬性的值都設為 0。</p>
+
+
+
+<p>可以忽略以下程式碼一開始在 DartPad 中的錯誤。</p>
+
+
+
+<pre><code class="language-dart:run-dartpad:height-240px:ga_id-named_constructors">{$ begin main.dart $}
+class Color {
+  int red;
+  int green;
+  int blue;
+  
+  Color(this.red, this.green, this.blue);
+
+  // Create a named constructor called "Color.black" here:
+}
+{$ end main.dart $}
+{$ begin solution.dart $}
+class Color {
+  int red;
+  int green;
+  int blue;
+  
+  Color(this.red, this.green, this.blue);
+
+  Color.black()
+      : red = 0,
+        green = 0,
+        blue = 0;
+}
+{$ end solution.dart $}
+{$ begin test.dart $}
+void main() {
+  final errs = &lt;String&gt;[];
+
+  try {
+    final result = Color.black();
+    
+    if (result.red != 0) {
+      errs.add('Called Color.black() and got a Color with red equal to ${result.red} instead of the expected value (0).');
+    }
+
+    if (result.green != 0) {
+      errs.add('Called Color.black() and got a Color with green equal to ${result.green} instead of the expected value (0).');
+    }
+
+    if (result.blue != 0) {
+  errs.add('Called Color.black() and got a Color with blue equal to ${result.blue} instead of the expected value (0).');
+    }
+  } catch (e) {
+    _result(false, ['Called Color.black() and got an exception of type ${e.runtimeType}.']);
+    return;
+  }
+
+  if (errs.isEmpty) {
+    _result(true);
+  } else {
+    _result(false, errs);
+  }
+}
+{$ end test.dart $}
+{$ begin hint.txt $}
+The declaration for your constructor should be `Color.black() {}`.
+Inside the braces, set red, green, and blue to zero.
+{$ end hint.txt $}
+</code></pre>
+
+<h2 id="factory-constructors">
+<a class="anchor" href="#factory-constructors" aria-hidden="true"><span class="octicon octicon-link"></span></a>工廠構造方法</h2>
+
+
+
+<p>Dart 支援工廠構造方法。它能夠返回其子類別甚至 null 物件。要建立一個工廠構造方法，請使用 <code class="language-plaintext highlighter-rouge">factory</code> 關鍵字。</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">class Square extends Shape {}
+
+class Circle extends Shape {}
+
+class Shape {
+  Shape();
+
+  factory Shape.fromTypeName(String typeName) {
+    if (typeName == 'square') return Square();
+    if (typeName == 'circle') return Circle();
+
+    throw ArgumentError('Unrecognized $typeName');
+  }
+}</code></pre></div>
+</div>
+
+<h3 class="no_toc" id="code-example-14">Code example</h3>
+
+<h3 id="程式碼範例-14">
+<a class="anchor" href="#%E7%A8%8B%E5%BC%8F%E7%A2%BC%E7%AF%84%E4%BE%8B-14" aria-hidden="true"><span class="octicon octicon-link"></span></a>程式碼範例</h3>
+
+<p>填寫名為 <code class="language-plaintext highlighter-rouge">IntegerHolder.fromList</code> 的工廠構造方法，使其執行以下操作：</p>
+
+
+
+<ul>
+  <li>
+    <p>若列表只有<strong>一個</strong>值，那麼就用它來建立一個 <code class="language-plaintext highlighter-rouge">IntegerSingle</code>。</p>
+
+    
+  </li>
+  <li>
+    <p>如果這個列表有兩個值，那麼按其順序建立一個 <code class="language-plaintext highlighter-rouge">IntegerDouble</code>。</p>
+
+    
+  </li>
+  <li>
+    <p>如果這個列表有三個值，那麼按其順序建立一個 <code class="language-plaintext highlighter-rouge">IntegerTriple</code>。</p>
+
+    
+  </li>
+  <li>
+    <p>否則，丟擲一個 <code class="language-plaintext highlighter-rouge">Error</code>。</p>
+
+    
+  </li>
+</ul>
+
+<pre><code class="language-dart:run-dartpad:height-415px:ga_id-factory_constructors">{$ begin main.dart $}
+class IntegerHolder {
+  IntegerHolder();
+  
+  // Implement this factory constructor.
+  factory IntegerHolder.fromList(List&lt;int&gt; list) {
+    TODO();
+  }
+}
+
+class IntegerSingle extends IntegerHolder {
+  final int a;
+  IntegerSingle(this.a); 
+}
+
+class IntegerDouble extends IntegerHolder {
+  final int a;
+  final int b;
+  IntegerDouble(this.a, this.b); 
+}
+
+class IntegerTriple extends IntegerHolder {
+  final int a;
+  final int b;
+  final int c;
+  IntegerTriple(this.a, this.b, this.c); 
+}
+{$ end main.dart $}
+{$ begin solution.dart $}
+class IntegerHolder {
+  IntegerHolder();
+  
+  factory IntegerHolder.fromList(List&lt;int&gt; list) {
+    if (list.length == 1) {
+      return IntegerSingle(list[0]);
+    } else if (list.length == 2) {
+      return IntegerDouble(list[0], list[1]);
+    } else if (list.length == 3) {
+      return IntegerTriple(list[0], list[1], list[2]);
+    } else {
+      throw Error();
+    } 
+  }
+}
+
+class IntegerSingle extends IntegerHolder {
+  final int a;
+  IntegerSingle(this.a); 
+}
+
+class IntegerDouble extends IntegerHolder {
+  final int a;
+  final int b;
+  IntegerDouble(this.a, this.b); 
+}
+
+class IntegerTriple extends IntegerHolder {
+  final int a;
+  final int b;
+  final int c;
+  IntegerTriple(this.a, this.b, this.c); 
+}
+{$ end solution.dart $}
+{$ begin test.dart $}
+void main() {
+  final errs = &lt;String&gt;[];
+
+  bool _throwed = false;
+  try {
+    IntegerHolder.fromList([]);
+  } on UnimplementedError {
+    _result(false, ['Test failed. Did you implement the method?']);
+    return;
+  } on Error {
+    _throwed = true;
+  } catch (e) {
+    _result(false, ['Called IntegerSingle.fromList([]) and got an exception of type ${e.runtimeType}.']);
+    return;
+  }
+  
+  if (!_throwed) {
+    errs.add('Called IntegerSingle.fromList([]) and didn\'t throw Error.');
+  } 
+
+  try {
+    final obj = IntegerHolder.fromList([1]);
+    
+    if (obj is! IntegerSingle) {
+      errs.add('Called IntegerHolder.fromList([1]) and got an object of type ${obj.runtimeType} instead of IntegerSingle.');
+    } else {
+      if (obj.a != 1) {
+        errs.add('Called IntegerHolder.fromList([1]) and got an IntegerSingle with an \'a\' value of ${obj.a} instead of the expected (1).');
+      }
+    }
+  } catch (e) {
+    _result(false, ['Called IntegerHolder.fromList([]) and got an exception of type ${e.runtimeType}.']);
+    return;
+  }
+
+  try {
+    final obj = IntegerHolder.fromList([1, 2]);
+    
+    if (obj is! IntegerDouble) {
+      errs.add('Called IntegerHolder.fromList([1, 2]) and got an object of type ${obj.runtimeType} instead of IntegerDouble.');
+    } else {
+      if (obj.a != 1) {
+        errs.add('Called IntegerHolder.fromList([1, 2]) and got an IntegerDouble with an \'a\' value of ${obj.a} instead of the expected (1).');
+      }
+      
+      if (obj.b != 2) {
+        errs.add('Called IntegerHolder.fromList([1, 2]) and got an IntegerDouble with an \'b\' value of ${obj.b} instead of the expected (2).');
+      }
+    }
+  } catch (e) {
+    _result(false, ['Called IntegerHolder.fromList([1, 2]) and got an exception of type ${e.runtimeType}.']);
+    return;
+  }
+
+  try {
+    final obj = IntegerHolder.fromList([1, 2, 3]);
+    
+    if (obj is! IntegerTriple) {
+      errs.add('Called IntegerHolder.fromList([1, 2, 3]) and got an object of type ${obj.runtimeType} instead of IntegerTriple.');
+    } else {
+      if (obj.a != 1) {
+        errs.add('Called IntegerHolder.fromList([1, 2, 3]) and got an IntegerTriple with an \'a\' value of ${obj.a} instead of the expected (1).');
+      }
+      
+      if (obj.b != 2) {
+        errs.add('Called IntegerHolder.fromList([1, 2, 3]) and got an IntegerTriple with an \'a\' value of ${obj.b} instead of the expected (2).');
+      }
+
+      if (obj.c != 3) {
+        errs.add('Called IntegerHolder.fromList([1, 2, 3]) and got an IntegerTriple with an \'a\' value of ${obj.b} instead of the expected (2).');
+      }
+    }
+  } catch (e) {
+    _result(false, ['Called IntegerHolder.fromList([1, 2, 3]) and got an exception of type ${e.runtimeType}.']);
+    return;
+  }
+
+  if (errs.isEmpty) {
+    _result(true);
+  } else {
+    _result(false, errs);
+  }
+}
+{$ end test.dart $}
+{$ begin hint.txt $}
+Inside the factory constructor,
+check the length of the list and create an
+IntegerSingle, IntegerDouble, or IntegerTriple as appropriate.
+{$ end hint.txt $}
+</code></pre>
+
+<h2 id="redirecting-constructors">
+<a class="anchor" href="#redirecting-constructors" aria-hidden="true"><span class="octicon octicon-link"></span></a>重新導向構造方法</h2>
+
+
+
+<p>有時一個構造方法僅僅用來重新導向到該類別的另一個構造方法。重新導向方法沒有主體，它在冒號（<code class="language-plaintext highlighter-rouge">:</code>）之後呼叫另一個構造方法。</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">class Automobile {
+  String make;
+  String model;
+  int mpg;
+
+  // The main constructor for this class.
+  Automobile(this.make, this.model, this.mpg);
+
+  // Delegates to the main constructor.
+  Automobile.hybrid(String make, String model) : this(make, model, 60);
+
+  // Delegates to a named constructor
+  Automobile.fancyHybrid() : this.hybrid('Futurecar', 'Mark 2');
+}</code></pre></div>
+</div>
+
+<h3 class="no_toc" id="code-example-15">Code example</h3>
+
+<h3 id="程式碼範例-15">
+<a class="anchor" href="#%E7%A8%8B%E5%BC%8F%E7%A2%BC%E7%AF%84%E4%BE%8B-15" aria-hidden="true"><span class="octicon octicon-link"></span></a>程式碼範例</h3>
+
+<p>還記得我們之前提到的 <code class="language-plaintext highlighter-rouge">Color</code> 類嗎？建立一個叫做 <code class="language-plaintext highlighter-rouge">black</code> 的命名構造方法，但這次我們不要手動分配屬性，而是將 0 作為引數，重新導向到預設的構造方法。</p>
+
+
+
+<p>可以忽略以下程式碼一開始在 DartPad 中的錯誤。</p>
+
+
+
+<pre><code class="language-dart:run-dartpad:height-255px:ga_id-redirecting_constructors">{$ begin main.dart $}
+class Color {
+  int red;
+  int green;
+  int blue;
+  
+  Color(this.red, this.green, this.blue);
+
+  // Create a named constructor called "black" here and redirect it
+  // to call the existing constructor
+}
+{$ end main.dart $}
+{$ begin solution.dart $}
+class Color {
+  int red;
+  int green;
+  int blue;
+  
+  Color(this.red, this.green, this.blue);
+
+  Color.black() : this(0, 0, 0);
+}
+{$ end solution.dart $}
+{$ begin test.dart $}
+void main() {
+  final errs = &lt;String&gt;[];
+
+  try {
+    final result = Color.black();
+    
+    if (result.red != 0) {
+      errs.add('Called Color.black() and got a Color with red equal to ${result.red} instead of the expected value (0).');
+    }
+
+    if (result.green != 0) {
+      errs.add('Called Color.black() and got a Color with green equal to ${result.green} instead of the expected value (0).');
+    }
+
+    if (result.blue != 0) {
+  errs.add('Called Color.black() and got a Color with blue equal to ${result.blue} instead of the expected value (0).');
+    }
+  } catch (e) {
+    _result(false, ['Called Color.black() and got an exception of type ${e.runtimeType}.']);
+    return;
+  }
+
+  if (errs.isEmpty) {
+    _result(true);
+  } else {
+    _result(false, errs);
+  }
+}
+{$ end test.dart $}
+{$ begin hint.txt $}
+Your constructor should redirect to `this(0, 0, 0)`.
+{$ end hint.txt $}
+</code></pre>
+
+<h2 id="const-constructors">
+<a class="anchor" href="#const-constructors" aria-hidden="true"><span class="octicon octicon-link"></span></a>Const 構造方法</h2>
+
+
+
+<p>如果你的類產生的物件永遠都不會更改，則可以讓這些物件成為編譯時常量。為此，請定義 <code class="language-plaintext highlighter-rouge">const</code> 構造方法並確保所有例項變數都是 final 的。</p>
+
+
+
+<div class="code-excerpt">
+<div class="code-excerpt__code"><pre><code class="dart prettyprint lang-dart">class ImmutablePoint {
+  static const ImmutablePoint origin = ImmutablePoint(0, 0);
+
+  final int x;
+  final int y;
+
+  const ImmutablePoint(this.x, this.y);
+}</code></pre></div>
+</div>
+
+<h3 class="no_toc" id="code-example-16">Code example</h3>
+
+<h3 id="程式碼範例-16">
+<a class="anchor" href="#%E7%A8%8B%E5%BC%8F%E7%A2%BC%E7%AF%84%E4%BE%8B-16" aria-hidden="true"><span class="octicon octicon-link"></span></a>程式碼範例</h3>
+
+<p>修改 <code class="language-plaintext highlighter-rouge">Recipe</code> 類，使其例項成為常量，並建立一個執行以下操作的常量構造方法：</p>
+
+
+
+<ul>
+  <li>
+    <p>該方法有三個引數：<code class="language-plaintext highlighter-rouge">ingredients</code>、<code class="language-plaintext highlighter-rouge">calories</code> 和 <code class="language-plaintext highlighter-rouge">milligramsOfSodium</code>。（按照此順序）</p>
+
+    
+  </li>
+  <li>
+    <p>使用 <code class="language-plaintext highlighter-rouge">this</code> 語法自動將引數值分配給同名的物件屬性。</p>
+
+    
+  </li>
+  <li>
+    <p>在 <code class="language-plaintext highlighter-rouge">Recipe</code> 的構造方法宣告之前，用 <code class="language-plaintext highlighter-rouge">const</code> 關鍵字使其成為常量。</p>
+
+    
+  </li>
+</ul>
+
+<p>可以忽略以下程式碼一開始在 DartPad 中的錯誤。</p>
+
+
+
+<pre><code class="language-dart:run-dartpad:ga_id-const_constructors">{$ begin main.dart $}
+class Recipe {
+  List&lt;String&gt; ingredients;
+  int calories;
+  double milligramsOfSodium;
+}
+{$ end main.dart $}
+{$ begin solution.dart $}
+class Recipe {
+  final List&lt;String&gt; ingredients;
+  final int calories;
+  final double milligramsOfSodium;
+
+  const Recipe(this.ingredients, this.calories, this.milligramsOfSodium);
+}
+{$ end solution.dart $}
+{$ begin test.dart $}
+void main() {
+  final errs = &lt;String&gt;[];
+
+  try {
+    const obj = Recipe(['1 egg', 'Pat of butter', 'Pinch salt'], 120, 200);
+    
+    if (obj.ingredients.length != 3) {
+      errs.add('Called Recipe([\'1 egg\', \'Pat of butter\', \'Pinch salt\'], 120, 200) and got an object with ingredient list of length ${obj.ingredients.length} rather than the expected length (3).');
+    }
+    
+    if (obj.calories != 120) {
+      errs.add('Called Recipe([\'1 egg\', \'Pat of butter\', \'Pinch salt\'], 120, 200) and got an object with a calorie value of ${obj.calories} rather than the expected value (120).');
+    }
+    
+    if (obj.milligramsOfSodium != 200) {
+      errs.add('Called Recipe([\'1 egg\', \'Pat of butter\', \'Pinch salt\'], 120, 200) and got an object with a milligramsOfSodium value of ${obj.milligramsOfSodium} rather than the expected value (200).');
+    }
+  } catch (e) {
+    _result(false, ['Tried calling Recipe([\'1 egg\', \'Pat of butter\', \'Pinch salt\'], 120, 200) and received a null.']);
+  }
+  
+  if (errs.isEmpty) {
+    _result(true);
+  } else {
+    _result(false, errs);
+  }
+}
+{$ end test.dart $}
+{$ begin hint.txt $}
+To make the constructor const, you'll need to make all the properties final.
+{$ end hint.txt $}
+</code></pre>
+
+<h2 id="whats-next">
+<a class="anchor" href="#whats-next" aria-hidden="true"><span class="octicon octicon-link"></span></a>下一步是什麼？</h2>
+
+
+
+<p>我們希望你能夠喜歡這個 codelab 來學習或測試你對 Dart 語言中一些最有趣的功能的知識。下面是一些有關現在該做什麼的建議：</p>
+
+
+
+<ul>
+  <li>
+    <p>嘗試閱讀 <a href="/codelabs">其他 Dart codelab</a>。</p>
+
+    
+  </li>
+  <li>
+    <p>閱讀 <a href="/language">Dart 語言之旅</a>。</p>
+
+    
+  </li>
+  <li>
+    <p>在 <a href="https://dartpad.dev">DartPad</a> 上進行練習。</p>
+
+    
+  </li>
+  <li>
+    <p><a href="/get-dart">獲取 Dart SDK</a>。</p>
+
+    
+  </li>
+</ul>
+
+          
+
+        </div>
+      </article>
+    </main>
+    <footer id="page-footer">
+    <div class="footer-section footer-main">
+      <a href="/" class="brand" title="Dart">
+        <img src="/assets/img/shared/dart/logo+text/horizontal/white.svg" alt="Dart" width="164px">
+      </a>
+      <div class="footer-social-links">
+        <a href="https://github.com/doggy8088/dart.tw" target="_blank" rel="noopener" title="GitHub" class="no-automatic-external">
+          <svg>
+            <use href="/assets/img/social/github.svg#github"></use>
+          </svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-section footer-tray">
+      <div class="footer-licenses">
+        參考中文內容需註明本站及連結作為出處，英文內容和範例程式碼均遵從源站授權協議。
+      </div>
+      <div class="footer-utility-links">
+        <ul>
+          <li><a href="/terms" title="使用條款">使用條款</a></li>
+          <li><a href="https://policies.google.com/privacy?hl=zh-TW" target="_blank" rel="noopener" title="隱私政策" class="no-automatic-external">隱私政策</a></li>
+          <li><a href="/security" title="Security philosophy and practices">Dart 程式碼安全說明</a></li>
+          <li><a href="https://flutter.tw/about" target="_blank">關於中文文件</a>
+          </li><li><a href="https://flutter.tw/disclaimer" target="_blank">免責條款</a>
+          </li><li><a href="https://dart.cn/" target="_blank">Dart 簡體中文文檔</a>
+        </li></ul>
+      </div>
+    </div>
+  </footer>
+
+  
+
+<script src="/assets/translator/js/translator.js"></script></body></html>

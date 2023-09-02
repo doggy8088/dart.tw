@@ -1,0 +1,1602 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Language" content="zh-cmn-Hans">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Google Tag Manager -->
+<!--  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':-->
+<!--  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],-->
+<!--  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=-->
+<!--  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);-->
+<!--  })(window,document,'script','dataLayer','GTM-5VSZM5J');</script>-->
+  <!-- End Google Tag Manager -->
+
+  <meta name="description" content="Dart 開發語言的主要特性概覽。">
+  <title>Language tour | Dart</title>
+
+  <link rel="canonical" href="https://dart.tw.gh.miniasp.com/language">
+  <meta name="robots" content="noindex">
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-28P0PYCRZ9"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-28P0PYCRZ9');
+  </script>
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?fa71f2474b82505e00203cf9956cf0bc";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+  <!-- Favicon / Touch Icons -->
+  <link rel="icon" sizes="64x64" href="/assets/shared/dart/icon/64.png">
+  <link href="/assets/img/touch-icon-iphone.png" rel="apple-touch-icon">
+  <link href="/assets/img/touch-icon-ipad.png" rel="apple-touch-icon" sizes="152x152">
+  <link href="/assets/img/touch-icon-iphone-retina.png" rel="apple-touch-icon" sizes="180x180">
+  <link href="/assets/img/touch-icon-ipad-retina.png" rel="apple-touch-icon" sizes="167x167">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@dart_lang">
+  <meta name="twitter:title" content="Dart 開發語言概覽">
+  <meta name="twitter:description" content="Dart 開發語言的主要特性概覽。">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Dart 開發語言概覽">
+  <meta property="og:description" content="Dart 開發語言的主要特性概覽。">
+  <meta property="og:url" content="https://dart.tw.gh.miniasp.com/guides/language/language-tour">
+
+  <meta property="og:image" content="https://dart.tw.gh.miniasp.com/assets/shared/dart-logo-for-shares.png?2">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Display:wght@400&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons&amp;display=swap" rel="stylesheet">
+  <script src="https://cdn.staticfile.org/font-awesome/5.15.4/js/all.js" data-auto-replace-svg="nest">
+  </script>
+
+  <link rel="stylesheet" href="/assets/css/main.css?v=1693674404">
+  <script src="https://cdn.staticfile.org/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.staticfile.org/popper.js/1.16.1/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.staticfile.org/bootstrap/4.6.2/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!-- <script src="https://cdn.staticfile.org/js-cookie/3.0.5/js.cookie.min.js"
+          integrity="sha512-nlp9/l96/EpjYBx7EP7pGASVXNe80hGhYAUrjeXnu/fyF5Py0/RXav4BBNs7n5Hx1WFhOEOWSAVjGeC3oKxDVQ=="
+          crossorigin="anonymous"
+          referrerpolicy="no-referrer"></script> -->
+
+  <script src="/assets/js/vendor/code-prettify/prettify.js"></script>
+  <script src="/assets/js/vendor/code-prettify/lang-dart.js"></script>
+  <script src="/assets/js/vendor/code-prettify/lang-yaml.js"></script>
+  <script src="/assets/js/os-tabs.js?v=1693674404"></script>
+  <script src="/assets/js/utilities.js?v=1693674404"></script>
+  <script src="/assets/js/main.js?v=1693674404"></script>
+
+  <script src="/assets/js/language-tour-redirector.js"></script>
+  <script>
+
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-122680122-5', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+
+ <link href="/assets/translator/css/translator.css" rel="stylesheet"></head>
+
+  <body class="default show_banner">
+    <section id="cookie-notice">
+  <div class="container">
+    <p>Google uses cookies to deliver its services, to personalize ads, and to 
+      analyze traffic. You can adjust your privacy controls anytime in your 
+      <a href="https://myaccount.google.com/data-and-personalization" target="_blank" rel="noopener" class="no-automatic-external">Google settings</a>. 
+      <a href="https://policies.google.com/technologies/cookies" target="_blank" rel="noopener" class="no-automatic-external">Learn more</a>.
+    </p>
+    <button id="cookie-consent" class="btn btn-primary">Okay</button>
+  </div>
+</section>
+
+    <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=G-28P0PYCRZ9"
+ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+    <header id="page-header" class="site-header">
+  <nav id="mainnav" class="site-header">
+  <div id="menu-toggle"><i class="material-icons">menu</i></div>
+  <a href="/" class="brand" title="Dart">
+    <img src="/assets/img/shared/dart/logo+text/horizontal/white.svg" alt="Dart">
+  </a>
+  <ul class="navbar">
+    <li>
+      <a href="/overview" class="nav-link">概覽</a>
+    </li>
+    <li class="mainnav__get-started">
+      <a href="/guides" class="nav-link
+         active">
+        <span>文件</span>
+      </a>
+    </li>
+    <li>
+      <a href="/community" class="nav-link">社群</a>
+    </li>
+    <li>
+      <a href="/#try-dart" class="nav-link">嘗試 Dart</a>
+    </li>
+    <li>
+      <a href="/get-dart" class="nav-link">獲取 Dart SDK</a>
+    </li>
+    <li class="searchfield">
+      <form action="/search" class="site-header__search form-inline" id="cse-search-box">
+        <input type="hidden" name="cx" value="011220921317074318178:_yy-tmb5t_i">
+        <input type="hidden" name="ie" value="UTF-8">
+        <input type="hidden" name="hl" value="en">
+        <input class="site-header__searchfield form-control search-field" type="search" name="q" id="q" autocomplete="off" placeholder="Search" aria-label="Search">
+      </form>
+    </li>
+  </ul>
+</nav>
+
+  
+</header>
+ <div class="banner">
+  <p class="banner__text">
+    Dart 3 已釋出！帶來了全新的
+    <a href="https://dart.tw.gh.miniasp.com/language/records" class="no-automatic-external">記錄型別 (records)</a>、
+    <a href="https://dart.tw.gh.miniasp.com/language/patterns" class="no-automatic-external">模式匹配 (patterns)</a>
+    以及 <a href="https://dart.tw.gh.miniasp.com/language/class-modifiers" class="no-automatic-external">型別修飾符 (class modifiers)</a>。
+    <br>
+    <!--<a href="https://medium.com/p/53f065a10635" class="no-automatic-external">Check out the blog post</a>!-->
+  </p>
+</div>
+ 
+
+    <div id="sidenav" class="">
+  <form action="/search/" class="site-header__search form-inline">
+    <input class="site-header__searchfield form-control search-field" type="search" name="q" id="q" autocomplete="off" placeholder="Search" aria-label="Search">
+  </form>
+
+  <div class="site-sidebar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a href="/overview" class="nav-link">概覽</a>
+      </li>
+      <li class="nav-item">
+        <a href="/community" class="nav-link">社群</a>
+      </li>
+      <li class="nav-item">
+        <a href="https://dartpad.dev" class="nav-link">嘗試 Dart</a>
+      </li>
+      <li class="nav-item">
+        <a href="/get-dart" class="nav-link">獲取 Dart SDK</a>
+      </li>
+      <li class="nav-item">
+        <a href="/guides" class="nav-link active">文件</a>
+      </li>
+    </ul>
+
+    <ul class="nav flex-column"><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-1" role="button" aria-expanded="false" aria-controls="sidenav-1">範例和課程</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-1">
+        <li class="nav-item">
+    <a class="nav-link" href="/tutorials">語言概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable" data-toggle="collapse" data-target="#sidenav-1-2" href="#sidenav-1-2" role="button" aria-expanded="true" aria-controls="sidenav-1-2">Codelabs
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-1-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/codelabs">Codelabs 列表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/dart-cheatsheet">Dart 速查表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/iterables">可迭代集合</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/async-await">Dart 非同步程式設計</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/codelabs/null-safety">空安全</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-2" role="button" aria-expanded="false" aria-controls="sidenav-2">Dart 開發語言</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2">
+        <li class="nav-item">
+    <a class="nav-link" href="/language">介紹</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-2" href="#sidenav-2-2" role="button" aria-expanded="false" aria-controls="sidenav-2-2">基礎表示式
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/variables">變數</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/operators">運運算元</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/comments">註釋</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/metadata">註解</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/libraries">庫 &amp; 導庫</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/keywords">關鍵字</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-3" href="#sidenav-2-3" role="button" aria-expanded="false" aria-controls="sidenav-2-3">型別
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-3">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/built-in-types">基本型別</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/records">記錄 (Records)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/collections">集合 (Collections)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/generics">泛型 (Generics)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/typedefs">別名 (Typedefs)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/type-system">型別系統</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-4" href="#sidenav-2-4" role="button" aria-expanded="false" aria-controls="sidenav-2-4">模式匹配
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-4">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/patterns">概覽 &amp; 用法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/pattern-types">模式匹配型別</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/language/functions">函式方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-6" href="#sidenav-2-6" role="button" aria-expanded="false" aria-controls="sidenav-2-6">控制流
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-6">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/loops">迴圈</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/branches">分支</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/language/error-handling">錯誤處理</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-8" href="#sidenav-2-8" role="button" aria-expanded="false" aria-controls="sidenav-2-8">類 &amp; 物件
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-8">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/classes">類</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/constructors">構造方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/methods">成員方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/extend">繼承</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/mixins">混入 (Mixin)</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/enums">列舉</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/extension-methods">擴充方法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/callable-objects">可呼叫的物件</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-9" href="#sidenav-2-9" role="button" aria-expanded="false" aria-controls="sidenav-2-9">型別修飾符
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-9">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/class-modifiers">概覽 &amp; 用法</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/class-modifiers-for-apis">API 維護者應該用的型別修飾符</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/modifier-reference">速查表</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-10" href="#sidenav-2-10" role="button" aria-expanded="false" aria-controls="sidenav-2-10">併發
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-10">
+      <li class="nav-item">
+    <a class="nav-link" href="/language/async">非同步支援</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/language/concurrency">Isolates</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-2-11" href="#sidenav-2-11" role="button" aria-expanded="false" aria-controls="sidenav-2-11">Null safety
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-2-11">
+      <li class="nav-item">
+    <a class="nav-link" href="/null-safety">健全的空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/migration-guide">遷移到空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/understanding-null-safety">深入理解空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/unsound-null-safety">非健全的空安全</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/null-safety/faq">空安全常見問題和解答</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-3" role="button" aria-expanded="false" aria-controls="sidenav-3">高效指南 (Effective Dart)</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-3">
+        <li class="nav-item">
+    <a class="nav-link" href="/effective-dart">概述</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/style">程式碼風格</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/documentation">文件</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/usage">用法範例</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/effective-dart/design">API 設計</a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-4" role="button" aria-expanded="false" aria-controls="sidenav-4">核心函式庫</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-4">
+        <li class="nav-item">
+    <a class="nav-link" href="/guides/libraries">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/library-tour">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-4-3" href="#sidenav-4-3" role="button" aria-expanded="false" aria-controls="sidenav-4-3">介紹文章
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-4-3">
+      <li class="nav-item">
+    <a class="nav-link" href="/articles/libraries/creating-streams">建立 stream</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-5" role="button" aria-expanded="false" aria-controls="sidenav-5">Packages</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-5">
+        <li class="nav-item">
+    <a class="nav-link" href="/guides/packages">如何使用 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/useful-libraries">常用 package 介紹</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/create-packages">建立 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/publishing">釋出 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/writing-package-pages">設定 package 介紹頁</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-5-6" href="#sidenav-5-6" role="button" aria-expanded="false" aria-controls="sidenav-5-6">Package 參考資料
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-5-6">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/pub/dependencies">依賴</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/glossary">術語表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/package-layout">Package 檔案結構</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/environment-variables">設定環境變數</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/pubspec">Pubspec 檔案</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/troubleshoot">問題排查</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/verified-publishers">釋出者認證</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/pub/versioning">版本管理</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-6" role="button" aria-expanded="false" aria-controls="sidenav-6">開發文件</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6">
+        <li class="nav-item">
+    <a class="nav-link" href="/codelabs/async-await">Futures、async 和 await</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/language/streams">Streams 介紹</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/json">使用 JSON</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/numbers">Dart 中的數字</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-5" href="#sidenav-6-5" role="button" aria-expanded="false" aria-controls="sidenav-6-5">與其他語言進行互動呼叫
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-5">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/c-interop">與 C 互調</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/objective-c-interop">與 Objective-C 和 Swift 互調</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/java-interop">與 Java 和 Kotlin 互調</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/web/js-interop">與 JavaScript 互調</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/guides/google-apis">Google APIs</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/multiplatform-apps">跨平臺應用</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-8" href="#sidenav-6-8" role="button" aria-expanded="false" aria-controls="sidenav-6-8">命令列和伺服器端應用
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-8">
+      <li class="nav-item">
+    <a class="nav-link" href="/server">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/get-started">起步課程</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/cmdline">命令列應用</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/fetch-data">從網路上獲取資料</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/server/httpserver">編寫 HTTP 伺服器端應用</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/server/libraries">庫和 package</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/server/google-cloud">Google Cloud</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-9" href="#sidenav-6-9" role="button" aria-expanded="false" aria-controls="sidenav-6-9">網頁端 (Web) 應用
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-9">
+      <li class="nav-item">
+    <a class="nav-link" href="/web">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/get-started">開始使用</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-6-9-3" href="#sidenav-6-9-3" role="button" aria-expanded="false" aria-controls="sidenav-6-9-3">底層 Web 程式設計
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-6-9-3">
+      <li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/low-level-html/connect-dart-html">Dart 與 HTML 關聯</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/low-level-html/add-elements">向 DOM 新增元素</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tutorials/web/low-level-html/remove-elements">移除 DOM 元素</a>
+  </li>
+  </ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/web/deployment">部署</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/web/libraries">常用 Web 函式庫和 package</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/guides/environment-declarations">環境變數宣告</a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-7" role="button" aria-expanded="false" aria-controls="sidenav-7">開發工具和使用技巧</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7">
+        <li class="nav-item">
+    <a class="nav-link" href="/tools">概覽</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-2" href="#sidenav-7-2" role="button" aria-expanded="false" aria-controls="sidenav-7-2">編輯器和除錯工具
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/jetbrains-plugin">使用 IntelliJ 和 Android Studio</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/vs-code">使用 VS Code</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/dart-devtools">Dart 開發者工具</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-2-4" href="#sidenav-7-2-4" role="button" aria-expanded="false" aria-controls="sidenav-7-2-4">線上執行 Dart 程式碼
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-2-4">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/dartpad">Overview</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dartpad/dartpad-best-practices">DartPad 課程</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dartpad/troubleshoot">DartPad 疑難解答</a>
+  </li>
+  </ul>
+  </li>
+</ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-3" href="#sidenav-7-3" role="button" aria-expanded="false" aria-controls="sidenav-7-3">命令列工具
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-3">
+      <li class="nav-item">
+    <a class="nav-link collapsable" data-toggle="collapse" data-target="#sidenav-7-3-1" href="#sidenav-7-3-1" role="button" aria-expanded="true" aria-controls="sidenav-7-3-1">Dart SDK
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-7-3-1">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/sdk">概覽</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-tool">dart 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-analyze">dart analyze 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-compile">dart compile 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-create">dart create 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-doc">dart doc 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-fix">dart fix 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-format">dart format 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-info">dart info 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/pub/cmd">dart pub 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-run">dart run 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dart-test">dart test 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/dartaotruntime">dartaotruntime 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/experiment-flags">實驗性命令標記</a>
+  </li>
+  </ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable" data-toggle="collapse" data-target="#sidenav-7-3-2" href="#sidenav-7-3-2" role="button" aria-expanded="true" aria-controls="sidenav-7-3-2">其他的命令列工具
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-7-3-2">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/build_runner">build_runner 命令</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/tools/webdev">webdev 命令</a>
+  </li>
+  </ul>
+  </li>
+</ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-4" href="#sidenav-7-4" role="button" aria-expanded="false" aria-controls="sidenav-7-4">原始碼管理
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-4">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/language/formatting">程式碼格式化</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/libraries/private-files">不應提交的內容</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-5" href="#sidenav-7-5" role="button" aria-expanded="false" aria-controls="sidenav-7-5">靜態分析
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-5">
+      <li class="nav-item">
+    <a class="nav-link" href="/tools/analysis">自訂靜態分析</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/sound-problems">修復常見的型別問題</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/diagnostic-messages">診斷訊息</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/tools/linter-rules">Linter 規則</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-7-6" href="#sidenav-7-6" role="button" aria-expanded="false" aria-controls="sidenav-7-6">測試和調優
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-7-6">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/testing">測試</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/web/debugging">除錯 Web 應用</a>
+  </li></ul>
+  </li>
+
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-8" role="button" aria-expanded="false" aria-controls="sidenav-8">資源</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-8">
+        <li class="nav-item">
+    <a class="nav-link" href="/resources/faq">常見問題</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/evolution">版本演變</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/spec">語言規範</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/resources/dart-3-migration">Dart 3 遷移指南</a>
+  </li><li class="nav-item">
+    <a class="nav-link collapsable collapsed" data-toggle="collapse" data-target="#sidenav-8-5" href="#sidenav-8-5" role="button" aria-expanded="false" aria-controls="sidenav-8-5">從其他平台轉向 Dart
+    </a>
+    <ul class="nav flex-column flex-nowrap collapse " id="sidenav-8-5">
+      <li class="nav-item">
+    <a class="nav-link" href="/guides/language/coming-from/js-to-dart">從 JavaScript 到 Dart</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/guides/language/coming-from/swift-to-dart">從 Swift 到 Dart</a>
+  </li></ul>
+  </li>
+<li class="nav-item">
+    <a class="nav-link" href="/resources/glossary">詞彙表</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/resources/books">書籍資源</a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="/resources/videos">影片資源</a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link " data-toggle="collapse" href="#sidenav-9" role="button" aria-expanded="true" aria-controls="sidenav-9">相關站點</a>
+
+      <ul class="nav flex-column flex-nowrap collapse show" id="sidenav-9">
+        <li class="nav-item">
+    <a class="nav-link" href="https://api.dart.dev" target="_blank" rel="noopener">API 文件<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://medium.com/dartlang" target="_blank" rel="noopener">Dart 團隊官方部落格<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://dartpad.dev" target="_blank" rel="noopener">DartPad (線上編輯器)<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://flutter.tw" target="_blank" rel="noopener">Flutter<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://pub.dev" target="_blank" rel="noopener">Package 網站<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li>
+</ul>
+    </li><li class="nav-item">
+      <a class="nav-link collapsed" data-toggle="collapse" href="#sidenav-10" role="button" aria-expanded="false" aria-controls="sidenav-10">關於 Dart 中文文件</a>
+
+      <ul class="nav flex-column flex-nowrap collapse " id="sidenav-10">
+        <li class="nav-item">
+    <a class="nav-link" href="https://flutter.tw/about/docs-cn" target="_blank" rel="noopener">關於本站<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li><li class="nav-item">
+    <a class="nav-link" href="https://flutter.tw/disclaimer" target="_blank" rel="noopener">免責條款 (Disclaimer)<span class="material-icons md-24">
+        open_in_new
+      </span></a>
+  </li>
+</ul>
+    </li></ul>
+
+  </div>
+</div>
+
+    <main id="page-content">
+      
+
+
+
+
+
+
+
+<div id="site-toc--side" class="site-toc ">
+  <header class="site-toc__title">
+    目錄
+    
+  </header>
+  <ul id="toc" class="section-nav">
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#a-basic-dart-program">A basic Dart program</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#important-concepts">Important concepts</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#keywords">Keywords</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#variables">Variables</a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#default-value">Default value</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#late-variables">Late variables</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#final-and-const">Final and const</a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#built-in-types">Built-in types</a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#numbers">Numbers</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#strings">Strings</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#booleans">Booleans</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#lists">Lists</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#sets">Sets</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#maps">Maps</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#runes-and-grapheme-clusters">Runes and grapheme clusters</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#symbols">Symbols</a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#functions">Functions</a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#parameters">Parameters</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#the-main-function">The main() function</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#functions-as-first-class-objects">Functions as first-class objects</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#anonymous-functions">Anonymous functions</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#lexical-scope">Lexical scope</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#lexical-closures">Lexical closures</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#testing-functions-for-equality">Testing functions for equality</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#return-values">Return values</a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#operators">Operators</a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#arithmetic-operators">Arithmetic operators</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#equality-and-relational-operators">Equality and relational operators</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#type-test-operators">Type test operators</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#assignment-operators">Assignment operators</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#logical-operators">Logical operators</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#bitwise-and-shift-operators">Bitwise and shift operators</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#conditional-expressions">Conditional expressions</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#cascade-notation">Cascade notation</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#other-operators">Other operators</a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#control-flow-statements">Control flow statements</a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#if-and-else">If and else</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#for-loops">For loops</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#while-and-do-while">While and do-while</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#break-and-continue">Break and continue</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#switch-and-case">Switch and case</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#assert">Assert</a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#exceptions">Exceptions</a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#throw">Throw</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#catch">Catch</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#finally">Finally</a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#classes">Classes</a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#using-class-members">Using class members</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#using-constructors">Using constructors</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#getting-an-objects-type">Getting an object’s type</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#instance-variables">Instance variables</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#constructors">Constructors</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#super-parameters">Super parameters</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#methods">Methods</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#abstract-classes">Abstract classes</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#implicit-interfaces">Implicit interfaces</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#extending-a-class">Extending a class</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#extension-methods">Extension methods</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#enumerated-types">Enumerated types</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#adding-features-to-a-class-mixins">Adding features to a class: mixins</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#class-variables-and-methods">Class variables and methods</a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#generics">Generics</a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#why-use-generics">Why use generics?</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#using-collection-literals">Using collection literals</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#using-parameterized-types-with-constructors">Using parameterized types with constructors</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#generic-collections-and-the-types-they-contain">Generic collections and the types they contain</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#restricting-the-parameterized-type">Restricting the parameterized type</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#using-generic-methods">Using generic methods</a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#libraries-and-visibility">Libraries and visibility</a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#using-libraries">Using libraries</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#implementing-libraries">Implementing libraries</a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#asynchrony-support">Asynchrony support</a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#handling-futures">Handling Futures</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#declaring-async-functions">Declaring async functions</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#handling-streams">Handling Streams</a></li>
+</ul>
+</li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#generators">Generators</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#callable-classes">Callable classes</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#isolates">Isolates</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#typedefs">Typedefs</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#metadata">Metadata</a></li>
+<li class="toc-entry nav-item toc-h2"><a class="nav-link" href="#comments">Comments</a>
+<ul class="nav">
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#single-line-comments">Single-line comments</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#multi-line-comments">Multi-line comments</a></li>
+<li class="toc-entry nav-item toc-h3"><a class="nav-link" href="#documentation-comments">Documentation comments</a></li>
+</ul>
+</li>
+</ul>
+  
+</div>
+
+
+      <article>
+        <div class="content">
+          
+
+          <div id="site-content-title">
+            <div id="page-github-links" class="btn-group" aria-label="Page GitHub links" role="group">
+  <a href="https://github.com/doggy8088/dart.tw/tree/master/src/_guides/language/language-tour.md" class="btn no-automatic-external" title="View page source" target="_blank" rel="noopener">
+    <i class="material-icons">description</i>
+  </a>
+  <a href="https://github.com/doggy8088/dart.tw/issues/new?template=1_page_issue.yml&amp;title=[PAGE ISSUE]: 'Dart 開發語言概覽'&amp;page-url=https://dart.tw.gh.miniasp.com/guides/language/language-tour&amp;page-source=https://github.com/doggy8088/dart.tw/tree/master/src/_guides/language/language-tour.md" class="btn no-automatic-external" title="Report an issue with this page" target="_blank" rel="noopener">
+    <i class="material-icons">bug_report</i>
+  </a>
+</div>
+
+            
+            <h1 id="dart-開發語言概覽">Dart 開發語言概覽</h1>
+            </div>
+          
+
+
+
+
+
+
+
+<div id="site-toc--inline" class="site-toc toc-collapsible toc-collapsed">
+  <header class="site-toc__title">
+    目錄
+    
+      <span class="site-toc--inline__toggle toc-toggle-down"><i class="material-icons">keyboard_arrow_down</i></span>
+      <span class="site-toc--inline__toggle toc-toggle-up"><i class="material-icons">keyboard_arrow_up</i></span>
+    
+  </header>
+  <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#a-basic-dart-program">A basic Dart program</a></li>
+<li class="toc-entry toc-h2"><a href="#important-concepts">Important concepts</a></li>
+<li class="toc-entry toc-h2"><a href="#keywords">Keywords</a></li>
+<li class="toc-entry toc-h2"><a href="#variables">Variables</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#default-value">Default value</a></li>
+<li class="toc-entry toc-h3"><a href="#late-variables">Late variables</a></li>
+<li class="toc-entry toc-h3"><a href="#final-and-const">Final and const</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#built-in-types">Built-in types</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#numbers">Numbers</a></li>
+<li class="toc-entry toc-h3"><a href="#strings">Strings</a></li>
+<li class="toc-entry toc-h3"><a href="#booleans">Booleans</a></li>
+<li class="toc-entry toc-h3"><a href="#lists">Lists</a></li>
+<li class="toc-entry toc-h3"><a href="#sets">Sets</a></li>
+<li class="toc-entry toc-h3"><a href="#maps">Maps</a></li>
+<li class="toc-entry toc-h3"><a href="#runes-and-grapheme-clusters">Runes and grapheme clusters</a></li>
+<li class="toc-entry toc-h3"><a href="#symbols">Symbols</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#functions">Functions</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#parameters">Parameters</a></li>
+<li class="toc-entry toc-h3"><a href="#the-main-function">The main() function</a></li>
+<li class="toc-entry toc-h3"><a href="#functions-as-first-class-objects">Functions as first-class objects</a></li>
+<li class="toc-entry toc-h3"><a href="#anonymous-functions">Anonymous functions</a></li>
+<li class="toc-entry toc-h3"><a href="#lexical-scope">Lexical scope</a></li>
+<li class="toc-entry toc-h3"><a href="#lexical-closures">Lexical closures</a></li>
+<li class="toc-entry toc-h3"><a href="#testing-functions-for-equality">Testing functions for equality</a></li>
+<li class="toc-entry toc-h3"><a href="#return-values">Return values</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#operators">Operators</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#arithmetic-operators">Arithmetic operators</a></li>
+<li class="toc-entry toc-h3"><a href="#equality-and-relational-operators">Equality and relational operators</a></li>
+<li class="toc-entry toc-h3"><a href="#type-test-operators">Type test operators</a></li>
+<li class="toc-entry toc-h3"><a href="#assignment-operators">Assignment operators</a></li>
+<li class="toc-entry toc-h3"><a href="#logical-operators">Logical operators</a></li>
+<li class="toc-entry toc-h3"><a href="#bitwise-and-shift-operators">Bitwise and shift operators</a></li>
+<li class="toc-entry toc-h3"><a href="#conditional-expressions">Conditional expressions</a></li>
+<li class="toc-entry toc-h3"><a href="#cascade-notation">Cascade notation</a></li>
+<li class="toc-entry toc-h3"><a href="#other-operators">Other operators</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#control-flow-statements">Control flow statements</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#if-and-else">If and else</a></li>
+<li class="toc-entry toc-h3"><a href="#for-loops">For loops</a></li>
+<li class="toc-entry toc-h3"><a href="#while-and-do-while">While and do-while</a></li>
+<li class="toc-entry toc-h3"><a href="#break-and-continue">Break and continue</a></li>
+<li class="toc-entry toc-h3"><a href="#switch-and-case">Switch and case</a></li>
+<li class="toc-entry toc-h3"><a href="#assert">Assert</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#exceptions">Exceptions</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#throw">Throw</a></li>
+<li class="toc-entry toc-h3"><a href="#catch">Catch</a></li>
+<li class="toc-entry toc-h3"><a href="#finally">Finally</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#classes">Classes</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#using-class-members">Using class members</a></li>
+<li class="toc-entry toc-h3"><a href="#using-constructors">Using constructors</a></li>
+<li class="toc-entry toc-h3"><a href="#getting-an-objects-type">Getting an object’s type</a></li>
+<li class="toc-entry toc-h3"><a href="#instance-variables">Instance variables</a></li>
+<li class="toc-entry toc-h3"><a href="#constructors">Constructors</a></li>
+<li class="toc-entry toc-h3"><a href="#super-parameters">Super parameters</a></li>
+<li class="toc-entry toc-h3"><a href="#methods">Methods</a></li>
+<li class="toc-entry toc-h3"><a href="#abstract-classes">Abstract classes</a></li>
+<li class="toc-entry toc-h3"><a href="#implicit-interfaces">Implicit interfaces</a></li>
+<li class="toc-entry toc-h3"><a href="#extending-a-class">Extending a class</a></li>
+<li class="toc-entry toc-h3"><a href="#extension-methods">Extension methods</a></li>
+<li class="toc-entry toc-h3"><a href="#enumerated-types">Enumerated types</a></li>
+<li class="toc-entry toc-h3"><a href="#adding-features-to-a-class-mixins">Adding features to a class: mixins</a></li>
+<li class="toc-entry toc-h3"><a href="#class-variables-and-methods">Class variables and methods</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#generics">Generics</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#why-use-generics">Why use generics?</a></li>
+<li class="toc-entry toc-h3"><a href="#using-collection-literals">Using collection literals</a></li>
+<li class="toc-entry toc-h3"><a href="#using-parameterized-types-with-constructors">Using parameterized types with constructors</a></li>
+<li class="toc-entry toc-h3"><a href="#generic-collections-and-the-types-they-contain">Generic collections and the types they contain</a></li>
+<li class="toc-entry toc-h3"><a href="#restricting-the-parameterized-type">Restricting the parameterized type</a></li>
+<li class="toc-entry toc-h3"><a href="#using-generic-methods">Using generic methods</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#libraries-and-visibility">Libraries and visibility</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#using-libraries">Using libraries</a></li>
+<li class="toc-entry toc-h3"><a href="#implementing-libraries">Implementing libraries</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#asynchrony-support">Asynchrony support</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#handling-futures">Handling Futures</a></li>
+<li class="toc-entry toc-h3"><a href="#declaring-async-functions">Declaring async functions</a></li>
+<li class="toc-entry toc-h3"><a href="#handling-streams">Handling Streams</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#generators">Generators</a></li>
+<li class="toc-entry toc-h2"><a href="#callable-classes">Callable classes</a></li>
+<li class="toc-entry toc-h2"><a href="#isolates">Isolates</a></li>
+<li class="toc-entry toc-h2"><a href="#typedefs">Typedefs</a></li>
+<li class="toc-entry toc-h2"><a href="#metadata">Metadata</a></li>
+<li class="toc-entry toc-h2"><a href="#comments">Comments</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#single-line-comments">Single-line comments</a></li>
+<li class="toc-entry toc-h3"><a href="#multi-line-comments">Multi-line comments</a></li>
+<li class="toc-entry toc-h3"><a href="#documentation-comments">Documentation comments</a></li>
+</ul>
+</li>
+</ul>
+  
+    <span class="site-toc--inline__toggle toc-toggle-more-items"><i class="material-icons">more_horiz</i></span>
+  
+</div>
+
+
+          <aside class="alert alert-warning" role="alert">
+  <p><i class="material-icons" aria-hidden="true">report_problem</i> <strong>請注意:</strong>
+  The Dart language tour’s content has been split across
+  several different pages in the left side navigation under <strong>Language</strong>.
+  To begin your journey learning Dart,
+  check out <a href="/language">Introduction to the Dart language</a>.</p>
+</aside>
+
+<h2 id="a-basic-dart-program">
+<a class="anchor" href="#a-basic-dart-program" aria-hidden="true"><span class="octicon octicon-link"></span></a>A basic Dart program</h2>
+
+<p>This content has moved to <a href="/language">Introduction to the Dart language</a>.</p>
+
+<h2 id="important-concepts">
+<a class="anchor" href="#important-concepts" aria-hidden="true"><span class="octicon octicon-link"></span></a>Important concepts</h2>
+
+<p>This content has moved to <a href="/language">Introduction to the Dart language</a>.</p>
+
+<h2 id="keywords">
+<a class="anchor" href="#keywords" aria-hidden="true"><span class="octicon octicon-link"></span></a>Keywords</h2>
+
+<p>This content has moved to <a href="/language/keywords">Keywords</a>.</p>
+
+<h2 id="variables">
+<a class="anchor" href="#variables" aria-hidden="true"><span class="octicon octicon-link"></span></a>Variables</h2>
+
+<p>This content has moved to <a href="/language/variables">Variables</a>.</p>
+
+<h3 id="default-value">
+<a class="anchor" href="#default-value" aria-hidden="true"><span class="octicon octicon-link"></span></a>Default value</h3>
+
+<p>This content has moved to <a href="/language/variables#default-value">Variables</a>.</p>
+
+<h3 id="late-variables">
+<a class="anchor" href="#late-variables" aria-hidden="true"><span class="octicon octicon-link"></span></a>Late variables</h3>
+
+<p>This content has moved to <a href="/language/variables#late-variables">Variables</a>.</p>
+
+<h3 id="final-and-const">
+<a class="anchor" href="#final-and-const" aria-hidden="true"><span class="octicon octicon-link"></span></a>Final and const</h3>
+
+<p>This content has moved to <a href="/language/variables#final-and-const">Variables</a>.</p>
+
+<h2 id="built-in-types">
+<a class="anchor" href="#built-in-types" aria-hidden="true"><span class="octicon octicon-link"></span></a>Built-in types</h2>
+
+<p>This content has moved to <a href="/language/built-in-types">Built-in types</a>.</p>
+
+<h3 id="numbers">
+<a class="anchor" href="#numbers" aria-hidden="true"><span class="octicon octicon-link"></span></a>Numbers</h3>
+
+<p>This content has moved to <a href="/language/built-in-types#numbers">Built-in types</a>.</p>
+
+<h3 id="strings">
+<a class="anchor" href="#strings" aria-hidden="true"><span class="octicon octicon-link"></span></a>Strings</h3>
+
+<p>This content has moved to <a href="/language/built-in-types#strings">Built-in types</a>.</p>
+
+<h3 id="booleans">
+<a class="anchor" href="#booleans" aria-hidden="true"><span class="octicon octicon-link"></span></a>Booleans</h3>
+
+<p>This content has moved to <a href="/language/built-in-types#booleans">Built-in types</a>.</p>
+
+<h3 id="lists">
+<a class="anchor" href="#lists" aria-hidden="true"><span class="octicon octicon-link"></span></a>Lists</h3>
+
+<p>This content has moved to <a href="/language/collections#lists">Collections</a>.</p>
+
+<p><a id="trailing-comma"></a></p>
+<h4 id="trailing-commas">Trailing commas</h4>
+
+<p>This content has moved to <a href="/language/collections#trailing-comma">Collections</a>.</p>
+
+<h4 id="spread-operator">Spread operator</h4>
+
+<p>This content has moved to <a href="/language/collections#spread-operators">Collections</a>.</p>
+
+<h4 id="collection-operators">Collection operators</h4>
+
+<p>This content has moves to <a href="/language/collections#control-flow-operators">Collections</a>.</p>
+
+<h3 id="sets">
+<a class="anchor" href="#sets" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sets</h3>
+
+<p>This content has moved to <a href="/language/collections#sets">Collections</a>.</p>
+
+<h3 id="maps">
+<a class="anchor" href="#maps" aria-hidden="true"><span class="octicon octicon-link"></span></a>Maps</h3>
+
+<p>This content has moved to <a href="/language/collections#maps">Collections</a>.</p>
+
+<p><a id="characters"></a></p>
+<h3 id="runes-and-grapheme-clusters">
+<a class="anchor" href="#runes-and-grapheme-clusters" aria-hidden="true"><span class="octicon octicon-link"></span></a>Runes and grapheme clusters</h3>
+
+<p>This content has moved to <a href="/language/built-in-types#runes-and-grapheme-clusters">Built-in types</a>.</p>
+
+<h3 id="symbols">
+<a class="anchor" href="#symbols" aria-hidden="true"><span class="octicon octicon-link"></span></a>Symbols</h3>
+
+<p>This content has moved to <a href="/language/built-in-types#symbols">Built-in types</a>.</p>
+
+<h2 id="functions">
+<a class="anchor" href="#functions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Functions</h2>
+
+<p>This content has moved to <a href="/language/functions">Functions</a>.</p>
+
+<h3 id="parameters">
+<a class="anchor" href="#parameters" aria-hidden="true"><span class="octicon octicon-link"></span></a>Parameters</h3>
+
+<p>This content has moved to <a href="/language/functions#parameters">Functions</a>.</p>
+
+<h4 id="named-parameters">Named parameters</h4>
+
+<p>This content has moved to <a href="/language/functions#named-parameters">Functions</a>.</p>
+
+<h4 id="default-parameters">Default parameters</h4>
+
+<p>This content has moved to <a href="/language/functions#default-parameters">Functions</a>.</p>
+
+<h4 id="optional-positional-parameters">Optional positional parameters</h4>
+
+<p>This content has moved to <a href="/language/functions#optional-positional-parameters">Functions</a>.</p>
+
+<h3 id="the-main-function">
+<a class="anchor" href="#the-main-function" aria-hidden="true"><span class="octicon octicon-link"></span></a>The main() function</h3>
+
+<p>This content has moved to <a href="/language/functions#the-main-function">Functions</a>.</p>
+
+<h3 id="functions-as-first-class-objects">
+<a class="anchor" href="#functions-as-first-class-objects" aria-hidden="true"><span class="octicon octicon-link"></span></a>Functions as first-class objects</h3>
+
+<p>This content has moved to <a href="/language/functions#functions-as-first-class-objects">Functions</a>.</p>
+
+<h3 id="anonymous-functions">
+<a class="anchor" href="#anonymous-functions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Anonymous functions</h3>
+
+<p>This content has moved to <a href="/language/functions#anonymous-functions">Functions</a>.</p>
+
+<h3 id="lexical-scope">
+<a class="anchor" href="#lexical-scope" aria-hidden="true"><span class="octicon octicon-link"></span></a>Lexical scope</h3>
+
+<p>This content has moved to <a href="/language/functions#lexical-scope">Functions</a>.</p>
+
+<h3 id="lexical-closures">
+<a class="anchor" href="#lexical-closures" aria-hidden="true"><span class="octicon octicon-link"></span></a>Lexical closures</h3>
+
+<p>This content has moved to <a href="/language/functions#lexical-closures">Functions</a>.</p>
+
+<h3 id="testing-functions-for-equality">
+<a class="anchor" href="#testing-functions-for-equality" aria-hidden="true"><span class="octicon octicon-link"></span></a>Testing functions for equality</h3>
+
+<p>This content has moved to <a href="/language/functions#testing-functions-for-equality">Functions</a>.</p>
+
+<h3 id="return-values">
+<a class="anchor" href="#return-values" aria-hidden="true"><span class="octicon octicon-link"></span></a>Return values</h3>
+
+<p>This content has moved to <a href="/language/functions#return-values">Functions</a>.</p>
+
+<h2 id="operators">
+<a class="anchor" href="#operators" aria-hidden="true"><span class="octicon octicon-link"></span></a>Operators</h2>
+
+<p>This content has moved to <a href="/language/operators">Operators</a>.</p>
+
+<h3 id="arithmetic-operators">
+<a class="anchor" href="#arithmetic-operators" aria-hidden="true"><span class="octicon octicon-link"></span></a>Arithmetic operators</h3>
+
+<p>This content has moved to <a href="/language/operators#arithmetic-operators">Operators</a>.</p>
+
+<h3 id="equality-and-relational-operators">
+<a class="anchor" href="#equality-and-relational-operators" aria-hidden="true"><span class="octicon octicon-link"></span></a>Equality and relational operators</h3>
+
+<p>This content has moved to <a href="/language/operators#equality-and-relational-operators">Operators</a>.</p>
+
+<h3 id="type-test-operators">
+<a class="anchor" href="#type-test-operators" aria-hidden="true"><span class="octicon octicon-link"></span></a>Type test operators</h3>
+
+<p>This content has moved to <a href="/language/operators#type-test-operators">Operators</a>.</p>
+
+<h3 id="assignment-operators">
+<a class="anchor" href="#assignment-operators" aria-hidden="true"><span class="octicon octicon-link"></span></a>Assignment operators</h3>
+
+<p>This content has moved to <a href="/language/operators#assignment-operators">Operators</a>.</p>
+
+<h3 id="logical-operators">
+<a class="anchor" href="#logical-operators" aria-hidden="true"><span class="octicon octicon-link"></span></a>Logical operators</h3>
+
+<p>This content has moved to <a href="/language/operators#logical-operators">Operators</a>.</p>
+
+<h3 id="bitwise-and-shift-operators">
+<a class="anchor" href="#bitwise-and-shift-operators" aria-hidden="true"><span class="octicon octicon-link"></span></a>Bitwise and shift operators</h3>
+
+<p>This content has moved to <a href="/language/operators#bitwise-and-shift-operators">Operators</a>.</p>
+
+<h3 id="conditional-expressions">
+<a class="anchor" href="#conditional-expressions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Conditional expressions</h3>
+
+<p>This content has moved to <a href="/language/operators#conditional-expressions">Operators</a>.</p>
+
+<p><a id="cascade"></a></p>
+<h3 id="cascade-notation">
+<a class="anchor" href="#cascade-notation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Cascade notation</h3>
+
+<p>This content has moved to <a href="/language/operators#cascade-notation">Operators</a>.</p>
+
+<h3 id="other-operators">
+<a class="anchor" href="#other-operators" aria-hidden="true"><span class="octicon octicon-link"></span></a>Other operators</h3>
+
+<p>This content has moved to <a href="/language/operators#other-operators">Operators</a>.</p>
+
+<h2 id="control-flow-statements">
+<a class="anchor" href="#control-flow-statements" aria-hidden="true"><span class="octicon octicon-link"></span></a>Control flow statements</h2>
+
+<p>This content has moved to <a href="/language/loops">Control flow</a>.</p>
+
+<h3 id="if-and-else">
+<a class="anchor" href="#if-and-else" aria-hidden="true"><span class="octicon octicon-link"></span></a>If and else</h3>
+
+<p>This content has moved to <a href="/language/branches#if">Control flow</a>.</p>
+
+<h3 id="for-loops">
+<a class="anchor" href="#for-loops" aria-hidden="true"><span class="octicon octicon-link"></span></a>For loops</h3>
+
+<p>This content has moved to <a href="/language/loops#for-loops">Control flow</a>.</p>
+
+<h3 id="while-and-do-while">
+<a class="anchor" href="#while-and-do-while" aria-hidden="true"><span class="octicon octicon-link"></span></a>While and do-while</h3>
+
+<p>This content has moved to <a href="/language/loops#while-and-do-while">Control flow</a>.</p>
+
+<h3 id="break-and-continue">
+<a class="anchor" href="#break-and-continue" aria-hidden="true"><span class="octicon octicon-link"></span></a>Break and continue</h3>
+
+<p>This content has moved to <a href="/language/loops#break-and-continue">Control flow</a>.</p>
+
+<h3 id="switch-and-case">
+<a class="anchor" href="#switch-and-case" aria-hidden="true"><span class="octicon octicon-link"></span></a>Switch and case</h3>
+
+<p>This content has moved to <a href="/language/branches#switch">Control flow</a>.</p>
+
+<h3 id="assert">
+<a class="anchor" href="#assert" aria-hidden="true"><span class="octicon octicon-link"></span></a>Assert</h3>
+
+<p>This content has moved to <a href="/language/error-handling#assert">Control flow</a>.</p>
+
+<h2 id="exceptions">
+<a class="anchor" href="#exceptions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Exceptions</h2>
+
+<p>This content has moved to <a href="/language/error-handling#exceptions">Error handling</a>.</p>
+
+<h3 id="throw">
+<a class="anchor" href="#throw" aria-hidden="true"><span class="octicon octicon-link"></span></a>Throw</h3>
+
+<p>This content has moved to <a href="/language/error-handling#throw">Error handling</a>.</p>
+
+<h3 id="catch">
+<a class="anchor" href="#catch" aria-hidden="true"><span class="octicon octicon-link"></span></a>Catch</h3>
+
+<p>This content has moved to <a href="/language/error-handling#catch">Error handling</a>.</p>
+
+<h3 id="finally">
+<a class="anchor" href="#finally" aria-hidden="true"><span class="octicon octicon-link"></span></a>Finally</h3>
+
+<p>This content has moved to <a href="/language/error-handling#finally">Error handling</a>.</p>
+
+<h2 id="classes">
+<a class="anchor" href="#classes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Classes</h2>
+
+<p>This content has moved to <a href="/language/classes">Classes</a>.</p>
+
+<h3 id="using-class-members">
+<a class="anchor" href="#using-class-members" aria-hidden="true"><span class="octicon octicon-link"></span></a>Using class members</h3>
+
+<p>This content has moved to <a href="/language/classes#using-class-members">Classes</a>.</p>
+
+<h3 id="using-constructors">
+<a class="anchor" href="#using-constructors" aria-hidden="true"><span class="octicon octicon-link"></span></a>Using constructors</h3>
+
+<p>This content has moved to <a href="/language/classes#using-constructors">Classes</a>.</p>
+
+<h3 id="getting-an-objects-type">
+<a class="anchor" href="#getting-an-objects-type" aria-hidden="true"><span class="octicon octicon-link"></span></a>Getting an object’s type</h3>
+
+<p>This content has moved to <a href="/language/classes#getting-an-objects-type">Classes</a>.</p>
+
+<h3 id="instance-variables">
+<a class="anchor" href="#instance-variables" aria-hidden="true"><span class="octicon octicon-link"></span></a>Instance variables</h3>
+
+<p>This content has moved to <a href="/language/classes#instance-variables">Classes</a>.</p>
+
+<h3 id="constructors">
+<a class="anchor" href="#constructors" aria-hidden="true"><span class="octicon octicon-link"></span></a>Constructors</h3>
+
+<p>This content has moved to <a href="/language/constructors">Constructors</a>.</p>
+
+<h4 id="initializing-formal-parameters">Initializing formal parameters</h4>
+
+<p>This content has moved to <a href="/language/constructors#initializing-formal-parameters">Constructors</a>.</p>
+
+<h4 id="default-constructors">Default constructors</h4>
+
+<p>This content has moved to <a href="/language/constructors#default-constructors">Constructors</a>.</p>
+
+<h4 id="constructors-arent-inherited">Constructors aren’t inherited</h4>
+
+<p>This content has moved to <a href="/language/constructors#constructors-arent-inherited">Constructors</a>.</p>
+
+<h4 id="named-constructors">Named constructors</h4>
+
+<p>This content has moved to <a href="/language/constructors#named-constructors">Constructors</a>.</p>
+
+<h4 id="invoking-a-non-default-superclass-constructor">Invoking a non-default superclass constructor</h4>
+
+<p>This content has moved to <a href="/language/constructors#invoking-a-non-default-superclass-constructor">Constructors</a>.</p>
+
+<h3 id="super-parameters">
+<a class="anchor" href="#super-parameters" aria-hidden="true"><span class="octicon octicon-link"></span></a>Super parameters</h3>
+
+<p>This content has moved to <a href="/language/constructors#super-parameters">Constructors</a>.</p>
+
+<h4 id="initializer-list">Initializer list</h4>
+
+<p>This content has moved to <a href="/language/constructors#initializer-list">Constructors</a>.</p>
+
+<h4 id="redirecting-constructors">Redirecting constructors</h4>
+
+<p>This content has moved to <a href="/language/constructors#redirecting-constructors">Constructors</a>.</p>
+
+<h4 id="constant-constructors">Constant constructors</h4>
+
+<p>This content has moved to <a href="/language/constructors#constant-constructors">Constructors</a>.</p>
+
+<h4 id="factory-constructors">Factory constructors</h4>
+
+<p>This content has moved to <a href="/language/constructors#factory-constructors">Constructors</a>.</p>
+
+<h3 id="methods">
+<a class="anchor" href="#methods" aria-hidden="true"><span class="octicon octicon-link"></span></a>Methods</h3>
+
+<p>This content has moved to <a href="/language/methods">Methods</a>.</p>
+
+<h4 id="instance-methods">Instance methods</h4>
+
+<p>This content has moved to <a href="/language/methods#instance-methods">Methods</a>.</p>
+
+<h4 id="_operators">Operators</h4>
+
+<p>This content has moved to <a href="/language/methods#operators">Methods</a>.</p>
+
+<h4 id="getters-and-setters">Getters and setters</h4>
+
+<p>This content has moved to <a href="/language/methods#getters-and-setters">Methods</a>.</p>
+
+<h4 id="abstract-methods">Abstract methods</h4>
+
+<p>This content has moved to <a href="/language/methods#abstract-methods">Methods</a>.</p>
+
+<h3 id="abstract-classes">
+<a class="anchor" href="#abstract-classes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Abstract classes</h3>
+
+<p>This content has moved to <a href="/language/class-modifiers#abstract">Classes</a>.</p>
+
+<p><a id="interfaces"></a></p>
+<h3 id="implicit-interfaces">
+<a class="anchor" href="#implicit-interfaces" aria-hidden="true"><span class="octicon octicon-link"></span></a>Implicit interfaces</h3>
+
+<p>This content has moved to <a href="/language/classes#implicit-interfaces">Classes</a>.</p>
+
+<h3 id="extending-a-class">
+<a class="anchor" href="#extending-a-class" aria-hidden="true"><span class="octicon octicon-link"></span></a>Extending a class</h3>
+
+<p>This content has moved to <a href="/language/extend">Extend a class</a>.</p>
+
+<p><a id="overridable-operators"></a></p>
+<h4 id="overriding-members">Overriding members</h4>
+
+<p>This content has moved to <a href="/language/extend#overriding-members">Extend a class</a>.</p>
+
+<h4 id="nosuchmethod">noSuchMethod()</h4>
+
+<p>This content has moved to <a href="/language/extend#nosuchmethod">Extend a class</a>.</p>
+
+<h3 id="extension-methods">
+<a class="anchor" href="#extension-methods" aria-hidden="true"><span class="octicon octicon-link"></span></a>Extension methods</h3>
+
+<p>This content has moved to <a href="/language/extension-methods">Extension methods</a>.</p>
+
+<p><a id="enums"></a></p>
+<h3 id="enumerated-types">
+<a class="anchor" href="#enumerated-types" aria-hidden="true"><span class="octicon octicon-link"></span></a>Enumerated types</h3>
+
+<p>This content has moved to <a href="/language/enums">Enumerated types</a>.</p>
+
+<h4 id="declaring-simple-enums">Declaring simple enums</h4>
+
+<p>This content has moved to <a href="/language/enums#declaring-simple-enums">Enumerated types</a>.</p>
+
+<h4 id="declaring-enhanced-enums">Declaring enhanced enums</h4>
+
+<p>This content has moved to <a href="/language/enums#declaring-enhanced-enums">Enumerated types</a>.</p>
+
+<h4 id="using-enums">Using enums</h4>
+
+<p>This content has moved to <a href="/language/enums#using-enums">Enumerated types</a>.</p>
+
+<p><a id="mixins"></a></p>
+<h3 id="adding-features-to-a-class-mixins">
+<a class="anchor" href="#adding-features-to-a-class-mixins" aria-hidden="true"><span class="octicon octicon-link"></span></a>Adding features to a class: mixins</h3>
+
+<p>This content has moved to <a href="/language/mixins">Mixins</a>.</p>
+
+<h3 id="class-variables-and-methods">
+<a class="anchor" href="#class-variables-and-methods" aria-hidden="true"><span class="octicon octicon-link"></span></a>Class variables and methods</h3>
+
+<p>This content has moved to <a href="/language/classes#class-variables-and-methods">Classes</a>.</p>
+
+<h4 id="static-variables">Static variables</h4>
+
+<p>This content has moved to <a href="/language/classes#static-variables">Classes</a>.</p>
+
+<h4 id="static-methods">Static methods</h4>
+
+<p>This content has moved to <a href="/language/classes#static-methods">Classes</a>.</p>
+
+<h2 id="generics">
+<a class="anchor" href="#generics" aria-hidden="true"><span class="octicon octicon-link"></span></a>Generics</h2>
+
+<p>This content has moved to <a href="/language/generics">Generics</a>.</p>
+
+<h3 id="why-use-generics">
+<a class="anchor" href="#why-use-generics" aria-hidden="true"><span class="octicon octicon-link"></span></a>Why use generics?</h3>
+
+<p>This content has moved to <a href="/language/generics#why-use-generics">Generics</a>.</p>
+
+<h3 id="using-collection-literals">
+<a class="anchor" href="#using-collection-literals" aria-hidden="true"><span class="octicon octicon-link"></span></a>Using collection literals</h3>
+
+<p>This content has moved to <a href="/language/generics#using-collection-literals">Generics</a>.</p>
+
+<h3 id="using-parameterized-types-with-constructors">
+<a class="anchor" href="#using-parameterized-types-with-constructors" aria-hidden="true"><span class="octicon octicon-link"></span></a>Using parameterized types with constructors</h3>
+
+<p>This content has moved to <a href="/language/generics#using-parameterized-types-with-constructors">Generics</a>.</p>
+
+<h3 id="generic-collections-and-the-types-they-contain">
+<a class="anchor" href="#generic-collections-and-the-types-they-contain" aria-hidden="true"><span class="octicon octicon-link"></span></a>Generic collections and the types they contain</h3>
+
+<p>This content has moved to <a href="/language/generics#generic-collections-and-the-types-they-contain">Generics</a>.</p>
+
+<h3 id="restricting-the-parameterized-type">
+<a class="anchor" href="#restricting-the-parameterized-type" aria-hidden="true"><span class="octicon octicon-link"></span></a>Restricting the parameterized type</h3>
+
+<p>This content has moved to <a href="/language/generics#restricting-the-parameterized-type">Generics</a>.</p>
+
+<h3 id="using-generic-methods">
+<a class="anchor" href="#using-generic-methods" aria-hidden="true"><span class="octicon octicon-link"></span></a>Using generic methods</h3>
+
+<p>This content has moved to <a href="/language/generics#using-generic-methods">Generics</a>.</p>
+
+<h2 id="libraries-and-visibility">
+<a class="anchor" href="#libraries-and-visibility" aria-hidden="true"><span class="octicon octicon-link"></span></a>Libraries and visibility</h2>
+
+<p>This content has moved to <a href="/language/libraries">Libraries &amp; visibility</a>.</p>
+
+<h3 id="using-libraries">
+<a class="anchor" href="#using-libraries" aria-hidden="true"><span class="octicon octicon-link"></span></a>Using libraries</h3>
+
+<p>This content has moved to <a href="/language/libraries#using-libraries">Libraries &amp; visibility</a>.</p>
+
+<h4 id="specifying-a-library-prefix">Specifying a library prefix</h4>
+
+<p>This content has moved to <a href="/language/libraries#specifying-a-library-prefix">Libraries &amp; visibility</a>.</p>
+
+<h4 id="importing-only-part-of-a-library">Importing only part of a library</h4>
+
+<p>This content has moved to <a href="/language/libraries#importing-only-part-of-a-library">Libraries &amp; visibility</a>.</p>
+
+<p><a id="deferred-loading"></a></p>
+<h4 id="lazily-loading-a-library">Lazily loading a library</h4>
+
+<p>This content has moved to <a href="/language/libraries#lazily-loading-a-library">Libraries &amp; visibility</a>.</p>
+
+<h4 id="library-directive">The <code class="language-plaintext highlighter-rouge">library</code> directive</h4>
+
+<p>This content has moved to <a href="/language/libraries#library-directive">Libraries &amp; visibility</a>.</p>
+
+<h3 id="implementing-libraries">
+<a class="anchor" href="#implementing-libraries" aria-hidden="true"><span class="octicon octicon-link"></span></a>Implementing libraries</h3>
+
+<p>This content has moved to <a href="/language/libraries#implementing-libraries">Libraries &amp; visibility</a>.</p>
+
+<p><a id="asynchrony"></a></p>
+<h2 id="asynchrony-support">
+<a class="anchor" href="#asynchrony-support" aria-hidden="true"><span class="octicon octicon-link"></span></a>Asynchrony support</h2>
+
+<p>This content has moved to <a href="/language/async">Asynchrony support</a>.</p>
+
+<p><a id="await"></a></p>
+<h3 id="handling-futures">
+<a class="anchor" href="#handling-futures" aria-hidden="true"><span class="octicon octicon-link"></span></a>Handling Futures</h3>
+
+<p>This content has moved to <a href="/language/async#handling-futures">Asynchrony support</a>.</p>
+
+<p><a id="async"></a></p>
+<h3 id="declaring-async-functions">
+<a class="anchor" href="#declaring-async-functions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Declaring async functions</h3>
+
+<p>This content has moved to <a href="/language/async#declaring-async-functions">Asynchrony support</a>.</p>
+
+<p><a id="await-for"></a></p>
+<h3 id="handling-streams">
+<a class="anchor" href="#handling-streams" aria-hidden="true"><span class="octicon octicon-link"></span></a>Handling Streams</h3>
+
+<p>This content has moved to <a href="/language/async#handling-streams">Asynchrony support</a>.</p>
+
+<p><a id="generator"></a></p>
+<h2 id="generators">
+<a class="anchor" href="#generators" aria-hidden="true"><span class="octicon octicon-link"></span></a>Generators</h2>
+
+<p>This content has moved to <a href="/language/functions#generators">Generators</a>.</p>
+
+<h2 id="callable-classes">
+<a class="anchor" href="#callable-classes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Callable classes</h2>
+
+<p>This content has moved to <a href="/language/callable-objects">Callable objects</a>.</p>
+
+<h2 id="isolates">
+<a class="anchor" href="#isolates" aria-hidden="true"><span class="octicon octicon-link"></span></a>Isolates</h2>
+
+<p>This content has moved to <a href="/language/concurrency">Isolates</a>.</p>
+
+<h2 id="typedefs">
+<a class="anchor" href="#typedefs" aria-hidden="true"><span class="octicon octicon-link"></span></a>Typedefs</h2>
+
+<p>This content has moved to <a href="/language/typedefs">Typedefs</a>.</p>
+
+<h2 id="metadata">
+<a class="anchor" href="#metadata" aria-hidden="true"><span class="octicon octicon-link"></span></a>Metadata</h2>
+
+<p>This content has moved to <a href="/language/metadata">Metadata</a>.</p>
+
+<h2 id="comments">
+<a class="anchor" href="#comments" aria-hidden="true"><span class="octicon octicon-link"></span></a>Comments</h2>
+
+<p>This content has moved to <a href="/language/comments">Comments</a>.</p>
+
+<h3 id="single-line-comments">
+<a class="anchor" href="#single-line-comments" aria-hidden="true"><span class="octicon octicon-link"></span></a>Single-line comments</h3>
+
+<p>This content has moved to <a href="/language/comments#single-line-comments">Comments</a>.</p>
+
+<h3 id="multi-line-comments">
+<a class="anchor" href="#multi-line-comments" aria-hidden="true"><span class="octicon octicon-link"></span></a>Multi-line comments</h3>
+
+<p>This content has moved to <a href="/language/comments#multi-line-comments">Comments</a>.</p>
+
+<h3 id="documentation-comments">
+<a class="anchor" href="#documentation-comments" aria-hidden="true"><span class="octicon octicon-link"></span></a>Documentation comments</h3>
+
+<p>This content has moved to <a href="/language/comments#documentation-comments">Comments</a>.</p>
+
+          
+
+        </div>
+      </article>
+    </main>
+    <footer id="page-footer">
+    <div class="footer-section footer-main">
+      <a href="/" class="brand" title="Dart">
+        <img src="/assets/img/shared/dart/logo+text/horizontal/white.svg" alt="Dart" width="164px">
+      </a>
+      <div class="footer-social-links">
+        <a href="https://github.com/doggy8088/dart.tw" target="_blank" rel="noopener" title="GitHub" class="no-automatic-external">
+          <svg>
+            <use href="/assets/img/social/github.svg#github"></use>
+          </svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-section footer-tray">
+      <div class="footer-licenses">
+        參考中文內容需註明本站及連結作為出處，英文內容和範例程式碼均遵從源站授權協議。
+      </div>
+      <div class="footer-utility-links">
+        <ul>
+          <li><a href="/terms" title="使用條款">使用條款</a></li>
+          <li><a href="https://policies.google.com/privacy?hl=zh-TW" target="_blank" rel="noopener" title="隱私政策" class="no-automatic-external">隱私政策</a></li>
+          <li><a href="/security" title="Security philosophy and practices">Dart 程式碼安全說明</a></li>
+          <li><a href="https://flutter.tw/about" target="_blank">關於中文文件</a>
+          </li><li><a href="https://flutter.tw/disclaimer" target="_blank">免責條款</a>
+          </li><li><a href="https://dart.cn/" target="_blank">Dart 簡體中文文檔</a>
+        </li></ul>
+      </div>
+    </div>
+  </footer>
+
+  
+
+<script src="/assets/translator/js/translator.js"></script></body></html>
